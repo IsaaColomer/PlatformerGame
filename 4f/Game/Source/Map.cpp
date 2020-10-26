@@ -143,7 +143,6 @@ bool Map::Load(const char* filename)
 		TileSet* set = new TileSet();
 
 		if (ret == true) ret = LoadTilesetDetails(tileset, set);
-
 		if (ret == true) ret = LoadTilesetImage(tileset, set);
 
 		data.tilesets.add(set);
@@ -250,6 +249,18 @@ bool Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 {
 	bool ret = true;
+
+	pugi::xml_node layers = node.child("image");
+
+	if (layers == NULL)
+	{
+		LOG("Error parsing tileset xml file: Cannot find 'image' tag.");
+		ret = false;
+	}
+	else
+	{
+		layer->name = app->map->Load(layers.attribute("source").as_string());
+	}
 	
 	// L04: TODO 3: Load a single layer
 
