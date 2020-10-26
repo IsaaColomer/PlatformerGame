@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a pltformer game developed by:
+This is a pltaformer game developed by:
  - Isaac Digón
  - Victor Bosch
  - Isaac Colomer
