@@ -2,7 +2,10 @@
 
 ## Description
 
-{project description}
+This is a pltaformer game developed by:
+ - Isaac Digón
+ - Victor Bosch
+ - Isaac Colomer
 
 ## Key Features
 
