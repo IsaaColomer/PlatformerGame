@@ -6,6 +6,9 @@
 
 #include "PugiXml/src/pugixml.hpp"
 
+#define CONFIG_FILENAME		"config.xml"
+#define SAVE_STATE_FILENAME "save_game.xml"
+
 // Modules
 class Window;
 class Input;
@@ -13,6 +16,7 @@ class Render;
 class Textures;
 class Audio;
 class Scene;
+class Map;
 
 class App
 {
@@ -45,10 +49,13 @@ public:
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
 
+	void LoadGameRequest();
+	void SaveGameRequest() const;
+
 private:
 
 	// Load config file
-	bool LoadConfig();
+	pugi::xml_node LoadConfig(pugi::xml_document&) const;
 
 	// Call modules before each loop iteration
 	void PrepareUpdate();
@@ -65,6 +72,9 @@ private:
 	// Call modules after each loop iteration
 	bool PostUpdate();
 
+	bool LoadGame();
+	bool SaveGame() const;
+
 public:
 
 	// Modules
@@ -74,6 +84,7 @@ public:
 	Textures* tex;
 	Audio* audio;
 	Scene* scene;
+	Map* map;
 
 private:
 
@@ -87,12 +98,18 @@ private:
 	// TODO 2: Create new variables from pugui namespace:
 	// a xml_document to store the config file and
 	// two xml_node to read specific branches of the xml
-	pugi::xml_document configFile;
-	pugi::xml_node config;
-	pugi::xml_node configApp;
+	//pugi::xml_document configFile;
+	//pugi::xml_node config;
+	//pugi::xml_node configApp;
 
 	uint frames;
 	float dt;
+
+	mutable bool saveGameRequested;
+	bool loadGameRequested;
+
+	pugi::xml_document saveLoadFile;
+	pugi::xml_node saveLoadNode;
 };
 
 extern App* app;

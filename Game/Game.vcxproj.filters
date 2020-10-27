@@ -15,13 +15,13 @@
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp">
       <Filter>External\PugiXml</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Map.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
     <ClInclude Include="Source\Textures.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\Render.h" />
-    <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\Input.h" />
     <ClInclude Include="Source\Audio.h" />
     <ClInclude Include="Source\App.h" />
@@ -49,6 +49,8 @@
     <ClInclude Include="Source\External\PugiXml\src\pugixml.hpp">
       <Filter>External\PugiXml</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Map.h" />
+    <ClInclude Include="Module.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
