@@ -34,7 +34,7 @@ void Map::Draw()
 {
 	if (mapLoaded == false) return;
 	MapLayer* layer = data.layer.start->data;
-
+	iPoint pos;
 	for (int y = 0; y < data.height; ++y)
 	{
 		for (int x = 0; x < data.width; ++x)
@@ -43,6 +43,8 @@ void Map::Draw()
 			if (tileId > 0)
 			{
 				// L04: TODO 9: Complete the draw function
+				pos = MapToWorld(x, y);
+				app->render->DrawTexture(data.tilesets.At(0)->data->texture,pos.x,pos.y, &data.tilesets.At(0)->data->GetTileRect(tileId));
 			}
 		}
 	}
@@ -219,6 +221,8 @@ bool Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 	set->spacing = tileset_node.attribute("spacing").as_int(0);
 	set->tile_height = tileset_node.attribute("tileheight").as_int(0);
 	set->tile_width = tileset_node.attribute("tilewidth").as_int(0);
+	//set->numTilesWidth = tileset_node.attribute("").as_int(0) CREAR EL MAPA
+	//set->numTilesHeigth = tileset_node.attribute("").as_int(0) CREAR EL MAPA
 
 
 
@@ -239,7 +243,7 @@ bool Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	else
 	{
 		// L03: TODO: Load Tileset image
-		set->texture = app->tex->Load(image.attribute("source").as_string());
+		set->texture = app->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
 	}
 
 	return ret;
@@ -252,17 +256,19 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	bool ret = true;
 
 	// L04: TODO 3: Load a single layer
-	pugi::xml_node layers = node.child("image");
+	layer->name = node.attribute("name").as_string("");
+	layer->width = node.attribute("width").as_int(0);
+	layer->height= node.attribute("height").as_int(0);
 
-	if (layers == NULL)
+
+	int size = layer->height * layer->width;
+	layer->data = new uint[size];
+
+	pugi::xml_node tile = node.child("data").child("tile");
+	for (int i = 0; i < size; i++)
 	{
-		LOG("Error parsing tileset xml file: Cannot find 'image' tag.");
-		ret = false;
-	}
-	else
-	{
-		// L03: TODO: Load Tileset image
-		layer->name = app->map->Load(layers.attribute("source").as_string());
+		layer->data[i] = tile.attribute("gid").as_int(0);
+		tile = tile.next_sibling("tile");
 	}
 
 	return ret;
