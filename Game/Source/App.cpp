@@ -101,7 +101,7 @@ bool App::Awake()
 	pugi::xml_parse_result result = saveLoadFile.load_file("savegame.xml");
 	if (result != NULL)
 	{
-		saveLoadNode = saveLoadFile.child("savegame");
+		saveLoadNode = saveLoadFile.child("save");
 	}
 
 	return ret;

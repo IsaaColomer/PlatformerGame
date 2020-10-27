@@ -246,6 +246,7 @@ bool Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 }
 
 // L04: TODO 3: Create the definition for a function that loads a single layer
+
 bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 {
 	bool ret = true;
