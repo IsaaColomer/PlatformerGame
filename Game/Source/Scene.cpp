@@ -66,7 +66,7 @@ bool Scene::Update(float dt)
 		app->render->camera.x += 1;
 
 	app->map->Draw();
-	app->render->DrawTexture(character, 380, 100); // Placeholder not needed any more
+	app->render->DrawTexture(character, 70, 590); // Placeholder not needed any more
 
 	// Draw map
 
