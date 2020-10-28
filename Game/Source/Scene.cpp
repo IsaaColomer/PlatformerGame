@@ -33,7 +33,7 @@ bool Scene::Awake()
 bool Scene::Start()
 {
 	//character = app->tex->Load("");
-	app->map->Load("Map1.tmx");
+	app->map->Load("map.tmx");
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 	return true;
 }
