@@ -6,7 +6,7 @@
 #include "Window.h"
 #include "Scene.h"
 #include "Map.h"
-
+#include "SDL_image/include/SDL_image.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -33,8 +33,11 @@ bool Scene::Awake()
 bool Scene::Start()
 {
 	character = app->tex->Load("Assets/player/adventurer_stand.png");
+	backg = app->tex->Load("Assets/map/background.png");
 	app->map->Load("map.tmx");
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
+
+	IMG_Init(0);
 	return true;
 }
 
@@ -64,6 +67,10 @@ bool Scene::Update(float dt)
 
 	if(app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x += 1;
+
+	app->render->DrawTexture(backg, 0, 0);
+	//SDL_SetRenderDrawColor(app->render->renderer, 65, 205, 186, 255);
+	//SDL_RenderClear(app->render->renderer);
 
 	app->map->Draw();
 	app->render->DrawTexture(character, 70, 590); // Placeholder not needed any more
