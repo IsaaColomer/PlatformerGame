@@ -32,7 +32,7 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
-	//character = app->tex->Load("");
+	character = app->tex->Load("Assets/player/adventurer_stand.png");
 	app->map->Load("map.tmx");
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 	return true;
