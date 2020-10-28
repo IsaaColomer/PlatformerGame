@@ -58,16 +58,16 @@ bool Scene::Update(float dt)
 		app->SaveGameRequest();
 
 	if(app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y -= 1;
-
-	if(app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 		app->render->camera.y += 1;
 
+	if(app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		app->render->camera.y -= 1;
+
 	if(app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		app->render->camera.x -= 1;
+		app->render->camera.x += 1;
 
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x += 1;
+		app->render->camera.x -= 1;
 
 	/*cpy -= grav;
 	if (cpy > 590)cpy = 590;
@@ -75,16 +75,16 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		cpy -= 5.0f;*/
 
-	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_REPEAT)
 		cpy -= 0.1f;
 
-	if (app->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT)
 		cpy += 0.1f;
 
-	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
 		cpx -= 0.1f;
 
-	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
 		cpx += 0.1f;
 
 	app->render->DrawTexture(backg, 0, 0);
