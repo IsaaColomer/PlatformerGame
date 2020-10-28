@@ -33,7 +33,7 @@ bool Scene::Awake()
 bool Scene::Start()
 {
 	//character = app->tex->Load("");
-	app->map->Load("Map.tmx");
+	app->map->Load("hello2.tmx");
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 	return true;
 }
@@ -65,10 +65,10 @@ bool Scene::Update(float dt)
 	if(app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x += 1;
 
-	app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
+	app->map->Draw();
+	app->render->DrawTexture(character, 380, 100); // Placeholder not needed any more
 
 	// Draw map
-	app->map->Draw();
 
 	// L03: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",

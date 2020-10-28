@@ -140,7 +140,7 @@ bool Map::Load(const char* filename)
 	// L03: DONE 4: Create and call a private function to load a tileset
 	// remember to support more any number of tilesets!
 	pugi::xml_node tileset;
-	for (tileset = mapFile.child("Map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
+	for (tileset = mapFile.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
 	{
 		TileSet* set = new TileSet();
 
@@ -151,7 +151,7 @@ bool Map::Load(const char* filename)
 	}
 	// L04: TODO 4: Iterate all layers and load each of them
 	pugi::xml_node layer;
-	for (layer = mapFile.child("Map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
+	for (layer = mapFile.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
 	{
 		MapLayer* lay = new MapLayer();
 
@@ -222,9 +222,7 @@ bool Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 	set->tile_height = tileset_node.attribute("tileheight").as_int(0);
 	set->tile_width = tileset_node.attribute("tilewidth").as_int(0);
 	set->numTilesWidth = tileset_node.attribute("columms").as_int(0);
-	set->numTilesHeight = tileset_node.attribute("numtiles").as_int(0);
-
-
+	set->numTilesHeight = tileset_node.attribute("numtiles").as_int(0) / set->numTilesWidth;
 
 	return ret;
 }
