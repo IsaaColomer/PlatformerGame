@@ -6,7 +6,6 @@
 #include "Window.h"
 #include "Scene.h"
 #include "Map.h"
-#include "SDL_image/include/SDL_image.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -37,7 +36,9 @@ bool Scene::Start()
 	app->map->Load("map.tmx");
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 
-	IMG_Init(0);
+	cpx = 70;
+	cpy = 590;
+
 	return true;
 }
 
@@ -65,15 +66,33 @@ bool Scene::Update(float dt)
 	if(app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		app->render->camera.x -= 1;
 
-	if(app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x += 1;
+
+	/*cpy -= grav;
+	if (cpy > 590)cpy = 590;
+
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		cpy -= 5.0f;*/
+
+	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
+		cpy -= 0.1f;
+
+	if (app->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
+		cpy += 0.1f;
+
+	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
+		cpx -= 0.1f;
+
+	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT)
+		cpx += 0.1f;
 
 	app->render->DrawTexture(backg, 0, 0);
 	//SDL_SetRenderDrawColor(app->render->renderer, 65, 205, 186, 255);
 	//SDL_RenderClear(app->render->renderer);
 
 	app->map->Draw();
-	app->render->DrawTexture(character, 70, 590); // Placeholder not needed any more
+	app->render->DrawTexture(character, cpx, cpy); // Placeholder not needed any more
 
 	// Draw map
 

@@ -3,6 +3,8 @@
 
 #include "Module.h"
 
+#define grav -1.0f
+
 struct SDL_Texture;
 
 class Scene : public Module
@@ -32,6 +34,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	float cpx, cpy;
 private:
 	SDL_Texture* img;
 	SDL_Texture* character;
