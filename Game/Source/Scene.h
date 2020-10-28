@@ -3,7 +3,7 @@
 
 #include "Module.h"
 
-#define grav -1.0f
+#define grav -0.001f
 
 struct SDL_Texture;
 
@@ -34,7 +34,13 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	float cpx, cpy;
+	float cpx, cpy, vcy;
+	float coll[11][3] =
+	{
+		//700,0,2520,
+		560,280,490,
+		420,560,630
+	};
 private:
 	SDL_Texture* img;
 	SDL_Texture* character;

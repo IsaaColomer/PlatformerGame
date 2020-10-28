@@ -38,6 +38,7 @@ bool Scene::Start()
 
 	cpx = 70;
 	cpy = 590;
+	vcy = 0;
 
 	return true;
 }
@@ -51,6 +52,7 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+	//camera movement
 	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		app->LoadGameRequest();
 
@@ -69,23 +71,30 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= 1;
 
-	/*cpy -= grav;
-	if (cpy > 590)cpy = 590;
+	//player movement
+	vcy -= grav;
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		cpy -= 5.0f;*/
-
-	if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_REPEAT)
-		cpy -= 0.1f;
-
-	if (app->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT)
-		cpy += 0.1f;
+		vcy = -0.7f;
 
 	if (app->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
 		cpx -= 0.1f;
 
 	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
 		cpx += 0.1f;
+
+	cpy += vcy;
+	if (cpy > 590) cpy = 590;
+	for (int i = 0; i < 10; i++)
+	{
+		if (cpy<coll[i][0] && cpx>coll[i][1] && cpx < coll[i][2])
+		{
+			cpy = coll[i][0] - 110;
+			i = 10;
+		}
+	}
+
+	//all draws
 
 	app->render->DrawTexture(backg, 0, 0);
 	//SDL_SetRenderDrawColor(app->render->renderer, 65, 205, 186, 255);
