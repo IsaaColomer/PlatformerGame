@@ -85,6 +85,8 @@ bool Scene::Update(float dt)
 
 	cpy += vcy;
 	if (cpy > 590) cpy = 590;
+
+
 	for (int i = 0; i < 10; i++)
 	{
 		if (cpy<coll[i][0] && cpx>coll[i][1] && cpx < coll[i][2])
