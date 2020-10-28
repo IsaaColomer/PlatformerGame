@@ -50,7 +50,7 @@
       <Filter>External\PugiXml</Filter>
     </ClInclude>
     <ClInclude Include="Source\Map.h" />
-    <ClInclude Include="Module.h" />
+    <ClInclude Include="Source\Module.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

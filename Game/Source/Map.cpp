@@ -17,7 +17,12 @@ Map::Map() : Module(), mapLoaded(false)
 // Destructor
 Map::~Map()
 {}
+int Properties::GetProperty(const char* value, int defaultValue) const
+{
+	//...
 
+	return defaultValue;
+}
 // Called before render is available
 bool Map::Awake(pugi::xml_node& config)
 {
@@ -65,7 +70,15 @@ iPoint Map::MapToWorld(int x, int y) const
 	return ret;
 }
 
+TileSet* Map::GetTilesetFromTileId(int id) const
+{
+	ListItem<TileSet*>* item = data.tilesets.start;
+	TileSet* set = item->data;
 
+	//...
+
+	return set;
+}
 
 // Get relative Tile rectangle
 SDL_Rect TileSet::GetTileRect(int id) const
@@ -269,5 +282,13 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 		tile = tile.next_sibling("tile");
 	}
 
+	return ret;
+}
+
+bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
+{
+	bool ret = false;
+
+	//...
 	return ret;
 }
