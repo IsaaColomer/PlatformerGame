@@ -44,20 +44,22 @@ void Map::Draw()
 	{
 		for (int x = 0; x < data.width; ++x)
 		{
-			int tileId = layer->Get(x, y);
-			if (tileId > 0)
+			for (ListItem<MapLayer*>* layer = data.layer.start; layer = layer->next)
 			{
-				// L04: TODO 9: Complete the draw function
-				pos = MapToWorld(x, y);
-				
-			
-				for (int i = 0; i < data.tilesets.count(); i++)
+				int tileId = layer->data->Get(x, y);
+				if (tileId > 0)
 				{
-				app->render->DrawTexture(data.tilesets.At(i)->data->texture, pos.x, pos.y, &data.tilesets.At(i)->data->GetTileRect(tileId));
-					//if (data.layer.At(i)->data->properties.GetProperty("Nodraw",0) == 0)
-						//app->render->DrawTexture(GetTilesetFromTileId(tileId)->texture, pos.x, pos.y, &GetTilesetFromTileId(tileId)->GetTileRect(tileId));
+					// L04: TODO 9: Complete the draw function
+					pos = MapToWorld(x, y);
+
+					for (int i = 0; i < data.tilesets.count(); i++)
+					{
+						//app->render->DrawTexture(data.tilesets.At(i)->data->texture, pos.x, pos.y, &data.tilesets.At(i)->data->GetTileRect(tileId));
+						if (data.layer.At(i)->data->properties.GetProperty("Nodraw",0) == 0)
+							app->render->DrawTexture(GetTilesetFromTileId(tileId)->texture, pos.x, pos.y, &GetTilesetFromTileId(tileId)->GetTileRect(tileId));
+					}
+
 				}
-			
 			}
 		}
 	}
@@ -83,15 +85,15 @@ TileSet* Map::GetTilesetFromTileId(int id) const
 	ListItem<TileSet*>* item = data.tilesets.start;
 	TileSet* set = item->data;
 
-	//int maxTiles;
-//	maxTiles = set->numTilesHeight * set->numTilesWidth;
+	int maxTiles;
+	maxTiles = set->numTilesHeight * set->numTilesWidth;
 
-	/*
+	
 	for (set; set; item->next, set =item->data)
 	{
 		if (id >= set->firstgid && id < set->firstgid + (set->numTilesHeight * set->numTilesWidth)) return set;
 	}
-	*/
+	
 	return set;
 }
 
