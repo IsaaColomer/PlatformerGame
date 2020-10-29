@@ -49,10 +49,13 @@ void Map::Draw()
 			{
 				// L04: TODO 9: Complete the draw function
 				pos = MapToWorld(x, y);
-
-			//	app->render->DrawTexture(data.tilesets.At(0)->data->texture,pos.x,pos.y, &data.tilesets.At(0)->data->GetTileRect(tileId));
-
-				app->render->DrawTexture(GetTilesetFromTileId(tileId)->texture,pos.x,pos.y, &GetTilesetFromTileId(tileId)->GetTileRect(tileId));
+			
+				for (int i = 0; i < data.tilesets.count(); i++)
+				{
+					if (data.layer.At(i)->data->properties.GetProperty("Nodraw",0) == 0)
+						app->render->DrawTexture(GetTilesetFromTileId(tileId)->texture, pos.x, pos.y, &GetTilesetFromTileId(tileId)->GetTileRect(tileId));
+				}
+			
 			}
 		}
 	}
@@ -81,9 +84,9 @@ TileSet* Map::GetTilesetFromTileId(int id) const
 	int maxTiles;
 	maxTiles = set->numTilesHeight * set->numTilesWidth;
 
-	for (int i = 0; i < maxTiles; i++)
+	for (set; set; item->next, set =item->data)
 	{
-		
+		if (id >= set->firstgid && id < set->firstgid + (set->numTilesHeight * set->numTilesWidth)) return set;
 	}
 
 	return set;
