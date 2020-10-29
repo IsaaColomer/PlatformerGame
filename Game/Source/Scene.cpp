@@ -81,17 +81,30 @@ bool Scene::Update(float dt)
 	{
 		cpx -= 0.1f;
 		app->render->camera.x += 1;
+		if (cpx <= 640.0f)
+		{
+			app->render->camera.x -= 1;
+		}
 	}
 		
 
 	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
 	{
 		cpx += 0.1f;
-		if (cpx >= 50.0f)
+		if (cpx >= 640.0f)
 		{
 			app->render->camera.x -= 1;
 		}
 	}
+	if (cpx <= 640.0f)
+	{
+		app->render->camera.x = 0;
+	}
+	if (cpx >= 1850.0f)
+	{
+		app->render->camera.x = -12300.0f;
+	}
+
 	
 	cpy += vcy;
 	if (cpy > 590) cpy = 590;
