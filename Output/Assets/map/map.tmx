@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="36" height="11" tilewidth="70" tileheight="70" infinite="0" backgroundcolor="#55ceb0" nextlayerid="5" nextobjectid="1">
  <properties>
-  <property name="Draw" type="bool" value="false"/>
+  <property name="Draw" type="bool" value="true"/>
   <property name="Navigation" type="bool" value="true"/>
  </properties>
  <tileset firstgid="1" name="sheet" tilewidth="70" tileheight="70" tilecount="98" columns="14">
@@ -14,6 +14,10 @@
   <image source="collider.png" trans="ff00ff" width="70" height="70"/>
  </tileset>
  <layer id="1" name="Capa de patrones 1" width="36" height="11">
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+   <property name="Navigation" type="bool" value="true"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
