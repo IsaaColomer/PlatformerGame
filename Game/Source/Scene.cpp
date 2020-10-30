@@ -72,10 +72,11 @@ bool Scene::Update(float dt)
 		app->render->camera.x -= 1;
 
 	//player movement
-	vcy -= grav;
 
+
+	
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		vcy = -5.5f;
+			vcy = -5.5f;
 
 	if (app->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
 	{
