@@ -77,7 +77,7 @@ bool Scene::Update(float dt)
 	ong = false;
 	for (int i = 0; i < 11 && !ong; i++)
 	{
-		if (((cpy + 110) > (coll[i][0] - 2)) && ((cpy + 110) < (coll[i][0] + 2)))
+		if (((cpy + 110) > (coll[i][0] - 3)) && ((cpy + 110) < (coll[i][0] + 3)))
 		{
 			if (cpx<coll[i][1] && (cpx + 80)>coll[i][1])
 				ong = true;
@@ -89,17 +89,18 @@ bool Scene::Update(float dt)
 				ong = true;
 		}
 	}
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && ong)
 	{
 		vcy = -6.0f;
 		ong = false;
 	}
 	if (!ong)
 	{
-		vcy -= grav;
+		if (vcy < 6.0f) vcy -= grav;
 		cpy += vcy;
 	}
-	
+	//if (ong)
+	else vcy = 0;
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
