@@ -41,8 +41,8 @@ bool Scene::Start()
 	vcy = 0;
 	ong = false;
 	godMode = false;
-	//savedx = 70;
-	//savedy = 590;
+	savedx = 70;
+	savedy = 590;
 
 	return true;
 }
