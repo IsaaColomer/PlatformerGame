@@ -58,7 +58,7 @@ bool Scene::Update(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 			app->LoadGameRequest();
 
-		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 			app->SaveGameRequest();
 
 		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -101,7 +101,7 @@ bool Scene::Update(float dt)
 	}
 	
 
-	if (app->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		cpx -= 1.0f;
 		app->render->camera.x += 10;
@@ -111,7 +111,7 @@ bool Scene::Update(float dt)
 		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		cpx += 1.0f;
 		if (cpx >= 640.0f)
