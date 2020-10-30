@@ -3,7 +3,7 @@
 
 #include "Module.h"
 
-#define grav -0.001f
+#define grav -0.1f
 
 struct SDL_Texture;
 

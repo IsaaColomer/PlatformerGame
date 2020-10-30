@@ -75,12 +75,12 @@ bool Scene::Update(float dt)
 	vcy -= grav;
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		vcy = -0.7f;
+		vcy = -5.5f;
 
 	if (app->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
 	{
-		cpx -= 0.1f;
-		app->render->camera.x += 1;
+		cpx -= 1.0f;
+		app->render->camera.x += 10;
 		if (cpx <= 640.0f)
 		{
 			app->render->camera.x -= 1;
@@ -90,10 +90,10 @@ bool Scene::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
 	{
-		cpx += 0.1f;
+		cpx += 1.0f;
 		if (cpx >= 640.0f)
 		{
-			app->render->camera.x -= 1;
+			app->render->camera.x -= 10;
 		}
 	}
 	if (cpx <= 640.0f)
@@ -104,7 +104,6 @@ bool Scene::Update(float dt)
 	{
 		app->render->camera.x = -12300.0f;
 	}
-
 	
 	cpy += vcy;
 	if (cpy > 590) cpy = 590;
