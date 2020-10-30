@@ -22,8 +22,8 @@ This is a pltaformer game developed by:
 
 ## Developers
 
- - Isaac Digón - Lead programmer and game designer.
- - Isaac Colomer - Lead designer and programmer.
+ - Isaac Digón - Lead programmer, physics programmer, game designer and gameplay debugging.
+ - Isaac Colomer - Lead designer, level designer, game programmer and debugging.
  - Victor Bosch - 
 
 ## License
