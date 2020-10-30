@@ -16,9 +16,14 @@ This is a pltaformer game developed by:
  
 ## Controls
 
- - D go right.
- - A go left.
- - Space jump.
+ - "D" go right.
+ - "A" go left.
+ - "Space" jump.
+ - F1 to start from the first level.
+ - F3  to start from the beginning of the current level.
+ - F5 save the current game state.
+ - F6 load the previous game state.
+ - F10 god mode.
 
 ## Developers
 
