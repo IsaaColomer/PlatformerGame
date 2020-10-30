@@ -37,6 +37,8 @@ public:
 	//player/charater x pos, y pos, velocity in y
 	float cpx, cpy, vcy;
 
+	float savedx, savedy;
+
 	bool godMode;
 
 	//onGround

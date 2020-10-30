@@ -41,6 +41,8 @@ bool Scene::Start()
 	vcy = 0;
 	ong = false;
 	godMode = false;
+	//savedx = 70;
+	//savedy = 590;
 
 	return true;
 }
@@ -71,10 +73,18 @@ bool Scene::Update(float dt)
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+		{
 			app->LoadGameRequest();
+			cpx = savedx;
+			cpy = savedy;
 
+		}
 		if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		{
 			app->SaveGameRequest();
+			savedx = cpx;
+			savedy = cpy;
+		}
 
 		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 			app->render->camera.y += 1;
