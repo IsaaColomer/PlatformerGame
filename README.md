@@ -9,7 +9,7 @@ This is a pltaformer game developed by:
 
 ## Key Features
 
- - XML configuration nad XML file loading.
+ - XML configuration and XML file loading.
  - Load and Save state using an XML file.
  - Ortographic tile tmx map loading.
  - Player movement and jumping.
