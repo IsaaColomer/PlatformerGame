@@ -39,6 +39,7 @@ bool Scene::Start()
 	cpx = 70;
 	cpy = 590;
 	vcy = 0;
+	ong = false;
 
 	return true;
 }
@@ -53,30 +54,52 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 	//camera movement
-	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		app->LoadGameRequest();
+	{
+		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+			app->LoadGameRequest();
 
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		app->SaveGameRequest();
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			app->SaveGameRequest();
 
-	if(app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y += 1;
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+			app->render->camera.y += 1;
 
-	if(app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		app->render->camera.y -= 1;
+		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+			app->render->camera.y -= 1;
 
-	if(app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		app->render->camera.x += 1;
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+			app->render->camera.x += 1;
 
-	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x -= 1;
-
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			app->render->camera.x -= 1;
+	}
 	//player movement
-
-
-	
+	ong = false;
+	for (int i = 0; i < 11 && !ong; i++)
+	{
+		if (((cpy + 110) > (coll[i][0] - 2)) && ((cpy + 110) < (coll[i][0] + 2)))
+		{
+			if (cpx<coll[i][1] && (cpx + 80)>coll[i][1])
+				ong = true;
+			else if (cpx<coll[i][2] && (cpx + 80)>coll[i][2])
+				ong = true;
+			else if (cpx > coll[i][1] && (cpx + 80) < coll[i][2])
+				ong = true;
+			else if (cpx<coll[i][1] && (cpx + 80)>coll[i][2])
+				ong = true;
+		}
+	}
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-			vcy = -5.5f;
+	{
+		vcy = -6.0f;
+		ong = false;
+	}
+	if (!ong)
+	{
+		vcy -= grav;
+		cpy += vcy;
+	}
+	
 
 	if (app->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
 	{
@@ -87,7 +110,6 @@ bool Scene::Update(float dt)
 			app->render->camera.x -= 1;
 		}
 	}
-		
 
 	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
 	{
@@ -104,19 +126,6 @@ bool Scene::Update(float dt)
 	if (cpx >= 1850.0f)
 	{
 		app->render->camera.x = -12300.0f;
-	}
-	
-	cpy += vcy;
-	if (cpy > 590) cpy = 590;
-
-
-	for (int i = 0; i < 10; i++)
-	{
-		if (cpy<coll[i][0] && cpx>coll[i][1] && cpx < coll[i][2])
-		{
-			cpy = coll[i][0] - 110;
-			i = 10;
-		}
 	}
 
 	//all draws
