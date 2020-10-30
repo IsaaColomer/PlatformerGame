@@ -40,6 +40,7 @@ bool Scene::Start()
 	cpy = 590;
 	vcy = 0;
 	ong = false;
+	godMode = false;
 
 	return true;
 }
@@ -55,7 +56,21 @@ bool Scene::Update(float dt)
 {
 	//camera movement
 	{
-		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+		{
+			godMode = (godMode) ? false : true;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		{
+			cpx = 70;
+			cpy = 590;
+			vcy = 0;
+			ong = false;
+			app->render->camera.y = 0;
+			app->render->camera.x = 0;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 			app->LoadGameRequest();
 
 		if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
@@ -74,33 +89,48 @@ bool Scene::Update(float dt)
 			app->render->camera.x -= 1;
 	}
 	//player movement
-	ong = false;
-	for (int i = 0; i < 11 && !ong; i++)
+	if (!godMode)
 	{
-		if (((cpy + 110) > (coll[i][0] - 3)) && ((cpy + 110) < (coll[i][0] + 3)))
+		ong = false;
+		for (int i = 0; i < 11 && !ong; i++)
 		{
-			if (cpx<coll[i][1] && (cpx + 80)>coll[i][1])
-				ong = true;
-			else if (cpx<coll[i][2] && (cpx + 80)>coll[i][2])
-				ong = true;
-			else if (cpx > coll[i][1] && (cpx + 80) < coll[i][2])
-				ong = true;
-			else if (cpx<coll[i][1] && (cpx + 80)>coll[i][2])
-				ong = true;
+			if (((cpy + 110) > (coll[i][0] - 3)) && ((cpy + 110) < (coll[i][0] + 3)))
+			{
+				if (cpx<coll[i][1] && (cpx + 80)>coll[i][1])
+					ong = true;
+				else if (cpx<coll[i][2] && (cpx + 80)>coll[i][2])
+					ong = true;
+				else if (cpx > coll[i][1] && (cpx + 80) < coll[i][2])
+					ong = true;
+				else if (cpx<coll[i][1] && (cpx + 80)>coll[i][2])
+					ong = true;
+			}
+		}
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && ong)
+		{
+			vcy = -6.0f;
+			ong = false;
+		}
+		if (!ong)
+		{
+			if (vcy < 6.0f) vcy -= grav;
+			cpy += vcy;
+		}
+		//if (ong)
+		else vcy = 0;
+	}
+	
+	else
+	{
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		{
+			cpy -= 1.0f;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		{
+			cpy += 1.0f;
 		}
 	}
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && ong)
-	{
-		vcy = -6.0f;
-		ong = false;
-	}
-	if (!ong)
-	{
-		if (vcy < 6.0f) vcy -= grav;
-		cpy += vcy;
-	}
-	//if (ong)
-	else vcy = 0;
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
@@ -130,15 +160,11 @@ bool Scene::Update(float dt)
 	}
 
 	//all draws
-
 	app->render->DrawTexture(backg, 0, 0);
-	//SDL_SetRenderDrawColor(app->render->renderer, 65, 205, 186, 255);
-	//SDL_RenderClear(app->render->renderer);
 
 	app->map->Draw();
 	app->render->DrawTexture(character, cpx, cpy); // Placeholder not needed any more
 
-	// Draw map
 
 	// L03: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
