@@ -9,22 +9,22 @@ This is a pltaformer game developed by:
 
 ## Key Features
 
- - {Feature01}
- - {Feature02}
- - {Feature03}
- - {Feature04}
+ - XML configuration and XML file loading.
+ - Load and Save state using an XML file.
+ - Ortographic tile tmx map loading.
+ - Player movement and jumping.
  
 ## Controls
 
- - {ControlsScheme}
+ - D go right.
+ - A go left.
+ - Space jump.
 
 ## Developers
 
- - {Dev01} - {Role(s)}
- - {Dev02} - {Role(s)}
- - {Dev03} - {Role(s)}
- - {Dev04} - {Role(s)}
- - {Dev05} - {Role(s)}
+ - Isaac Digón - Lead programmer, physics programmer, game designer and gameplay debugging.
+ - Isaac Colomer - Lead designer, level designer, game programmer and debugging.
+ - Victor Bosch - 
 
 ## License
 
