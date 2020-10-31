@@ -32,8 +32,8 @@ bool Scene::Awake()
 bool Scene::Start()
 {
 	character = app->tex->Load("Assets/player/adventurer_stand.png");
-	backg = app->tex->Load("Assets/map/background.png");
-	app->map->Load("map.tmx");
+	backg = app->tex->Load("Assets/map/background1.png");
+	app->map->Load("map1.tmx");
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 
 	cpx = 70;
