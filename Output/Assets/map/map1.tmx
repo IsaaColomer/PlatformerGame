@@ -12,6 +12,12 @@
  <tileset firstgid="133" name="meta" tilewidth="32" tileheight="32" tilecount="8" columns="4">
   <image source="meta.png" trans="ff00ff" width="128" height="64"/>
  </tileset>
+ <tileset firstgid="141" name="pat2" tilewidth="70" tileheight="70" tilecount="52" columns="13">
+  <image source="pat2.png" trans="ff00ff" width="928" height="320"/>
+ </tileset>
+ <tileset firstgid="193" name="pat2" tilewidth="70" tileheight="70" tilecount="52" columns="13">
+  <image source="pat2.png" trans="ff00ff" width="928" height="320"/>
+ </tileset>
  <layer id="1" name="Capa de patrones 1" width="36" height="11">
   <data>
    <tile/>
@@ -182,7 +188,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6"/>
+   <tile gid="193"/>
    <tile/>
    <tile/>
    <tile/>
@@ -218,13 +224,10 @@
    <tile gid="2"/>
    <tile gid="7"/>
    <tile/>
-   <tile gid="20"/>
-   <tile/>
-   <tile/>
-   <tile gid="6"/>
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="193"/>
    <tile/>
    <tile/>
    <tile/>
@@ -238,7 +241,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="6"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="193"/>
    <tile/>
    <tile/>
    <tile/>
@@ -257,9 +263,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="20"/>
    <tile/>
-   <tile gid="6"/>
+   <tile/>
+   <tile gid="193"/>
    <tile/>
    <tile/>
    <tile/>
@@ -274,7 +280,7 @@
    <tile gid="126"/>
    <tile gid="126"/>
    <tile/>
-   <tile gid="20"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -295,9 +301,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="20"/>
    <tile/>
-   <tile gid="6"/>
+   <tile/>
+   <tile gid="193"/>
    <tile/>
    <tile gid="15"/>
    <tile gid="21"/>
@@ -333,7 +339,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="20"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
