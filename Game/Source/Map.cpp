@@ -19,9 +19,16 @@ Map::~Map()
 {}
 int Properties::GetProperty(const char* value, int defaultValue) const
 {
-	//...
-
-	return defaultValue;
+    for (int i = 0; i < list.count(); i++)
+    {
+        if (strcmp(list.At(i)->data->name.GetString(), value)==0)
+        {
+            if (list.At(i)->data->value != defaultValue) return list.At(i)->data->value;
+            else return defaultValue;
+        }
+    }
+    
+    return defaultValue;
 }
 // Called before render is available
 bool Map::Awake(pugi::xml_node& config)
@@ -34,55 +41,87 @@ bool Map::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-// Draw the map (all requried layers)
+
+
+//// Draw the map (all requried layers)
+//void Map::Draw()
+//{
+//	if (mapLoaded == false) return;
+//	MapLayer* layer = data.layer.start->data;
+//	iPoint pos;
+//	bool stop = false;
+//	TileSet* tileset;
+//	for (int y = 0; y < data.height; ++y)
+//	{
+//		for (int x = 0; x < data.width; ++x)
+//		{
+//			for (ListItem<MapLayer*>* layer = data.layer.start; layer; layer = layer->next)
+//			{
+//				int tileId = layer->data->Get(x, y);
+//				if (tileId > 0)
+//				{
+//					tileset = GetTilesetFromTileId(tileId);
+//
+//					// L04: TODO 9: Complete the draw function
+//
+//					if (tileset->name == "hitboxes")
+//					{
+//						ListItem<MapLayer*>* hlayer;
+//						hlayer = data.layer.start;
+//						if (hlayer->data->properties.property.value)
+//						{
+//							stop = true;
+//							break;
+//						}
+//					}
+//					if (stop == false)
+//					{
+//						pos = MapToWorld(x, y);
+//						for (int i = 0; i < data.tilesets.count(); i++)
+//						{
+//							app->render->DrawTexture(data.tilesets.At(i)->data->texture, pos.x, pos.y, &data.tilesets.At(i)->data->GetTileRect(tileId));
+//							/*if (data.layer.At(i)->data->properties.GetProperty("Draw",0) == 0)
+//									app->render->DrawTexture(GetTilesetFromTileId(tileId)->texture, pos.x, pos.y, &GetTilesetFromTileId(tileId)->GetTileRect(tileId));*/
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
+	// L04: TODO 5: Prepare the loop to draw all tilesets + DrawTexture()
+
+	// L04: TODO 9: Complete the draw function
+
+//}
 void Map::Draw()
 {
-	if (mapLoaded == false) return;
-	MapLayer* layer = data.layer.start->data;
-	iPoint pos;
-	bool stop = false;
-	TileSet* tileset;
-	for (int y = 0; y < data.height; ++y)
+	if (mapLoaded == false)
 	{
-		for (int x = 0; x < data.width; ++x)
+		return;
+	}
+
+	iPoint point;
+
+	for (ListItem<MapLayer*>* layer = data.layer.start; layer; layer = layer->next)
+	{
+		for (int y = 0; y < data.height; ++y)
 		{
-			for (ListItem<MapLayer*>* layer = data.layer.start; layer; layer = layer->next)
+			for (int x = 0; x < data.width; ++x)
 			{
 				int tileId = layer->data->Get(x, y);
 				if (tileId > 0)
 				{
-					tileset = GetTilesetFromTileId(tileId);
-
-					// L04: TODO 9: Complete the draw function
-
-					if (tileset->name == "hitboxes")
+					// L04: TODO 9: Complete the draw function       
+					iPoint vec = MapToWorld(x, y);
+					for (int i = 0; i < data.tilesets.count(); i++)
 					{
-						ListItem<MapLayer*>* hlayer;
-						hlayer = data.layer.start;
-						if (hlayer->data->properties.property.value)
-						{
-							stop = true;
-							break;
-						}
-					}
-					if (stop == false)
-					{
-						pos = MapToWorld(x, y);
-						for (int i = 0; i < data.tilesets.count(); i++)
-						{
-							app->render->DrawTexture(data.tilesets.At(i)->data->texture, pos.x, pos.y, &data.tilesets.At(i)->data->GetTileRect(tileId));
-							/*if (data.layer.At(i)->data->properties.GetProperty("Draw",0) == 0)
-									app->render->DrawTexture(GetTilesetFromTileId(tileId)->texture, pos.x, pos.y, &GetTilesetFromTileId(tileId)->GetTileRect(tileId));*/
-						}
+						if (data.layer.At(i)->data->properties.GetProperty("Nodraw", 0) == 0)
+							app->render->DrawTexture(GetTilesetFromTileId(tileId)->texture, vec.x, vec.y, &data.tilesets.At(i)->data->GetTileRect(tileId));
 					}
 				}
 			}
 		}
 	}
-	// L04: TODO 5: Prepare the loop to draw all tilesets + DrawTexture()
-
-	// L04: TODO 9: Complete the draw function
-
 }
 
 // L04: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
@@ -100,21 +139,16 @@ TileSet* Map::GetTilesetFromTileId(int id) const
 {
 	ListItem<TileSet*>* item = data.tilesets.start;
 	TileSet* set = item->data;
-
-	while (item->data != nullptr)
+	for (int i = 0; data.tilesets.count(); i++)
 	{
-		if (item->next == nullptr)
-		{
-			set = item->data;
-			break;
-		}
-		if ((item->data->firstgid < id) && item->next->data->firstgid > id)
-		{
-			set = item->data;
-			break;
-		}
-		item = item->next;
+		if (id >= set->firstgid && id < set->firstgid + (set->numTilesWidth * set->numTilesHeight))return set;
+		set = item->next->data;
 	}
+	//for (set; set; item = item->next, set = item->data)
+	//{
+	//	if (id >= set->firstgid && id < set->firstgid + (set->numTilesWidth * set->numTilesHeight))return set;
+	//}
+
 	return set;
 }
 
@@ -210,6 +244,16 @@ bool Map::Load(const char* filename)
 
 		if (ret == true)
 			data.layer.add(lay);
+		pugi::xml_node nodeProperty;
+		for (nodeProperty = layer.child("properties"); nodeProperty && ret; nodeProperty = nodeProperty.next_sibling("properties"))
+		{
+			Properties* property = new Properties();
+
+			ret = LoadProperties(nodeProperty, *property);
+
+			//data.layers.At(0)->data->properties.list.add();
+			lay->properties = *property;
+		}
 	}
 
 	if (ret == true)
@@ -325,8 +369,21 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 
 bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 {
-	bool ret = false;
+	bool ret = true;
 
-	//...
+
+	pugi::xml_node property_ = node.child("property");
+
+	Properties::Property* Prop = new Properties::Property();
+
+	//if (property_ != NULL) return false;
+
+	for (property_; property_ && ret; property_ = property_.next_sibling("property"))
+	{
+		Prop->name = property_.attribute("name").as_string("");
+		Prop->value = property_.attribute("value").as_int(0);
+		properties.list.add(Prop);
+	}
+
 	return ret;
 }
