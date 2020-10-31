@@ -40,6 +40,8 @@ void Map::Draw()
 	if (mapLoaded == false) return;
 	MapLayer* layer = data.layer.start->data;
 	iPoint pos;
+	bool stop = false;
+	TileSet* tileset;
 	for (int y = 0; y < data.height; ++y)
 	{
 		for (int x = 0; x < data.width; ++x)
@@ -49,15 +51,30 @@ void Map::Draw()
 				int tileId = layer->data->Get(x, y);
 				if (tileId > 0)
 				{
-					// L04: TODO 9: Complete the draw function
-					pos = MapToWorld(x, y);
-					for (int i = 0; i < data.tilesets.count(); i++)
-					{
-						app->render->DrawTexture(data.tilesets.At(i)->data->texture, pos.x, pos.y, &data.tilesets.At(i)->data->GetTileRect(tileId));
-						//if (data.layer.At(i)->data->properties.GetProperty("Draw",0) == 0)
-						//	app->render->DrawTexture(GetTilesetFromTileId(tileId)->texture, pos.x, pos.y, &GetTilesetFromTileId(tileId)->GetTileRect(tileId));
-					}
+					tileset = GetTilesetFromTileId(tileId);
 
+					// L04: TODO 9: Complete the draw function
+
+					if (tileset->name == "hitboxes")
+					{
+						ListItem<MapLayer*>* hlayer;
+						hlayer = data.layer.start;
+						if (hlayer->data->properties.property.value)
+						{
+							stop = true;
+							break;
+						}
+					}
+					if (stop == false)
+					{
+						pos = MapToWorld(x, y);
+						for (int i = 0; i < data.tilesets.count(); i++)
+						{
+							app->render->DrawTexture(data.tilesets.At(i)->data->texture, pos.x, pos.y, &data.tilesets.At(i)->data->GetTileRect(tileId));
+							/*if (data.layer.At(i)->data->properties.GetProperty("Draw",0) == 0)
+									app->render->DrawTexture(GetTilesetFromTileId(tileId)->texture, pos.x, pos.y, &GetTilesetFromTileId(tileId)->GetTileRect(tileId));*/
+						}
+					}
 				}
 			}
 		}
@@ -83,12 +100,21 @@ TileSet* Map::GetTilesetFromTileId(int id) const
 {
 	ListItem<TileSet*>* item = data.tilesets.start;
 	TileSet* set = item->data;
-	/*
-	for (set; set; set = item->data, item = item->next)
+
+	while (item->data != nullptr)
 	{
-		if (id >= set->firstgid && id < set->firstgid + (set->numTilesHeight * set->numTilesWidth)) return set;
+		if (item->next == nullptr)
+		{
+			set = item->data;
+			break;
+		}
+		if ((item->data->firstgid < id) && item->next->data->firstgid > id)
+		{
+			set = item->data;
+			break;
+		}
+		item = item->next;
 	}
-	*/
 	return set;
 }
 

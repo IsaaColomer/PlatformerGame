@@ -44,18 +44,20 @@ struct Properties
 {
 	struct Property
 	{
-		//...
+		SString name;
+		int value;
 	};
 
 	~Properties()
 	{
-		//...
+	
 	}
 
 	// L06: TODO 7: Method to ask for the value of a custom property
 	int GetProperty(const char* name, int default_value = 0) const;
 
 	List<Property*> list;
+	Property property;
 };
 
 // L04: DONE 1: Create a struct for the map layer
