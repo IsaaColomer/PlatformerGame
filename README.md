@@ -23,6 +23,7 @@ This is a pltaformer game developed by:
  - F3 to start from the beginning of the current level.
  - F5 save the current game state.
  - F6 load the previous game state.
+ - F9 to show colliders.
  - F10 god mode.
 
 ## Developers
