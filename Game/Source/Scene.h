@@ -2,6 +2,7 @@
 #define __SCENE_H__
 
 #include "Module.h"
+#include "Animation.h"
 
 #define grav -0.1f
 
@@ -64,6 +65,8 @@ private:
 	SDL_Texture* img;
 	SDL_Texture* character;
 	SDL_Texture* backg;
+	Animation idleAnim;
+	Animation walkAnimRight;
 };
 
 #endif // __SCENE_H__

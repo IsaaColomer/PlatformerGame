@@ -33,7 +33,7 @@ bool Scene::Start()
 {
 	character = app->tex->Load("Assets/player/adventurer_stand.png");
 	backg = app->tex->Load("Assets/map/background1.png");
-	app->map->Load("map1.tmx");
+	app->map->Load("mapend.tmx");
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 
 	cpx = 70;
@@ -144,8 +144,8 @@ bool Scene::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		cpx -= 1.0f;
-		app->render->camera.x += 10;
+		cpx -= 2.0f;
+		app->render->camera.x += 20;
 		if (cpx <= 640.0f)
 		{
 			app->render->camera.x -= 1;
@@ -154,10 +154,10 @@ bool Scene::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		cpx += 1.0f;
+		cpx += 2.0f;
 		if (cpx >= 640.0f)
 		{
-			app->render->camera.x -= 10;
+			app->render->camera.x -= 20;
 		}
 	}
 	if (cpx <= 640.0f)
