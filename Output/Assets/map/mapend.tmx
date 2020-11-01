@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="36" height="11" tilewidth="70" tileheight="70" infinite="0" nextlayerid="3" nextobjectid="1">
  <tileset firstgid="1" name="patt" tilewidth="70" tileheight="70" tilecount="98" columns="14">
-  <image source="../../../../../Documents/GitHub/PlatformerGame/Output/Assets/map/patt.png" trans="ff00ff" width="980" height="490"/>
+  <image source="patt.png" trans="ff00ff" width="980" height="490"/>
  </tileset>
  <tileset firstgid="99" name="pat2" tilewidth="70" tileheight="70" tilecount="52" columns="13">
-  <image source="../../../../../Documents/GitHub/PlatformerGame/Output/Assets/map/pat2.png" trans="ff00ff" width="928" height="320"/>
+  <image source="pat2.png" trans="ff00ff" width="928" height="320"/>
  </tileset>
  <tileset firstgid="151" name="collider" tilewidth="70" tileheight="70" tilecount="1" columns="1">
-  <image source="../../../../../Documents/GitHub/PlatformerGame/Output/Assets/map/collider.png" trans="ff00ff" width="70" height="70"/>
+  <image source="collider.png" trans="ff00ff" width="70" height="70"/>
  </tileset>
  <layer id="1" name="Capa de patrones 1" width="36" height="11">
   <properties>
