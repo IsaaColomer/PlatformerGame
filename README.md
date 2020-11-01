@@ -1,6 +1,9 @@
 # Forest Jump
 
 ## Description
+This is pre-release version (alpha) of a platformer game developed by Isaac's.
+The game takes place in a dark forest, full of mysteries and platforms to jump on and over.
+Will you reach the very end?
 
 This is a platformer game developed by:
  - Isaac Digón
