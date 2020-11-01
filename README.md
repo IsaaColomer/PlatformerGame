@@ -1,8 +1,8 @@
-# {Project Name
+# Forest Jump
 
 ## Description
 
-This is a pltaformer game developed by:
+This is a platformer game developed by:
  - Isaac Digón
  - Victor Bosch
  - Isaac Colomer
@@ -18,19 +18,21 @@ This is a pltaformer game developed by:
 
  - "D" go right.
  - "A" go left.
+ - "W" go up (god mode).
+ - "S" go down (god mode).
  - "Space" jump.
  - F1 to start from the first level.
  - F3 to start from the beginning of the current level.
  - F5 save the current game state.
  - F6 load the previous game state.
  - F9 to show colliders.
- - F10 god mode.
+ - F10 toggle god mode.
 
 ## Developers
 
  - Isaac Digón - Lead programmer, physics programmer, game designer and gameplay debugging.
  - Isaac Colomer - Lead designer, level designer, game programmer and debugging.
- - Victor Bosch - 
+ - Victor Bosch - ?
 
 ## License
 
