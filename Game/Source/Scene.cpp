@@ -152,7 +152,7 @@ bool Scene::Update(float dt)
 		cpx -= 2.0f;
 		if (cpx > 640 && cpx < 1920)
 		{
-			app->render->camera.x += 20;
+			app->render->camera.x += 2;
 		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
@@ -160,11 +160,10 @@ bool Scene::Update(float dt)
 		cpx += 2.0f;
 		if (cpx > 640 && cpx <= 1920)
 		{
-			app->render->camera.x -= 20;
-
+		app->render->camera.x -= 2;
 		}		
 	}
-
+	
 	//all draws
 
 	app->render->DrawTexture(backg, 0, 0);
