@@ -45,6 +45,7 @@ public:
 	//onGround
 	bool ong;
 
+	bool debugDraw;
 	//array of colliders, first coll[0] is ground
 	//[0]=y, [1]=x1, [2]=x2
 	float coll[11][3] =
@@ -65,8 +66,6 @@ private:
 	SDL_Texture* img;
 	SDL_Texture* character;
 	SDL_Texture* backg;
-	Animation idleAnim;
-	Animation walkAnimRight;
 };
 
 #endif // __SCENE_H__

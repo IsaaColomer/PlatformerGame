@@ -43,6 +43,7 @@ bool Scene::Start()
 	godMode = false;
 	savedx = 70;
 	savedy = 590;
+	debugDraw = false;
 
 	return true;
 }
@@ -86,17 +87,21 @@ bool Scene::Update(float dt)
 			savedy = cpy;
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-			app->render->camera.y += 1;
+		//if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		//	app->render->camera.y += 1;
 
-		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-			app->render->camera.y -= 1;
+		//if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		//	app->render->camera.y -= 1;
 
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-			app->render->camera.x += 1;
+		//if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		//	app->render->camera.x += 1;
 
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-			app->render->camera.x -= 1;
+		//if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		//	app->render->camera.x -= 1;
+	}
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	{
+		debugDraw = (debugDraw) ? false : true;
 	}
 	//player movement
 	if (!godMode)
@@ -134,47 +139,56 @@ bool Scene::Update(float dt)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		{
-			cpy -= 1.0f;
+			cpy -= 2.0f;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 		{
-			cpy += 1.0f;
+			cpy += 2.0f;
 		}
 	}
-
+	
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		cpx -= 2.0f;
-		app->render->camera.x += 20;
-		if (cpx <= 640.0f)
+		if (cpx > 640 && cpx < 1920)
 		{
-			app->render->camera.x -= 1;
+			app->render->camera.x += 20;
 		}
 	}
-
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		cpx += 2.0f;
-		if (cpx >= 640.0f)
+		if (cpx > 640 && cpx <= 1920)
 		{
 			app->render->camera.x -= 20;
-		}
-	}
-	if (cpx <= 640.0f)
-	{
-		app->render->camera.x = 0;
-	}
-	if (cpx >= 1850.0f)
-	{
-		app->render->camera.x = -12300.0f;
+
+		}		
 	}
 
 	//all draws
-	app->render->DrawTexture(backg, 0, 0);
 
+	app->render->DrawTexture(backg, 0, 0);
 	app->map->Draw();
 	app->render->DrawTexture(character, cpx, cpy); // Placeholder not needed any more
 
+	if (debugDraw)
+	{
+		SDL_Rect r;
+		for (int i = 0; i < 11; i++)
+		{
+			r.x = coll[i][1];
+			r.y = coll[i][0] - 2;
+			r.w = coll[i][2] - coll[i][1];
+			r.h = 4;
+			
+			app->render->DrawRectangle(r, 255, 0, 0, 128,true,true);
+		}
+		r.x = cpx;
+		r.y = cpy;
+		r.w = 80;
+		r.h = 110;
+		app->render->DrawRectangle(r, 255,0,0,128, true, true);
+	}
 
 	// L03: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
