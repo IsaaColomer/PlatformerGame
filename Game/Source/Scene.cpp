@@ -39,6 +39,7 @@ bool Scene::Start()
 	cpx = 70;
 	cpy = 590;
 	vcy = 0;
+	vcx = 3.0f;
 	ong = false;
 	godMode = false;
 	savedx = 70;
@@ -139,28 +140,28 @@ bool Scene::Update(float dt)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		{
-			cpy -= 2.0f;
+			cpy -= vcx;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 		{
-			cpy += 2.0f;
+			cpy += vcx;
 		}
 	}
 	
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		cpx -= 2.0f;
+		cpx -= vcx;
 		if (cpx > 640 && cpx < 1920)
 		{
-			app->render->camera.x += 2;
+			app->render->camera.x += vcx;
 		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		cpx += 2.0f;
+		cpx += vcx;
 		if (cpx > 640 && cpx <= 1920)
 		{
-		app->render->camera.x -= 2;
+		app->render->camera.x -= vcx;
 		}		
 	}
 	

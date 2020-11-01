@@ -36,7 +36,7 @@ public:
 	bool CleanUp();
 
 	//player/charater x pos, y pos, velocity in y
-	float cpx, cpy, vcy;
+	float cpx, cpy, vcy, vcx;
 
 	float savedx, savedy;
 
