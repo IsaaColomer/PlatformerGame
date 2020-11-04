@@ -17,14 +17,31 @@ Player::Player() : Module()
 	name.Create("player");
 
 	idleAnim.loop = true;
-	idleAnim.PushBack({ 5,0,52,96 });
-	idleAnim.PushBack({ 60,0,52,99 });
-	idleAnim.PushBack({ 0,96,59,115 });
-	idleAnim.PushBack({ 56,107,54,103 });
-	idleAnim.PushBack({ 0,213,58,100 });
+	idleAnim.PushBack({ 0,593,84,93 });
+	idleAnim.PushBack({ 0,492,83,93 });
+	idleAnim.PushBack({ 3,394,79,94 });
+	idleAnim.PushBack({ 4,300,80,94 });
+	
+	idleAnim.speed = 0.05f;
 	//idleAnim.PushBack({ 43,87,20,37 });
 
+	jumpAnim.loop = false;
+	jumpAnim.PushBack({ 133,292,86,95 });
+	jumpAnim.PushBack({ 143,393,66,95 });
+	jumpAnim.PushBack({ 121,492,85,93 });
+	jumpAnim.PushBack({ 127,593,73,93 });
+	
+	jumpAnim.speed = 0.05f;
 
+
+	rightAnim.PushBack({243,592,75,94});
+	rightAnim.PushBack({ 249,492,69,93 });
+	rightAnim.PushBack({ 249,394,77,94 });
+	rightAnim.PushBack({ 243,292,75,94 });
+	rightAnim.PushBack({ 248,187,70,94 });
+	rightAnim.PushBack({ 251,80,67,94 });
+	rightAnim.loop = true;
+	rightAnim.speed = 0.1f;
 	//HERE ALL THE ANIMATIONS
 
 }
@@ -62,6 +79,12 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
+
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE
+		&& app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE
+		&& app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE) {
+		currentAnimation = &idleAnim;
+	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
@@ -115,6 +138,11 @@ bool Player::Update(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && ong)
 		{
 			vcy = -6.0f;
+			if (currentAnimation != &jumpAnim)
+			{
+				jumpAnim.Reset();
+				currentAnimation = &jumpAnim;
+			}
 			ong = false;
 		}
 		if (!ong)
@@ -149,6 +177,10 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		cpx += vcx;
+		if (currentAnimation != &rightAnim) {
+			rightAnim.Reset();
+			currentAnimation = &rightAnim;
+		}
 		if (cpx > 640 && cpx <= 1920)
 		{
 			app->render->camera.x -= vcx;
@@ -172,7 +204,7 @@ bool Player::Update(float dt)
 		r.h = 85;
 		app->render->DrawRectangle(r, 255, 0, 0, 128, true, true);
 	}
-
+	currentAnimation->Update();
 	return true;
 }
 
