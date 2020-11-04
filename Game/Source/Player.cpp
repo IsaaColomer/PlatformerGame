@@ -16,6 +16,15 @@ Player::Player() : Module()
 {
 	name.Create("player");
 
+	idleAnim.loop = true;
+	idleAnim.PushBack({ 5,0,52,96 });
+	idleAnim.PushBack({ 60,0,52,99 });
+	idleAnim.PushBack({ 0,96,59,115 });
+	idleAnim.PushBack({ 56,107,54,103 });
+	idleAnim.PushBack({ 0,213,58,100 });
+	//idleAnim.PushBack({ 43,87,20,37 });
+
+
 	//HERE ALL THE ANIMATIONS
 
 }
@@ -32,7 +41,8 @@ bool Player::Start()
 	vcy = 0;
 	vcx = 2.0f;
 	//ANIMATION FILE
-	character = app->tex->Load("Assets/player/adventurer_stand.png");
+	character = app->tex->Load("Assets/player/idle.png");
+	currentAnimation = &idleAnim;
 
 	//PLAYER RECT
 	return true;
@@ -89,7 +99,7 @@ bool Player::Update(float dt)
 		ong = false;
 		for (int i = 0; i < 11 && !ong; i++)
 		{
-			if (((cpy + 110) > (coll[i][0] - 3)) && ((cpy + 110) < (coll[i][0] + 3)))
+			if (((cpy + 85) > (coll[i][0] - 3)) && ((cpy + 85) < (coll[i][0] + 3)))
 			{
 				if (cpx<coll[i][1] && (cpx + 80)>coll[i][1])
 					ong = true;
@@ -159,7 +169,7 @@ bool Player::Update(float dt)
 		r.x = cpx;
 		r.y = cpy;
 		r.w = 80;
-		r.h = 110;
+		r.h = 85;
 		app->render->DrawRectangle(r, 255, 0, 0, 128, true, true);
 	}
 
@@ -168,8 +178,15 @@ bool Player::Update(float dt)
 
 bool Player::PostUpdate()
 {
-	app->render->DrawTexture(character, cpx, cpy); // Placeholder not needed any more
-	return true;
+	bool ret = true;
+	SDL_Rect rectPlayer;
+	rectPlayer = currentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(character, cpx, cpy, &rectPlayer); // Placeholder not needed any more
+
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		ret = false;
+
+	return ret;
 }
 
 bool Player::CleanUp()

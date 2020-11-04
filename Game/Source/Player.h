@@ -80,6 +80,7 @@ public:
 	Animation shootAnim;
 	Animation death;
 
+
 	SDL_Texture* character;
 
 };
