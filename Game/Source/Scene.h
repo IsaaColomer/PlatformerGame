@@ -4,7 +4,6 @@
 #include "Module.h"
 #include "Animation.h"
 
-#define grav -0.1f
 
 struct SDL_Texture;
 
@@ -35,36 +34,11 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	//player/charater x pos, y pos, velocity in y
-	float cpx, cpy, vcy, vcx;
-
-	float savedx, savedy;
-
-	bool godMode;
-
-	//onGround
-	bool ong;
-
-	bool debugDraw;
 	//array of colliders, first coll[0] is ground
 	//[0]=y, [1]=x1, [2]=x2
-	float coll[11][3] =
-	{
-		700,0,2520,
-		560,280,490,
-		420,560,630,
-		280,770,980,
-		490,980,1260,
-		350,1330,1610,
-		280,1680,1750,
-		350,1890,1960,
-		420,2030,2100,
-		490,2170,2240,
-		420,2310,2450
-	};
+
 private:
 	SDL_Texture* img;
-	SDL_Texture* character;
 	SDL_Texture* backg;
 };
 
