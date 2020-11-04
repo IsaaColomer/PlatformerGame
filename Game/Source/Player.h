@@ -72,7 +72,8 @@ public:
 	Animation* currentAnimation = nullptr;
 
 	// A set of animations
-	Animation idleAnim;
+	Animation idleAnimR;
+	Animation idleAnimL;
 	Animation jumpAnim;
 	Animation downAnim;
 	Animation rightAnim;
@@ -80,6 +81,9 @@ public:
 	Animation shootAnim;
 	Animation death;
 
+	bool facingLeft;
+	bool idleState;
+	bool facingRight;
 
 	SDL_Texture* character;
 

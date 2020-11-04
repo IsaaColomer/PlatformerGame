@@ -56,9 +56,6 @@ bool Scene::Update(float dt)
 	app->render->DrawTexture(backg, 0, 0);
 	app->map->Draw();
 
-
-	
-
 	// L03: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 		app->map->data.width, app->map->data.height,

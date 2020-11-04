@@ -16,22 +16,31 @@ Player::Player() : Module()
 {
 	name.Create("player");
 
-	idleAnim.loop = true;
-	idleAnim.PushBack({ 0,593,84,93 });
-	idleAnim.PushBack({ 0,492,83,93 });
-	idleAnim.PushBack({ 3,394,79,94 });
-	idleAnim.PushBack({ 4,300,80,94 });
+	idleAnimR.loop = true;
+	idleAnimR.PushBack({ 0,593,84,93 });
+	idleAnimR.PushBack({ 0,492,83,93 });
+	idleAnimR.PushBack({ 3,394,79,94 });
+	idleAnimR.PushBack({ 4,300,80,94 });
 	
-	idleAnim.speed = 0.05f;
+	idleAnimR.speed = 0.05f;
+
+
+	idleAnimL.loop = true;
+	idleAnimL.PushBack({ 468,593,84,93 });
+	idleAnimL.PushBack({ 469,492,83,93 });
+	idleAnimL.PushBack({ 470,394,79,94 });
+	idleAnimL.PushBack({ 468,300,80,94 });
+
+	idleAnimL.speed = 0.05f;
 	//idleAnim.PushBack({ 43,87,20,37 });
 
 	jumpAnim.loop = false;
-	jumpAnim.PushBack({ 133,292,86,95 });
-	jumpAnim.PushBack({ 143,393,66,95 });
-	jumpAnim.PushBack({ 121,492,85,93 });
-	jumpAnim.PushBack({ 127,593,73,93 });
 	
-	jumpAnim.speed = 0.1f;
+	jumpAnim.PushBack({ 133,292,86,95 });
+	jumpAnim.PushBack({ 127,593,73,93 });
+	jumpAnim.PushBack({ 121,492,85,93 });
+	jumpAnim.PushBack({ 143,393,66,95 });
+	jumpAnim.speed = 0.05f;
 
 
 	rightAnim.PushBack({243,592,75,94});
@@ -51,7 +60,7 @@ Player::Player() : Module()
 	leftAnim.PushBack({358,187,70,94});
 	leftAnim.PushBack({358,80,67,94});
 	leftAnim.loop = true;
-	leftAnim.speed = 0.1f;
+	leftAnim.speed = 0.05f;
 
 
 }
@@ -67,9 +76,12 @@ bool Player::Start()
 	cpy = 590;
 	vcy = 0;
 	vcx = 2.0f;
+	facingLeft = false;
+	facingRight = true;
 	//ANIMATION FILE
 	character = app->tex->Load("Assets/player/idle.png");
-	currentAnimation = &idleAnim;
+	currentAnimation = &idleAnimR;
+	ong = false;
 
 	//PLAYER RECT
 	return true;
@@ -92,8 +104,15 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE
-		&& app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE) {
-		currentAnimation = &idleAnim;
+		&& app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE
+		&& facingLeft == false) {
+		currentAnimation = &idleAnimR;
+	}
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE
+		&& app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE
+		&& app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE
+		&& facingLeft == true) {
+		currentAnimation = &idleAnimL;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -109,6 +128,7 @@ bool Player::Update(float dt)
 		app->render->camera.y = 0;
 		app->render->camera.x = 0;
 	}
+
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{
 		app->LoadGameRequest();
@@ -148,17 +168,21 @@ bool Player::Update(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && ong)
 		{
 			vcy = -6.0f;
+			ong = false;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && ong == false)
+		{
 			if (currentAnimation != &jumpAnim)
 			{
 				jumpAnim.Reset();
 				currentAnimation = &jumpAnim;
 			}
-			ong = false;
 		}
 		if (!ong)
 		{
 			if (vcy < 6.0f) vcy -= grav;
 			cpy += vcy;
+			
 		}
 		//if (ong)
 		else vcy = 0;
@@ -175,7 +199,6 @@ bool Player::Update(float dt)
 			cpy += vcx;
 		}
 	}
-
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		cpx -= vcx;
@@ -187,6 +210,8 @@ bool Player::Update(float dt)
 		{
 			app->render->camera.x += vcx;
 		}
+		facingLeft = true;
+		facingRight = false;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
@@ -199,7 +224,10 @@ bool Player::Update(float dt)
 		{
 			app->render->camera.x -= vcx;
 		}
+		facingRight = true;
+		facingLeft = false;
 	}
+
 	if (debugDraw)
 	{
 		SDL_Rect r;
@@ -227,6 +255,7 @@ bool Player::PostUpdate()
 	bool ret = true;
 	SDL_Rect rectPlayer;
 	rectPlayer = currentAnimation->GetCurrentFrame();
+
 	app->render->DrawTexture(character, cpx, cpy, &rectPlayer); // Placeholder not needed any more
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
