@@ -50,10 +50,11 @@ struct Properties
 
 	~Properties()
 	{
-	
+
 	}
 
 	// L06: TODO 7: Method to ask for the value of a custom property
+
 	int GetProperty(const char* name, int default_value = 0) const;
 
 	List<Property*> list;
@@ -124,6 +125,12 @@ public:
 	// L04: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
 
+	iPoint WorldToMap(int x, int y) const;
+
+	void ShowCollider() { DrawColliders = !DrawColliders; }
+
+	void LoadColliders();
+
 private:
 
 	// L03: Methods to load all required map data
@@ -148,6 +155,7 @@ private:
 	pugi::xml_document mapFile;
 	SString folder;
 	bool mapLoaded;
+	bool DrawColliders = false;
 };
 
 #endif // __MAP_H__

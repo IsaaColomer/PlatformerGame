@@ -17,9 +17,35 @@ Map::Map() : Module(), mapLoaded(false)
 // Destructor
 Map::~Map()
 {}
+bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
+{
+	bool ret = true;
+
+
+	pugi::xml_node property_ = node.child("property");
+
+	Properties::Property* Prop = new Properties::Property();
+
+	for (property_; property_ && ret; property_ = property_.next_sibling("property"))
+	{
+		Prop->name = property_.attribute("name").as_string("");
+		Prop->value = property_.attribute("value").as_int(0);
+		properties.list.add(Prop);
+	}
+
+	return ret;
+}
+
 int Properties::GetProperty(const char* value, int defaultValue) const
 {
-	//...
+	for (int i = 0; i < list.count(); i++)
+	{
+		if (strcmp(list.At(i)->data->name.GetString(), value) == 0)
+		{
+			if (list.At(i)->data->value != defaultValue) return list.At(i)->data->value;
+			else return defaultValue;
+		}
+	}
 
 	return defaultValue;
 }
@@ -38,10 +64,14 @@ bool Map::Awake(pugi::xml_node& config)
 void Map::Draw()
 {
 	if (mapLoaded == false) return;
+
+	// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
 	MapLayer* layer = data.layer.start->data;
-	iPoint pos;
-	bool stop = false;
-	TileSet* tileset;
+
+	// L06: TODO 4: Make sure we draw all the layers and not just the first one
+
+	iPoint point;
+
 	for (int y = 0; y < data.height; ++y)
 	{
 		for (int x = 0; x < data.width; ++x)
@@ -51,39 +81,18 @@ void Map::Draw()
 				int tileId = layer->data->Get(x, y);
 				if (tileId > 0)
 				{
-					tileset = GetTilesetFromTileId(tileId);
-
-					// L04: TODO 9: Complete the draw function
-
-					if (tileset->name == "hitboxes")
+					// L04: TODO 9: Complete the draw function       
+					iPoint vec = MapToWorld(x, y);
+					for (int i = 0; i < data.tilesets.count(); i++)
 					{
-						ListItem<MapLayer*>* hlayer;
-						hlayer = data.layer.start;
-						if (hlayer->data->properties.property.value)
-						{
-							stop = true;
-							break;
-						}
-					}
-					if (stop == false)
-					{
-						pos = MapToWorld(x, y);
-						
-						for (int i = 0; i < data.tilesets.count(); i++)
-						{
-							//app->render->DrawTexture(data.tilesets.At(i)->data->texture, pos.x, pos.y, &data.tilesets.At(i)->data->GetTileRect(tileId));
-							if (data.layer.At(i)->data->properties.GetProperty("Nodraw", 0) == 0)
-								app->render->DrawTexture(data.tilesets.At(i)->data->texture, pos.x, pos.y, &data.tilesets.At(i)->data->GetTileRect(tileId));
-						}
+						if (data.layer.At(i)->data->properties.GetProperty("Nodraw", 0) == 0 || DrawColliders)
+							app->render->DrawTexture(data.tilesets.At(i)->data->texture, vec.x, vec.y, &data.tilesets.At(i)->data->GetTileRect(tileId));
+						//app->render->DrawTexture(GetTilesetFromTileId(tileId)->texture, vec.x, vec.y, &GetTilesetFromTileId(tileId)->GetTileRect(tileId));
 					}
 				}
 			}
 		}
 	}
-	// L04: TODO 5: Prepare the loop to draw all tilesets + DrawTexture()
-
-	// L04: TODO 9: Complete the draw function
-
 }
 
 // L04: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
@@ -93,6 +102,14 @@ iPoint Map::MapToWorld(int x, int y) const
 
 	ret.x = x * data.tileWidth;
 	ret.y = y * data.tileHeight;
+
+	return ret;
+}
+iPoint Map::WorldToMap(int x, int y) const
+{
+	iPoint ret(0, 0);
+
+	// L05: TODO 3: Add the case for isometric maps to WorldToMap
 
 	return ret;
 }
@@ -212,6 +229,17 @@ bool Map::Load(const char* filename)
 
 		if (ret == true)
 			data.layer.add(lay);
+
+		pugi::xml_node propertiesNode;
+		for (propertiesNode = layer.child("properties"); propertiesNode && ret; propertiesNode = propertiesNode.next_sibling("properties"))
+		{
+			Properties* property = new Properties();
+
+			ret = LoadProperties(propertiesNode, *property);
+
+			//data.layers.At(0)->data->properties.list.add();
+			lay->properties = *property;
+		}
 	}
 
 	if (ret == true)
@@ -322,13 +350,5 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 		tile = tile.next_sibling("tile");
 	}
 
-	return ret;
-}
-
-bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
-{
-	bool ret = false;
-
-	//...
 	return ret;
 }
