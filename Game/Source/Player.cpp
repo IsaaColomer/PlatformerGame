@@ -31,7 +31,7 @@ Player::Player() : Module()
 	jumpAnim.PushBack({ 121,492,85,93 });
 	jumpAnim.PushBack({ 127,593,73,93 });
 	
-	jumpAnim.speed = 0.05f;
+	jumpAnim.speed = 0.1f;
 
 
 	rightAnim.PushBack({243,592,75,94});
@@ -43,6 +43,16 @@ Player::Player() : Module()
 	rightAnim.loop = true;
 	rightAnim.speed = 0.1f;
 	//HERE ALL THE ANIMATIONS
+
+	leftAnim.PushBack({358,592,75,94});
+	leftAnim.PushBack({358,492,69,93});
+	leftAnim.PushBack({350,394,77,94});
+	leftAnim.PushBack({358,292,75,94});
+	leftAnim.PushBack({358,187,70,94});
+	leftAnim.PushBack({358,80,67,94});
+	leftAnim.loop = true;
+	leftAnim.speed = 0.1f;
+
 
 }
 
@@ -169,6 +179,10 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		cpx -= vcx;
+		if (currentAnimation != &leftAnim) {
+			leftAnim.Reset();
+			currentAnimation = &leftAnim;
+		}
 		if (cpx > 640 && cpx < 1920)
 		{
 			app->render->camera.x += vcx;
