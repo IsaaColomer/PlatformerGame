@@ -46,7 +46,8 @@ public:
 
 public:
 	
-	float cpx, cpy, vcy, vcx;
+	SDL_Rect cp;
+	float vcy, vcx;
 	bool godMode;
 	bool ong;
 	bool debugDraw;

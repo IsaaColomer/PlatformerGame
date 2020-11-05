@@ -377,10 +377,10 @@ void Map::LoadColliders()
 			{
 				int u = layer->Get(x, y);
 				iPoint pos = MapToWorld(x, y);
-				SDL_Rect n = { pos.x + 3, pos.y, data.tileWidth - 6, 3 };
+				SDL_Rect n = { pos.x, pos.y, data.tileWidth, 3 };
 				SDL_Rect n2 = { pos.x, pos.y + 3, 3, data.tileHeight - 6 };
 				SDL_Rect n3 = { pos.x + data.tileWidth - 3, pos.y + 3, 3, data.tileHeight - 6 };
-				SDL_Rect n4 = { pos.x + 3, pos.y + data.tileHeight - 3, data.tileWidth - 6, 3 };
+				SDL_Rect n4 = { pos.x, pos.y + data.tileHeight - 3, data.tileWidth, 3 };
 				if (u != 0)
 				{
 					if (layer->properties.GetProperty("Nodraw", 0) == 1)

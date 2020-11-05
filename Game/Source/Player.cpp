@@ -71,16 +71,20 @@ Player::~Player()
 
 bool Player::Start()
 {
-	cpx = 70;
-	cpy = 590;
+	cp.x = 70;
+	cp.y = 500;
+	cp.w = 84;
+	cp.h = 93;
 	vcy = 0;
 	vcx = 2.0f;
+	ong = false;
+	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);
+
 	facingLeft = false;
 	facingRight = true;
 	//ANIMATION FILE
 	character = app->tex->Load("Assets/player/idle.png");
 	currentAnimation = &idleAnimR;
-	ong = false;
 
 	return true;
 }
@@ -102,15 +106,16 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE
-		&& app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE
-		&& facingLeft == false) {
-		currentAnimation = &idleAnimR;
-	}
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE
-		&& app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE
-		&& app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE
-		&& facingLeft == true) {
-		currentAnimation = &idleAnimL;
+		&& app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE)
+	{
+		if (facingLeft == false)
+		{
+			currentAnimation = &idleAnimR;
+		}
+		else
+		{
+			currentAnimation = &idleAnimL;
+		}
 	}
 
 	//DEBUG KEYS
@@ -120,9 +125,10 @@ bool Player::Update(float dt)
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
-		cpx = 70;
-		cpy = 590;
+		cp.x = 70;
+		cp.y = 500;
 		vcy = 0;
+		vcx = 2.0f;
 		ong = false;
 		app->render->camera.y = 0;
 		app->render->camera.x = 0;
@@ -130,46 +136,35 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{
 		app->LoadGameRequest();
-		cpx = savedx;
-		cpy = savedy;
+		cp.x = savedx;
+		cp.y = savedy;
 
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{
 		app->SaveGameRequest();
-		savedx = cpx;
-		savedy = cpy;
+		savedx = cp.x;
+		savedy = cp.y;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
-		//debugDraw = (debugDraw) ? false : true;
 		app->collisions->DebugRequest();
 	}
 
 	//PLAYER INPUT
 	if (!godMode)
 	{
-		ong = false;
-		for (int i = 0; i < 11 && !ong; i++)
-		{
-			if (((cpy + 85) > (coll[i][0] - 3)) && ((cpy + 85) < (coll[i][0] + 3)))
-			{
-				if (cpx<coll[i][1] && (cpx + 80)>coll[i][1])
-					ong = true;
-				else if (cpx<coll[i][2] && (cpx + 80)>coll[i][2])
-					ong = true;
-				else if (cpx > coll[i][1] && (cpx + 80) < coll[i][2])
-					ong = true;
-				else if (cpx<coll[i][1] && (cpx + 80)>coll[i][2])
-					ong = true;
-			}
-		}
-
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && ong)
 		{
 			vcy = -6.0f;
 			ong = false;
 		}
+		if (!ong)
+		{
+			if (vcy < 6.0f) vcy -= grav;
+			cp.y += vcy;
+		}
+
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && ong == false)
 		{
 			if (currentAnimation != &jumpAnim)
@@ -178,74 +173,52 @@ bool Player::Update(float dt)
 				currentAnimation = &jumpAnim;
 			}
 		}
-		if (!ong)
-		{
-			if (vcy < 6.0f) vcy -= grav;
-			cpy += vcy;
-			
-		}
-		//if (ong)
-		else vcy = 0;
 	}
 
 	else
 	{
 		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		{
-			cpy -= vcx;
+			cp.y -= 2.0f;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 		{
-			cpy += vcx;
+			cp.y += 2.0f;
 		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		cpx -= vcx;
+		cp.x -= vcx;
 		if (currentAnimation != &leftAnim) {
 			leftAnim.Reset();
 			currentAnimation = &leftAnim;
 		}
-		if (cpx > 640 && cpx < 1920)
+		if (cp.x > 640 && cp.x < 1920)
 		{
-			app->render->camera.x += vcx;
+			app->render->camera.x += 2.0f;
 		}
 		facingLeft = true;
 		facingRight = false;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		cpx += vcx;
+		cp.x += vcx;
 		if (currentAnimation != &rightAnim) {
 			rightAnim.Reset();
 			currentAnimation = &rightAnim;
 		}
-		if (cpx > 640 && cpx <= 1920)
+		if (cp.x > 640 && cp.x <= 1920)
 		{
-			app->render->camera.x -= vcx;
+			app->render->camera.x -= 2.0f;
 		}
 		facingRight = true;
 		facingLeft = false;
 	}
 
-	if (debugDraw)
-	{
-		SDL_Rect r;
-		for (int i = 0; i < 11; i++)
-		{
-			r.x = coll[i][1];
-			r.y = coll[i][0] - 2;
-			r.w = coll[i][2] - coll[i][1];
-			r.h = 4;
+	//-----------------------COLLIDER MOVEMENT
+	collider->SetPos(cp.x, cp.y);
+	//--------------------------------
 
-			app->render->DrawRectangle(r, 255, 0, 0, 128, true, true);
-		}
-		r.x = cpx;
-		r.y = cpy;
-		r.w = 80;
-		r.h = 85;
-		app->render->DrawRectangle(r, 255, 0, 0, 128, true, true);
-	}
 	currentAnimation->Update();
 	return true;
 }
@@ -256,7 +229,7 @@ bool Player::PostUpdate()
 	SDL_Rect rectPlayer;
 	rectPlayer = currentAnimation->GetCurrentFrame();
 
-	app->render->DrawTexture(character, cpx, cpy, &rectPlayer); // Placeholder not needed any more
+	app->render->DrawTexture(character, cp.x, cp.y, &rectPlayer); // Placeholder not needed any more
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
@@ -272,8 +245,8 @@ bool Player::CleanUp()
 bool Player::LoadState(pugi::xml_node& data)
 {
 	pugi::xml_node play = data.child("position");
-	cpx = play.attribute("x").as_int(0);
-	cpy = play.attribute("y").as_int(0);
+	cp.x = play.attribute("x").as_int(0);
+	cp.y = play.attribute("y").as_int(0);
 
 	return true;
 }
@@ -281,32 +254,32 @@ bool Player::LoadState(pugi::xml_node& data)
 bool Player::SaveState(pugi::xml_node& data) const
 {
 	pugi::xml_node play = data.child("position");
-	play.attribute("x").set_value(cpx);
-	play.attribute("y").set_value(cpy);
+	play.attribute("x").set_value(cp.x);
+	play.attribute("y").set_value(cp.y);
 
 	return true;
 }
 
 void Player::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1 == collider)
+	if (c1 == collider && !godMode)
 	{
 		if (c2->type == Collider::Type::LEFT_WALL)
 		{
-			//cpx -= 1;
+			cp.x -= 1;
 		}
 		if (c2->type == Collider::Type::RIGHT_WALL)
 		{
-			//cpx += 1;
+			cp.x += 1;
 		}
 		if (c2->type == Collider::Type::FLOOR)
 		{
-			//ong = true;
-			//cpy = cpy;
+			ong = true;
 		}
 		if (c2->type == Collider::Type::ROOF)
 		{
-			//cpy += 1;
+			cp.y += 1;
+			vcy = 0;
 		}
 	}
 }
