@@ -73,11 +73,12 @@ bool Player::Start()
 {
 	cp.x = 70;
 	cp.y = 500;
-	cp.w = 84;
+	cp.w = 50;
 	cp.h = 93;
 	vcy = 0;
 	vcx = 2.0f;
 	ong = false;
+
 	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);
 
 	facingLeft = false;
@@ -200,6 +201,10 @@ bool Player::Update(float dt)
 		facingLeft = true;
 		facingRight = false;
 	}
+	else
+	{
+		ong = false;
+	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		cp.x += vcx;
@@ -213,6 +218,10 @@ bool Player::Update(float dt)
 		}
 		facingRight = true;
 		facingLeft = false;
+	}
+	else
+	{
+		ong = false;
 	}
 
 	//-----------------------COLLIDER MOVEMENT
@@ -267,14 +276,17 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		if (c2->type == Collider::Type::LEFT_WALL)
 		{
 			cp.x -= 1;
+			cp.y = cp.y;
 		}
 		if (c2->type == Collider::Type::RIGHT_WALL)
 		{
 			cp.x += 1;
+			cp.y = cp.y;
 		}
 		if (c2->type == Collider::Type::FLOOR)
 		{
 			ong = true;
+			cp.y = cp.y;
 		}
 		if (c2->type == Collider::Type::ROOF)
 		{
