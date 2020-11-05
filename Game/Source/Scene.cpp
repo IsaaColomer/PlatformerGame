@@ -4,6 +4,7 @@
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
+#include "Collisions.h"
 #include "Scene.h"
 #include "Map.h"
 #include "Player.h"
@@ -34,6 +35,7 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
+	app->collisions->CleanUp();
 	backg = app->tex->Load("Assets/map/background1.png");
 	app->map->Load("mapf.tmx");
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
@@ -63,6 +65,8 @@ bool Scene::Update(float dt)
 		app->map->data.tilesets.count());
 
 	app->win->SetTitle(title.GetString());
+
+	app->map->LoadColliders();
 
 	return true;
 }

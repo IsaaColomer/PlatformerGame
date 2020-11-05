@@ -6,7 +6,7 @@
 #include "Window.h"
 #include "Player.h"
 #include "Map.h"
-//#include "Collisions.h"
+#include "Collisions.h"
 
 
 #include "Defs.h"
@@ -50,8 +50,7 @@ Player::Player() : Module()
 	rightAnim.PushBack({ 248,187,70,94 });
 	rightAnim.PushBack({ 251,80,67,94 });
 	rightAnim.loop = true;
-	rightAnim.speed = 0.1f;
-	//HERE ALL THE ANIMATIONS
+	rightAnim.speed = 0.05f;
 
 	leftAnim.PushBack({358,592,75,94});
 	leftAnim.PushBack({358,492,69,93});
@@ -83,7 +82,6 @@ bool Player::Start()
 	currentAnimation = &idleAnimR;
 	ong = false;
 
-	//PLAYER RECT
 	return true;
 }
 
@@ -115,6 +113,7 @@ bool Player::Update(float dt)
 		currentAnimation = &idleAnimL;
 	}
 
+	//DEBUG KEYS
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
 		godMode = (godMode) ? false : true;
@@ -128,7 +127,6 @@ bool Player::Update(float dt)
 		app->render->camera.y = 0;
 		app->render->camera.x = 0;
 	}
-
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{
 		app->LoadGameRequest();
@@ -144,9 +142,11 @@ bool Player::Update(float dt)
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
-		debugDraw = (debugDraw) ? false : true;
+		//debugDraw = (debugDraw) ? false : true;
+		app->collisions->DebugRequest();
 	}
-	//player movement
+
+	//PLAYER INPUT
 	if (!godMode)
 	{
 		ong = false;
@@ -286,7 +286,27 @@ bool Player::SaveState(pugi::xml_node& data) const
 
 	return true;
 }
+
 void Player::OnCollision(Collider* c1, Collider* c2)
 {
-	
+	if (c1 == collider)
+	{
+		if (c2->type == Collider::Type::LEFT_WALL)
+		{
+			//cpx -= 1;
+		}
+		if (c2->type == Collider::Type::RIGHT_WALL)
+		{
+			//cpx += 1;
+		}
+		if (c2->type == Collider::Type::FLOOR)
+		{
+			//ong = true;
+			//cpy = cpy;
+		}
+		if (c2->type == Collider::Type::ROOF)
+		{
+			//cpy += 1;
+		}
+	}
 }

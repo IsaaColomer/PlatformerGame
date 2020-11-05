@@ -3,7 +3,7 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Map.h"
-
+#include "Collisions.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -85,7 +85,7 @@ void Map::Draw()
 					iPoint vec = MapToWorld(x, y);
 					for (int i = 0; i < data.tilesets.count() && data.layer.At(i) != nullptr; i++)
 					{
-						if (data.layer.At(i)->data->properties.GetProperty("Nodraw", 0) == 1 || DrawColliders)
+						if (data.layer.At(i)->data->properties.GetProperty("Nodraw", 0) == 0 || DrawColliders)
 							app->render->DrawTexture(data.tilesets.At(i)->data->texture, vec.x, vec.y, &data.tilesets.At(i)->data->GetTileRect(tileId));
 						//app->render->DrawTexture(GetTilesetFromTileId(tileId)->texture, vec.x, vec.y, &GetTilesetFromTileId(tileId)->GetTileRect(tileId));
 					}
@@ -351,4 +351,49 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	}
 
 	return ret;
+}
+
+void Map::LoadColliders()
+{
+	if (mapLoaded == false) return;
+
+	ListItem<MapLayer*>* L = data.layer.start;
+	ListItem<TileSet*>* T = data.tilesets.start;
+	TileSet* tileSet = data.tilesets.start->data;
+	uint num = 401;
+
+	while (L != nullptr)
+	{
+		MapLayer* layer = L->data;
+		if (layer->properties.GetProperty("Nodraw", 0) == 0)
+		{
+			L = L->next;
+			continue;
+		}
+
+		for (int y = 0; y < layer->height; y++)
+		{
+			for (int x = 0; x < layer->width; x++)
+			{
+				int u = layer->Get(x, y);
+				iPoint pos = MapToWorld(x, y);
+				SDL_Rect n = { pos.x + 3, pos.y, data.tileWidth - 6, 3 };
+				SDL_Rect n2 = { pos.x, pos.y + 3, 3, data.tileHeight - 6 };
+				SDL_Rect n3 = { pos.x + data.tileWidth - 3, pos.y + 3, 3, data.tileHeight - 6 };
+				SDL_Rect n4 = { pos.x + 3, pos.y + data.tileHeight - 3, data.tileWidth - 6, 3 };
+				if (u != 0)
+				{
+					if (layer->properties.GetProperty("Nodraw", 0) == 1)
+					{
+						app->collisions->AddCollider(n, Collider::Type::FLOOR, this);
+						app->collisions->AddCollider(n2, Collider::Type::LEFT_WALL, this);
+						app->collisions->AddCollider(n3, Collider::Type::RIGHT_WALL, this);
+						app->collisions->AddCollider(n4, Collider::Type::ROOF, this);
+					}
+				}
+
+			}
+		}
+		L = L->next;
+	}
 }

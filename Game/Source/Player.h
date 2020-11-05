@@ -39,12 +39,10 @@ public:
 	// Collision callback, called when the player intersects with another collider
 	void OnCollision(Collider* c1, Collider* c2);
 
-	void DebugDrawGamepadInfo();
+	//void DebugDrawGamepadInfo();
 
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&) const;
-
-	//Playerd playerd;
 
 public:
 	
@@ -86,7 +84,7 @@ public:
 	bool facingRight;
 
 	SDL_Texture* character;
-
+	Collider* collider;
 };
 
 #endif //!__MODULE_PLAYER_H__

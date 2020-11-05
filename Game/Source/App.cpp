@@ -4,6 +4,7 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Audio.h"
+#include "Collisions.h"
 #include "Scene.h"
 #include "Map.h"
 #include "Player.h"
@@ -23,6 +24,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = new Render();
 	tex = new Textures();
 	audio = new Audio();
+	collisions = new Collisions(false);
 	scene = new Scene();
 	map = new Map();
 	player = new Player();
@@ -33,6 +35,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(input);
 	AddModule(tex);
 	AddModule(audio);
+	AddModule(collisions);
 	AddModule(scene);
 	AddModule(map);
 	AddModule(player);
