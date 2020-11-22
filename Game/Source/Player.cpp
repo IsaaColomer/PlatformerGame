@@ -76,7 +76,7 @@ bool Player::Start()
 	facingLeft = false;
 	facingRight = true;
 	//ANIMATION FILE
-	character = app->tex->Load("Assets/player/animations.png");
+	character = app->tex->Load("Assets/Player/animations.png");
 	currentAnimation = &idleAnimR;
 
 	return true;
