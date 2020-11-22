@@ -36,8 +36,8 @@ bool Scene::Awake()
 bool Scene::Start()
 {
 	app->collisions->CleanUp();
-	backg = app->tex->Load("Assets/map/background1.png");
-	app->map->Load("mapf.tmx");
+	backg = app->tex->Load("Assets/map/background.png");
+	app->map->Load("map.tmx");
 	//app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
 
 	return true;

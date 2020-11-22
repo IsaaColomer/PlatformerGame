@@ -16,52 +16,44 @@ Player::Player() : Module()
 {
 	name.Create("player");
 
+	idleAnimR.speed = 0.05f;
 	idleAnimR.loop = true;
 	idleAnimR.PushBack({ 0,593,84,93 });
 	idleAnimR.PushBack({ 0,492,83,93 });
 	idleAnimR.PushBack({ 3,394,79,94 });
 	idleAnimR.PushBack({ 4,300,80,94 });
-	
-	idleAnimR.speed = 0.05f;
 
-
+	idleAnimL.speed = 0.05f;
 	idleAnimL.loop = true;
 	idleAnimL.PushBack({ 468,593,84,93 });
 	idleAnimL.PushBack({ 469,492,83,93 });
 	idleAnimL.PushBack({ 470,394,79,94 });
 	idleAnimL.PushBack({ 468,300,80,94 });
 
-	idleAnimL.speed = 0.05f;
-	//idleAnim.PushBack({ 43,87,20,37 });
-
+	jumpAnim.speed = 0.05f;
 	jumpAnim.loop = false;
-	
 	jumpAnim.PushBack({ 133,292,86,95 });
 	jumpAnim.PushBack({ 127,593,73,93 });
 	jumpAnim.PushBack({ 121,492,85,93 });
 	jumpAnim.PushBack({ 143,393,66,95 });
-	jumpAnim.speed = 0.05f;
 
-
+	rightAnim.speed = 0.05f;
+	rightAnim.loop = true;
 	rightAnim.PushBack({243,592,75,94});
 	rightAnim.PushBack({ 249,492,69,93 });
 	rightAnim.PushBack({ 249,394,77,94 });
 	rightAnim.PushBack({ 243,292,75,94 });
 	rightAnim.PushBack({ 248,187,70,94 });
 	rightAnim.PushBack({ 251,80,67,94 });
-	rightAnim.loop = true;
-	rightAnim.speed = 0.05f;
 
+	leftAnim.speed = 0.05f;
+	leftAnim.loop = true;
 	leftAnim.PushBack({358,592,75,94});
 	leftAnim.PushBack({358,492,69,93});
 	leftAnim.PushBack({350,394,77,94});
 	leftAnim.PushBack({358,292,75,94});
 	leftAnim.PushBack({358,187,70,94});
 	leftAnim.PushBack({358,80,67,94});
-	leftAnim.loop = true;
-	leftAnim.speed = 0.05f;
-
-
 }
 
 Player::~Player()
@@ -84,7 +76,7 @@ bool Player::Start()
 	facingLeft = false;
 	facingRight = true;
 	//ANIMATION FILE
-	character = app->tex->Load("Assets/player/idle.png");
+	character = app->tex->Load("Assets/player/animations.png");
 	currentAnimation = &idleAnimR;
 
 	return true;
