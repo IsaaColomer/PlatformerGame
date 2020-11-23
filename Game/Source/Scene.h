@@ -40,6 +40,7 @@ public:
 private:
 	SDL_Texture* img;
 	SDL_Texture* backg;
+	SDL_Texture* portal;
 };
 
 #endif // __SCENE_H__

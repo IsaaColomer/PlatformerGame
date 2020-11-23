@@ -37,6 +37,7 @@ bool Scene::Start()
 {
 	app->collisions->CleanUp();
 	backg = app->tex->Load("Assets/Map/background.png");
+	portal = app->tex->Load("Assets/Map/portal.png");
 	app->map->Load("map.tmx");
 	//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
 
@@ -56,6 +57,7 @@ bool Scene::Update(float dt)
 	
 	//all draws
 	app->render->DrawTexture(backg, 0, 0);
+	app->render->DrawTexture(portal, 2325, 265);
 	app->map->Draw();
 
 	// L03: DONE 7: Set the window title with map/tileset info
