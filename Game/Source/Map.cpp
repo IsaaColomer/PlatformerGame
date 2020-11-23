@@ -85,7 +85,7 @@ void Map::Draw()
 					iPoint vec = MapToWorld(x, y);
 					for (int i = 0; i < data.tilesets.count() && data.layer.At(i) != nullptr; i++)
 					{
-						if (data.layer.At(i)->data->properties.GetProperty("Nodraw", 0) == 0 || DrawColliders)
+						if (data.layer.At(i)->data->properties.GetProperty("Draw", 1) == 1 || DrawColliders)
 							app->render->DrawTexture(data.tilesets.At(i)->data->texture, vec.x, vec.y, &data.tilesets.At(i)->data->GetTileRect(tileId));
 						//app->render->DrawTexture(GetTilesetFromTileId(tileId)->texture, vec.x, vec.y, &GetTilesetFromTileId(tileId)->GetTileRect(tileId));
 					}
@@ -365,7 +365,7 @@ void Map::LoadColliders()
 	while (L != nullptr)
 	{
 		MapLayer* layer = L->data;
-		if (layer->properties.GetProperty("Nodraw", 0) == 0)
+		if (layer->properties.GetProperty("Draw", 1) == 1)
 		{
 			L = L->next;
 			continue;
@@ -377,23 +377,23 @@ void Map::LoadColliders()
 			{
 				int u = layer->Get(x, y);
 				iPoint pos = MapToWorld(x, y);
-				SDL_Rect n = { pos.x-2, pos.y+3, data.tileWidth+14, 3 };
-				SDL_Rect n2 = { pos.x, pos.y+10, 3, data.tileHeight-10};
-				SDL_Rect n3 = { pos.x + data.tileWidth - 3, pos.y + 10, 3, data.tileHeight -15};
-				SDL_Rect n4 = { pos.x+5, pos.y + data.tileHeight -1, data.tileWidth-10, 2 };
+				SDL_Rect n = { pos.x+6, pos.y, data.tileWidth-12, 3 };
+				SDL_Rect n2 = { pos.x, pos.y+6, 3, data.tileHeight-12};
+				SDL_Rect n3 = { pos.x + data.tileWidth, pos.y+6, 3, data.tileHeight-12};
+				SDL_Rect n4 = { pos.x+6, pos.y + data.tileHeight-3, data.tileWidth-12, 3 };
 				if (u != 0)
 				{
-					if (layer->properties.GetProperty("Nodraw", 0) == 1)
+					if (layer->name == "win")
+					{
+						SDL_Rect w = { pos.x,pos.y, data.tileWidth, data.tileHeight };
+						app->collisions->AddCollider(w, Collider::Type::WIN, this);
+					}
+					else if (layer->properties.GetProperty("Draw", 1) == 0)
 					{
 						app->collisions->AddCollider(n, Collider::Type::FLOOR, this);
 						app->collisions->AddCollider(n2, Collider::Type::LEFT_WALL, this);
 						app->collisions->AddCollider(n3, Collider::Type::RIGHT_WALL, this);
 						app->collisions->AddCollider(n4, Collider::Type::ROOF, this);
-					}
-					if (layer->properties.GetProperty("isWin", 0) == 1)
-					{
-						SDL_Rect w = { pos.x,pos.y, data.tileWidth, data.tileHeight };
-						app->collisions->AddCollider(w, Collider::Type::WIN, this);
 					}
 				}
 
