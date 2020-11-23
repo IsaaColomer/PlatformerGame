@@ -815,6 +815,7 @@
  <layer id="3" name="win" width="36" height="11">
   <properties>
    <property name="isWin" type="int" value="1"/>
+   <property name="noDraw" type="int" value="1"/>
   </properties>
   <data>
    <tile/>
