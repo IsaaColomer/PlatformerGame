@@ -265,25 +265,28 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1 == collider && !godMode)
 	{
-		if (c2->type == Collider::Type::LEFT_WALL)
-		{
-			cp.x -= 1;
-			cp.y = cp.y;
-		}
-		if (c2->type == Collider::Type::RIGHT_WALL)
-		{
-			cp.x += 1;
-			cp.y = cp.y;
-		}
 		if (c2->type == Collider::Type::FLOOR)
 		{
 			ong = true;
 			cp.y = cp.y;
 		}
+		else if (c2->type == Collider::Type::LEFT_WALL)
+		{
+			cp.x = c2->rect.x - cp.w;
+		}
+		else if (c2->type == Collider::Type::RIGHT_WALL)
+		{
+			cp.x = c2->rect.x + c2->rect.w;
+		}
 		if (c2->type == Collider::Type::ROOF)
 		{
 			cp.y += 1;
+			cp.y = c2->rect.y + c2->rect.h;
 			vcy = 0;
+		}
+		if (c2->type == Collider::Type::WIN)
+		{
+			printf("WIN!!!");
 		}
 	}
 }

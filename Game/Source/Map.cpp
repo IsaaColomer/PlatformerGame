@@ -377,7 +377,7 @@ void Map::LoadColliders()
 			{
 				int u = layer->Get(x, y);
 				iPoint pos = MapToWorld(x, y);
-				SDL_Rect n = { pos.x-2, pos.y+3, data.tileWidth+14, 6 };
+				SDL_Rect n = { pos.x-2, pos.y+3, data.tileWidth+14, 3 };
 				SDL_Rect n2 = { pos.x, pos.y+10, 3, data.tileHeight-10};
 				SDL_Rect n3 = { pos.x + data.tileWidth - 3, pos.y + 10, 3, data.tileHeight -15};
 				SDL_Rect n4 = { pos.x+5, pos.y + data.tileHeight -1, data.tileWidth-10, 2 };
@@ -389,6 +389,11 @@ void Map::LoadColliders()
 						app->collisions->AddCollider(n2, Collider::Type::LEFT_WALL, this);
 						app->collisions->AddCollider(n3, Collider::Type::RIGHT_WALL, this);
 						app->collisions->AddCollider(n4, Collider::Type::ROOF, this);
+					}
+					if (layer->properties.GetProperty("isWin", 0) == 1)
+					{
+						SDL_Rect w = { pos.x,pos.y, data.tileWidth, data.tileHeight };
+						app->collisions->AddCollider(w, Collider::Type::WIN, this);
 					}
 				}
 

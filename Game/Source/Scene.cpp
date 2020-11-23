@@ -57,7 +57,7 @@ bool Scene::Update(float dt)
 	
 	//all draws
 	app->render->DrawTexture(backg, 0, 0);
-	app->render->DrawTexture(portal, 2325, 265);
+	app->render->DrawTexture(portal, 2325, 290);
 	app->map->Draw();
 
 	// L03: DONE 7: Set the window title with map/tileset info

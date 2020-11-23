@@ -14,12 +14,14 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::LEFT_WALL][Collider::Type::RIGHT_WALL] = false;
 	matrix[Collider::Type::LEFT_WALL][Collider::Type::FLOOR] = false;
 	matrix[Collider::Type::LEFT_WALL][Collider::Type::ROOF] = false;
+	matrix[Collider::Type::LEFT_WALL][Collider::Type::WIN] = false;
 	matrix[Collider::Type::LEFT_WALL][Collider::Type::PLAYER] = true;
 	
 	matrix[Collider::Type::RIGHT_WALL][Collider::Type::LEFT_WALL] = false;
 	matrix[Collider::Type::RIGHT_WALL][Collider::Type::RIGHT_WALL] = false;
 	matrix[Collider::Type::RIGHT_WALL][Collider::Type::FLOOR] = false;
 	matrix[Collider::Type::RIGHT_WALL][Collider::Type::ROOF] = false;
+	matrix[Collider::Type::RIGHT_WALL][Collider::Type::WIN] = false;
 	matrix[Collider::Type::RIGHT_WALL][Collider::Type::PLAYER] = true;
 
 	matrix[Collider::Type::FLOOR][Collider::Type::LEFT_WALL] = false;
@@ -27,19 +29,28 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::FLOOR][Collider::Type::FLOOR] = false;
 	matrix[Collider::Type::FLOOR][Collider::Type::ROOF] = false;
 	matrix[Collider::Type::FLOOR][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::FLOOR][Collider::Type::WIN] = false;
 
 	matrix[Collider::Type::ROOF][Collider::Type::LEFT_WALL] = false;
 	matrix[Collider::Type::ROOF][Collider::Type::RIGHT_WALL] = false;
 	matrix[Collider::Type::ROOF][Collider::Type::FLOOR] = false;
 	matrix[Collider::Type::ROOF][Collider::Type::ROOF] = true;
 	matrix[Collider::Type::ROOF][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::ROOF][Collider::Type::WIN] = false;
 
 	matrix[Collider::Type::PLAYER][Collider::Type::LEFT_WALL] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::RIGHT_WALL] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::FLOOR] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::ROOF] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
+	matrix[Collider::Type::PLAYER][Collider::Type::WIN] = true;
 
+	matrix[Collider::Type::WIN][Collider::Type::LEFT_WALL] = false;
+	matrix[Collider::Type::WIN][Collider::Type::RIGHT_WALL] = false;
+	matrix[Collider::Type::WIN][Collider::Type::FLOOR] = false;
+	matrix[Collider::Type::WIN][Collider::Type::ROOF] = false;
+	matrix[Collider::Type::WIN][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::WIN][Collider::Type::WIN] = false;
 
 }
 
@@ -187,6 +198,9 @@ void Collisions::DebugDraw()
 			break;
 		case Collider::Type::PLAYER:
 			app->render->DrawRectangle(colliders[i]->rect, 0, 0, 255, alpha);
+			break;
+		case Collider::Type::WIN:
+			app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
 
 		}
