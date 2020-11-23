@@ -15,9 +15,16 @@
 #include <iostream>
 #include <sstream>
 
+// L07: TODO 3: Measure the amount of ms that takes to execute:
+// App constructor, Awake, Start and CleanUp
+// LOG the result
+
+
 // Constructor
 App::App(int argc, char* args[]) : argc(argc), args(args)
 {
+	startupTime.Start();
+
 	frames = 0;
 
 	win = new Window();
@@ -43,6 +50,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	// Render last to swap buffer
 	AddModule(render);
+	LOG("It took %f ms to execute", startupTime.Read());
+	lastSecFrameCount += startupTime.Read();
 }
 
 // Destructor
@@ -69,6 +78,7 @@ void App::AddModule(Module* module)
 // Called before render is available
 bool App::Awake()
 {
+	startupTime.Start();
 	pugi::xml_document configFile;
 	pugi::xml_node config;
 	pugi::xml_node configApp;
@@ -110,12 +120,16 @@ bool App::Awake()
 		saveLoadNode = saveLoadFile.child("save");
 	}
 
+	LOG("It took %f ms to execute", startupTime.Read());
+	lastSecFrameCount += startupTime.Read();
+
 	return ret;
 }
 
 // Called before the first frame
 bool App::Start()
 {
+	startupTime.Start();
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.start;
@@ -125,6 +139,9 @@ bool App::Start()
 		ret = item->data->Start();
 		item = item->next;
 	}
+
+	LOG("It took %f ms to execute", startupTime.Read());
+	lastSecFrameCount += startupTime.Read();
 
 	return ret;
 }
@@ -247,6 +264,7 @@ bool App::PostUpdate()
 // Called before quitting
 bool App::CleanUp()
 {
+	startupTime.Start();
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.end;
@@ -256,6 +274,10 @@ bool App::CleanUp()
 		ret = item->data->CleanUp();
 		item = item->prev;
 	}
+
+	LOG("It took %f ms to execute", startupTime.Read());
+	lastSecFrameCount += startupTime.Read();
+	LOG("Total: %f", lastSecFrameCount);
 
 	return ret;
 }

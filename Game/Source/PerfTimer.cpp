@@ -19,15 +19,15 @@ PerfTimer::PerfTimer()
 
 void PerfTimer::Start()
 {
-	//...
+	startTime = SDL_GetTicks();
 }
 
 double PerfTimer::ReadMs() const
 {
-	return 0.0;
+	return startTime;
 }
 
 uint64 PerfTimer::ReadTicks() const
 {
-	return 0;
+	return SDL_GetTicks() - startTime;
 }
