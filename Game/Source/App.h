@@ -109,7 +109,7 @@ private:
 	//pugi::xml_node configApp;
 
 	uint frames;
-	float dt;
+	//float dt;
 
 	mutable bool saveGameRequested;
 	bool loadGameRequested;
