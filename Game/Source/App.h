@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "PerfTimer.h"
+#include "Timer.h"
 #include "List.h"
 
 #include "PugiXml/src/pugixml.hpp"
