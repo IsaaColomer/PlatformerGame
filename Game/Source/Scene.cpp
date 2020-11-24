@@ -35,10 +35,16 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
+	app->player->active = true;
+	app->scene->active = true;
+	app->collisions->active = true;
+	app->map->active = true;
+
 	app->collisions->CleanUp();
 	backg = app->tex->Load("Assets/Map/background.png");
 	portal = app->tex->Load("Assets/Map/portal.png");
 	app->map->Load("map.tmx");
+
 	//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
 
 	return true;
