@@ -26,7 +26,7 @@ bool Intro::Start()
 
 	bool ret = true;
 
-	bgTexture = app->tex->Load("Assets/Map/background.png");
+	introscreen = app->tex->Load("Assets/Textures/introscreen.png");
 	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
 
 	app->render->camera.x = 0;
@@ -50,7 +50,7 @@ bool Intro::PostUpdate()
 {
 	bool ret = true;
 	// Draw everything --------------------------------------
-	app->render->DrawTexture(bgTexture, 0, 0, NULL);
+	app->render->DrawTexture(introscreen, 0, 0, NULL);
 
 	return ret;
 }
