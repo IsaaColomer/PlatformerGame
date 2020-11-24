@@ -48,6 +48,7 @@ public:
 	
 	SDL_Rect cp;
 	float vcy, vcx;
+	bool xMove;
 	bool godMode;
 	bool ong;
 	bool debugDraw;

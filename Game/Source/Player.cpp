@@ -69,6 +69,8 @@ bool Player::Start()
 	cp.h = 93;
 	vcy = 0;
 	vcx = 2.0f;
+
+	xMove = false;
 	ong = false;
 
 	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);
@@ -122,6 +124,8 @@ bool Player::Update(float dt)
 		cp.y = 500;
 		vcy = 0;
 		vcx = 2.0f;
+
+		xMove = false;
 		ong = false;
 		app->render->camera.y = 0;
 		app->render->camera.x = 0;
@@ -186,10 +190,11 @@ bool Player::Update(float dt)
 			leftAnim.Reset();
 			currentAnimation = &leftAnim;
 		}
-		if (cp.x > 640 && cp.x < 1920)
+		if (cp.x > 640 && cp.x < 1920 && xMove)
 		{
-			app->render->camera.x += 2.0f;
+			app->render->camera.x += vcx;
 		}
+		xMove = true;
 		facingLeft = true;
 		facingRight = false;
 	}
@@ -204,10 +209,11 @@ bool Player::Update(float dt)
 			rightAnim.Reset();
 			currentAnimation = &rightAnim;
 		}
-		if (cp.x > 640 && cp.x <= 1920)
+		if (cp.x > 640 && cp.x < 1920 && xMove)
 		{
-			app->render->camera.x -= 2.0f;
+			app->render->camera.x -= vcx;
 		}
+		xMove = true;
 		facingRight = true;
 		facingLeft = false;
 	}
@@ -272,15 +278,17 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		if (c2->type == Collider::Type::LEFT_WALL)
 		{
 			cp.x = c2->rect.x - cp.w;
+			xMove = false;
 		}
 		if (c2->type == Collider::Type::RIGHT_WALL)
 		{
 			cp.x = c2->rect.x + c2->rect.w;
+			xMove = false;
 		}
 		if (c2->type == Collider::Type::ROOF)
 		{
 			cp.y = c2->rect.y + c2->rect.h;
-			vcy = 0;
+			vcy = 0.0f;
 		}
 		if (c2->type == Collider::Type::WIN)
 		{
