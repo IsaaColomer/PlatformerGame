@@ -37,7 +37,6 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
-	//if (active) {
 		app->player->active = true;
 		app->scene->active = true;
 		app->collisions->active = true;
@@ -49,7 +48,7 @@ bool Scene::Start()
 		app->map->Load("map.tmx");
 
 		//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
-	//}
+
 	return true;
 }
 
@@ -62,24 +61,22 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	//if (active) {
 		//camera movement
-
 		//all draws
-		app->render->DrawTexture(backg, 0, 0);
-		app->render->DrawTexture(portal, 2325, 290);
-		app->map->Draw();
+	app->render->DrawTexture(backg, 0, 0);
+	app->render->DrawTexture(portal, 2325, 290);
+	app->map->Draw();
 
 		// L03: DONE 7: Set the window title with map/tileset info
-		SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
-			app->map->data.width, app->map->data.height,
-			app->map->data.tileWidth, app->map->data.tileHeight,
-			app->map->data.tilesets.count());
+	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
+		app->map->data.width, app->map->data.height,
+		app->map->data.tileWidth, app->map->data.tileHeight,
+		app->map->data.tilesets.count());
 
-		app->win->SetTitle(title.GetString());
+	app->win->SetTitle(title.GetString());
 
-		app->map->LoadColliders();
-	//}
+	app->map->LoadColliders();
+
 	return true;
 
 }

@@ -18,42 +18,42 @@ Player::Player() : Module()
 
 	idleAnimR.speed = 0.05f;
 	idleAnimR.loop = true;
-	idleAnimR.PushBack({ 0,593,84,93 });
-	idleAnimR.PushBack({ 0,492,83,93 });
-	idleAnimR.PushBack({ 3,394,79,94 });
-	idleAnimR.PushBack({ 4,300,80,94 });
+	idleAnimR.PushBack({ 0,0,66,110 });
+	idleAnimR.PushBack({ 72,0,66,110 });
+	idleAnimR.PushBack({ 141,0,67,110 });
+	//idleAnimR.PushBack({ 4,300,80,94 });
 
 	idleAnimL.speed = 0.05f;
 	idleAnimL.loop = true;
-	idleAnimL.PushBack({ 468,593,84,93 });
-	idleAnimL.PushBack({ 469,492,83,93 });
-	idleAnimL.PushBack({ 470,394,79,94 });
-	idleAnimL.PushBack({ 468,300,80,94 });
+	idleAnimL.PushBack({ 0,110,67,110 });
+	idleAnimL.PushBack({ 70,110,66,110 });
+	idleAnimL.PushBack({ 142,110,66,110 });
 
 	jumpAnim.speed = 0.05f;
 	jumpAnim.loop = false;
-	jumpAnim.PushBack({ 133,292,86,95 });
-	jumpAnim.PushBack({ 127,593,73,93 });
-	jumpAnim.PushBack({ 121,492,85,93 });
-	jumpAnim.PushBack({ 143,393,66,95 });
+	jumpAnim.PushBack({ 0,225,65,110 });
+	jumpAnim.PushBack({ 72,225,57,110 });
+	jumpAnim.PushBack({ 136,225,68,111 });
+	jumpAnim.PushBack({ 208,225,57,110 });
+	jumpAnim.PushBack({ 278,225,83,110 });
 
 	rightAnim.speed = 0.05f;
 	rightAnim.loop = true;
-	rightAnim.PushBack({243,592,75,94});
-	rightAnim.PushBack({ 249,492,69,93 });
-	rightAnim.PushBack({ 249,394,77,94 });
-	rightAnim.PushBack({ 243,292,75,94 });
-	rightAnim.PushBack({ 248,187,70,94 });
-	rightAnim.PushBack({ 251,80,67,94 });
+	rightAnim.PushBack({ 0,341,38,110  });
+	rightAnim.PushBack({ 39,350,67,101 });
+	rightAnim.PushBack({ 122,350,67,101 });
+	rightAnim.PushBack({ 190,350,62,102 });
+	rightAnim.PushBack({ 253,350,84,102 });
+	rightAnim.PushBack({ 337,351,74,101 });
 
 	leftAnim.speed = 0.05f;
 	leftAnim.loop = true;
-	leftAnim.PushBack({358,592,75,94});
-	leftAnim.PushBack({358,492,69,93});
-	leftAnim.PushBack({350,394,77,94});
-	leftAnim.PushBack({358,292,75,94});
-	leftAnim.PushBack({358,187,70,94});
-	leftAnim.PushBack({358,80,67,94});
+	leftAnim.PushBack({3,461,74,101});
+	leftAnim.PushBack({77,460,84,102});
+	leftAnim.PushBack({162,460,62,102});
+	leftAnim.PushBack({225,460,67,101});
+	leftAnim.PushBack({308,460,67,101});
+	leftAnim.PushBack({ 376,451,38,110 });
 }
 
 Player::~Player()
@@ -65,8 +65,8 @@ bool Player::Start()
 {
 	cp.x = 70;
 	cp.y = 500;
-	cp.w = 50;
-	cp.h = 93;
+	cp.w = 66;
+	cp.h = 110;
 	vcy = 0;
 	vcx = 2.0f;
 
@@ -78,7 +78,7 @@ bool Player::Start()
 	facingLeft = false;
 	facingRight = true;
 	//ANIMATION FILE
-	character = app->tex->Load("Assets/Player/animations.png");
+	character = app->tex->Load("Assets/Player/anim1.png");
 	currentAnimation = &idleAnimR;
 
 	return true;
