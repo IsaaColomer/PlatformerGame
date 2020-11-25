@@ -1,17 +1,25 @@
-#include "Intro.h"
-
 #include "App.h"
-#include "Textures.h"
-#include "Render.h"
-#include "Audio.h"
 #include "Input.h"
+#include "Textures.h"
+#include "Audio.h"
+#include "Render.h"
+#include "Window.h"
+#include "Collisions.h"
+#include "Scene.h"
+#include "Map.h"
+#include "Player.h"
+#include "Animation.h"
+#include "Intro.h"
+#include "Scene.h"
 #include "ModuleFadeToBlack.h"
-#include "Log.h"
+
+
 #include "Defs.h"
+#include "Log.h"
 
 Intro::Intro() : Module()
 {
-
+	name.Create("intro");
 }
 
 Intro::~Intro()
@@ -19,10 +27,25 @@ Intro::~Intro()
 
 }
 
+bool Intro::Awake()
+{
+	LOG("Loading Intro");
+	bool ret = true;
+
+	return ret;
+}
+
 // Load assets
 bool Intro::Start()
 {
-	LOG("Loading background assets");
+
+	/*app->player->active = false;
+	app->scene->active = false;
+	app-> collisions->active = false;
+	app-> map->active = false;*/
+	active = true;
+
+	LOG("Loading intro assets");
 
 	bool ret = true;
 
@@ -35,11 +58,16 @@ bool Intro::Start()
 	return ret;
 }
 
-bool Intro::Update()
+bool Intro::PreUpdate()
+{
+	return true;
+}
+
+bool Intro::Update(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-		app->fade->Fade(this, (Module*)app->scene, 90);
+		app->fade->Fade(this, (Module*)app->scene, 60);
 	}
 
 	return true;
@@ -53,4 +81,11 @@ bool Intro::PostUpdate()
 	app->render->DrawTexture(introscreen, 0, 0, NULL);
 
 	return ret;
+}
+
+bool Intro::CleanUp()
+{
+	LOG("Freeing intro");
+	active = false;
+	return true;
 }
