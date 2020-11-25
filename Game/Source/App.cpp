@@ -55,10 +55,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fade);
 	AddModule(intro);
 
-	player->active = false;
-	scene->active = false;
-	collisions->active = false;
-	map->active = false;
+	//player->active = false;
+	//scene->active = false;
+	//collisions->active = false;
+	//map->active = false;
 
 	// Render last to swap buffer
 	AddModule(render);

@@ -85,7 +85,7 @@ void Map::Draw()
 					iPoint vec = MapToWorld(x, y);
 					for (int i = 0; i < data.tilesets.count() && data.layer.At(i) != nullptr; i++)
 					{
-						if (data.layer.At(i)->data->properties.GetProperty("Draw", 1) == 1 || DrawColliders)
+						if (data.layer.At(i)->data->properties.GetProperty("Draw", 0) == 1 && layer->data->name != "colliders" && layer->data->name != "win")
 							app->render->DrawTexture(data.tilesets.At(i)->data->texture, vec.x, vec.y, &data.tilesets.At(i)->data->GetTileRect(tileId));
 						//app->render->DrawTexture(GetTilesetFromTileId(tileId)->texture, vec.x, vec.y, &GetTilesetFromTileId(tileId)->GetTileRect(tileId));
 					}
