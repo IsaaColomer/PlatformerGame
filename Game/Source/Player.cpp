@@ -294,5 +294,9 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		{
 			printf("WIN!!!");
 		}
+		if (c2->type == Collider::Type::DEATH)
+		{
+			printf("DEAD!!!");
+		}
 	}
 }

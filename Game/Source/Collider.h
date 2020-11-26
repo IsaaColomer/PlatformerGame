@@ -15,6 +15,7 @@ struct Collider
 		PLAYER,
 		WIN,
 		ROOF,
+		DEATH,
 	
 		MAX
 	};

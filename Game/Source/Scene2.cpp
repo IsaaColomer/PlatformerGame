@@ -38,7 +38,7 @@ bool Scene2::Awake()
 bool Scene2::Start()
 {
 	app->player->active = true;
-	app->scene->active = true;
+	//app->scene->active = true;
 	app->collisions->active = true;
 	app->map->active = true;
 
