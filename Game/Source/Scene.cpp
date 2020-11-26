@@ -95,7 +95,11 @@ bool Scene::PostUpdate()
 // Called before quitting
 bool Scene::CleanUp()
 {
+	app->player->active = false;
+	app->scene->active = false;
+	app->collisions->active = false;
+	app->map->active = false;
+
 	LOG("Freeing scene");
-	active = false;
 	return true;
 }

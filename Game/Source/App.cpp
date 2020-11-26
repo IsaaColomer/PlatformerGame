@@ -51,19 +51,12 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(collisions);
-	//AddModule(scene);
+	AddModule(scene);
 	AddModule(scene2);
 	AddModule(map);
 	AddModule(player);
 	AddModule(fade);
 	AddModule(intro);
-
-
-
-	//player->active = false;
-	//scene->active = false;
-	//collisions->active = false;
-	//map->active = false;
 
 	// Render last to swap buffer
 	AddModule(render);
@@ -247,7 +240,8 @@ bool App::DoUpdate()
 	{
 		pModule = item->data;
 
-		if (pModule->active == false) {
+		if (pModule->active == false)
+		{
 			continue;
 		}
 

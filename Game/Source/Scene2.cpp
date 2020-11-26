@@ -38,15 +38,14 @@ bool Scene2::Awake()
 bool Scene2::Start()
 {
 	app->player->active = true;
-	//app->scene->active = true;
+	app->scene2->active = true;
 	app->collisions->active = true;
 	app->map->active = true;
 
 	app->collisions->CleanUp();
 	backg = app->tex->Load("Assets/Map/background.png");
-	//portal = app->tex->Load("Assets/Map/portal.png");
+	portal = app->tex->Load("Assets/Map/portal.png");
 	app->map->Load("map2.tmx");
-
 	//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
 
 	return true;
@@ -95,7 +94,11 @@ bool Scene2::PostUpdate()
 // Called before quitting
 bool Scene2::CleanUp()
 {
+	app->player->active = false;
+	app->scene2->active = false;
+	app->collisions->active = false;
+	app->map->active = false;
+
 	LOG("Freeing scene");
-	active = false;
 	return true;
 }

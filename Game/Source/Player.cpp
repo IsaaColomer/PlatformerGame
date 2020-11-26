@@ -246,7 +246,7 @@ bool Player::PostUpdate()
 
 bool Player::CleanUp()
 {
-
+	active = false;
 	return true;
 }
 bool Player::LoadState(pugi::xml_node& data)

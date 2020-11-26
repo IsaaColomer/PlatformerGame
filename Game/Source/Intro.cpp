@@ -38,16 +38,11 @@ bool Intro::Awake()
 // Load assets
 bool Intro::Start()
 {
-
-	/*app->player->active = false;
-	app->scene->active = false;
-	app-> collisions->active = false;
-	app-> map->active = false;*/
-	active = true;
-
-	LOG("Loading intro assets");
+	app->intro->active = true;
 
 	bool ret = true;
+
+	LOG("Loading intro assets");
 
 	introscreen = app->tex->Load("Assets/Textures/introscreen.png");
 	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
@@ -82,7 +77,7 @@ bool Intro::PostUpdate()
 {
 	bool ret = true;
 	// Draw everything --------------------------------------
-	app->render->DrawTexture(introscreen, 0, 0, NULL);
+	//app->render->DrawTexture(introscreen, 0, 0, NULL);
 
 	return ret;
 }
@@ -90,6 +85,6 @@ bool Intro::PostUpdate()
 bool Intro::CleanUp()
 {
 	LOG("Freeing intro");
-	active = false;
+	app->intro->active = false;
 	return true;
 }
