@@ -23,6 +23,7 @@ class Map;
 class Player;
 class FadeToBlack;
 class Intro;
+class Scene2;
 
 class App
 {
@@ -95,7 +96,7 @@ public:
 	Player* player;
 	FadeToBlack* fade;
 	Intro* intro;
-	
+	Scene2* scene2;
 	
 
 private:

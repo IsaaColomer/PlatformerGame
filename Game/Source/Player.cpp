@@ -63,8 +63,8 @@ Player::~Player()
 
 bool Player::Start()
 {
-	cp.x = 70;
-	cp.y = 500;
+	cp.x = 0;//70
+	cp.y = 0;//500
 	cp.w = 66;
 	cp.h = 110;
 	vcy = 0;

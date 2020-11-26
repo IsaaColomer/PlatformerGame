@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "ModuleFadeToBlack.h"
 #include "Intro.h"
+#include "Scene2.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -40,6 +41,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	player = new Player();
 	fade = new FadeToBlack();
 	intro = new Intro();
+	scene2 = new Scene2();
 
 	
 	// Ordered for awake / Start / Update
@@ -49,11 +51,13 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(collisions);
-	AddModule(scene);
+	//AddModule(scene);
+	AddModule(scene2);
 	AddModule(map);
 	AddModule(player);
 	AddModule(fade);
 	AddModule(intro);
+
 
 	//player->active = false;
 	//scene->active = false;
