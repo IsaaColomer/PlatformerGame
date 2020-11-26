@@ -60,14 +60,7 @@ bool Intro::PreUpdate()
 
 bool Intro::Update(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		app->fade->Fade(this, (Module*)app->scene, 60);
-	}
-	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-	{
-		app->fade->Fade(this, (Module*)app->scene2, 60);
-	}
+
 
 	return true;
 }
@@ -75,16 +68,26 @@ bool Intro::Update(float dt)
 // Update: draw background
 bool Intro::PostUpdate()
 {
-	bool ret = true;
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		app->fade->Fade(this, (Module*)app->scene, 60);
+		return true;
+	}
 	// Draw everything --------------------------------------
-	//app->render->DrawTexture(introscreen, 0, 0, NULL);
+	app->render->DrawTexture(introscreen, 0, 0, NULL);
 
-	return ret;
+	return true;
 }
 
 bool Intro::CleanUp()
 {
+	if (!active)
+		return true;
+
 	LOG("Freeing intro");
+
 	app->intro->active = false;
+	app->tex->UnLoad(introscreen);
+
 	return true;
 }

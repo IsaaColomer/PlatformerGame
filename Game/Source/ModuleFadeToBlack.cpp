@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "App.h"
 #include "Render.h"
+#include "Scene.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -36,8 +37,10 @@ bool FadeToBlack::Update(float dt)
 	// Exit this function if we are not performing a fade
 	//if (currentStep == Fade_Step::NONE) return Update_Status::UPDATE_CONTINUE;
 
-	bool ret = true;
-
+	if (currentStep == Fade_Step::NONE)
+	{
+		return true;
+	}
 	if (currentStep == Fade_Step::TO_BLACK)
 	{
 		++frameCount;
@@ -65,14 +68,18 @@ bool FadeToBlack::Update(float dt)
 		}
 	}
 
-	return ret;
+	return true;
 }
 
 bool FadeToBlack::PostUpdate()
 {
-	bool ret = true;
 	// Exit this function if we are not performing a fade
 //	if (currentStep == Fade_Step::NONE) return Update_Status::UPDATE_CONTINUE;
+
+	if (currentStep == Fade_Step::NONE)
+	{
+		return true;
+	}
 
 	float fadeRatio = (float)frameCount / (float)maxFadeFrames;
 
@@ -80,12 +87,20 @@ bool FadeToBlack::PostUpdate()
 	SDL_SetRenderDrawColor(app->render->renderer, 0, 0, 0, (Uint8)(fadeRatio * 255.0f));
 	SDL_RenderFillRect(app->render->renderer, &screenRect);
 
-	return ret;
+	return true;
+}
+
+bool FadeToBlack::CleanUp()
+{
+	moduleToDisable = nullptr;
+	moduleToEnable = nullptr;
+
+	return true;
 }
 
 bool FadeToBlack::Fade(Module* toDisable, Module* toEnable, float frames)
 {
-	bool ret = false;
+	bool ret = true;
 
 	moduleToDisable = toDisable;
 	moduleToEnable = toEnable;

@@ -37,12 +37,11 @@ bool Scene2::Awake()
 // Called before the first frame
 bool Scene2::Start()
 {
-	app->player->active = true;
-	app->scene2->active = true;
-	app->collisions->active = true;
+	app->player->Init();
+	app->player->Start();
 	app->map->active = true;
+	app->collisions->active = true;
 
-	app->collisions->CleanUp();
 	backg = app->tex->Load("Assets/Map/background.png");
 	portal = app->tex->Load("Assets/Map/portal.png");
 	app->map->Load("map2.tmx");
@@ -94,10 +93,13 @@ bool Scene2::PostUpdate()
 // Called before quitting
 bool Scene2::CleanUp()
 {
-	app->player->active = false;
+	if (!active)
+		return true;
+
+	app->map->CleanUp();
+	app->player->CleanUp();
+
 	app->scene2->active = false;
-	app->collisions->active = false;
-	app->map->active = false;
 
 	LOG("Freeing scene");
 	return true;

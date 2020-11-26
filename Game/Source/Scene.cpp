@@ -11,6 +11,8 @@
 #include "Animation.h"
 #include "Intro.h"
 #include "Scene.h"
+#include "ModuleFadeToBlack.h"
+#include "Scene2.h"
 
 
 #include "Defs.h"
@@ -37,12 +39,11 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
-		app->player->active = true;
-		app->scene->active = true;
+		app->player->Init();
+		app->player->Start();
 		app->collisions->active = true;
 		app->map->active = true;
 
-		app->collisions->CleanUp();
 		backg = app->tex->Load("Assets/Map/background.png");
 		portal = app->tex->Load("Assets/Map/portal.png");
 		app->map->Load("map.tmx");
@@ -88,17 +89,23 @@ bool Scene::PostUpdate()
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
-
+	if (app->player->win == true)
+	{
+		app->fade->Fade(this, (Module*)app->scene2, 60);
+	}
 	return ret;
 }
 
 // Called before quitting
 bool Scene::CleanUp()
 {
-	app->player->active = false;
+	if (!active)return true;
+
+	app->map->CleanUp();
+	app->player->CleanUp();
+	app->collisions->CleanUp();
+
 	app->scene->active = false;
-	app->collisions->active = false;
-	app->map->active = false;
 
 	LOG("Freeing scene");
 	return true;

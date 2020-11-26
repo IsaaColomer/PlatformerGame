@@ -35,7 +35,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = new Render();
 	tex = new Textures();
 	audio = new Audio();
-	collisions = new Collisions(false);
+	collisions = new Collisions(true);
 	scene = new Scene();
 	map = new Map();
 	player = new Player();
@@ -51,12 +51,17 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(collisions);
-	AddModule(scene);
-	AddModule(scene2);
 	AddModule(map);
 	AddModule(player);
-	AddModule(fade);
 	AddModule(intro);
+	AddModule(scene);
+	AddModule(scene2);
+	AddModule(fade);
+
+	scene->active = false;
+	player->active = false;
+	collisions->active = false;
+	scene2->active = false;
 
 	// Render last to swap buffer
 	AddModule(render);
@@ -146,7 +151,10 @@ bool App::Start()
 
 	while (item != NULL && ret == true)
 	{
-		ret = item->data->Start();
+		if (item->data->active == true)
+		{
+			ret = item->data->Start();
+		}
 		item = item->next;
 	}
 

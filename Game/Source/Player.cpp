@@ -7,7 +7,8 @@
 #include "Player.h"
 #include "Map.h"
 #include "Collisions.h"
-
+#include "Scene2.h"
+#include "ModuleFadeToBlack.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -72,6 +73,7 @@ bool Player::Start()
 
 	xMove = false;
 	ong = false;
+	win = false;
 
 	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);
 
@@ -290,9 +292,9 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			cp.y = c2->rect.y + c2->rect.h;
 			vcy = 0.0f;
 		}
-		if (c2->type == Collider::Type::WIN)
+		if (c2->type == Collider::Type::WIN && win == false)
 		{
-			printf("WIN!!!");
+			win = true;
 		}
 		if (c2->type == Collider::Type::DEATH)
 		{
