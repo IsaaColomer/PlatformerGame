@@ -11,6 +11,7 @@
 #include "ModuleFadeToBlack.h"
 #include "Intro.h"
 #include "Scene2.h"
+#include "Title.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -42,6 +43,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	fade = new FadeToBlack();
 	intro = new Intro();
 	scene2 = new Scene2();
+	titleScreen = new Title();
 
 	
 	// Ordered for awake / Start / Update
@@ -57,11 +59,13 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(scene2);
 	AddModule(fade);
+	AddModule(titleScreen);
 
 	scene->active = false;
 	player->active = false;
 	collisions->active = false;
 	scene2->active = false;
+	intro->active = false;
 
 	// Render last to swap buffer
 	AddModule(render);

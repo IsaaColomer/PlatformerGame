@@ -11,6 +11,7 @@
 #include "Intro.h"
 #include "ModuleFadeToBlack.h"
 #include "Scene.h"
+#include "Title.h"
 
 #include "Defs.h"
 #include "Log.h"
