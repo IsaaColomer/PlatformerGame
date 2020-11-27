@@ -78,15 +78,13 @@ bool Player::Start()
 
 	xMove = false;
 	ong = false;
-	win = false;
-	lvlC = false;
 
 	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);
 
 	facingLeft = false;
 	facingRight = true;
 	//ANIMATION FILE
-	character = app->tex->Load("Assets/Player/anim1.png");
+	character = app->tex->Load("Assets/Player/animations.png");
 	currentAnimation = &idleAnimR;
 
 	return true;
@@ -335,6 +333,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 
 		if (c2->type == Collider::Type::DEATH)
 		{
+			printf("DEAD!!");
 			c2->pendingToDelete = true;
 			app->fade->Fade((Module*)app->scene2, (Module*)app->intro, 60);
 		}

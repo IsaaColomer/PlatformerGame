@@ -5,12 +5,12 @@
 #include "Render.h"
 #include "Window.h"
 #include "Collisions.h"
-#include "Scene.h"
 #include "Map.h"
 #include "Player.h"
 #include "Animation.h"
 #include "Intro.h"
 #include "Scene.h"
+#include "Scene2.h"
 #include "ModuleFadeToBlack.h"
 
 
@@ -71,6 +71,18 @@ bool Intro::PostUpdate()
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		app->fade->Fade(this, (Module*)app->scene, 60);
+		return true;
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		if (app->intro->active)
+			app->fade->Fade((Module*)app->intro, (Module*)app->scene, 60);
+		return true;
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		if (app->intro->active)
+			app->fade->Fade((Module*)app->intro, (Module*)app->scene2, 60);
 		return true;
 	}
 	// Draw everything --------------------------------------

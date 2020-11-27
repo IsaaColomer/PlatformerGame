@@ -51,7 +51,6 @@ bool Scene2::Start()
 
 	app->player->xMove = false;
 	app->player->ong = false;
-	app->player->win = false;
 
 	app->render->camera.y = 0;
 	app->render->camera.x = 0;

@@ -53,8 +53,6 @@ public:
 	bool ong;
 	bool debugDraw;
 	float savedx, savedy;
-	bool win;
-	bool lvlC;
 
 	//float coll[11][3] =
 	//{
