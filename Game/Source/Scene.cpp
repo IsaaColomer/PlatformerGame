@@ -51,6 +51,13 @@ bool Scene::Start()
 		app->player->vcy = 0;
 		app->player->vcx = 2.0f;
 
+		app->player->xMove = false;
+		app->player->ong = false;
+		app->player->win = false;
+
+		app->render->camera.y = 0;
+		app->render->camera.x = 0;
+
 		backg = app->tex->Load("Assets/Map/background.png");
 		portal = app->tex->Load("Assets/Map/portal.png");
 		app->map->Load("map.tmx");

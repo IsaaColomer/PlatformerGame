@@ -306,16 +306,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		if (c2->type == Collider::Type::WIN)
 		{
 			c2->pendingToDelete = true;
-			if (lvl1 == true)
-			{
-				app->fade->Fade((Module*)app->scene2, (Module*)app->intro, 60);
-			}
-			else
-			{
-				lvl1 = true;
-				app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
-			}
-			
+			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);			
 		}
 		/*if (win)
 		{
