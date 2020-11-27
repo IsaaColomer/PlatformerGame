@@ -100,7 +100,14 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
-
+	if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN)
+	{
+		vcx = 10.0f;
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_UP)
+	{
+		vcx = 2.0f;
+	}
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE)
@@ -295,7 +302,17 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		if (c2->type == Collider::Type::WIN && win == false)
 		{
 			win = true;
+			printf("WIN!\n");
 		}
+		else
+		{
+			win = false;
+		}
+		if (win)
+		{
+			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
+		}
+	
 		if (c2->type == Collider::Type::DEATH)
 		{
 			printf("DEAD!!!");
