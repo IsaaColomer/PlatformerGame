@@ -57,7 +57,7 @@ bool Scene::Start()
 		app->render->camera.y = 0;
 		app->render->camera.x = 0;
 
-		backg = app->tex->Load("Assets/Map/background.png");
+		backg = app->tex->Load("Assets/Gameplay/background.png");
 		portal = app->tex->Load("Assets/Map/portal.png");
 		app->map->Load("map.tmx");
 

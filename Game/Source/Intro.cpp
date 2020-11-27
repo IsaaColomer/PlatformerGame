@@ -46,7 +46,7 @@ bool Intro::Start()
 
 	LOG("Loading intro assets");
 
-	introscreen = app->tex->Load("Assets/Textures/introscreen.png");
+	introscreen = app->tex->Load("Assets/Title/introscreen.png");
 	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
 
 	app->render->camera.x = 0;

@@ -55,7 +55,7 @@ bool Scene2::Start()
 	app->render->camera.y = 0;
 	app->render->camera.x = 0;
 
-	backg = app->tex->Load("Assets/Map/background.png");
+	backg = app->tex->Load("Assets/Gameplay/background.png");
 	portal = app->tex->Load("Assets/Map/portal.png");
 	app->map->Load("map2.tmx");
 	//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
