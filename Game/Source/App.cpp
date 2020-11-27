@@ -355,7 +355,7 @@ bool App::LoadGame()
 
 	ListItem<Module*>* item;
 	item = modules.start;
-
+	
 	while (item != NULL && ret == true)
 	{
 		ret = item->data->LoadState(saveLoadNode.child(item->data->name.GetString()));

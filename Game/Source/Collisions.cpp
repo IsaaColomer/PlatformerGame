@@ -52,7 +52,7 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::PLAYER][Collider::Type::ROOF] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
 	matrix[Collider::Type::PLAYER][Collider::Type::WIN] = true;
-	matrix[Collider::Type::PLAYER][Collider::Type::DEATH] = false;
+	matrix[Collider::Type::PLAYER][Collider::Type::DEATH] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::WIN2] = true;
 
 	matrix[Collider::Type::WIN][Collider::Type::LEFT_WALL] = false;
@@ -63,7 +63,6 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::WIN][Collider::Type::DEATH] = false;
 	matrix[Collider::Type::WIN][Collider::Type::WIN] = false;
 	matrix[Collider::Type::WIN][Collider::Type::WIN2] = false;
-
 
 
 	matrix[Collider::Type::DEATH][Collider::Type::LEFT_WALL] = false;
