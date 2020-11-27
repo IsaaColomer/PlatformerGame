@@ -40,6 +40,8 @@ bool Intro::Start()
 {
 	app->intro->active = true;
 
+	spaced = false;
+
 	bool ret = true;
 
 	LOG("Loading intro assets");
@@ -68,9 +70,10 @@ bool Intro::Update(float dt)
 // Update: draw background
 bool Intro::PostUpdate()
 {
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && spaced == false)
 	{
 		app->fade->Fade(this, (Module*)app->scene, 60);
+		spaced = true;
 		return true;
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
