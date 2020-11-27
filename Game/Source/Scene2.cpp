@@ -42,13 +42,6 @@ bool Scene2::Start()
 	app->map->active = true;
 	app->collisions->active = true;
 
-	app->player->cp.x = 0;//70
-	app->player->cp.y = 0;//500
-	app->player->cp.w = 66;
-	app->player->cp.h = 110;
-	app->player->vcy = 0;
-	app->player->vcx = 2.0f;
-
 	backg = app->tex->Load("Assets/Map/background.png");
 	portal = app->tex->Load("Assets/Map/portal.png");
 	app->map->Load("map2.tmx");

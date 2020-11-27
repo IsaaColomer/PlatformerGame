@@ -71,6 +71,9 @@ bool Player::Start()
 	vcy = 0;
 	vcx = 2.0f;
 
+	app->render->camera.y = 0;
+	app->render->camera.x = 0;
+
 	xMove = false;
 	ong = false;
 	win = false;
