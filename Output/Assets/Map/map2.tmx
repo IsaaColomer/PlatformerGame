@@ -732,7 +732,7 @@
    <tile gid="3"/>
    <tile gid="4"/>
    <tile gid="5"/>
-   <tile/>
+   <tile gid="13"/>
    <tile/>
    <tile gid="13"/>
    <tile/>
@@ -768,7 +768,7 @@
    <tile gid="48"/>
    <tile gid="49"/>
    <tile gid="50"/>
-   <tile/>
+   <tile gid="58"/>
    <tile/>
    <tile gid="58"/>
    <tile/>
@@ -804,7 +804,7 @@
    <tile gid="48"/>
    <tile gid="49"/>
    <tile gid="50"/>
-   <tile/>
+   <tile gid="58"/>
    <tile/>
    <tile gid="58"/>
    <tile/>
@@ -1219,7 +1219,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="1" name="colliders" width="36" height="11" visible="0">
+ <layer id="1" name="colliders" width="36" height="11">
   <properties>
    <property name="Draw" type="int" value="0"/>
   </properties>
@@ -1538,7 +1538,7 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile/>
+   <tile gid="1"/>
    <tile/>
    <tile gid="1"/>
    <tile/>
@@ -1622,10 +1622,10 @@
    <tile/>
   </data>
  </layer>
- <layer id="5" name="Dead" width="36" height="11" visible="0">
-   <properties>
-     <property name="Draw" type="int" value="0"/>
-   </properties>
+ <layer id="5" name="Dead" width="36" height="11">
+  <properties>
+   <property name="Draw" type="int" value="0"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
