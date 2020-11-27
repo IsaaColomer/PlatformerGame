@@ -8,7 +8,9 @@
 #include "Map.h"
 #include "Collisions.h"
 #include "Scene2.h"
+#include "Intro.h"
 #include "ModuleFadeToBlack.h"
+#include "Scene.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -127,6 +129,20 @@ bool Player::Update(float dt)
 	}
 
 	//DEBUG KEYS
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		if(app->intro->active)
+			app->fade->Fade((Module*)app->intro, (Module*)app->scene, 60);
+		else if(app->scene2->active)
+			app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 60);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		if (app->intro->active)
+			app->fade->Fade((Module*)app->intro, (Module*)app->scene2, 60);
+		else if (app->scene->active)
+			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
+	}
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
 		godMode = (godMode) ? false : true;

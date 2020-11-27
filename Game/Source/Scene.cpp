@@ -79,9 +79,8 @@ bool Scene::Update(float dt)
 		//camera movement
 		//all draws
 	app->render->DrawTexture(backg, 0, 0);
-	app->render->DrawTexture(portal, 2325, 290);
 	app->map->Draw();
-
+	app->render->DrawTexture(portal, 2325, 290);//2325
 		// L03: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 		app->map->data.width, app->map->data.height,
