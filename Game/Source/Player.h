@@ -54,6 +54,7 @@ public:
 	bool debugDraw;
 	float savedx, savedy;
 	bool win;
+	bool lvl1;
 
 	//float coll[11][3] =
 	//{

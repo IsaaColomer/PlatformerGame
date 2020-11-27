@@ -77,6 +77,7 @@ bool Player::Start()
 	xMove = false;
 	ong = false;
 	win = false;
+	lvl1 = false;
 
 	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);
 
@@ -302,20 +303,24 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			cp.y = c2->rect.y + c2->rect.h;
 			vcy = 0.0f;
 		}
-		if (c2->type == Collider::Type::WIN && win == false)
+		if (c2->type == Collider::Type::WIN)
 		{
-			win = true;
-			printf("WIN!\n");
+			c2->pendingToDelete = true;
+			if (lvl1 == true)
+			{
+				app->fade->Fade((Module*)app->scene2, (Module*)app->intro, 60);
+			}
+			else
+			{
+				lvl1 = true;
+				app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
+			}
+			
 		}
-		else
-		{
-			win = false;
-		}
-		if (win)
+		/*if (win)
 		{
 			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
-		}
-	
+		}*/
 		if (c2->type == Collider::Type::DEATH)
 		{
 			printf("DEAD!!!");
