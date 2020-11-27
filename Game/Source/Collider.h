@@ -14,6 +14,7 @@ struct Collider
 		FLOOR,
 		PLAYER,
 		WIN,
+		WIN2,
 		ROOF,
 		DEATH,
 	

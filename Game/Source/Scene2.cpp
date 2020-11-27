@@ -112,6 +112,7 @@ bool Scene2::CleanUp()
 
 	app->map->CleanUp();
 	app->player->CleanUp();
+	app->collisions->CleanUp();
 
 	app->scene2->active = false;
 

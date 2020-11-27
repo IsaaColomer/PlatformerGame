@@ -103,10 +103,7 @@ bool Scene::PostUpdate()
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
-	//if (app->player->win == true)
-	//{
-	//	app->fade->Fade(this, (Module*)app->scene2, 60);
-	//}
+
 	return ret;
 }
 

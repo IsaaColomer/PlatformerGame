@@ -2025,7 +2025,7 @@
    <tile gid="1"/>
   </data>
  </layer>
- <layer id="6" name="win" width="36" height="11">
+ <layer id="6" name="win2" width="36" height="11">
   <properties>
    <property name="Draw" type="int" value="0"/>
   </properties>

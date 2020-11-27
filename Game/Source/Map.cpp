@@ -85,7 +85,7 @@ void Map::Draw()
 					iPoint vec = MapToWorld(x, y);
 					for (int i = 0; i < data.tilesets.count() && data.layer.At(i) != nullptr; i++)
 					{
-						if (data.layer.At(i)->data->properties.GetProperty("Draw", 0) == 1 && layer->data->name != "colliders" && layer->data->name != "win" && layer->data->name != "Dead")
+						if (data.layer.At(i)->data->properties.GetProperty("Draw", 0) == 1 && layer->data->name != "colliders" && layer->data->name != "win" && layer->data->name != "Dead" && layer->data->name != "win2")
 							app->render->DrawTexture(data.tilesets.At(i)->data->texture, vec.x, vec.y, &data.tilesets.At(i)->data->GetTileRect(tileId));
 						//app->render->DrawTexture(GetTilesetFromTileId(tileId)->texture, vec.x, vec.y, &GetTilesetFromTileId(tileId)->GetTileRect(tileId));
 					}
@@ -392,6 +392,11 @@ void Map::LoadColliders()
 					{
 						SDL_Rect d = { pos.x,pos.y, data.tileWidth, data.tileHeight };
 						app->collisions->AddCollider(d, Collider::Type::DEATH, this);
+					}
+					else if (layer->name == "win2")
+					{
+						SDL_Rect w2 = { pos.x,pos.y, data.tileWidth, data.tileHeight };
+						app->collisions->AddCollider(w2, Collider::Type::WIN2, this);
 					}
 					else if (layer->properties.GetProperty("Draw", 1) == 0)
 					{

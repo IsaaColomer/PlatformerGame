@@ -77,7 +77,7 @@ bool Player::Start()
 	xMove = false;
 	ong = false;
 	win = false;
-	lvl1 = false;
+	lvlC = false;
 
 	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);
 
@@ -236,7 +236,10 @@ bool Player::Update(float dt)
 	}
 
 	//-----------------------COLLIDER MOVEMENT
-	collider->SetPos(cp.x, cp.y);
+	if (collider != nullptr)
+	{
+		collider->SetPos(cp.x, cp.y);
+	}
 	//--------------------------------
 
 	currentAnimation->Update();
@@ -306,15 +309,18 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		if (c2->type == Collider::Type::WIN)
 		{
 			c2->pendingToDelete = true;
-			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);			
-		}
-		/*if (win)
-		{
 			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
-		}*/
+		}
+		if (c2->type == Collider::Type::WIN2)
+		{
+			c2->pendingToDelete = true;
+			app->fade->Fade((Module*)app->scene2, (Module*)app->intro, 60);
+		}
+
 		if (c2->type == Collider::Type::DEATH)
 		{
-			printf("DEAD!!!");
+			c2->pendingToDelete = true;
+			app->fade->Fade((Module*)app->scene2, (Module*)app->intro, 60);
 		}
 	}
 }
