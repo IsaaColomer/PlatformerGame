@@ -46,15 +46,14 @@ public:
 
 public:
 
-	SDL_Rect cp;
+	SDL_Rect ep;
 	float vcy, vcx;
 	bool xMove;
-	bool godMode;
 	bool ong;
 	bool debugDraw;
 	float savedx, savedy;
 
-	Animation* currentAnimation = nullptr;
+	Animation* enemyCurrentAnimation = nullptr;
 
 	// A set of animations
 	Animation enemyIdleR;
@@ -71,7 +70,7 @@ public:
 	bool facingRight;
 
 	SDL_Texture* firstEnemy;
-	Collider* collider;
+	Collider* enemyCol;
 };
 
 #endif //!__MODULE_PLAYER_H__

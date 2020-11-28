@@ -11,6 +11,7 @@
 #include "Animation.h"
 #include "Intro.h"
 #include "Scene2.h"
+#include "Enemies.h"
 
 
 #include "Defs.h"
@@ -39,6 +40,10 @@ bool Scene2::Start()
 {
 	app->player->Init();
 	app->player->Start();
+
+	app->enemies->Init();
+	app->enemies->Start();
+
 	app->map->active = true;
 	app->collisions->active = true;
 
@@ -111,6 +116,7 @@ bool Scene2::CleanUp()
 	app->map->CleanUp();
 	app->player->CleanUp();
 	app->collisions->CleanUp();
+	app->enemies->CleanUp();
 
 	app->scene2->active = false;
 

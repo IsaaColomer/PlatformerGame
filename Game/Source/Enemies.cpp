@@ -26,7 +26,7 @@ Enemies::Enemies() : Module()
 	enemyIdleL.PushBack({ 468,593,84,93 });
 	enemyIdleL.PushBack({ 469,492,83,93 });
 	enemyIdleL.PushBack({ 470,394,79,94 });
-	enemyIdleL.PushBack({ 468,300,80,95 });
+	enemyIdleL.PushBack({ 468,300,80,94 });
 	
 }
 
@@ -37,24 +37,25 @@ Enemies::~Enemies()
 
 bool Enemies::Start()
 {
-	cp.x = 0;//70
-	cp.y = 0;//500
-	cp.w = 66;
-	cp.h = 110;
-	vcy = 0;
-	vcx = 2.0f;
+	if (app->scene2->active == false)
+	{
+		ep.x = 200;//70
+		ep.y = 605;//500
+		firstEnemy = app->tex->Load("Assets/Textures/firstEnemy.png");
+	}
+	ep.w = 80;
+	ep.h = 95;
+	//vcy = 0;
+	//vcx = 2.0f;
+	//ANIMATION FILE
 
-	app->render->camera.y = 0;
-	app->render->camera.x = 0;
-
-	xMove = false;
-	ong = false;
+	enemyCol = app->collisions->AddCollider(ep, Collider::Type::ENEMY, this);
 
 	facingLeft = true;
 	facingRight = false;
-	//ANIMATION FILE
-	firstEnemy = app->tex->Load("Assets/Textures/firstEnemy.png");
-	currentAnimation = &enemyIdleL;
+
+	
+	enemyCurrentAnimation = &enemyIdleL;
 
 	return true;
 }
@@ -73,7 +74,10 @@ bool Enemies::PreUpdate()
 
 bool Enemies::Update(float dt)
 {
-	
+	enemyCurrentAnimation = &enemyIdleL;
+	enemyCurrentAnimation->Update();
+	enemyCol->SetPos(ep.x, ep.y);
+
 	return true;
 }
 
@@ -81,9 +85,10 @@ bool Enemies::PostUpdate()
 {
 	bool ret = true;
 	SDL_Rect rectEnemy;
-	rectEnemy = currentAnimation->GetCurrentFrame();
+	rectEnemy = enemyCurrentAnimation->GetCurrentFrame();
 
-	app->render->DrawTexture(firstEnemy, cp.x, cp.y, &rectEnemy); // Placeholder not needed any more
+	app->render->DrawTexture(firstEnemy, ep.x, ep.y, &rectEnemy); // Placeholder not needed any more
+	
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;

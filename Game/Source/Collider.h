@@ -17,6 +17,7 @@ struct Collider
 		WIN2,
 		ROOF,
 		DEATH,
+		ENEMY,
 	
 		MAX
 	};

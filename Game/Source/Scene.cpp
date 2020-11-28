@@ -13,6 +13,7 @@
 #include "Scene.h"
 #include "ModuleFadeToBlack.h"
 #include "Scene2.h"
+#include "Enemies.h"
 
 
 #include "Defs.h"
@@ -41,6 +42,10 @@ bool Scene::Start()
 {
 		app->player->Init();
 		app->player->Start();
+
+		app->enemies->Init();
+		app->enemies->Start();
+
 		app->collisions->active = true;
 		app->map->active = true;
 
@@ -60,7 +65,7 @@ bool Scene::Start()
 		backg = app->tex->Load("Assets/Gameplay/background.png");
 		portal = app->tex->Load("Assets/Map/portal.png");
 		app->map->Load("map.tmx");
-
+		
 		//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
 
 	return true;
@@ -113,6 +118,7 @@ bool Scene::CleanUp()
 	app->map->CleanUp();
 	app->player->CleanUp();
 	app->collisions->CleanUp();
+	app->enemies->CleanUp();
 
 	app->scene->active = false;
 
