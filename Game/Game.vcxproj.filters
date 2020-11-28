@@ -25,6 +25,7 @@
     <ClCompile Include="Source\Intro.cpp" />
     <ClCompile Include="Source\Scene2.cpp" />
     <ClCompile Include="Source\Title.cpp" />
+    <ClCompile Include="Source\Enemies.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -70,6 +71,7 @@
     <ClInclude Include="Source\Intro.h" />
     <ClInclude Include="Source\Scene2.h" />
     <ClInclude Include="Source\Title.h" />
+    <ClInclude Include="Source\Enemies.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

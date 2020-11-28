@@ -12,6 +12,7 @@
 #include "Intro.h"
 #include "Scene2.h"
 #include "Title.h"
+#include "Enemies.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -44,6 +45,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	intro = new Intro();
 	scene2 = new Scene2();
 	titleScreen = new Title();
+	enemies = new Enemies();
 
 	
 	// Ordered for awake / Start / Update
@@ -60,12 +62,14 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene2);
 	AddModule(fade);
 	AddModule(titleScreen);
+	AddModule(enemies);
 
 	scene->active = false;
 	player->active = false;
 	collisions->active = false;
 	scene2->active = false;
 	intro->active = false;
+	enemies->active = false;
 
 	// Render last to swap buffer
 	AddModule(render);

@@ -25,6 +25,7 @@ class FadeToBlack;
 class Intro;
 class Scene2;
 class Title;
+class Enemies;
 
 class App
 {
@@ -99,6 +100,7 @@ public:
 	Intro* intro;
 	Scene2* scene2;
 	Title* titleScreen;
+	Enemies* enemies;
 	
 
 private:
