@@ -49,7 +49,7 @@ bool Scene::Start()
 		app->collisions->active = true;
 		app->map->active = true;
 
-		app->player->cp.x = 0;//70
+		app->player->cp.x = 70;//70
 		app->player->cp.y = 0;//500
 		app->player->cp.w = 66;
 		app->player->cp.h = 110;

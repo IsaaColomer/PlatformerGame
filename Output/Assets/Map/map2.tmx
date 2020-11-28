@@ -1224,7 +1224,7 @@
    <property name="Draw" type="int" value="0"/>
   </properties>
   <data>
-   <tile/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1248,10 +1248,8 @@
    <tile/>
    <tile/>
    <tile gid="1"/>
-   <tile/>
    <tile gid="1"/>
-   <tile/>
-   <tile/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1261,6 +1259,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1295,8 +1295,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1331,8 +1331,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1367,7 +1367,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -1403,7 +1403,7 @@
    <tile/>
    <tile/>
    <tile gid="1"/>
-   <tile/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile gid="1"/>
@@ -1439,7 +1439,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1475,7 +1475,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1511,7 +1511,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1547,7 +1547,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1583,7 +1583,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1619,7 +1619,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="1"/>
   </data>
  </layer>
  <layer id="5" name="Dead" width="36" height="11" visible="0">

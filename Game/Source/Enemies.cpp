@@ -37,12 +37,11 @@ Enemies::~Enemies()
 
 bool Enemies::Start()
 {
-	if (app->scene2->active == false)
-	{
-		ep.x = 200;//70
-		ep.y = 605;//500
-		firstEnemy = app->tex->Load("Assets/Textures/firstEnemy.png");
-	}
+	ep.x = 205;//70
+	ep.y = 180;//500
+
+	firstEnemy = app->tex->Load("Assets/Textures/firstEnemy.png");
+
 	ep.w = 80;
 	ep.h = 95;
 	//vcy = 0;

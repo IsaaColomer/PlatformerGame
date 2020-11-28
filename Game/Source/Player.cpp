@@ -334,9 +334,12 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 
 		if (c2->type == Collider::Type::DEATH)
 		{
-			printf("DEAD!!");
 			c2->pendingToDelete = true;
 			app->fade->Fade((Module*)app->scene2, (Module*)app->intro, 60);
 		}
+	/*	if (c2->type == Collider::Type::ENEMY)
+		{
+			c2->pendingToDelete = true;
+		}*/
 	}
 }

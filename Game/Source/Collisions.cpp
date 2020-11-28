@@ -257,7 +257,7 @@ void Collisions::DebugDraw()
 			app->render->DrawRectangle(colliders[i]->rect, 30, 100, 100, alpha);
 			break;
 		case Collider::Type::ENEMY:
-			app->render->DrawRectangle(colliders[i]->rect, 100, 50, 100, alpha);
+			app->render->DrawRectangle(colliders[i]->rect, 100, 100, 100, alpha);
 			break;
 
 		}

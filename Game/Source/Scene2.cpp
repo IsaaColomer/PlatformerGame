@@ -44,10 +44,14 @@ bool Scene2::Start()
 	app->enemies->Init();
 	app->enemies->Start();
 
+	app->enemies->ep.x = 80;
+	app->enemies->ep.y = 500;
+
+
 	app->map->active = true;
 	app->collisions->active = true;
 
-	app->player->cp.x = 0;//70
+	app->player->cp.x = 80;//70
 	app->player->cp.y = 0;//500
 	app->player->cp.w = 66;
 	app->player->cp.h = 110;
