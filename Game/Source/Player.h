@@ -52,7 +52,6 @@ public:
 	bool godMode;
 	bool ong;
 	bool debugDraw;
-	float savedx, savedy;
 
 	//float coll[11][3] =
 	//{
@@ -84,8 +83,10 @@ public:
 	bool facingLeft;
 	bool idleState;
 	bool facingRight;
+	int fCount;
 
 	SDL_Texture* character;
+	SDL_Texture* floppyDisk;
 	Collider* collider;
 };
 

@@ -74,6 +74,8 @@ bool Player::Start()
 	vcy = 0;
 	vcx = 2.0f;
 
+	fCount = 180;
+
 	app->render->camera.y = 0;
 	app->render->camera.x = 0;
 
@@ -85,7 +87,8 @@ bool Player::Start()
 	facingLeft = false;
 	facingRight = true;
 	//ANIMATION FILE
-	character = app->tex->Load("Assets/Player/animations.png");
+	character = app->tex->Load("Assets/Characters/player.png");
+	floppyDisk = app->tex->Load("Assets/GUI/floppydisk.png");
 	currentAnimation = &idleAnimR;
 
 	return true;
@@ -161,15 +164,11 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{
 		app->LoadGameRequest();
-		cp.x = savedx;
-		cp.y = savedy;
-
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{
 		app->SaveGameRequest();
-		savedx = cp.x;
-		savedy = cp.y;
+		fCount = 0;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
@@ -268,6 +267,11 @@ bool Player::PostUpdate()
 	rectPlayer = currentAnimation->GetCurrentFrame();
 
 	app->render->DrawTexture(character, cp.x, cp.y, &rectPlayer); // Placeholder not needed any more
+	if (fCount < 180)
+	{
+		app->render->DrawTexture(floppyDisk, -app->render->camera.x, 40, NULL);
+		fCount++;
+	}
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;

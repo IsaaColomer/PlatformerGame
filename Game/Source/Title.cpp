@@ -46,7 +46,7 @@ bool Title::Start()
 
 	LOG("Loading intro assets");
 
-	titlescreen = app->tex->Load("Assets/Logo/titlescreen.png");
+	titlescreen = app->tex->Load("Assets/Screens/Logo/titlescreen.png");
 	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
 
 	app->render->camera.x = 0;
