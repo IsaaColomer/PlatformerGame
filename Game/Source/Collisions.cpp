@@ -70,7 +70,6 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::WIN][Collider::Type::WIN2] = false;
 	matrix[Collider::Type::WIN][Collider::Type::ENEMY] = false;
 
-
 	matrix[Collider::Type::DEATH][Collider::Type::LEFT_WALL] = false;
 	matrix[Collider::Type::DEATH][Collider::Type::RIGHT_WALL] = false;
 	matrix[Collider::Type::DEATH][Collider::Type::FLOOR] = false;

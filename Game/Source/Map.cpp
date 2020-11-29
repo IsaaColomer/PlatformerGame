@@ -144,8 +144,8 @@ SDL_Rect TileSet::GetTileRect(int id) const
 
 	// L04: TODO 7: Get relative Tile rectangle
 	int relativeId = id - firstgid;
-	rect.w = tile_width;
-	rect.h = tile_height;
+	rect.w = tileWidth;
+	rect.h = tileHeight;
 	rect.x = margin + ((rect.w + spacing) * (relativeId % numTilesWidth));
 	rect.y = margin + ((rect.h + spacing) * (relativeId / numTilesWidth));
 
@@ -252,7 +252,7 @@ bool Map::Load(const char* filename)
 		{
 			LOG("Tileset %d ----", i + 1);
 			LOG("name: %s firstgid: %i", data.tilesets.At(i)->data->name.GetString(), data.tilesets.At(i)->data->firstgid);
-			LOG("tile width: %d tile height: %d", data.tilesets.At(i)->data->tile_width, data.tilesets.At(i)->data->tile_height);
+			LOG("tile width: %d tile height: %d", data.tilesets.At(i)->data->tileWidth, data.tilesets.At(i)->data->tileHeight);
 			LOG("spacing: %d margin: %d", data.tilesets.At(i)->data->spacing, data.tilesets.At(i)->data->margin);
 		}
 
@@ -300,8 +300,8 @@ bool Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 	set->name = tileset_node.attribute("name").as_string();
 	set->margin = tileset_node.attribute("margin").as_int(0);
 	set->spacing = tileset_node.attribute("spacing").as_int(0);
-	set->tile_height = tileset_node.attribute("tileheight").as_int(0);
-	set->tile_width = tileset_node.attribute("tilewidth").as_int(0);
+	set->tileHeight = tileset_node.attribute("tileheight").as_int(0);
+	set->tileWidth = tileset_node.attribute("tilewidth").as_int(0);
 	set->numTilesWidth = tileset_node.attribute("columns").as_int(0);
 	set->numTilesHeight = tileset_node.attribute("numtiles").as_int(0) / set->numTilesWidth;
 

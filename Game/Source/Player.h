@@ -39,6 +39,8 @@ public:
 	// Collision callback, called when the player intersects with another collider
 	void OnCollision(Collider* c1, Collider* c2);
 
+	void resetPlayer();
+
 	//void DebugDrawGamepadInfo();
 
 	bool LoadState(pugi::xml_node&);
@@ -52,7 +54,8 @@ public:
 	bool godMode;
 	bool ong;
 	bool debugDraw;
-
+	int playerLives = 3;
+	bool minusLives;
 	//float coll[11][3] =
 	//{
 	//	700,0,2520,
@@ -87,6 +90,7 @@ public:
 
 	SDL_Texture* character;
 	SDL_Texture* floppyDisk;
+	SDL_Texture* lives;
 	Collider* collider;
 };
 

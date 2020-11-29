@@ -15,6 +15,6 @@
     <fullscreen_window value="false"/>
   </window>
   <map>
-    <folder>Assets/map/</folder>
+    <folder>Assets/Screens/Map/</folder>
   </map>
 </config>

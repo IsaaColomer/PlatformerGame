@@ -40,31 +40,20 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
-		app->player->Init();
-		app->player->Start();
+	app->player->Init();
+	app->player->Start();
 
-		app->enemies->Init();
-		app->enemies->Start();
+	app->enemies->Init();
+	app->enemies->Start();
 
-		app->collisions->active = true;
-		app->map->active = true;
+	app->collisions->active = true;
+	app->map->active = true;
 
-		app->player->cp.x = 70;//70
-		app->player->cp.y = 0;//500
-		app->player->cp.w = 66;
-		app->player->cp.h = 110;
-		app->player->vcy = 0;
-		app->player->vcx = 2.0f;
+	app->player->resetPlayer();
 
-		app->player->xMove = false;
-		app->player->ong = false;
-
-		app->render->camera.y = 0;
-		app->render->camera.x = 0;
-
-		backg = app->tex->Load("Assets/Screens/Gameplay/background.png");
-		portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
-		app->map->Load("map.tmx");
+	backg = app->tex->Load("Assets/Screens/Gameplay/background.png");
+	portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
+	app->map->Load("map.tmx");
 		
 		//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
 

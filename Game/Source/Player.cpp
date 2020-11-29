@@ -67,21 +67,9 @@ Player::~Player()
 
 bool Player::Start()
 {
-	cp.x = 0;//70
-	cp.y = 0;//500
-	cp.w = 66;
-	cp.h = 110;
-	vcy = 0;
-	vcx = 2.0f;
-
+	resetPlayer();
 	fCount = 180;
-
-	app->render->camera.y = 0;
-	app->render->camera.x = 0;
-
-	xMove = false;
-	ong = false;
-
+	minusLives = false;
 	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);
 
 	facingLeft = false;
@@ -89,6 +77,7 @@ bool Player::Start()
 	//ANIMATION FILE
 	character = app->tex->Load("Assets/Characters/player.png");
 	floppyDisk = app->tex->Load("Assets/GUI/floppydisk.png");
+	lives = app->tex->Load("Assets/GUI/heart.png");
 	currentAnimation = &idleAnimR;
 
 	return true;
@@ -267,6 +256,10 @@ bool Player::PostUpdate()
 	rectPlayer = currentAnimation->GetCurrentFrame();
 
 	app->render->DrawTexture(character, cp.x, cp.y, &rectPlayer); // Placeholder not needed any more
+	for (int i = 0; i < playerLives; i++)
+	{
+		app->render->DrawTexture(lives, -app->render->camera.x+(i*30), 0, NULL);
+	}
 	if (fCount < 180)
 	{
 		app->render->DrawTexture(floppyDisk, -app->render->camera.x, 40, NULL);
@@ -336,14 +329,39 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			app->fade->Fade((Module*)app->scene2, (Module*)app->intro, 60);
 		}
 
-		if (c2->type == Collider::Type::DEATH)
+		if (c2->type == Collider::Type::DEATH && minusLives == false)
 		{
 			c2->pendingToDelete = true;
-			app->fade->Fade((Module*)app->scene2, (Module*)app->intro, 60);
+			minusLives = true;
+			--playerLives;
+			if (playerLives == 0)
+			{
+				playerLives = 3;
+				app->fade->Fade((Module*)app->scene2, (Module*)app->intro, 60);
+			}
+			else
+			{
+				app->fade->Fade((Module*)app->scene2, (Module*)app->scene2, 60);
+			}		
 		}
 	/*	if (c2->type == Collider::Type::ENEMY)
 		{
 			c2->pendingToDelete = true;
 		}*/
 	}
+}
+void Player::resetPlayer()
+{
+	app->player->cp.x = 80;
+	app->player->cp.y = 0;
+	app->player->cp.w = 66;
+	app->player->cp.h = 110;
+	app->player->vcy = 0;
+	app->player->vcx = 2.0f;
+
+	app->player->xMove = false;
+	app->player->ong = false;
+
+	app->render->camera.y = 0;
+	app->render->camera.x = 0;
 }
