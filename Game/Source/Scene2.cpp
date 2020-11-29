@@ -87,13 +87,6 @@ bool Scene2::Update(float dt)
 	app->map->Draw();
 	app->render->DrawTexture(portal, 2370, 150);//2325
 	// L03: DONE 7: Set the window title with map/tileset info
-	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
-		app->map->data.width, app->map->data.height,
-		app->map->data.tileWidth, app->map->data.tileHeight,
-		app->map->data.tilesets.count());
-
-	app->win->SetTitle(title.GetString());
-
 	app->map->LoadColliders();
 
 	return true;

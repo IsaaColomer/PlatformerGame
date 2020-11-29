@@ -1,4 +1,5 @@
 #include "App.h"
+#include "MemLeaks.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -27,6 +28,7 @@ App* app = NULL;
 
 int main(int argc, char* args[])
 {
+	ReportMemoryLeaks();
 	LOG("Engine starting ...");
 
 	MainState state = CREATE;

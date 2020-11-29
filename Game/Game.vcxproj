@@ -114,6 +114,7 @@
     <ClInclude Include="Source\Enemies.h" />
     <ClInclude Include="Source\Intro.h" />
     <ClInclude Include="Source\Map.h" />
+    <ClInclude Include="Source\MemLeaks.h" />
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\ModuleFadeToBlack.h" />
     <ClInclude Include="Source\PerfTimer.h" />
