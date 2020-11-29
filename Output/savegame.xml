@@ -1,1 +1,14 @@
 <?xml version="1.0"?>
+<save>
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<scene />
+	<player>
+		<position x="765" y="172" />
+	</player>
+	<renderer>
+		<camera x="-126" y="0" />
+	</renderer>
+</save>
