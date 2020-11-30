@@ -40,7 +40,7 @@ bool Enemies::Start()
 	ep.x = 205;//70
 	ep.y = 180;//500
 
-	firstEnemy = app->tex->Load("Assets/Characters/firstEnemy.png");
+	firstEnemy = app->tex->Load("Assets/Characters/first_enemy.png");
 
 	ep.w = 80;
 	ep.h = 95;

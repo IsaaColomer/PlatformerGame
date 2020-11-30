@@ -88,7 +88,7 @@ bool Player::Start()
 	loseScreen = false;
 	//ANIMATION FILE
 	character = app->tex->Load("Assets/Characters/player.png");
-	floppyDisk = app->tex->Load("Assets/GUI/floppyAnim.png");
+	floppyDisk = app->tex->Load("Assets/GUI/floppy_anim.png");
 	lives = app->tex->Load("Assets/GUI/heart.png");
 	
 	currentAnimation = &idleAnimR;

@@ -46,9 +46,9 @@ bool Title::Start()
 
 	LOG("Loading intro assets");
 
-	titlescreen = app->tex->Load("Assets/Screens/Logo/titlescreen.png");
-	youwin = app->tex->Load("Assets/Screens/Title/youwin.png");
-	youlose = app->tex->Load("Assets/Screens/Title/youlose.png");
+	titlescreen = app->tex->Load("Assets/Screens/Logo/title_screen.png");
+	youwin = app->tex->Load("Assets/Screens/Title/you_win.png");
+	youlose = app->tex->Load("Assets/Screens/Title/you_lose.png");
 	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
 
 	app->render->camera.x = 0;
