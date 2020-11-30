@@ -36,6 +36,7 @@ public:
 
 public:
 	bool foodAlive;
+	bool flagAlive;
 	
 	//array of colliders, first coll[0] is ground
 	//[0]=y, [1]=x1, [2]=x2
@@ -44,9 +45,14 @@ private:
 	SDL_Texture* img;
 	SDL_Texture* backg;
 	SDL_Texture* portal;
+
 	SDL_Texture* food;
 	Collider* foodCol;
 	SDL_Rect foodRect;
+
+	SDL_Texture* flag;
+	Collider* flagCol;
+	SDL_Rect flagRect;
 };
 
 #endif // __SCENE_H__

@@ -57,9 +57,14 @@ bool Scene2::Start()
 	foodCol = app->collisions->AddCollider(foodRect, Collider::Type::FOOD, this);
 	foodAlive = true;
 
+	flagRect = { 1400,450,60,180 };
+	flagCol = app->collisions->AddCollider(flagRect, Collider::Type::CHECKPOINT, this);
+	flagAlive = true;
+
 	backg = app->tex->Load("Assets/Screens/Gameplay/background.png");
 	portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
 	food = app->tex->Load("Assets/Screens/Gameplay/food.png");
+	flag = app->tex->Load("Assets/Screens/Gameplay/flag.png");
 	app->map->Load("map2.tmx");
 	//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
 
@@ -96,6 +101,12 @@ bool Scene2::PostUpdate()
 	{
 		app->render->DrawTexture(food, foodRect.x, foodRect.y, NULL);
 	}
+
+	if (flagAlive)
+	{
+		app->render->DrawTexture(flag, flagRect.x, flagRect.y, NULL);
+	}
+
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;	
 	return ret;

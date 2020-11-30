@@ -359,6 +359,13 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			app->scene->foodAlive = false;
 			app->scene2->foodAlive = false;
 		}
+		if (c2->type == Collider::Type::CHECKPOINT)
+		{
+			c2->pendingToDelete = true;
+			app->SaveGameRequest();
+			app->scene->flagAlive = false;
+			app->scene2->flagAlive = false;
+		}
 	/*	if (c2->type == Collider::Type::ENEMY)
 		{
 			c2->pendingToDelete = true;
