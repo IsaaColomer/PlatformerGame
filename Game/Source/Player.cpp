@@ -83,6 +83,9 @@ bool Player::Start()
 
 	facingLeft = false;
 	facingRight = true;
+
+	winScreen = false;
+	loseScreen = false;
 	//ANIMATION FILE
 	character = app->tex->Load("Assets/Characters/player.png");
 	floppyDisk = app->tex->Load("Assets/GUI/floppyAnim.png");
@@ -349,7 +352,8 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		if (c2->type == Collider::Type::WIN2)
 		{
 			c2->pendingToDelete = true;
-			app->fade->Fade((Module*)app->scene2, (Module*)app->intro, 60);
+			app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
+			winScreen = true;
 		}
 
 		if (c2->type == Collider::Type::DEATH && minusLives == false)
@@ -360,7 +364,8 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			if (playerLives == 0)
 			{
 				playerLives = 3;
-				app->fade->Fade((Module*)app->scene2, (Module*)app->intro, 60);
+				app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
+				loseScreen = true;
 			}
 			else
 			{
@@ -383,6 +388,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			app->SaveGameRequest();
 			app->scene->flagAlive = false;
 			app->scene2->flagAlive = false;
+			fCount = 0;
 		}
 	/*	if (c2->type == Collider::Type::ENEMY)
 		{

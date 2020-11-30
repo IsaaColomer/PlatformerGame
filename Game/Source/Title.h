@@ -36,6 +36,10 @@ public:
 public:
 	// The scene sprite sheet loaded into an SDL_Texture
 	SDL_Texture* titlescreen = nullptr;
+	SDL_Texture* youwin = nullptr;
+	SDL_Texture* youlose = nullptr;
+
+	bool neutral = true;
 
 	bool spaced;
 };

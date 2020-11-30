@@ -47,6 +47,8 @@ bool Title::Start()
 	LOG("Loading intro assets");
 
 	titlescreen = app->tex->Load("Assets/Screens/Logo/titlescreen.png");
+	youwin = app->tex->Load("Assets/Screens/Title/youwin.png");
+	youlose = app->tex->Load("Assets/Screens/Title/youlose.png");
 	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
 
 	app->render->camera.x = 0;
@@ -77,7 +79,18 @@ bool Title::PostUpdate()
 		return true;
 	}
 	// Draw everything --------------------------------------
-	app->render->DrawTexture(titlescreen, 0, 0, NULL);
+	if (app->player->loseScreen)
+	{
+		app->render->DrawTexture(youlose, 0, 0, NULL);
+	}
+	if (app->player->winScreen)
+	{
+		app->render->DrawTexture(youwin, 0, 0, NULL);
+	}
+	if (app->player->winScreen == false && app->player->loseScreen == false)
+	{
+		app->render->DrawTexture(titlescreen, 0, 0, NULL);
+	}
 
 	return true;
 }

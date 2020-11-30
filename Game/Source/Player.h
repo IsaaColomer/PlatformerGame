@@ -56,6 +56,8 @@ public:
 	bool debugDraw;
 	int playerLives = 3;
 	bool minusLives;
+	bool winScreen;
+	bool loseScreen;
 
 	//float coll[11][3] =
 	//{
