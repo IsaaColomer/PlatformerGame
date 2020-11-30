@@ -57,7 +57,7 @@ bool Scene2::Start()
 	foodCol = app->collisions->AddCollider(foodRect, Collider::Type::FOOD, this);
 	foodAlive = true;
 
-	flagRect = { 1400,450,60,180 };
+	flagRect = { 1400,450,10,180 };
 	flagCol = app->collisions->AddCollider(flagRect, Collider::Type::CHECKPOINT, this);
 	flagAlive = true;
 

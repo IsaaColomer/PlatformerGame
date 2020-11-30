@@ -280,7 +280,7 @@ bool Player::PostUpdate()
 	
 	for (int i = 0; i < playerLives; i++)
 	{
-		app->render->DrawTexture(lives, -app->render->camera.x+(i*30), 0, NULL);
+		app->render->DrawTexture(lives, -app->render->camera.x+(i*43), 0, NULL);
 	}
 
 	SDL_Rect floppyRect;
