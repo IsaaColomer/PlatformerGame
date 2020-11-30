@@ -71,6 +71,7 @@ bool Player::Start()
 	fCount = 180;
 	minusLives = false;
 	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);
+	
 
 	facingLeft = false;
 	facingRight = true;
@@ -78,6 +79,7 @@ bool Player::Start()
 	character = app->tex->Load("Assets/Characters/player.png");
 	floppyDisk = app->tex->Load("Assets/GUI/floppydisk.png");
 	lives = app->tex->Load("Assets/GUI/heart.png");
+	
 	currentAnimation = &idleAnimR;
 
 	return true;
@@ -199,6 +201,7 @@ bool Player::Update(float dt)
 			cp.y += 2.0f;
 		}
 	}
+	// L08: TODO 6: Make the camera movement independent of framerate
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		cp.x -= vcx;
@@ -256,6 +259,8 @@ bool Player::PostUpdate()
 	rectPlayer = currentAnimation->GetCurrentFrame();
 
 	app->render->DrawTexture(character, cp.x, cp.y, &rectPlayer); // Placeholder not needed any more
+
+	
 	for (int i = 0; i < playerLives; i++)
 	{
 		app->render->DrawTexture(lives, -app->render->camera.x+(i*30), 0, NULL);
@@ -343,6 +348,16 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			{
 				app->fade->Fade((Module*)app->scene2, (Module*)app->scene2, 60);
 			}		
+		}
+		if (c2->type == Collider::Type::FOOD)
+		{
+			c2->pendingToDelete = true;
+			if (playerLives < 3)
+			{
+				playerLives++;
+			}
+			app->scene->foodAlive = false;
+			app->scene2->foodAlive = false;
 		}
 	/*	if (c2->type == Collider::Type::ENEMY)
 		{

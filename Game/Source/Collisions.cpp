@@ -19,6 +19,7 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::LEFT_WALL][Collider::Type::DEATH] = false;
 	matrix[Collider::Type::LEFT_WALL][Collider::Type::PLAYER] = true;
 	matrix[Collider::Type::LEFT_WALL][Collider::Type::ENEMY] = true;
+	matrix[Collider::Type::LEFT_WALL][Collider::Type::FOOD] = false;
 	
 	matrix[Collider::Type::RIGHT_WALL][Collider::Type::LEFT_WALL] = false;
 	matrix[Collider::Type::RIGHT_WALL][Collider::Type::RIGHT_WALL] = false;
@@ -29,6 +30,7 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::RIGHT_WALL][Collider::Type::PLAYER] = true;
 	matrix[Collider::Type::RIGHT_WALL][Collider::Type::ENEMY] = true;
 	matrix[Collider::Type::RIGHT_WALL][Collider::Type::WIN2] = false;
+	matrix[Collider::Type::RIGHT_WALL][Collider::Type::FOOD] = false;
 
 	matrix[Collider::Type::FLOOR][Collider::Type::LEFT_WALL] = false;
 	matrix[Collider::Type::FLOOR][Collider::Type::RIGHT_WALL] = false;
@@ -39,6 +41,7 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::FLOOR][Collider::Type::WIN] = false;
 	matrix[Collider::Type::FLOOR][Collider::Type::DEATH] = false;
 	matrix[Collider::Type::FLOOR][Collider::Type::WIN2] = false;
+	matrix[Collider::Type::FLOOR][Collider::Type::FOOD] = false;
 
 	matrix[Collider::Type::ROOF][Collider::Type::LEFT_WALL] = false;
 	matrix[Collider::Type::ROOF][Collider::Type::RIGHT_WALL] = false;
@@ -49,6 +52,7 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::ROOF][Collider::Type::WIN] = false;
 	matrix[Collider::Type::ROOF][Collider::Type::DEATH] = false;
 	matrix[Collider::Type::ROOF][Collider::Type::WIN2] = false;
+	matrix[Collider::Type::ROOF][Collider::Type::FOOD] = false;
 
 	matrix[Collider::Type::PLAYER][Collider::Type::LEFT_WALL] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::RIGHT_WALL] = true;
@@ -59,6 +63,7 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::PLAYER][Collider::Type::DEATH] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::WIN2] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::ENEMY] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::FOOD] = true;
 
 	matrix[Collider::Type::WIN][Collider::Type::LEFT_WALL] = false;
 	matrix[Collider::Type::WIN][Collider::Type::RIGHT_WALL] = false;
@@ -69,6 +74,7 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::WIN][Collider::Type::WIN] = false;
 	matrix[Collider::Type::WIN][Collider::Type::WIN2] = false;
 	matrix[Collider::Type::WIN][Collider::Type::ENEMY] = false;
+	matrix[Collider::Type::WIN][Collider::Type::FOOD] = false;
 
 	matrix[Collider::Type::DEATH][Collider::Type::LEFT_WALL] = false;
 	matrix[Collider::Type::DEATH][Collider::Type::RIGHT_WALL] = false;
@@ -78,6 +84,7 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::DEATH][Collider::Type::WIN] = false;
 	matrix[Collider::Type::DEATH][Collider::Type::DEATH] = false;
 	matrix[Collider::Type::DEATH][Collider::Type::WIN2] = false;
+	matrix[Collider::Type::DEATH][Collider::Type::FOOD] = false;
 	matrix[Collider::Type::DEATH][Collider::Type::ENEMY] = true;
 
 	matrix[Collider::Type::WIN2][Collider::Type::LEFT_WALL] = false;
@@ -89,6 +96,7 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::WIN2][Collider::Type::WIN] = false;
 	matrix[Collider::Type::WIN2][Collider::Type::WIN2] = false;
 	matrix[Collider::Type::WIN2][Collider::Type::ENEMY] = false;
+	matrix[Collider::Type::WIN2][Collider::Type::FOOD] = false;
 
 	matrix[Collider::Type::ENEMY][Collider::Type::LEFT_WALL] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::RIGHT_WALL] = true;
@@ -99,6 +107,18 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::ENEMY][Collider::Type::WIN] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::WIN2] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::ENEMY] = false;
+	matrix[Collider::Type::ENEMY][Collider::Type::FOOD] = false;
+
+	matrix[Collider::Type::FOOD][Collider::Type::LEFT_WALL] = false;
+	matrix[Collider::Type::FOOD][Collider::Type::RIGHT_WALL] = false;
+	matrix[Collider::Type::FOOD][Collider::Type::FLOOR] = false;
+	matrix[Collider::Type::FOOD][Collider::Type::ROOF] = false;
+	matrix[Collider::Type::FOOD][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::FOOD][Collider::Type::DEATH] = false;
+	matrix[Collider::Type::FOOD][Collider::Type::WIN] = false;
+	matrix[Collider::Type::FOOD][Collider::Type::WIN2] = false;
+	matrix[Collider::Type::FOOD][Collider::Type::ENEMY] = false;
+	matrix[Collider::Type::FOOD][Collider::Type::FOOD] = false;
 }
 
 // Called before render is available
@@ -258,7 +278,9 @@ void Collisions::DebugDraw()
 		case Collider::Type::ENEMY:
 			app->render->DrawRectangle(colliders[i]->rect, 100, 100, 100, alpha);
 			break;
-
+		case Collider::Type::FOOD:
+			app->render->DrawRectangle(colliders[i]->rect, 228, 177, 0, alpha);
+			break;
 		}
 
 	}

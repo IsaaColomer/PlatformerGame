@@ -56,6 +56,7 @@ public:
 	bool debugDraw;
 	int playerLives = 3;
 	bool minusLives;
+
 	//float coll[11][3] =
 	//{
 	//	700,0,2520,

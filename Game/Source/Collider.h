@@ -18,6 +18,7 @@ struct Collider
 		ROOF,
 		DEATH,
 		ENEMY,
+		FOOD,
 	
 		MAX
 	};

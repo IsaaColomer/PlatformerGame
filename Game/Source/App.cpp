@@ -24,11 +24,10 @@
 // App constructor, Awake, Start and CleanUp
 // LOG the result
 
-
 // Constructor
 App::App(int argc, char* args[]) : argc(argc), args(args)
 {
-	startupTime.Start();
+	PERF_START(ptimer);
 
 	frames = 0;
 
@@ -63,6 +62,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fade);
 	AddModule(titleScreen);
 	AddModule(enemies);
+	
 
 	scene->active = false;
 	player->active = false;
@@ -73,8 +73,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	// Render last to swap buffer
 	AddModule(render);
-	LOG("It took %f ms to execute", startupTime.Read());
-	lastSecFrameCount += startupTime.Read();
+	//LOG("It took %f ms to execute", startupTime.Read());
+	PERF_PEEK(ptimer);
 }
 
 // Destructor
@@ -101,7 +101,7 @@ void App::AddModule(Module* module)
 // Called before render is available
 bool App::Awake()
 {
-	startupTime.Start();
+	PERF_START(ptimer);
 	pugi::xml_document configFile;
 	pugi::xml_node config;
 	pugi::xml_node configApp;
@@ -119,6 +119,7 @@ bool App::Awake()
 		// L01: DONE 4: Read the title from the config file
 		title.Create(configApp.child("title").child_value());
 		organization.Create(configApp.child("organization").child_value());
+		//READ CONFIG FILE OUR FRAMERATE
 	}
 
 	if (ret == true)
@@ -143,8 +144,7 @@ bool App::Awake()
 		saveLoadNode = saveLoadFile.child("save");
 	}
 
-	LOG("It took %f ms to execute", startupTime.Read());
-	lastSecFrameCount += startupTime.Read();
+	PERF_PEEK(ptimer);
 
 	return ret;
 }
@@ -152,7 +152,8 @@ bool App::Awake()
 // Called before the first frame
 bool App::Start()
 {
-	startupTime.Start();
+	PERF_START(ptimer);
+
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.start;
@@ -166,8 +167,7 @@ bool App::Start()
 		item = item->next;
 	}
 
-	LOG("It took %f ms to execute", startupTime.Read());
-	lastSecFrameCount += startupTime.Read();
+	PERF_PEEK(ptimer);
 
 	return ret;
 }
@@ -220,6 +220,25 @@ void App::FinishUpdate()
 	// L02: DONE 1: This is a good place to call Load / Save methods
 	if (loadGameRequested == true) LoadGame();
 	if (saveGameRequested == true) SaveGame();
+
+	float averageFps = 0.0f;
+	float secondsSinceStartup = 0.0f;
+	uint32 lastFrameMs = 0;
+	uint32 framesOnLastUpdate = 0;
+
+	//static char title[256];
+	//sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",
+	//	averageFps, lastFrameMs, framesOnLastUpdate, dt, secondsSinceStartup, frameCount);
+
+//	app->win->SetTitle(title);
+
+	// L08: TODO 2: Use SDL_Delay to make sure you get your capped framerate
+	//if (lastFrameMs < 1000 / app->win->framerate) SDL_Delay(1000 / app->win->framerate - lastFrameMs);
+
+	if ((cappedMs > 0) && (lastFrameMs < cappedMs))
+	{
+		// L08: TODO 3: Measure accurately the amount of time SDL_Delay() actually waits compared to what was expected
+	}
 }
 
 // Call modules before each loop iteration
@@ -240,6 +259,8 @@ bool App::PreUpdate()
 
 		ret = item->data->PreUpdate();
 	}
+
+	//TODO 4 Calculate dt diferential time since last frame rate
 
 	return ret;
 }

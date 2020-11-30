@@ -20,10 +20,10 @@ void Timer::Start()
 
 uint32 Timer::Read() const
 {
-	return startTime;
+	return SDL_GetTicks() - startTime;
 }
 
 float Timer::ReadSec() const
 {
-	return (SDL_GetTicks() - startTime) / 1000;
+	return float(SDL_GetTicks() - startTime) / 1000.0f;
 }

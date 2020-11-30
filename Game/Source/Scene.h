@@ -34,7 +34,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	
+public:
+	bool foodAlive;
 
 	//array of colliders, first coll[0] is ground
 	//[0]=y, [1]=x1, [2]=x2
@@ -43,6 +44,10 @@ private:
 	SDL_Texture* img;
 	SDL_Texture* backg;
 	SDL_Texture* portal;
+	SDL_Texture* food;
+	Collider* foodCol;
+	SDL_Rect foodRect;
+
 };
 
 #endif // __SCENE_H__

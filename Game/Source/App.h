@@ -137,6 +137,8 @@ private:
 	uint32 prevLastSecFrameCount = 0;
 	float dt = 0.0f;
 
+	float cappedMs = -1;
+
 	pugi::xml_document saveLoadFile;
 	pugi::xml_node saveLoadNode;
 };

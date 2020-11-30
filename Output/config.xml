@@ -13,6 +13,7 @@
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>
+    <framerate value = "28"/>
   </window>
   <map>
     <folder>Assets/Screens/Map/</folder>

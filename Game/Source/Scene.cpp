@@ -51,11 +51,16 @@ bool Scene::Start()
 
 	app->player->resetPlayer();
 
+	foodRect = { 670,308,50,54 };
+	foodCol = app->collisions->AddCollider(foodRect, Collider::Type::FOOD, this);
+	foodAlive = true;
+
 	backg = app->tex->Load("Assets/Screens/Gameplay/background.png");
 	portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
+	food = app->tex->Load("Assets/Screens/Gameplay/food.png");
 	app->map->Load("map.tmx");
 		
-		//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
+	//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
 
 	return true;
 }
@@ -76,6 +81,11 @@ bool Scene::Update(float dt)
 	app->render->DrawTexture(portal, 2325, 290);//2325
 		// L03: DONE 7: Set the window title with map/tileset info
 	app->map->LoadColliders();
+
+	if (foodAlive)
+	{
+		app->render->DrawTexture(food, foodRect.x, foodRect.y, NULL);
+	}
 
 	return true;
 

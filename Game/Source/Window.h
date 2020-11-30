@@ -37,6 +37,8 @@ public:
 	// The surface contained by the window
 	SDL_Surface* screenSurface;
 
+	int framerate;
+
 private:
 	SString title;
 	uint width;
