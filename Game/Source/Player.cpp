@@ -58,6 +58,14 @@ Player::Player() : Module()
 	leftAnim.PushBack({225,460,67,101});
 	leftAnim.PushBack({308,460,67,101});
 	leftAnim.PushBack({ 376,451,38,110 });
+
+	floppyAnim.speed = 10.05f;
+	floppyAnim.loop = true;
+	floppyAnim.PushBack({ 0,0,41,38 });
+	floppyAnim.PushBack({ 41,0,41,38 });
+	floppyAnim.PushBack({ 83,0,41,38 });
+	floppyAnim.PushBack({ 126,0,41,38 });
+	floppyAnim.PushBack({ 168,0,41,38 });
 }
 
 Player::~Player()
@@ -77,10 +85,11 @@ bool Player::Start()
 	facingRight = true;
 	//ANIMATION FILE
 	character = app->tex->Load("Assets/Characters/player.png");
-	floppyDisk = app->tex->Load("Assets/GUI/floppydisk.png");
+	floppyDisk = app->tex->Load("Assets/GUI/floppyAnim.png");
 	lives = app->tex->Load("Assets/GUI/heart.png");
 	
 	currentAnimation = &idleAnimR;
+	currentFloppy = &floppyAnim;
 
 	return true;
 }
@@ -160,6 +169,7 @@ bool Player::Update(float dt)
 	{
 		app->SaveGameRequest();
 		fCount = 0;
+		floppyAnim.Reset();
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
@@ -249,6 +259,7 @@ bool Player::Update(float dt)
 	//--------------------------------
 
 	currentAnimation->Update();
+	currentFloppy->Update();
 	return true;
 }
 
@@ -265,9 +276,13 @@ bool Player::PostUpdate()
 	{
 		app->render->DrawTexture(lives, -app->render->camera.x+(i*30), 0, NULL);
 	}
+
+	SDL_Rect floppyRect;
+	floppyRect = currentFloppy->GetCurrentFrame();
+	app->render->DrawTexture(floppyDisk, -app->render->camera.x, 40, &floppyRect);
 	if (fCount < 180)
 	{
-		app->render->DrawTexture(floppyDisk, -app->render->camera.x, 40, NULL);
+		
 		fCount++;
 	}
 

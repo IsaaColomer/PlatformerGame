@@ -73,7 +73,7 @@ public:
 	//};
 	
 	Animation* currentAnimation = nullptr;
-
+	Animation* currentFloppy = nullptr;
 	// A set of animations
 	Animation idleAnimR;
 	Animation idleAnimL;
@@ -90,9 +90,12 @@ public:
 	int fCount;
 
 	SDL_Texture* character;
-	SDL_Texture* floppyDisk;
 	SDL_Texture* lives;
 	Collider* collider;
+
+	SDL_Texture* floppyDisk;
+	Animation floppyAnim;
+	
 };
 
 #endif //!__MODULE_PLAYER_H__
