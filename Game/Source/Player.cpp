@@ -59,7 +59,7 @@ Player::Player() : Module()
 	leftAnim.PushBack({308,460,67,101});
 	leftAnim.PushBack({ 376,451,38,110 });
 
-	floppyAnim.speed = 10.05f;
+	floppyAnim.speed = 0.05f;
 	floppyAnim.loop = true;
 	floppyAnim.PushBack({ 0,0,41,38 });
 	floppyAnim.PushBack({ 41,0,41,38 });
@@ -279,10 +279,10 @@ bool Player::PostUpdate()
 
 	SDL_Rect floppyRect;
 	floppyRect = currentFloppy->GetCurrentFrame();
-	app->render->DrawTexture(floppyDisk, -app->render->camera.x, 40, &floppyRect);
+	
 	if (fCount < 180)
 	{
-		
+		app->render->DrawTexture(floppyDisk, -app->render->camera.x, 40, &floppyRect);
 		fCount++;
 	}
 
