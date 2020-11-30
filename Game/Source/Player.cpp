@@ -167,9 +167,12 @@ bool Player::Update(float dt)
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{
-		app->SaveGameRequest();
-		fCount = 0;
-		floppyAnim.Reset();
+		if (fCount == 180)
+		{
+			app->SaveGameRequest();
+			fCount = 0;
+			floppyAnim.Reset();
+		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
