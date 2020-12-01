@@ -93,7 +93,7 @@ bool Collectible::PreUpdate()
 bool Collectible::Update(float dt)
 {
 	for (int i = 0; i < MAX_COLLECTIBLES; i++)
-	{
+		{
 		if (collectibleCol[i] != nullptr)
 		{
 			if (collectibleTypes[i] == Collider::Type::FOOD)
@@ -102,7 +102,6 @@ bool Collectible::Update(float dt)
 				app->render->DrawTexture(coin, collectibleRect[i].x, collectibleRect[i].y, NULL);
 		}
 	}
-
 	return true;
 }
 

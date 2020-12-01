@@ -21,20 +21,20 @@ Player::Player() : Module()
 {
 	name.Create("player");
 
-	idleAnimR.speed = 0.05f;
+	idleAnimR.speed = 0.08f;
 	idleAnimR.loop = true;
 	idleAnimR.PushBack({ 0,0,66,110 });
 	idleAnimR.PushBack({ 72,0,66,110 });
 	idleAnimR.PushBack({ 141,0,67,110 });
 	//idleAnimR.PushBack({ 4,300,80,94 });
 
-	idleAnimL.speed = 0.05f;
+	idleAnimL.speed = 0.08f;
 	idleAnimL.loop = true;
 	idleAnimL.PushBack({ 0,110,67,110 });
 	idleAnimL.PushBack({ 70,110,66,110 });
 	idleAnimL.PushBack({ 142,110,66,110 });
 
-	jumpAnim.speed = 0.05f;
+	jumpAnim.speed = 0.08f;
 	jumpAnim.loop = false;
 	jumpAnim.PushBack({ 0,225,65,110 });
 	jumpAnim.PushBack({ 72,225,57,110 });
@@ -42,7 +42,7 @@ Player::Player() : Module()
 	jumpAnim.PushBack({ 208,225,57,110 });
 	jumpAnim.PushBack({ 278,225,83,110 });
 
-	rightAnim.speed = 0.05f;
+	rightAnim.speed = 0.08f;
 	rightAnim.loop = true;
 	rightAnim.PushBack({ 0,341,38,110  });
 	rightAnim.PushBack({ 39,350,67,101 });
@@ -51,7 +51,7 @@ Player::Player() : Module()
 	rightAnim.PushBack({ 253,350,84,102 });
 	rightAnim.PushBack({ 337,351,74,101 });
 
-	leftAnim.speed = 0.05f;
+	leftAnim.speed = 0.08f;
 	leftAnim.loop = true;
 	leftAnim.PushBack({3,461,74,101});
 	leftAnim.PushBack({77,460,84,102});
@@ -60,7 +60,7 @@ Player::Player() : Module()
 	leftAnim.PushBack({308,460,67,101});
 	leftAnim.PushBack({ 376,451,38,110 });
 
-	floppyAnim.speed = 0.05f;
+	floppyAnim.speed = 0.08f;
 	floppyAnim.loop = true;
 	floppyAnim.PushBack({ 0,0,41,38 });
 	floppyAnim.PushBack({ 41,0,41,38 });
@@ -117,7 +117,7 @@ bool Player::Update(float dt)
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_UP)
 	{
-		vcx = 2.0f;
+		vcx = 3.0f;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE
@@ -164,7 +164,7 @@ bool Player::Update(float dt)
 		cp.x = 70;
 		cp.y = 500;
 		vcy = 0;
-		vcx = 2.0f;
+		vcx = 3.0f;
 
 		xMove = false;
 		ong = false;
@@ -427,7 +427,7 @@ void Player::resetPlayer()
 	app->player->cp.w = 66;
 	app->player->cp.h = 110;
 	app->player->vcy = 0;
-	app->player->vcx = 2.0f;
+	app->player->vcx = 3.0f;
 
 	app->player->xMove = false;
 	app->player->ong = false;

@@ -28,7 +28,7 @@
 // Constructor
 App::App(int argc, char* args[]) : argc(argc), args(args)
 {
-	PERF_START(ptimer);
+	PERF_START(perfTimer);
 
 	frames = 0;
 
@@ -76,7 +76,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	// Render last to swap buffer
 	AddModule(render);
 	//LOG("It took %f ms to execute", startupTime.Read());
-	PERF_PEEK(ptimer);
+	PERF_PEEK(perfTimer);
 }
 
 // Destructor
@@ -103,7 +103,7 @@ void App::AddModule(Module* module)
 // Called before render is available
 bool App::Awake()
 {
-	PERF_START(ptimer);
+	PERF_START(perfTimer);
 	pugi::xml_document configFile;
 	pugi::xml_node config;
 	pugi::xml_node configApp;
@@ -122,6 +122,7 @@ bool App::Awake()
 		title.Create(configApp.child("title").child_value());
 		organization.Create(configApp.child("organization").child_value());
 		//READ CONFIG FILE OUR FRAMERATE
+		frameRate = configApp.attribute("framerate").as_int(-1);
 	}
 
 	if (ret == true)
@@ -146,7 +147,7 @@ bool App::Awake()
 		saveLoadNode = saveLoadFile.child("save");
 	}
 
-	PERF_PEEK(ptimer);
+	PERF_PEEK(perfTimer);
 
 	return ret;
 }
@@ -154,7 +155,7 @@ bool App::Awake()
 // Called before the first frame
 bool App::Start()
 {
-	PERF_START(ptimer);
+	PERF_START(perfTimer);
 
 	bool ret = true;
 	ListItem<Module*>* item;
@@ -169,7 +170,7 @@ bool App::Start()
 		item = item->next;
 	}
 
-	PERF_PEEK(ptimer);
+	PERF_PEEK(perfTimer);
 
 	return ret;
 }
@@ -214,6 +215,12 @@ pugi::xml_node App::LoadConfig(pugi::xml_document& configFile) const
 // ---------------------------------------------
 void App::PrepareUpdate()
 {
+	fpsCount++;
+	lastSecFrameCount++;
+
+	// L08: DONE 4: Calculate the dt: differential time since last frame
+	dt = frameTime.ReadSec();
+	frameTime.Start();
 }
 
 // ---------------------------------------------
@@ -223,32 +230,48 @@ void App::FinishUpdate()
 	if (loadGameRequested == true) LoadGame();
 	if (saveGameRequested == true) SaveGame();
 
-	float averageFps = 0.0f;
-	float secondsSinceStartup = 0.0f;
-	uint32 lastFrameMs = 0;
+	uint32 lastFrameInMs = 0;
 	uint32 framesOnLastUpdate = 0;
 
-	//static char title[256];
-	//sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",
-	//	averageFps, lastFrameMs, framesOnLastUpdate, dt, secondsSinceStartup, frameCount);
+	float secondsStart = startTime.ReadSec();
+	float average = fpsCount / secondsStart;
 
-//	app->win->SetTitle(title);
-
-	// L08: TODO 2: Use SDL_Delay to make sure you get your capped framerate
-	//if (lastFrameMs < 1000 / app->win->framerate) SDL_Delay(1000 / app->win->framerate - lastFrameMs);
-
-	if ((cappedMs > 0) && (lastFrameMs < cappedMs))
+	if (frameTime.ReadSec() > 1.0f)
 	{
-		// L08: TODO 3: Measure accurately the amount of time SDL_Delay() actually waits compared to what was expected
+		framesSecond = lastSecFrameCount;
+		lastSecFrameCount = 0;
+		frameTime.Start();
 	}
+
+	oldLastFrame = lastFrameInMs;
+
+	lastFrameInMs = lastSec.Read();
+
+	lastSec.Start();
+
+	int delay = (1000 * (1.0f / frameRate));
+
+	if (lastFrameInMs < 1000 * (1.0f / frameRate))
+	{
+		perfTimer.Start();
+		SDL_Delay(delay);
+		timePerfect = perfTimer.ReadMs();
+		LOG("We waited for %d milliseconds and got back in %f milliseconds", delay, timePerfect);
+	}
+
+	static char title[256];
+	sprintf_s(title, 256, "Av.FPS: %.3f | Last frame in Ms: %03u | Last second frames: %i | Last dt: %.3f | Time since start: %.3f | Count of frames: %I64u ",
+		average, lastFrameInMs, framesSecond, dt, secondsStart, fpsCount);
+
+	app->win->SetTitle(title);
 }
 
 // Call modules before each loop iteration
 bool App::PreUpdate()
 {
 	bool ret = true;
+
 	ListItem<Module*>* item;
-	item = modules.start;
 	Module* pModule = NULL;
 
 	for (item = modules.start; item != NULL && ret == true; item = item->next)
@@ -261,8 +284,6 @@ bool App::PreUpdate()
 
 		ret = item->data->PreUpdate();
 	}
-
-	//TODO 4 Calculate dt diferential time since last frame rate
 
 	return ret;
 }
@@ -314,7 +335,7 @@ bool App::PostUpdate()
 // Called before quitting
 bool App::CleanUp()
 {
-	startupTime.Start();
+	startTime.Start();
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.end;
@@ -325,8 +346,8 @@ bool App::CleanUp()
 		item = item->prev;
 	}
 
-	LOG("It took %f ms to execute", startupTime.Read());
-	lastSecFrameCount += startupTime.Read();
+	LOG("It took %f ms to execute", startTime.Read());
+	lastSecFrameCount += startTime.Read();
 	LOG("Total: %f", lastSecFrameCount);
 
 	return ret;

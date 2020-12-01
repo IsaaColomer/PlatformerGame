@@ -1,6 +1,6 @@
 <!-- Config file for the game -->
 <config>
-  <app>
+  <app framerate= "60">
     <title>Game (Forest Run by Isaacs Software)</title>
     <organization>UPC</organization>
   </app>
@@ -13,7 +13,6 @@
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>
-    <framerate value = "28"/>
   </window>
   <map>
     <folder>Assets/Screens/Map/</folder>
