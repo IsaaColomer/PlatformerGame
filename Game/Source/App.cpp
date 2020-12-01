@@ -256,14 +256,7 @@ void App::FinishUpdate()
 		perfTimer.Start();
 		SDL_Delay(delay);
 		timePerfect = perfTimer.ReadMs();
-		LOG("We waited for %d milliseconds and got back in %f milliseconds", delay, timePerfect);
 	}
-
-	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.3f | Last frame in Ms: %03u | Last second frames: %i | Last dt: %.3f | Time since start: %.3f | Count of frames: %I64u ",
-		average, lastFrameInMs, framesSecond, dt, secondsStart, fpsCount);
-
-	app->win->SetTitle(title);
 }
 
 // Call modules before each loop iteration
@@ -346,9 +339,7 @@ bool App::CleanUp()
 		item = item->prev;
 	}
 
-	LOG("It took %f ms to execute", startTime.Read());
 	lastSecFrameCount += startTime.Read();
-	LOG("Total: %f", lastSecFrameCount);
 
 	return ret;
 }

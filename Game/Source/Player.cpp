@@ -60,7 +60,7 @@ Player::Player() : Module()
 	leftAnim.PushBack({308,460,67,101});
 	leftAnim.PushBack({ 376,451,38,110 });
 
-	floppyAnim.speed = 0.08f;
+	floppyAnim.speed = 0.12f;
 	floppyAnim.loop = true;
 	floppyAnim.PushBack({ 0,0,41,38 });
 	floppyAnim.PushBack({ 41,0,41,38 });

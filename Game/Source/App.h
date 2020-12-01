@@ -126,7 +126,7 @@ private:
 	uint32 prevLastSecFrameCount = 0;
 	uint32 framesSecond = 0;
 	uint32 lastFrameMs = 0;
-	float dt = 0.0f;
+	float dt;
 	float timePerfect;
 	float oldLastFrame = 0.0f;
 	int	cappedMs = -1;

@@ -330,6 +330,9 @@ void Collisions::DebugDraw()
 		case Collider::Type::CHECKPOINT:
 			app->render->DrawRectangle(colliders[i]->rect, 255, 255, 0, alpha);
 			break;
+		case Collider::Type::COIN:
+			app->render->DrawRectangle(colliders[i]->rect, 0, 0, 0, alpha);
+			break;
 		}
 
 	}
