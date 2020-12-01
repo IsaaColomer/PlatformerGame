@@ -98,7 +98,7 @@ bool Intro::CleanUp()
 {
 	if (!active)
 		return true;
-
+	app->player->CleanUp();
 	LOG("Freeing intro");
 
 	app->intro->active = false;

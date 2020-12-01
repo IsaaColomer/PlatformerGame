@@ -115,15 +115,15 @@ bool Scene2::PostUpdate()
 // Called before quitting
 bool Scene2::CleanUp()
 {
-	if (!active)
-		return true;
-
 	app->map->CleanUp();
 	app->player->CleanUp();
 	app->collisions->CleanUp();
 	app->enemies->CleanUp();
 
 	app->scene2->active = false;
+
+	if (!active)
+		return true;
 
 	LOG("Freeing scene");
 	return true;
