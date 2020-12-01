@@ -5,6 +5,7 @@
 #include "Animation.h"
 
 #define grav -0.1f
+#define MAX_FOOD 5
 
 struct SDL_Texture;
 struct Collider;
@@ -42,11 +43,15 @@ public:
 
 public:
 	bool foodAlive;
+
 private:
 	SDL_Texture* food;
-	Collider* foodCol;
-	SDL_Rect foodRect;
 
+	Collider* foodCol;
+	Collider* foodCol;
+
+	SDL_Rect foodRect;
+	SDL_Rect foodRect2;
 };
 
 #endif //!__MODULE_PLAYER_H__

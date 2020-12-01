@@ -400,7 +400,10 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			{
 				playerLives++;
 			}
-			app->collectible->foodAlive = false;
+			for (int i = 0; i < MAX_FOOD; i++)
+			{
+				app->collectible->foodAlive = false;
+			}
 			app->scene2->foodAlive = false;
 		}
 		if (c2->type == Collider::Type::CHECKPOINT)

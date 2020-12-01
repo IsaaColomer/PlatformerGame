@@ -15,6 +15,7 @@
 #include "Scene2.h"
 #include "Enemies.h"
 #include "Title.h"
+#include "Collectible.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -45,6 +46,9 @@ bool Scene::Start()
 
 	app->enemies->Init();
 	app->enemies->Start();
+
+	app->collectible->Init();
+	app->collectible->Start();
 
 	app->collisions->active = true;
 	app->map->active = true;

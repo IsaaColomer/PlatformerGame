@@ -13,6 +13,7 @@
 #include "Scene2.h"
 #include "Enemies.h"
 #include "Title.h"
+#include "Collectible.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -44,6 +45,9 @@ bool Scene2::Start()
 	app->enemies->Init();
 	app->enemies->Start();
 
+	app->collectible->Init();
+	app->collectible->Start();
+
 	app->enemies->ep.x = 80;
 	app->enemies->ep.y = 500;
 
@@ -53,17 +57,13 @@ bool Scene2::Start()
 
 	app->player->resetPlayer();
 
-	foodRect = { 300,100,50,54 };
-	foodCol = app->collisions->AddCollider(foodRect, Collider::Type::FOOD, this);
-	foodAlive = true;
-
 	flagRect = { 1400,450,10,180 };
 	flagCol = app->collisions->AddCollider(flagRect, Collider::Type::CHECKPOINT, this);
 	flagAlive = true;
 
 	backg = app->tex->Load("Assets/Screens/Gameplay/background.png");
 	portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
-	food = app->tex->Load("Assets/Screens/Gameplay/food.png");
+	//food = app->tex->Load("Assets/Screens/Gameplay/food.png");
 	flag = app->tex->Load("Assets/Screens/Gameplay/flag.png");
 	app->map->Load("map2.tmx");
 	//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
@@ -99,7 +99,7 @@ bool Scene2::PostUpdate()
 
 	if (foodAlive)
 	{
-		app->render->DrawTexture(food, foodRect.x, foodRect.y, NULL);
+	//	app->render->DrawTexture(food, foodRect.x, foodRect.y, NULL);
 	}
 
 	if (flagAlive)
