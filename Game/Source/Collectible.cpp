@@ -56,19 +56,19 @@ bool Collectible::Start()
 
 	else if (app->scene2->active == true)
 	{
-		collectibleRect[0] = { 100,100,50,54 };
+		collectibleRect[0] = { 300,100,50,54 };
 		collectibleTypes[0] = Collider::Type::FOOD;
 
-		collectibleRect[1] = { 200,100,50,54 };
+		collectibleRect[1] = { 400,100,50,54 };
 		collectibleTypes[1] = Collider::Type::FOOD;
 
-		collectibleRect[2] = { 300,100,50,54 };
+		collectibleRect[2] = { 500,100,50,54 };
 		collectibleTypes[2] = Collider::Type::FOOD;
 
-		collectibleRect[3] = { 400,100,50,54 };
+		collectibleRect[3] = { 600,100,50,54 };
 		collectibleTypes[3] = Collider::Type::COIN;
 
-		collectibleRect[4] = { 500,100,50,54 };
+		collectibleRect[4] = { 700,100,50,54 };
 		collectibleTypes[4] = Collider::Type::COIN;
 
 		for (int i = 0; i < MAX_COLLECTIBLES; i++)

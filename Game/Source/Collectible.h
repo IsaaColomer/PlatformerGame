@@ -43,7 +43,7 @@ public:
 private:
 	SDL_Texture* food;
 	SDL_Texture* coin;
-
+	bool destroy[MAX_COLLECTIBLES];
 	Collider* collectibleCol[MAX_COLLECTIBLES];
 	SDL_Rect collectibleRect[MAX_COLLECTIBLES];
 	Collider::Type collectibleTypes[MAX_COLLECTIBLES];

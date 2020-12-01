@@ -324,7 +324,6 @@ bool App::PostUpdate()
 
 	return ret;
 }
-
 // Called before quitting
 bool App::CleanUp()
 {

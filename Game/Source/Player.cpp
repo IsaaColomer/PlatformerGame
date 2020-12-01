@@ -113,11 +113,11 @@ bool Player::Update(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN)
 	{
-		vcx = 10.0f;
+		vcx = 10.0f*dt;
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_UP)
 	{
-		vcx = 3.0f;
+		vcx = 3.0f*dt;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE
@@ -414,10 +414,10 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			app->scene2->flagAlive = false;
 			fCount = 0;
 		}
-	/*if (c2->type == Collider::Type::ENEMY)
+		if (c2->type == Collider::Type::COIN)
 		{
 			c2->pendingToDelete = true;
-		}*/
+		}
 	}
 }
 void Player::resetPlayer()
