@@ -64,6 +64,9 @@
     <ClCompile Include="Source\FadeToBlack.cpp">
       <Filter>Engine\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Collectible.cpp">
+      <Filter>Engine\Gameplay\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -152,6 +155,9 @@
     </ClInclude>
     <ClInclude Include="Source\FadeToBlack.h">
       <Filter>Engine\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collectible.h">
+      <Filter>Engine\Gameplay\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

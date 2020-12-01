@@ -26,6 +26,7 @@ class Intro;
 class Scene2;
 class Title;
 class Enemies;
+class Collectible;
 
 class App
 {
@@ -101,6 +102,7 @@ public:
 	Scene2* scene2;
 	Title* titleScreen;
 	Enemies* enemies;
+	Collectible* collectible;
 	
 
 private:

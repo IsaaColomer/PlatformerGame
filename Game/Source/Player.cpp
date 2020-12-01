@@ -12,6 +12,7 @@
 #include "FadeToBlack.h"
 #include "Scene.h"
 #include "Title.h"
+#include "Collectible.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -367,7 +368,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		if (c2->type == Collider::Type::WIN)
 		{
 			c2->pendingToDelete = true;
-			app->fade->Fade((Module*)app->scene, (Module*)app->scene, 60);
+			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
 		}
 		if (c2->type == Collider::Type::WIN2)
 		{
@@ -399,7 +400,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			{
 				playerLives++;
 			}
-			app->scene->foodAlive = false;
+			app->collectible->foodAlive = false;
 			app->scene2->foodAlive = false;
 		}
 		if (c2->type == Collider::Type::CHECKPOINT)
@@ -410,7 +411,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			app->scene2->flagAlive = false;
 			fCount = 0;
 		}
-	/*	if (c2->type == Collider::Type::ENEMY)
+	/*if (c2->type == Collider::Type::ENEMY)
 		{
 			c2->pendingToDelete = true;
 		}*/
