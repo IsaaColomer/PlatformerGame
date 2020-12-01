@@ -19,6 +19,7 @@ struct Collider
 		DEATH,
 		ENEMY,
 		FOOD,
+		COIN,
 		CHECKPOINT,
 	
 		MAX

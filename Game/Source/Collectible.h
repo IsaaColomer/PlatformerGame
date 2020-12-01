@@ -4,8 +4,7 @@
 #include "Module.h"
 #include "Animation.h"
 
-#define grav -0.1f
-#define MAX_FOOD 5
+#define MAX_COLLECTIBLES 5
 
 struct SDL_Texture;
 struct Collider;
@@ -41,17 +40,13 @@ public:
 
 	//void DebugDrawGamepadInfo();
 
-public:
-	bool foodAlive;
-
 private:
 	SDL_Texture* food;
+	SDL_Texture* coin;
 
-	Collider* foodCol;
-	Collider* foodCol;
-
-	SDL_Rect foodRect;
-	SDL_Rect foodRect2;
+	Collider* collectibleCol[MAX_COLLECTIBLES];
+	SDL_Rect collectibleRect[MAX_COLLECTIBLES];
+	Collider::Type collectibleTypes[MAX_COLLECTIBLES];
 };
 
 #endif //!__MODULE_PLAYER_H__

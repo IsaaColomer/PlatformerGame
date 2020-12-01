@@ -30,15 +30,50 @@ Collectible::~Collectible()
 
 bool Collectible::Start()
 {
-	if (app->scene2->active == true)
-	{		
-			foodRect = { 1050,100,50,54 };
-			foodCol = app->collisions->AddCollider(foodRect, Collider::Type::FOOD, this);
-			foodAlive = true;
-		
-	}	
-
 	food = app->tex->Load("Assets/Screens/Gameplay/food.png");
+	coin = app->tex->Load("Assets/Screens/Gameplay/coin.png");
+
+	if (app->scene->active == true)
+	{
+		collectibleRect[0] = { 100,100,50,54 };
+		collectibleTypes[0] = Collider::Type::FOOD;
+
+		collectibleRect[1] = { 200,200,50,54 };
+		collectibleTypes[1] = Collider::Type::FOOD;
+
+		collectibleRect[2] = { 300,300,50,54 };
+		collectibleTypes[2] = Collider::Type::FOOD;
+
+		collectibleRect[3] = { 400,400,50,54 };
+		collectibleTypes[3] = Collider::Type::COIN;
+
+		collectibleRect[4] = { 500,500,50,54 };
+		collectibleTypes[4] = Collider::Type::COIN;
+
+		for (int i = 0; i < MAX_COLLECTIBLES; i++)
+			collectibleCol[i] = app->collisions->AddCollider(collectibleRect[i], collectibleTypes[i], this);
+	}
+
+	else if (app->scene2->active == true)
+	{
+		collectibleRect[0] = { 100,100,50,54 };
+		collectibleTypes[0] = Collider::Type::FOOD;
+
+		collectibleRect[1] = { 200,100,50,54 };
+		collectibleTypes[1] = Collider::Type::FOOD;
+
+		collectibleRect[2] = { 300,100,50,54 };
+		collectibleTypes[2] = Collider::Type::FOOD;
+
+		collectibleRect[3] = { 400,100,50,54 };
+		collectibleTypes[3] = Collider::Type::COIN;
+
+		collectibleRect[4] = { 500,100,50,54 };
+		collectibleTypes[4] = Collider::Type::COIN;
+
+		for (int i = 0; i < MAX_COLLECTIBLES; i++)
+			collectibleCol[i] = app->collisions->AddCollider(collectibleRect[i], collectibleTypes[i], this);
+	}
 
 	return true;
 }
@@ -57,13 +92,15 @@ bool Collectible::PreUpdate()
 
 bool Collectible::Update(float dt)
 {
-	if (foodAlive)
+	for (int i = 0; i < MAX_COLLECTIBLES; i++)
 	{
-		for (int i = 0; i < MAX_FOOD; i++)
+		if (collectibleCol[i] != nullptr)
 		{
-			app->render->DrawTexture(food, foodRect.x, foodRect.y, NULL);
+			if (collectibleTypes[i] == Collider::Type::FOOD)
+				app->render->DrawTexture(food, collectibleRect[i].x, collectibleRect[i].y, NULL);
+			else if (collectibleTypes[i] == Collider::Type::COIN)
+				app->render->DrawTexture(coin, collectibleRect[i].x, collectibleRect[i].y, NULL);
 		}
-
 	}
 
 	return true;
@@ -82,6 +119,11 @@ bool Collectible::PostUpdate()
 bool Collectible::CleanUp()
 {
 	app->tex->UnLoad(food);
+	app->tex->UnLoad(coin);
+
+	/*for (auto i : collectibleCol)
+		i->pendingToDelete = true;*/
+
 	return true;
 }
 
