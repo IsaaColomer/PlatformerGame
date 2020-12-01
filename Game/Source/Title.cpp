@@ -11,7 +11,7 @@
 #include "Intro.h"
 #include "Scene.h"
 #include "Scene2.h"
-#include "ModuleFadeToBlack.h"
+#include "FadeToBlack.h"
 #include "Title.h"
 
 #include "Defs.h"
@@ -97,8 +97,7 @@ bool Title::PostUpdate()
 
 bool Title::CleanUp()
 {
-	if (!active)
-		return true;
+	if (!active)return true;
 
 	LOG("Freeing intro");
 

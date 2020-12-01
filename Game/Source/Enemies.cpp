@@ -9,7 +9,7 @@
 #include "Collisions.h"
 #include "Scene2.h"
 #include "Intro.h"
-#include "ModuleFadeToBlack.h"
+#include "FadeToBlack.h"
 #include "Scene.h"
 #include "Title.h"
 #include "Enemies.h"
@@ -94,7 +94,7 @@ bool Enemies::PostUpdate()
 
 bool Enemies::CleanUp()
 {
-	active = false;
+	app->enemies->active = false;
 	return true;
 }
 bool Enemies::LoadState(pugi::xml_node& data)

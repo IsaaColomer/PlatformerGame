@@ -1,5 +1,5 @@
-#ifndef __MODULEFADETOBLACK_H__
-#define __MODULEFADETOBLACK_H__
+#ifndef __FADETOBLACK_H__
+#define __FADETOBLACK_H__
 
 #include "Module.h"
 #include "Window.h"

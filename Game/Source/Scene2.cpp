@@ -12,6 +12,7 @@
 #include "Intro.h"
 #include "Scene2.h"
 #include "Enemies.h"
+#include "Title.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -114,16 +115,20 @@ bool Scene2::PostUpdate()
 // Called before quitting
 bool Scene2::CleanUp()
 {
+	if (!active)return true;
+
 	app->map->CleanUp();
 	app->player->CleanUp();
-	app->collisions->CleanUp();
 	app->enemies->CleanUp();
+	app->collisions->CleanUp();
+
+	app->tex->UnLoad(backg);
+	app->tex->UnLoad(portal);
+	app->tex->UnLoad(food);
+	app->tex->UnLoad(flag);
 
 	app->scene2->active = false;
 
-	if (!active)
-		return true;
-
-	LOG("Freeing scene");
+	LOG("Freeing scene2");
 	return true;
 }

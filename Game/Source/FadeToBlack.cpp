@@ -1,4 +1,4 @@
-#include "ModuleFadeToBlack.h"
+#include "FadeToBlack.h"
 
 #include "Window.h"
 #include "App.h"

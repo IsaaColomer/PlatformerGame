@@ -9,7 +9,7 @@
 #include "Collisions.h"
 #include "Scene2.h"
 #include "Intro.h"
-#include "ModuleFadeToBlack.h"
+#include "FadeToBlack.h"
 #include "Scene.h"
 #include "Title.h"
 
@@ -78,9 +78,7 @@ bool Player::Start()
 	resetPlayer();
 	fCount = 180;
 	minusLives = false;
-	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);
 	
-
 	facingLeft = false;
 	facingRight = true;
 
@@ -90,7 +88,8 @@ bool Player::Start()
 	character = app->tex->Load("Assets/Characters/player.png");
 	floppyDisk = app->tex->Load("Assets/GUI/floppy_anim.png");
 	lives = app->tex->Load("Assets/GUI/heart.png");
-	
+	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);
+
 	currentAnimation = &idleAnimR;
 	currentFloppy = &floppyAnim;
 
@@ -304,7 +303,12 @@ bool Player::PostUpdate()
 
 bool Player::CleanUp()
 {
-	active = false;
+	LOG("Freeing player");
+	app->tex->UnLoad(character);
+	app->tex->UnLoad(floppyDisk);
+	app->tex->UnLoad(lives);
+
+	app->player->active = false;
 	return true;
 }
 bool Player::LoadState(pugi::xml_node& data)
@@ -363,7 +367,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		if (c2->type == Collider::Type::WIN)
 		{
 			c2->pendingToDelete = true;
-			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
+			app->fade->Fade((Module*)app->scene, (Module*)app->scene, 60);
 		}
 		if (c2->type == Collider::Type::WIN2)
 		{

@@ -11,9 +11,10 @@
 #include "Animation.h"
 #include "Intro.h"
 #include "Scene.h"
-#include "ModuleFadeToBlack.h"
+#include "FadeToBlack.h"
 #include "Scene2.h"
 #include "Enemies.h"
+#include "Title.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -114,14 +115,21 @@ bool Scene::PostUpdate()
 // Called before quitting
 bool Scene::CleanUp()
 {
+	if (!active)return true;
 	app->map->CleanUp();
 	app->player->CleanUp();
-	app->collisions->CleanUp();
 	app->enemies->CleanUp();
+	app->collisions->CleanUp();
+
+	app->tex->UnLoad(backg);
+	app->tex->UnLoad(portal);
+	app->tex->UnLoad(food);
+	app->tex->UnLoad(flag);
+
 
 	app->scene->active = false;
 
-	if (!active)return true;
+
 
 	LOG("Freeing scene");
 	return true;

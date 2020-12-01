@@ -46,9 +46,6 @@
     <ClCompile Include="Source\Audio.cpp">
       <Filter>Engine\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ModuleFadeToBlack.cpp">
-      <Filter>Engine\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Source\PerfTimer.cpp">
       <Filter>Engine\Modules</Filter>
     </ClCompile>
@@ -62,6 +59,9 @@
       <Filter>Engine\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Source\Window.cpp">
+      <Filter>Engine\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FadeToBlack.cpp">
       <Filter>Engine\Modules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -135,9 +135,6 @@
     <ClInclude Include="Source\Input.h">
       <Filter>Engine\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ModuleFadeToBlack.h">
-      <Filter>Engine\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Source\PerfTimer.h">
       <Filter>Engine\Modules</Filter>
     </ClInclude>
@@ -151,6 +148,9 @@
       <Filter>Engine\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Source\Window.h">
+      <Filter>Engine\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FadeToBlack.h">
       <Filter>Engine\Modules</Filter>
     </ClInclude>
   </ItemGroup>

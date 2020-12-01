@@ -8,7 +8,7 @@
 #include "Scene.h"
 #include "Map.h"
 #include "Player.h"
-#include "ModuleFadeToBlack.h"
+#include "FadeToBlack.h"
 #include "Intro.h"
 #include "Scene2.h"
 #include "Title.h"
@@ -58,10 +58,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(player);
 	AddModule(intro);
 	AddModule(scene);
-	AddModule(scene2);
+	//AddModule(scene2);
 	AddModule(fade);
 	AddModule(titleScreen);
-	AddModule(enemies);
+	//AddModule(enemies);
 
 	scene->active = false;
 	player->active = false;
