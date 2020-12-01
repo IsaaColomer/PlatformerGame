@@ -103,7 +103,10 @@ bool Title::CleanUp()
 	LOG("Freeing intro");
 
 	app->titleScreen->active = false;
+
 	app->tex->UnLoad(titlescreen);
+	app->tex->UnLoad(youwin);
+	app->tex->UnLoad(youlose);
 
 	return true;
 }

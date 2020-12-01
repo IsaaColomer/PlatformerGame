@@ -62,7 +62,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fade);
 	AddModule(titleScreen);
 	AddModule(enemies);
-	
 
 	scene->active = false;
 	player->active = false;
@@ -412,6 +411,3 @@ bool App::SaveGame() const
 
 	return ret;
 }
-
-
-

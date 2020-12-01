@@ -13,7 +13,6 @@
 #include "Scene2.h"
 #include "Enemies.h"
 
-
 #include "Defs.h"
 #include "Log.h"
 

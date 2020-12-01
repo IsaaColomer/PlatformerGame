@@ -86,7 +86,7 @@ bool Player::Start()
 
 	winScreen = false;
 	loseScreen = false;
-	//ANIMATION FILE
+
 	character = app->tex->Load("Assets/Characters/player.png");
 	floppyDisk = app->tex->Load("Assets/GUI/floppy_anim.png");
 	lives = app->tex->Load("Assets/GUI/heart.png");
@@ -132,21 +132,28 @@ bool Player::Update(float dt)
 			currentAnimation = &idleAnimL;
 		}
 	}
-
 	//DEBUG KEYS
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
-		if(app->intro->active)
+		if (app->intro->active)
+		{
 			app->fade->Fade((Module*)app->intro, (Module*)app->scene, 60);
-		else if(app->scene2->active)
+		}
+		else if (app->scene2->active)
+		{
 			app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 60);
+		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		if (app->intro->active)
+		{
 			app->fade->Fade((Module*)app->intro, (Module*)app->scene2, 60);
+		}
 		else if (app->scene->active)
+		{
 			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
+		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
@@ -181,7 +188,6 @@ bool Player::Update(float dt)
 	{
 		app->collisions->DebugRequest();
 	}
-
 	//PLAYER INPUT
 	if (!godMode)
 	{
@@ -205,7 +211,6 @@ bool Player::Update(float dt)
 			}
 		}
 	}
-
 	else
 	{
 		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
@@ -256,7 +261,6 @@ bool Player::Update(float dt)
 	{
 		ong = false;
 	}
-
 	//-----------------------COLLIDER MOVEMENT
 	if (collider != nullptr)
 	{
@@ -285,7 +289,7 @@ bool Player::PostUpdate()
 
 	SDL_Rect floppyRect;
 	floppyRect = currentFloppy->GetCurrentFrame();
-	
+
 	if (fCount < 180)
 	{
 		app->render->DrawTexture(floppyDisk, -app->render->camera.x, 40, &floppyRect);
@@ -317,6 +321,18 @@ bool Player::SaveState(pugi::xml_node& data) const
 	pugi::xml_node play = data.child("position");
 	play.attribute("x").set_value(cp.x);
 	play.attribute("y").set_value(cp.y);
+
+	if (app->scene->active == 1)
+	{
+		app->player->sceneValue = 1;
+	}
+	else if (app->scene2->active == 1)
+	{
+		app->player->sceneValue = 2;
+	}
+
+	pugi::xml_node scene = data.child("sceneValue");
+	scene.attribute("x").set_value(sceneValue);
 
 	return true;
 }

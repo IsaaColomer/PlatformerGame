@@ -44,9 +44,6 @@ bool Enemies::Start()
 
 	ep.w = 80;
 	ep.h = 95;
-	//vcy = 0;
-	//vcx = 2.0f;
-	//ANIMATION FILE
 
 	enemyCol = app->collisions->AddCollider(ep, Collider::Type::ENEMY, this);
 

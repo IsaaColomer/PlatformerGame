@@ -58,25 +58,11 @@ public:
 	bool minusLives;
 	bool winScreen;
 	bool loseScreen;
-
-	//float coll[11][3] =
-	//{
-	//	700,0,2520,
-	//	560,280,490,
-	//	420,560,630,
-	//	280,770,980,
-	//	490,980,1260,
-	//	350,1330,1610,
-	//	280,1680,1750,
-	//	350,1890,1960,
-	//	420,2030,2100,
-	//	490,2170,2240,
-	//	420,2310,2450
-	//};
+	int sceneValue;
 	
 	Animation* currentAnimation = nullptr;
 	Animation* currentFloppy = nullptr;
-	// A set of animations
+
 	Animation idleAnimR;
 	Animation idleAnimL;
 	Animation jumpAnim;
