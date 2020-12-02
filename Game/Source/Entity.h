@@ -11,8 +11,9 @@ public:
 	enum class Type
 	{
 		UNKNOWN,
-		ENEMY,
+		COIN,
 		FOOD
+		
 	};
 
 	Entity (fPoint position, SDL_Texture* texture, Type type) : position(position), texture(texture), type(type)

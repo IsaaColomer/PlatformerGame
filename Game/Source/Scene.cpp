@@ -53,6 +53,7 @@ bool Scene::Start()
 	app->player->resetPlayer();
 
 	app->entitymanager->AddEntity({ 1000.0f,100.0f }, Entity::Type::FOOD);
+	app->entitymanager->AddEntity({ 900.0f,100.0f }, Entity::Type::COIN);
 
 	flagRect = { 900,100,10,170 };
 	flagCol = app->collisions->AddCollider(flagRect, Collider::Type::CHECKPOINT, this);
@@ -77,12 +78,11 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-		//camera movement
-		//all draws
+	//camera movement
+	//all draws
 	app->render->DrawTexture(backg, 0, 0);
 	app->map->Draw();
 	app->render->DrawTexture(portal, 2325, 290);//2325
-		// L03: DONE 7: Set the window title with map/tileset info
 	app->map->LoadColliders();
 
 	if (flagAlive)
@@ -113,6 +113,7 @@ bool Scene::CleanUp()
 	app->player->CleanUp();
 	app->enemies->CleanUp();
 	app->collisions->CleanUp();
+	app->entitymanager->CleanUp();
 
 	app->tex->UnLoad(backg);
 	app->tex->UnLoad(portal);

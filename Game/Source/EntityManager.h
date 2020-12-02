@@ -40,10 +40,10 @@ public:
 private:
 	List<Entity*> entityList;
 
-	SDL_Texture* gEnemyTexture;
+	SDL_Texture* coinTexture;
 	SDL_Texture* foodTexture;
 
-	Entity* gEnemy;
+	Entity* coin;
 	Entity* food;
 };
 

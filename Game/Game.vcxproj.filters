@@ -70,6 +70,9 @@
     <ClCompile Include="Source\Food.cpp">
       <Filter>Engine\Gameplay\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Coin.cpp">
+      <Filter>Engine\Gameplay\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -166,6 +169,9 @@
       <Filter>Engine\Gameplay\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\Food.h">
+      <Filter>Engine\Gameplay\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Coin.h">
       <Filter>Engine\Gameplay\Entities</Filter>
     </ClInclude>
   </ItemGroup>

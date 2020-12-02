@@ -4,6 +4,7 @@
 #include "Log.h"
 #include "Textures.h"
 #include "Food.h"
+#include "Coin.h"
 
 //#include "GroundEnemy.h"
 //#include "Hearts.h"
@@ -20,7 +21,7 @@ bool EntityManager::Awake()
 
 bool EntityManager::Start()
 {
-	gEnemyTexture = app->tex->Load("Assets/Textures/Enemy.png");
+	coinTexture = app->tex->Load("Assets/Screens/Gameplay/coin.png");
 	foodTexture = app->tex->Load("Assets/Screens/Gameplay/food.png");
 
 	return true;
@@ -69,9 +70,9 @@ void EntityManager::AddEntity(fPoint position, Entity::Type type)
 {
 	switch (type)
 	{
-	case Entity::Type::ENEMY:
-	/*	gEnemy = (Entity*)(new GroundEnemy(position, gEnemyTexture, type));
-		entityList.add(gEnemy);*/
+	case Entity::Type::COIN:
+		coin = (Entity*)(new Coin(position, coinTexture, type));
+		entityList.add(coin);
 		break;
 	case Entity::Type::FOOD:
 		food = (Entity*)(new Food(position, foodTexture, type));

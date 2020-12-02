@@ -6,8 +6,8 @@
 	<audio />
 	<scene />
 	<player>
-		<position x="839" y="171" />
-		<sceneValue x="1" />
+		<position x="839" y="165" />
+		<sceneValue x="0" />
 	</player>
 	<renderer>
 		<camera x="-201" y="0" />
