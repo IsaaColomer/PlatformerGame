@@ -86,6 +86,12 @@ bool Player::Start()
 	winScreen = false;
 	loseScreen = false;
 
+	app->render->camera.y = 0;
+	app->render->camera.x = 0;
+
+	dead = false;
+	savedPos = { 80,0 };
+
 	character = app->tex->Load("Assets/Characters/player.png");
 	floppyDisk = app->tex->Load("Assets/GUI/floppy_anim.png");
 	lives = app->tex->Load("Assets/GUI/heart.png");
@@ -113,11 +119,11 @@ bool Player::Update(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN)
 	{
-		vcx = 10.0f*dt;
+		vcx = 10.0f;
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_UP)
 	{
-		vcx = 3.0f*dt;
+		vcx = 3.0f;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE
@@ -270,6 +276,13 @@ bool Player::Update(float dt)
 
 	currentAnimation->Update();
 	currentFloppy->Update();
+
+	if (willReset)
+	{
+		resetPlayer();
+	}
+		
+
 	return true;
 }
 
@@ -318,6 +331,31 @@ bool Player::LoadState(pugi::xml_node& data)
 	cp.x = play.attribute("x").as_int(0);
 	cp.y = play.attribute("y").as_int(0);
 
+	if (sceneValue == 1)
+	{
+		if (app->scene->active == true)
+		{
+			app->fade->Fade((Module*)app->scene, (Module*)app->scene, 60);
+		}
+		if (app->scene2->active == true)
+		{
+			app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 60);
+			app->scene2->active = false;
+		}
+	}
+	if (sceneValue == 2)
+	{
+		if (app->scene->active == true)
+		{
+			app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 60);
+			app->scene2->active = false;
+		}
+		if (app->scene2->active == true)
+		{
+			app->fade->Fade((Module*)app->scene2, (Module*)app->scene2, 60);
+		}
+	}
+
 	return true;
 }
 
@@ -326,7 +364,8 @@ bool Player::SaveState(pugi::xml_node& data) const
 	pugi::xml_node play = data.child("position");
 	play.attribute("x").set_value(cp.x);
 	play.attribute("y").set_value(cp.y);
-
+	app->player->savedPos.x = cp.x;
+	app->player->savedPos.y = cp.y;
 	if (app->scene->active == 1)
 	{
 		app->player->sceneValue = 1;
@@ -349,6 +388,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		if (c2->type == Collider::Type::FLOOR)
 		{
 			ong = true;
+			minusLives = false;
 		}
 		if (c2->type == Collider::Type::LEFT_WALL)
 		{
@@ -380,6 +420,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		if (c2->type == Collider::Type::DEATH && minusLives == false)
 		{
 			c2->pendingToDelete = true;
+			dead = true;
 			minusLives = true;
 			--playerLives;
 			if (playerLives == 0)
@@ -389,9 +430,10 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 				loseScreen = true;
 			}
 			else
-			{
-				app->fade->Fade((Module*)app->scene2, (Module*)app->scene2, 60);
-			}		
+			{		
+				willReset = true;
+				//app->fade->Fade((Module*)app->scene2, (Module*)app->scene2, 60);
+			}
 		}
 		if (c2->type == Collider::Type::FOOD)
 		{
@@ -422,16 +464,16 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 }
 void Player::resetPlayer()
 {
-	app->player->cp.x = 80;
-	app->player->cp.y = 0;
+	willReset = false;
+	app->player->cp.x = savedPos.x;
+	app->player->cp.y = savedPos.y;
+
 	app->player->cp.w = 66;
 	app->player->cp.h = 110;
+
 	app->player->vcy = 0;
 	app->player->vcx = 3.0f;
 
 	app->player->xMove = false;
 	app->player->ong = false;
-
-	app->render->camera.y = 0;
-	app->render->camera.x = 0;
 }

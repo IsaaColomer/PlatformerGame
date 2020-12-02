@@ -49,6 +49,8 @@ public:
 public:
 	
 	SDL_Rect cp;
+	SDL_Point savedPos;
+	bool willReset;
 	float vcy, vcx;
 	bool xMove;
 	bool godMode;
@@ -58,6 +60,7 @@ public:
 	bool minusLives;
 	bool winScreen;
 	bool loseScreen;
+	bool dead;
 	int sceneValue;
 	
 	Animation* currentAnimation = nullptr;
