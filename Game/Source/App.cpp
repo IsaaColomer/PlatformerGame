@@ -121,7 +121,7 @@ bool App::Awake()
 		// L01: DONE 4: Read the title from the config file
 		title.Create(configApp.child("title").child_value());
 		organization.Create(configApp.child("organization").child_value());
-		//READ CONFIG FILE OUR FRAMERATE
+		//READ CONFIG.XML TO LET THE CODE KNOW THE FRAMERATE
 		frameRate = configApp.attribute("framerate").as_int(-1);
 	}
 
@@ -132,10 +132,6 @@ bool App::Awake()
 
 		while ((item != NULL) && (ret == true))
 		{
-			// L01: DONE 5: Add a new argument to the Awake method to receive a pointer to an xml node.
-			// If the section with the module name exists in config.xml, fill the pointer with the valid xml_node
-			// that can be used to read all variables for that module.
-			// Send nullptr if the node does not exist in config.xml
 			ret = item->data->Awake(config.child(item->data->name.GetString()));
 			item = item->next;
 		}
@@ -216,7 +212,7 @@ pugi::xml_node App::LoadConfig(pugi::xml_document& configFile) const
 void App::PrepareUpdate()
 {
 	fpsCount++;
-	lastSecFrameCount++;
+	lastSecFrameCnt++;
 
 	// L08: DONE 4: Calculate the dt: differential time since last frame
 	dt = frameTime.ReadSec();
@@ -238,8 +234,8 @@ void App::FinishUpdate()
 
 	if (frameTime.ReadSec() > 1.0f)
 	{
-		framesSecond = lastSecFrameCount;
-		lastSecFrameCount = 0;
+		framesSecond = lastSecFrameCnt;
+		lastSecFrameCnt = 0;
 		frameTime.Start();
 	}
 
@@ -338,7 +334,7 @@ bool App::CleanUp()
 		item = item->prev;
 	}
 
-	lastSecFrameCount += startTime.Read();
+	lastSecFrameCnt += startTime.Read();
 
 	return ret;
 }

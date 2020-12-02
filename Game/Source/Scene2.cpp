@@ -13,6 +13,7 @@
 #include "Scene2.h"
 #include "Enemies.h"
 #include "Title.h"
+#include "EntityManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -117,6 +118,7 @@ bool Scene2::CleanUp()
 	app->player->CleanUp();
 	app->enemies->CleanUp();
 	app->collisions->CleanUp();
+	app->entitymanager->CleanUp();
 
 	app->tex->UnLoad(backg);
 	app->tex->UnLoad(portal);

@@ -330,30 +330,7 @@ bool Player::LoadState(pugi::xml_node& data)
 	cp.x = play.attribute("x").as_int(0);
 	cp.y = play.attribute("y").as_int(0);
 
-	if (sceneValue == 1)
-	{
-		if (app->scene->active == true)
-		{
-			app->fade->Fade((Module*)app->scene, (Module*)app->scene, 60);
-		}
-		if (app->scene2->active == true)
-		{
-			app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 60);
-			app->scene2->active = false;
-		}
-	}
-	if (sceneValue == 2)
-	{
-		if (app->scene->active == true)
-		{
-			app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 60);
-			app->scene2->active = false;
-		}
-		if (app->scene2->active == true)
-		{
-			app->fade->Fade((Module*)app->scene2, (Module*)app->scene2, 60);
-		}
-	}
+	
 
 	return true;
 }
