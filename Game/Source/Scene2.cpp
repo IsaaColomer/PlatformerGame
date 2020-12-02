@@ -54,7 +54,10 @@ bool Scene2::Start()
 
 	app->player->resetPlayer();
 
-	flagRect = { 1400,450,10,180 };
+	app->entitymanager->AddEntity({ 1500.0f,100.0f }, Entity::Type::FOOD);
+	app->entitymanager->AddEntity({ 1300.0f,100.0f }, Entity::Type::COIN);
+
+	flagRect = { 1150,100,10,180 };
 	flagCol = app->collisions->AddCollider(flagRect, Collider::Type::CHECKPOINT, this);
 	flagAlive = true;
 
@@ -118,7 +121,7 @@ bool Scene2::CleanUp()
 	app->player->CleanUp();
 	app->enemies->CleanUp();
 	app->collisions->CleanUp();
-	app->entitymanager->CleanUp();
+	app->entitymanager->DeleteEntity();
 
 	app->tex->UnLoad(backg);
 	app->tex->UnLoad(portal);

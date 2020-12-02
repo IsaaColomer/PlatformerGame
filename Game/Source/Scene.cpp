@@ -113,7 +113,7 @@ bool Scene::CleanUp()
 	app->player->CleanUp();
 	app->enemies->CleanUp();
 	app->collisions->CleanUp();
-	app->entitymanager->CleanUp();
+	app->entitymanager->DeleteEntity();
 
 	app->tex->UnLoad(backg);
 	app->tex->UnLoad(portal);
