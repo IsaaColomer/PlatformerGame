@@ -13,7 +13,7 @@
 #include "Scene2.h"
 #include "Title.h"
 #include "Enemies.h"
-#include "Collectible.h"
+#include "EntityManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -46,7 +46,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	scene2 = new Scene2();
 	titleScreen = new Title();
 	enemies = new Enemies();
-	collectible = new Collectible();
+	entitymanager = new EntityManager();
 
 	
 	// Ordered for awake / Start / Update
@@ -63,7 +63,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene2);
 	AddModule(fade);
 	AddModule(titleScreen);
-	AddModule(collectible);
+	AddModule(entitymanager);
 	//AddModule(enemies);
 
 	scene->active = false;

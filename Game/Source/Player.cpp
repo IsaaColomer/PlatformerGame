@@ -12,7 +12,6 @@
 #include "FadeToBlack.h"
 #include "Scene.h"
 #include "Title.h"
-#include "Collectible.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -364,8 +363,13 @@ bool Player::SaveState(pugi::xml_node& data) const
 	pugi::xml_node play = data.child("position");
 	play.attribute("x").set_value(cp.x);
 	play.attribute("y").set_value(cp.y);
+
 	app->player->savedPos.x = cp.x;
 	app->player->savedPos.y = cp.y;
+
+	pugi::xml_node scene = data.child("sceneValue");
+	scene.attribute("x").set_value(sceneValue);
+
 	if (app->scene->active == 1)
 	{
 		app->player->sceneValue = 1;
@@ -374,10 +378,6 @@ bool Player::SaveState(pugi::xml_node& data) const
 	{
 		app->player->sceneValue = 2;
 	}
-
-	pugi::xml_node scene = data.child("sceneValue");
-	scene.attribute("x").set_value(sceneValue);
-
 	return true;
 }
 

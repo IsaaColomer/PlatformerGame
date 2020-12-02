@@ -64,7 +64,10 @@
     <ClCompile Include="Source\FadeToBlack.cpp">
       <Filter>Engine\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Collectible.cpp">
+    <ClCompile Include="Source\EntityManager.cpp">
+      <Filter>Engine\Gameplay\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Food.cpp">
       <Filter>Engine\Gameplay\Entities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -156,7 +159,13 @@
     <ClInclude Include="Source\FadeToBlack.h">
       <Filter>Engine\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Collectible.h">
+    <ClInclude Include="Source\EntityManager.h">
+      <Filter>Engine\Gameplay\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity.h">
+      <Filter>Engine\Gameplay\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Food.h">
       <Filter>Engine\Gameplay\Entities</Filter>
     </ClInclude>
   </ItemGroup>

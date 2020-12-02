@@ -15,7 +15,7 @@
 #include "Scene2.h"
 #include "Enemies.h"
 #include "Title.h"
-#include "Collectible.h"
+#include "EntityManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -47,13 +47,12 @@ bool Scene::Start()
 	app->enemies->Init();
 	app->enemies->Start();
 
-	app->collectible->Init();
-	app->collectible->Start();
-
 	app->collisions->active = true;
 	app->map->active = true;
 
 	app->player->resetPlayer();
+
+	app->entitymanager->AddEntity({ 1000.0f,100.0f }, Entity::Type::FOOD);
 
 	flagRect = { 900,100,10,170 };
 	flagCol = app->collisions->AddCollider(flagRect, Collider::Type::CHECKPOINT, this);

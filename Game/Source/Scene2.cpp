@@ -13,7 +13,6 @@
 #include "Scene2.h"
 #include "Enemies.h"
 #include "Title.h"
-#include "Collectible.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -44,9 +43,6 @@ bool Scene2::Start()
 
 	app->enemies->Init();
 	app->enemies->Start();
-
-	app->collectible->Init();
-	app->collectible->Start();
 
 	app->enemies->ep.x = 80;
 	app->enemies->ep.y = 500;
