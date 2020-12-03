@@ -61,6 +61,7 @@ public:
 	bool winScreen;
 	bool loseScreen;
 	bool dead;
+	bool notSaved;
 	int sceneValue;
 	
 	Animation* currentAnimation = nullptr;
