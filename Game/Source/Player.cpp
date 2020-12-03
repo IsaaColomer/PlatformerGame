@@ -180,19 +180,20 @@ bool Player::Update(float dt)
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{
+
+		if (app->scene->active == true && app->scene2->flagAlive == false && notSaved == false)
+		{
+			//SCENE 2
+			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 1);
+			resetPlayer();
+		}
+		if (app->scene2->active == true && app->scene->flagAlive == false && notSaved == false)
+		{
+			//SCENE 1
+			app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 1);
+			resetPlayer();
+		}
 		app->LoadGameRequest();
-		if (app->scene->active == false && app->scene2->flagAlive == false && notSaved == false)
-		{
-			resetPlayer();
-			cp.x = 1150;
-			cp.y = 100;
-		}
-		if (app->scene2->active == false && app->scene->flagAlive == false && notSaved == false)
-		{
-			resetPlayer();
-			cp.x = 900;
-			cp.y = 100;
-		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{
@@ -344,7 +345,8 @@ bool Player::LoadState(pugi::xml_node& data)
 	cp.x = play.attribute("x").as_int(0);
 	cp.y = play.attribute("y").as_int(0);
 
-	
+	app->player->savedPos.x = cp.x;
+	app->player->savedPos.y = cp.y;
 
 	return true;
 }
@@ -407,7 +409,6 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
 			winScreen = true;
 		}
-
 		if (c2->type == Collider::Type::DEATH && minusLives == false)
 		{
 			c2->pendingToDelete = true;
@@ -456,9 +457,16 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 void Player::resetPlayer()
 {
 	willReset = false;
-	app->player->cp.x = savedPos.x;
-	app->player->cp.y = savedPos.y;
-
+	if (app->scene->active == true)
+	{
+		app->player->cp.x = 80;
+		app->player->cp.y = 0;
+	}
+	if (app->scene2->active == true)
+	{
+		app->player->cp.x = 80;
+		app->player->cp.y = 0;
+	}
 	app->player->cp.w = 66;
 	app->player->cp.h = 110;
 

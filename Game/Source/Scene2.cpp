@@ -48,12 +48,13 @@ bool Scene2::Start()
 	app->enemies->ep.x = 80;
 	app->enemies->ep.y = 500;
 
-
 	app->map->active = true;
 	app->collisions->active = true;
 
-	app->player->resetPlayer();
-
+	if (app->scene->doStart)
+	{
+		app->player->resetPlayer();
+	}
 	app->entitymanager->AddEntity({ 1500.0f,100.0f }, Entity::Type::FOOD);
 	app->entitymanager->AddEntity({ 1300.0f,100.0f }, Entity::Type::COIN);
 
@@ -63,7 +64,6 @@ bool Scene2::Start()
 
 	backg = app->tex->Load("Assets/Screens/Gameplay/background.png");
 	portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
-	//food = app->tex->Load("Assets/Screens/Gameplay/food.png");
 	flag = app->tex->Load("Assets/Screens/Gameplay/flag.png");
 	app->map->Load("map2.tmx");
 	//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
@@ -80,12 +80,12 @@ bool Scene2::PreUpdate()
 // Called each loop iteration
 bool Scene2::Update(float dt)
 {
-	//camera movement
 	//all draws
+
 	app->render->DrawTexture(backg, 0, 0);
 	app->map->Draw();
 	app->render->DrawTexture(portal, 2370, 150);//2325
-	// L03: DONE 7: Set the window title with map/tileset info
+
 	app->map->LoadColliders();
 
 	return true;
@@ -121,6 +121,7 @@ bool Scene2::CleanUp()
 	app->player->CleanUp();
 	app->enemies->CleanUp();
 	app->collisions->CleanUp();
+
 	app->entitymanager->DeleteEntity();
 
 	app->tex->UnLoad(backg);

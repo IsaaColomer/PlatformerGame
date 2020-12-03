@@ -44,13 +44,13 @@ bool Scene::Start()
 	app->player->Init();
 	app->player->Start();
 
+	app->player->resetPlayer();
+	
 	app->enemies->Init();
 	app->enemies->Start();
 
 	app->collisions->active = true;
 	app->map->active = true;
-
-	app->player->resetPlayer();
 
 	app->entitymanager->AddEntity({ 1000.0f,100.0f }, Entity::Type::FOOD);
 	app->entitymanager->AddEntity({ 900.0f,100.0f }, Entity::Type::COIN);
@@ -63,7 +63,6 @@ bool Scene::Start()
 	portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
 	flag = app->tex->Load("Assets/Screens/Gameplay/flag.png");
 	app->map->Load("map.tmx");
-		
 	//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
 
 	return true;
@@ -109,10 +108,12 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	if (!active)return true;
+
 	app->map->CleanUp();
 	app->player->CleanUp();
 	app->enemies->CleanUp();
 	app->collisions->CleanUp();
+
 	app->entitymanager->DeleteEntity();
 
 	app->tex->UnLoad(backg);
