@@ -214,13 +214,13 @@ bool Player::Update(float dt)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && ong)
 		{
-			vcy = -6.0f;
+			vcy = -650.0;
 			ong = false;
 		}
 		if (!ong)
 		{
-			if (vcy < 6.0f) vcy -= grav;
-			cp.y += vcy;
+			if (vcy < 1000) vcy -= grav*dt;
+			cp.y += vcy*dt;
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && ong == false)
@@ -246,14 +246,14 @@ bool Player::Update(float dt)
 	// L08: TODO 6: Make the camera movement independent of framerate
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		cp.x -= vcx;
+		cp.x -= vcx*dt;
 		if (currentAnimation != &leftAnim) {
 			leftAnim.Reset();
 			currentAnimation = &leftAnim;
 		}
 		if (cp.x > 640 && cp.x < 1920 && xMove)
 		{
-			app->render->camera.x += vcx;
+			app->render->camera.x += vcx*dt;
 		}
 		xMove = true;
 		facingLeft = true;
@@ -265,14 +265,14 @@ bool Player::Update(float dt)
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		cp.x += vcx;
+		cp.x += vcx*dt;
 		if (currentAnimation != &rightAnim) {
 			rightAnim.Reset();
 			currentAnimation = &rightAnim;
 		}
 		if (cp.x > 640 && cp.x < 1920 && xMove)
 		{
-			app->render->camera.x -= vcx;
+			app->render->camera.x -= vcx*dt;
 		}
 		xMove = true;
 		facingRight = true;
@@ -471,7 +471,7 @@ void Player::resetPlayer()
 	app->player->cp.h = 110;
 
 	app->player->vcy = 0;
-	app->player->vcx = 3.0f;
+	app->player->vcx = 290;
 
 	app->player->xMove = false;
 	app->player->ong = false;

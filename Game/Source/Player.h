@@ -4,7 +4,7 @@
 #include "Module.h"
 #include "Animation.h"
 
-#define grav -0.12f
+#define grav -1000.0f
 
 
 struct SDL_Texture;
