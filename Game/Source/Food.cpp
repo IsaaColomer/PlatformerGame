@@ -6,7 +6,7 @@
 #include "Collider.h"
 #include "Animation.h"
 
-Food::Food(fPoint position, SDL_Texture* texture, Type type) : Entity(position, texture, type)
+Food::Food(fPoint position, SDL_Texture* texture,Collider* collider, Type type) : Entity(position, texture, collider, type)
 {
 	idleFood.loop = true;
 	idleFood.PushBack({0,0,54,50});

@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Textures.h"
+#include "Collider.h"
 
 class Entity
 {
@@ -16,7 +17,7 @@ public:
 		
 	};
 
-	Entity (fPoint position, SDL_Texture* texture, Type type) : position(position), texture(texture), type(type)
+	Entity (fPoint position, SDL_Texture* texture,Collider* collider, Type type) : position(position), texture(texture),collider(collider), type(type)
 	{}
 
 	virtual bool Start()
@@ -37,6 +38,7 @@ public:
 	Type type;
 	fPoint position;
 	SDL_Texture* texture;
+	Collider* collider;
 
 	bool pendingToDelete = false;
 };

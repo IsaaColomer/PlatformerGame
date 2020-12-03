@@ -12,7 +12,7 @@
 #include "Intro.h"
 #include "Scene2.h"
 #include "Title.h"
-#include "Enemies.h"
+#include "EnemyGround.h"
 #include "EntityManager.h"
 
 #include "Defs.h"
@@ -45,7 +45,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	intro = new Intro();
 	scene2 = new Scene2();
 	titleScreen = new Title();
-	enemies = new Enemies();
+	enemies = new EnemyGround();
 	entitymanager = new EntityManager();
 
 	

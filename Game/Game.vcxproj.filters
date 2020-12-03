@@ -13,9 +13,6 @@
     <ClCompile Include="Source\Main.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Enemies.cpp">
-      <Filter>Engine\Gameplay\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Player.cpp">
       <Filter>Engine\Gameplay\Entities</Filter>
     </ClCompile>
@@ -73,6 +70,9 @@
     <ClCompile Include="Source\Coin.cpp">
       <Filter>Engine\Gameplay\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\EnemyGround.cpp">
+      <Filter>Engine\Gameplay\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -110,9 +110,6 @@
     </ClInclude>
     <ClInclude Include="Source\MemLeaks.h">
       <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Enemies.h">
-      <Filter>Engine\Gameplay\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\Player.h">
       <Filter>Engine\Gameplay\Entities</Filter>
@@ -172,6 +169,9 @@
       <Filter>Engine\Gameplay\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\Coin.h">
+      <Filter>Engine\Gameplay\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EnemyGround.h">
       <Filter>Engine\Gameplay\Entities</Filter>
     </ClInclude>
   </ItemGroup>

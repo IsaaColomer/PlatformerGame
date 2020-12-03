@@ -11,7 +11,7 @@
 #include "Animation.h"
 #include "Intro.h"
 #include "Scene2.h"
-#include "Enemies.h"
+#include "EnemyGround.h"
 #include "Title.h"
 #include "EntityManager.h"
 

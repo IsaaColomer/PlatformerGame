@@ -13,7 +13,7 @@
 #include "Scene.h"
 #include "FadeToBlack.h"
 #include "Scene2.h"
-#include "Enemies.h"
+#include "EnemyGround.h"
 #include "Title.h"
 #include "EntityManager.h"
 
@@ -113,6 +113,7 @@ bool Scene::CleanUp()
 	app->player->CleanUp();
 	app->enemies->CleanUp();
 	app->collisions->CleanUp();
+	app->audio->CleanUp();
 
 	app->entitymanager->DeleteEntity();
 

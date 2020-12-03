@@ -5,11 +5,12 @@
 #include "Textures.h"
 #include "Food.h"
 #include "Coin.h"
+#include "EnemyGround.h"
 
 //#include "GroundEnemy.h"
 //#include "Hearts.h"
 
-EntityManager::EntityManager() : Module()
+EntityManager::EntityManager : Module()
 {
 	name.Create("entitymanager");
 }
@@ -21,6 +22,8 @@ bool EntityManager::Awake()
 
 bool EntityManager::Start()
 {
+	// Start for ground enemy
+	SDL_Rect collider = { 0,0,80,95 };
 	coinTexture = app->tex->Load("Assets/Screens/Gameplay/coin.png");
 	foodTexture = app->tex->Load("Assets/Screens/Gameplay/food.png");
 
@@ -87,5 +90,6 @@ void EntityManager::DeleteEntity()
 	{
 		ListItem<Entity*>* entity = entityList.At(i);
 		entity->data->pendingToDelete = true;
+
 	}
 }

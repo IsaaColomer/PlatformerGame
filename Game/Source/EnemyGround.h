@@ -1,5 +1,5 @@
-#ifndef __MODULE_ENEMIES_H__
-#define __MODULE_ENEMIES_H__
+#ifndef __MODULE_ENEMYGROUND_H__
+#define __MODULE_ENEMYGROUND_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -8,14 +8,14 @@
 struct SDL_Texture;
 struct Collider;
 
-class Enemies : public Module
+class EnemyGround : public Module
 {
 public:
 	// Constructor
-	Enemies();
+	EnemyGround();
 
 	// Destructor
-	~Enemies();
+	~EnemyGround();
 	// Called before render is available
 	bool Awake();
 
@@ -51,7 +51,7 @@ public:
 	bool debugDraw;
 	float savedx, savedy;
 
-	Animation* enemyCurrentAnimation = nullptr;
+	Animation* enemyGroundCurrentAnimation = nullptr;
 
 	// A set of animations
 	Animation enemyIdleR;
@@ -67,8 +67,8 @@ public:
 	bool idleState;
 	bool facingRight;
 
-	SDL_Texture* firstEnemy;
-	Collider* enemyCol;
+	SDL_Texture* groundEnemy;
+	Collider* enemyGroundCol;
 };
 
 #endif //!__MODULE_PLAYER_H__

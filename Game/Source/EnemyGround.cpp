@@ -12,12 +12,12 @@
 #include "FadeToBlack.h"
 #include "Scene.h"
 #include "Title.h"
-#include "Enemies.h"
+#include "EnemyGround.h"
 
 #include "Defs.h"
 #include "Log.h"
 
-Enemies::Enemies() : Module()
+EnemyGround::EnemyGround() : Module()
 {
 	name.Create("enemies");
 
@@ -30,60 +30,59 @@ Enemies::Enemies() : Module()
 	
 }
 
-Enemies::~Enemies()
+EnemyGround::~EnemyGround()
 {
 
 }
 
-bool Enemies::Start()
+bool EnemyGround::Start()
 {
 	ep.x = 205;//70
 	ep.y = 180;//500
 
-	firstEnemy = app->tex->Load("Assets/Characters/first_enemy.png");
+	groundEnemy = app->tex->Load("Assets/Characters/first_enemy.png");
 
 	ep.w = 80;
 	ep.h = 95;
 
-	enemyCol = app->collisions->AddCollider(ep, Collider::Type::ENEMY, this);
+	enemyGroundCol = app->collisions->AddCollider(ep, Collider::Type::ENEMY, (Module*)app->player);
 
 	facingLeft = true;
 	facingRight = false;
 
-	
-	enemyCurrentAnimation = &enemyIdleL;
+	enemyGroundCurrentAnimation = &enemyIdleL;
 
 	return true;
 }
 
-bool Enemies::Awake()
+bool EnemyGround::Awake()
 {
 	bool ret = true;
 
 	return ret;
 }
 
-bool Enemies::PreUpdate()
+bool EnemyGround::PreUpdate()
 {
 	return true;
 }
 
-bool Enemies::Update(float dt)
+bool EnemyGround::Update(float dt)
 {
-	enemyCurrentAnimation = &enemyIdleL;
-	enemyCurrentAnimation->Update();
-	enemyCol->SetPos(ep.x, ep.y);
+	enemyGroundCurrentAnimation = &enemyIdleL;
+	enemyGroundCurrentAnimation->Update();
+	enemyGroundCol->SetPos(ep.x, ep.y);
 
 	return true;
 }
 
-bool Enemies::PostUpdate()
+bool EnemyGround::PostUpdate()
 {
 	bool ret = true;
 	SDL_Rect rectEnemy;
-	rectEnemy = enemyCurrentAnimation->GetCurrentFrame();
+	rectEnemy = enemyGroundCurrentAnimation->GetCurrentFrame();
 
-	app->render->DrawTexture(firstEnemy, ep.x, ep.y, &rectEnemy); // Placeholder not needed any more
+	app->render->DrawTexture(groundEnemy, ep.x, ep.y, &rectEnemy); // Placeholder not needed any more
 	
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
@@ -92,12 +91,12 @@ bool Enemies::PostUpdate()
 	return ret;
 }
 
-bool Enemies::CleanUp()
+bool EnemyGround::CleanUp()
 {
 	app->enemies->active = false;
 	return true;
 }
-bool Enemies::LoadState(pugi::xml_node& data)
+bool EnemyGround::LoadState(pugi::xml_node& data)
 {
 	/*pugi::xml_node play = data.child("position");
 	cp.x = play.attribute("x").as_int(0);
@@ -106,7 +105,7 @@ bool Enemies::LoadState(pugi::xml_node& data)
 	return true;
 }
 
-bool Enemies::SaveState(pugi::xml_node& data) const
+bool EnemyGround::SaveState(pugi::xml_node& data) const
 {
 	/*pugi::xml_node play = data.child("position");
 	play.attribute("x").set_value(cp.x);
@@ -115,7 +114,7 @@ bool Enemies::SaveState(pugi::xml_node& data) const
 	return true;
 }
 
-void Enemies::OnCollision(Collider* c1, Collider* c2)
+void EnemyGround::OnCollision(Collider* c1, Collider* c2)
 {
 
 }
