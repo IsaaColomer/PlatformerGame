@@ -171,7 +171,7 @@ bool Player::Update(float dt)
 		cp.x = 70;
 		cp.y = 500;
 		vcy = 0;
-		vcx = 3.0f;
+		vcx = 290.0f;
 
 		xMove = false;
 		ong = false;
@@ -185,13 +185,11 @@ bool Player::Update(float dt)
 		{
 			//SCENE 2
 			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 1);
-			resetPlayer();
 		}
 		if (app->scene2->active == true && app->scene->flagAlive == false && notSaved == false)
 		{
 			//SCENE 1
 			app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 1);
-			resetPlayer();
 		}
 		app->LoadGameRequest();
 	}
@@ -219,7 +217,7 @@ bool Player::Update(float dt)
 		}
 		if (!ong)
 		{
-			if (vcy < 330) vcy -= grav*dt;
+			if (vcy < 300) vcy -= grav*dt;
 			cp.y += vcy*dt;
 		}
 
@@ -472,6 +470,9 @@ void Player::resetPlayer()
 
 	app->player->vcy = 0;
 	app->player->vcx = 290;
+
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
 
 	app->player->xMove = false;
 	app->player->ong = false;
