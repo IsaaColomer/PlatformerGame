@@ -63,6 +63,9 @@ public:
 	bool dead;
 	bool notSaved;
 	int sceneValue;
+
+	uint jumpFx = 0;
+	uint checkPoint = 0;
 	
 	Animation* currentAnimation = nullptr;
 	Animation* currentFloppy = nullptr;

@@ -214,7 +214,6 @@ void App::PrepareUpdate()
 	fpsCount++;
 	lastSecFrameCnt++;
 
-	// L08: DONE 4: Calculate the dt: differential time since last frame
 	dt = frameTime.ReadSec();
 	frameTime.Start();
 }
@@ -222,7 +221,6 @@ void App::PrepareUpdate()
 // ---------------------------------------------
 void App::FinishUpdate()
 {
-	// L02: DONE 1: This is a good place to call Load / Save methods
 	if (loadGameRequested == true) LoadGame();
 	if (saveGameRequested == true) SaveGame();
 
@@ -255,7 +253,6 @@ void App::FinishUpdate()
 	}
 }
 
-// Call modules before each loop iteration
 bool App::PreUpdate()
 {
 	bool ret = true;
@@ -277,7 +274,6 @@ bool App::PreUpdate()
 	return ret;
 }
 
-// Call modules on each loop iteration
 bool App::DoUpdate()
 {
 	bool ret = true;
@@ -300,7 +296,6 @@ bool App::DoUpdate()
 	return ret;
 }
 
-// Call modules after each loop iteration
 bool App::PostUpdate()
 {
 	bool ret = true;
@@ -320,7 +315,7 @@ bool App::PostUpdate()
 
 	return ret;
 }
-// Called before quitting
+
 bool App::CleanUp()
 {
 	startTime.Start();
@@ -369,20 +364,16 @@ const char* App::GetOrganization() const
 // Load / Save
 void App::LoadGameRequest()
 {
-	// NOTE: We should check if SAVE_STATE_FILENAME actually exist
 	loadGameRequested = true;
 }
 
 // ---------------------------------------
 void App::SaveGameRequest() const
 {
-	// NOTE: We should check if SAVE_STATE_FILENAME actually exist and... should we overwriten
 	saveGameRequested = true;
 }
 
 // ---------------------------------------
-// L02: TODO 5: Create a method to actually load an xml file
-// then call all the modules to load themselves
 bool App::LoadGame()
 {
 	bool ret = true;
@@ -395,14 +386,12 @@ bool App::LoadGame()
 		ret = item->data->LoadState(saveLoadNode.child(item->data->name.GetString()));
 		item = item->next;
 	}
-//	saveLoadFile.reset();
 
 	loadGameRequested = false;
 
 	return ret;
 }
 
-// L02: TODO 7: Implement the xml save method for current state
 bool App::SaveGame() const
 {
 	bool ret = true;

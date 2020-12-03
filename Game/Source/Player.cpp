@@ -96,6 +96,9 @@ bool Player::Start()
 	character = app->tex->Load("Assets/Characters/player.png");
 	floppyDisk = app->tex->Load("Assets/GUI/floppy_anim.png");
 	lives = app->tex->Load("Assets/GUI/heart.png");
+	jumpFx = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
+	checkPoint = app->audio->LoadFx("Assets/Audio/Fx/check_point.wav");
+
 	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);
 
 	currentAnimation = &idleAnimR;
@@ -214,6 +217,7 @@ bool Player::Update(float dt)
 		{
 			vcy = -650.0;
 			ong = false;
+			app->audio->PlayFx(jumpFx);
 		}
 		if (!ong)
 		{
@@ -441,6 +445,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		if (c2->type == Collider::Type::CHECKPOINT)
 		{
 			c2->pendingToDelete = true;
+			app->audio->PlayFx(checkPoint);
 			app->SaveGameRequest();
 			app->scene->flagAlive = false;
 			app->scene2->flagAlive = false;
