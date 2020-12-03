@@ -85,6 +85,8 @@ bool Player::Start()
 	winScreen = false;
 	loseScreen = false;
 
+	notSaved = false;
+
 	app->render->camera.y = 0;
 	app->render->camera.x = 0;
 
@@ -179,6 +181,18 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{
 		app->LoadGameRequest();
+		if (app->scene->active == false && app->scene2->flagAlive == false && notSaved == false)
+		{
+			resetPlayer();
+			cp.x = 1150;
+			cp.y = 100;
+		}
+		if (app->scene2->active == false && app->scene->flagAlive == false && notSaved == false)
+		{
+			resetPlayer();
+			cp.x = 900;
+			cp.y = 100;
+		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{
@@ -188,6 +202,7 @@ bool Player::Update(float dt)
 			fCount = 0;
 			floppyAnim.Reset();
 		}
+		notSaved = true;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
@@ -280,7 +295,6 @@ bool Player::Update(float dt)
 	{
 		resetPlayer();
 	}
-		
 
 	return true;
 }
