@@ -17,7 +17,7 @@ public:
 		
 	};
 
-	Entity (fPoint position, SDL_Texture* texture,Collider* collider, Type type) : position(position), texture(texture),collider(collider), type(type)
+	Entity (fPoint position, SDL_Texture* texture, Type type) : position(position), texture(texture), type(type)
 	{}
 
 	virtual bool Start()

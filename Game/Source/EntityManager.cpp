@@ -10,7 +10,7 @@
 //#include "GroundEnemy.h"
 //#include "Hearts.h"
 
-EntityManager::EntityManager : Module()
+EntityManager::EntityManager() : Module()
 {
 	name.Create("entitymanager");
 }
