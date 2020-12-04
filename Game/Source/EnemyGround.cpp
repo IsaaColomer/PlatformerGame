@@ -2,6 +2,7 @@
 #include "App.h"
 #include "Render.h"
 #include "Player.h"
+#include "Audio.h"
 #include "Collisions.h"
 #include "Collider.h"
 
@@ -52,6 +53,7 @@ void EnemyGround::Collision(Collider* colider)
 	if (colider->type == Collider::Type::PLAYER)
 	{
 		pendingToDelete = true;
+		app->audio->PlayFx(app->player->hittedFx);
 		collider->pendingToDelete = true;
 		app->player->playerLives--;
 	}

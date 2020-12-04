@@ -105,6 +105,7 @@ bool Player::Start()
 	coins = app->tex->Load("Assets/GUI/coin.png");
 	jumpFx = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
 	coinFx = app->audio->LoadFx("Assets/Audio/Fx/coin.wav");
+	hittedFx = app->audio->LoadFx("Assets/Audio/Fx/hitted.wav");
 	checkPointFx = app->audio->LoadFx("Assets/Audio/Fx/check_point.wav");
 
 	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);

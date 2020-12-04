@@ -73,6 +73,7 @@ public:
 	uint jumpFx = 0;
 	uint checkPointFx = 0;
 	uint coinFx = 0;
+	uint hittedFx = 0;
 	
 	Animation* currentAnimation = nullptr;
 	Animation* currentFloppy = nullptr;
