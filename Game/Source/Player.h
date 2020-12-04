@@ -57,7 +57,7 @@ public:
 	bool ong;
 	bool debugDraw;
 	int playerLives = 3;
-	int coinsCollected = 0;
+	int coinsCollected;
 	bool minusLives;
 	bool winScreen;
 	bool loseScreen;

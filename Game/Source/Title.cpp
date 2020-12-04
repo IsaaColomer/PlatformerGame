@@ -38,6 +38,7 @@ bool Title::Awake()
 // Load assets
 bool Title::Start()
 {
+	app->player->coinsCollected = 0;
 	app->titleScreen->active = true;
 
 	spaced = false;
