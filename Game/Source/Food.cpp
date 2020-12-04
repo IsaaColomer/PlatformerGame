@@ -43,7 +43,6 @@ void Food::Collision(Collider* colider)
 	if (app->player->playerLives < 3)
 	{
 		app->player->playerLives++;
-
 	}
 	pendingToDelete = true;
 }

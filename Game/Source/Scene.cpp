@@ -50,7 +50,11 @@ bool Scene::Start()
 	app->map->active = true;
 
 	app->entitymanager->AddEntity({ 1000.0f,100.0f }, Entity::Type::FOOD);
-	app->entitymanager->AddEntity({ 900.0f,100.0f }, Entity::Type::COIN);
+	//COINS LVL1
+	app->entitymanager->AddEntity({ 419.0f,441.0f }, Entity::Type::COIN);
+	app->entitymanager->AddEntity({ 570.0f,308.0f }, Entity::Type::COIN);
+	app->entitymanager->AddEntity({ 1154.0f,630.0f }, Entity::Type::COIN);
+
 	app->entitymanager->AddEntity({ 1150.0f,400.0f }, Entity::Type::ENEMYG);
 
 	flagRect = { 900,100,10,170 };

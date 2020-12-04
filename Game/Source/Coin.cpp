@@ -5,6 +5,7 @@
 #include "Collisions.h"
 #include "Collider.h"
 #include "Animation.h"
+#include "Audio.h"
 
 Coin::Coin(Module* listener, fPoint ep, SDL_Texture* texture, Type type) : Entity(listener, ep, texture, type)
 {
@@ -41,7 +42,13 @@ void Coin::Collision(Collider* coll)
 {
 	if (coll == app->player->collider)
 	{
-		pendingToDelete = true;
 		collider->pendingToDelete = true;
+		if (app->player->coinsCollected >= 0 || app->player->coinsCollected <= 10)
+		{
+			app->player->coinsCollected++;
+		}
+		app->audio->PlayFx(app->player->coinFx);
+		pendingToDelete = true;
 	}
+	
 }

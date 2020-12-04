@@ -57,6 +57,7 @@ public:
 	bool ong;
 	bool debugDraw;
 	int playerLives = 3;
+	int coinsCollected = 0;
 	bool minusLives;
 	bool winScreen;
 	bool loseScreen;
@@ -70,7 +71,8 @@ public:
 	bool tCon;
 
 	uint jumpFx = 0;
-	uint checkPoint = 0;
+	uint checkPointFx = 0;
+	uint coinFx = 0;
 	
 	Animation* currentAnimation = nullptr;
 	Animation* currentFloppy = nullptr;
@@ -91,6 +93,7 @@ public:
 
 	SDL_Texture* character;
 	SDL_Texture* lives;
+	SDL_Texture* coins;
 	Collider* collider;
 	Collider* colliderB;
 

@@ -102,8 +102,10 @@ bool Player::Start()
 	character = app->tex->Load("Assets/Characters/player.png");
 	floppyDisk = app->tex->Load("Assets/GUI/floppy_anim.png");
 	lives = app->tex->Load("Assets/GUI/heart.png");
+	coins = app->tex->Load("Assets/GUI/coin.png");
 	jumpFx = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
-	checkPoint = app->audio->LoadFx("Assets/Audio/Fx/check_point.wav");
+	coinFx = app->audio->LoadFx("Assets/Audio/Fx/coin.wav");
+	checkPointFx = app->audio->LoadFx("Assets/Audio/Fx/check_point.wav");
 
 	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);
 	SDL_Rect bottom = { cp.x + 10,cp.y+110, 40,30 };
@@ -360,6 +362,10 @@ bool Player::PostUpdate()
 	{
 		app->render->DrawTexture(lives, -app->render->camera.x+(i*43), 0, NULL);
 	}
+	for (int i = 0; i < coinsCollected; i++)
+	{
+		app->render->DrawTexture(coins, -app->render->camera.x + (i * 43), 90, NULL);
+	}
 
 	SDL_Rect floppyRect;
 	floppyRect = currentFloppy->GetCurrentFrame();
@@ -382,6 +388,7 @@ bool Player::CleanUp()
 	app->tex->UnLoad(character);
 	app->tex->UnLoad(floppyDisk);
 	app->tex->UnLoad(lives);
+	app->tex->UnLoad(coins);
 
 	app->player->active = false;
 	return true;
@@ -490,7 +497,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		if (c2->type == Collider::Type::CHECKPOINT)
 		{
 			c2->pendingToDelete = true;
-			app->audio->PlayFx(checkPoint);
+			app->audio->PlayFx(checkPointFx);
 			app->SaveGameRequest();
 			app->scene->flagAlive = false;
 			app->scene2->flagAlive = false;
