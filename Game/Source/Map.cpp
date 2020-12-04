@@ -109,6 +109,8 @@ iPoint Map::WorldToMap(int x, int y) const
 {
 	iPoint ret(0, 0);
 
+	ret.x = x / data.tileWidth;
+	ret.y = y / data.tileHeight;
 	// L05: TODO 3: Add the case for isometric maps to WorldToMap
 
 	return ret;

@@ -19,6 +19,7 @@ struct Collider
 		ROOF,
 		DEATH,
 		ENEMY,
+		PLAYERBOT,
 		FOOD,
 		COIN,
 		CHECKPOINT,

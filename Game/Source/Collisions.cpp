@@ -75,6 +75,7 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::PLAYER][Collider::Type::CHECKPOINT] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::COIN] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::WIN3] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::PLAYERBOT] = true;
 
 	matrix[Collider::Type::WIN][Collider::Type::LEFT_WALL] = false;
 	matrix[Collider::Type::WIN][Collider::Type::RIGHT_WALL] = false;
@@ -140,6 +141,19 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::ENEMY][Collider::Type::FOOD] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::CHECKPOINT] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::COIN] = false;
+
+	matrix[Collider::Type::PLAYERBOT][Collider::Type::LEFT_WALL] = true;
+	matrix[Collider::Type::PLAYERBOT][Collider::Type::RIGHT_WALL] = true;
+	matrix[Collider::Type::PLAYERBOT][Collider::Type::FLOOR] = true;
+	matrix[Collider::Type::PLAYERBOT][Collider::Type::ROOF] = true;
+	matrix[Collider::Type::PLAYERBOT][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::PLAYERBOT][Collider::Type::DEATH] = true;
+	matrix[Collider::Type::PLAYERBOT][Collider::Type::WIN] = false;
+	matrix[Collider::Type::PLAYERBOT][Collider::Type::WIN2] = false;
+	matrix[Collider::Type::PLAYERBOT][Collider::Type::ENEMY] = false;
+	matrix[Collider::Type::PLAYERBOT][Collider::Type::FOOD] = false;
+	matrix[Collider::Type::PLAYERBOT][Collider::Type::CHECKPOINT] = false;
+	matrix[Collider::Type::PLAYERBOT][Collider::Type::COIN] = false;
 
 	matrix[Collider::Type::FOOD][Collider::Type::LEFT_WALL] = false;
 	matrix[Collider::Type::FOOD][Collider::Type::RIGHT_WALL] = false;
@@ -348,6 +362,9 @@ void Collisions::DebugDraw()
 			break;
 		case Collider::Type::WIN3:
 			app->render->DrawRectangle(colliders[i]->rect, 255, 0, 255, alpha);
+			break;
+		case Collider::Type::PLAYERBOT:
+			app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
 		}
 

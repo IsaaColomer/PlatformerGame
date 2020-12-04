@@ -92,6 +92,7 @@ public:
 	SDL_Texture* character;
 	SDL_Texture* lives;
 	Collider* collider;
+	Collider* colliderB;
 
 	SDL_Texture* floppyDisk;
 	Animation floppyAnim;
