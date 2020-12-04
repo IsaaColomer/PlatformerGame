@@ -106,7 +106,7 @@ bool Player::Start()
 	checkPoint = app->audio->LoadFx("Assets/Audio/Fx/check_point.wav");
 
 	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);
-	SDL_Rect bottom = { cp.x + 10,cp.y+110, 40,8 };
+	SDL_Rect bottom = { cp.x + 10,cp.y+110, 40,30 };
 
 	colliderB = app->collisions->AddCollider(bottom, Collider::Type::PLAYERBOT, this);
 

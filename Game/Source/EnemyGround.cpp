@@ -44,10 +44,16 @@ bool EnemyGround::Draw()
 
 void EnemyGround::Collision(Collider* colider)
 {
+	if (colider->type == Collider::Type::PLAYERBOT)
+	{
+		pendingToDelete = true;
+		collider->pendingToDelete = true;
+	}
 	if (colider->type == Collider::Type::PLAYER)
 	{
 		pendingToDelete = true;
 		collider->pendingToDelete = true;
+		app->player->playerLives--;
 	}
 }
 

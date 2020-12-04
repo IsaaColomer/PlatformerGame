@@ -140,6 +140,7 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::ENEMY][Collider::Type::ENEMY] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::FOOD] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::CHECKPOINT] = false;
+	matrix[Collider::Type::ENEMY][Collider::Type::PLAYERBOT] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::COIN] = false;
 
 	matrix[Collider::Type::PLAYERBOT][Collider::Type::LEFT_WALL] = true;
@@ -150,7 +151,7 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::PLAYERBOT][Collider::Type::DEATH] = true;
 	matrix[Collider::Type::PLAYERBOT][Collider::Type::WIN] = false;
 	matrix[Collider::Type::PLAYERBOT][Collider::Type::WIN2] = false;
-	matrix[Collider::Type::PLAYERBOT][Collider::Type::ENEMY] = false;
+	matrix[Collider::Type::PLAYERBOT][Collider::Type::ENEMY] = true;
 	matrix[Collider::Type::PLAYERBOT][Collider::Type::FOOD] = false;
 	matrix[Collider::Type::PLAYERBOT][Collider::Type::CHECKPOINT] = false;
 	matrix[Collider::Type::PLAYERBOT][Collider::Type::COIN] = false;
