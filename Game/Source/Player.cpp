@@ -183,19 +183,19 @@ bool Player::Update(float dt)
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{
-		if (app->scene->active == true && app->scene2->flagAlive == false && notSaved == false)
+		app->LoadGameRequest();
+		if (app->scene->active == true && app->scene2->flagAlive == false && app->scene->flagAlive == true)
 		{
 			//SCENE 2
 			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 1);
 			resetPlayer();
 		}
-		if (app->scene2->active == true && app->scene->flagAlive == false && notSaved == false)
+		if (app->scene2->active == true && app->scene->flagAlive == false && app->scene2->flagAlive == true)
 		{
 			//SCENE 1
 			app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 1);
 			resetPlayer();
 		}
-		app->LoadGameRequest();
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{
