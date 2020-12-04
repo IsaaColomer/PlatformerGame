@@ -115,7 +115,7 @@ bool Scene::CleanUp()
 	app->player->CleanUp();
 	app->enemies->CleanUp();
 	app->collisions->CleanUp();
-	app->audio->CleanUp();
+	//app->audio->CleanUp();
 
 	app->entitymanager->DeleteEntity();
 
