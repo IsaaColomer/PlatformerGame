@@ -42,12 +42,6 @@ bool Scene2::Start()
 	app->player->Init();
 	app->player->Start();
 
-	app->enemies->Init();
-	app->enemies->Start();
-
-	app->enemies->ep.x = 80;
-	app->enemies->ep.y = 500;
-
 	app->map->active = true;
 	app->collisions->active = true;
 
@@ -97,11 +91,6 @@ bool Scene2::PostUpdate()
 {
 	bool ret = true;
 
-	if (foodAlive)
-	{
-	//	app->render->DrawTexture(food, foodRect.x, foodRect.y, NULL);
-	}
-
 	if (flagAlive)
 	{
 		app->render->DrawTexture(flag, flagRect.x, flagRect.y, NULL);
@@ -119,7 +108,6 @@ bool Scene2::CleanUp()
 
 	app->map->CleanUp();
 	app->player->CleanUp();
-	app->enemies->CleanUp();
 	app->collisions->CleanUp();
 
 	app->entitymanager->DeleteEntity();

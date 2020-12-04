@@ -43,12 +43,6 @@ bool Scene3::Start()
 	app->player->Init();
 	app->player->Start();
 
-	app->enemies->Init();
-	app->enemies->Start();
-
-	app->enemies->ep.x = 80;
-	app->enemies->ep.y = 500;
-
 	app->map->active = true;
 	app->collisions->active = true;
 
@@ -92,11 +86,6 @@ bool Scene3::Update(float dt)
 bool Scene3::PostUpdate()
 {
 	bool ret = true;
-
-	if (foodAlive)
-	{
-		//app->render->DrawTexture(food, foodRect.x, foodRect.y, NULL);
-	}
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;

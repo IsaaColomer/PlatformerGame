@@ -1,74 +1,33 @@
-#ifndef __MODULE_ENEMYGROUND_H__
-#define __MODULE_ENEMYGROUND_H__
+#ifndef _GROUNDENEMY_H_
+#define _GROUNDENEMY_H_
 
-#include "Module.h"
+#include "Point.h"
+#include "Entity.h"
 #include "Animation.h"
-
 
 struct SDL_Texture;
 struct Collider;
 
-class EnemyGround : public Module
+class EnemyGround : Entity
 {
 public:
-	// Constructor
-	EnemyGround();
+	EnemyGround(Module* listener, fPoint position, SDL_Texture* texture, Type type);
 
-	// Destructor
-	~EnemyGround();
-	// Called before render is available
-	bool Awake();
-
-	// Called before the first frame
 	bool Start();
 
-	// Called before all Updates
-	bool PreUpdate();
-
-	// Called each loop iteration
 	bool Update(float dt);
 
-	// Called before all Updates
-	bool PostUpdate();
+	bool Draw();
 
-	// Called before quitting
-	bool CleanUp();
+	void Collision(Collider* colider);
 
-	// Collision callback, called when the player intersects with another collider
-	void OnCollision(Collider* c1, Collider* c2);
+	void CleanUp();
 
-	//void DebugDrawGamepadInfo();
+private:
+	Animation idleAnimation;
+	Animation walkAnimRight;
 
-	bool LoadState(pugi::xml_node&);
-	bool SaveState(pugi::xml_node&) const;
-
-public:
-
-	SDL_Rect ep;
-	float vcy, vcx;
-	bool xMove;
-	bool ong;
-	bool debugDraw;
-	float savedx, savedy;
-
-	Animation* enemyGroundCurrentAnimation = nullptr;
-
-	// A set of animations
-	Animation enemyIdleR;
-	Animation enemyIdleL;
-	Animation enemyJump;
-	Animation enemyDown;
-	Animation enemyRight;
-	Animation enemyLeft;
-	/*Animation shootAnim;
-	Animation death;*/
-
-	bool facingLeft;
-	bool idleState;
-	bool facingRight;
-
-	SDL_Texture* groundEnemy;
-	Collider* enemyGroundCol;
+	Animation* currentAnimation;
 };
 
-#endif //!__MODULE_PLAYER_H__
+#endif // _GROUNDENEMY_H_

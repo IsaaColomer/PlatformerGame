@@ -35,7 +35,6 @@ public:
 	bool CleanUp();
 
 public:
-	bool foodAlive;
 	bool flagAlive;
 
 	//array of colliders, first coll[0] is ground

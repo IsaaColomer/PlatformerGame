@@ -45,15 +45,13 @@ bool Scene::Start()
 	app->player->Start();
 
 	app->player->resetPlayer();
-	
-	app->enemies->Init();
-	app->enemies->Start();
 
 	app->collisions->active = true;
 	app->map->active = true;
 
 	app->entitymanager->AddEntity({ 1000.0f,100.0f }, Entity::Type::FOOD);
 	app->entitymanager->AddEntity({ 900.0f,100.0f }, Entity::Type::COIN);
+	app->entitymanager->AddEntity({ 100.0f,100.0f }, Entity::Type::ENEMYG);
 
 	flagRect = { 900,100,10,170 };
 	flagCol = app->collisions->AddCollider(flagRect, Collider::Type::CHECKPOINT, this);
@@ -113,10 +111,8 @@ bool Scene::CleanUp()
 
 	app->map->CleanUp();
 	app->player->CleanUp();
-	app->enemies->CleanUp();
 	app->collisions->CleanUp();
 	//app->audio->CleanUp();
-
 	app->entitymanager->DeleteEntity();
 
 	app->tex->UnLoad(backg);

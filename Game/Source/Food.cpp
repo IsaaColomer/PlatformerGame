@@ -6,12 +6,14 @@
 #include "Collider.h"
 #include "Animation.h"
 
-Food::Food(fPoint position, SDL_Texture* texture, Type type) : Entity(position, texture, type)
+Food::Food(Module* listener, fPoint ep, SDL_Texture* texture, Type type) : Entity(listener, ep, texture, type)
 {
 	idleFood.loop = true;
 	idleFood.PushBack({0,0,54,50});
 
 	currentAnimation = &idleFood;
+
+	collider = app->collisions->AddCollider(SDL_Rect({ (int)ep.x, (int)ep.y, 54, 50 }), Collider::Type::FOOD, listener);
 }
 
 bool Food::Start()
@@ -30,7 +32,18 @@ bool Food::Draw()
 {
 	SDL_Rect foodRect;
 	foodRect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x, position.y, &foodRect);
+	app->render->DrawTexture(texture, ep.x, ep.y, &foodRect);
 
 	return true;
+}
+
+void Food::Collision(Collider* colider)
+{
+	collider->pendingToDelete = true;
+	if (app->player->playerLives < 3)
+	{
+		app->player->playerLives++;
+
+	}
+	pendingToDelete = true;
 }

@@ -4,7 +4,6 @@
 #include "Point.h"
 #include "Entity.h"
 #include "Animation.h"
-#include "Textures.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -12,13 +11,15 @@ struct Collider;
 class Food : Entity
 {
 public:
-	Food(fPoint position, SDL_Texture* texture, Type type);
+	Food(Module* listener, fPoint ep, SDL_Texture* texture, Type type);
 
 	bool Start();
 
 	bool Update(float dt);
 
 	bool Draw();
+
+	void Collision(Collider* colider);
 
 private:
 	Animation idleFood;

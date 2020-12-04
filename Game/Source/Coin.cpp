@@ -6,12 +6,14 @@
 #include "Collider.h"
 #include "Animation.h"
 
-Coin::Coin(fPoint position, SDL_Texture* texture, Type type) : Entity(position, texture, type)
+Coin::Coin(Module* listener, fPoint ep, SDL_Texture* texture, Type type) : Entity(listener, ep, texture, type)
 {
 	idleCoin.loop = true;
 	idleCoin.PushBack({ 0,0,45,45 });
 
 	currentAnimation = &idleCoin;
+
+	collider = app->collisions->AddCollider(SDL_Rect({ (int)ep.x, (int)ep.y, 45, 45 }), Collider::Type::COIN, listener);
 }
 
 bool Coin::Start()
@@ -30,7 +32,16 @@ bool Coin::Draw()
 {
 	SDL_Rect coinRect;
 	coinRect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x, position.y, &coinRect);
+	app->render->DrawTexture(texture, ep.x, ep.y, &coinRect);
 
 	return true;
+}
+
+void Coin::Collision(Collider* coll)
+{
+	if (coll == app->player->collider)
+	{
+		pendingToDelete = true;
+		collider->pendingToDelete = true;
+	}
 }

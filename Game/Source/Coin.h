@@ -12,13 +12,15 @@ struct Collider;
 class Coin : Entity
 {
 public:
-	Coin(fPoint position, SDL_Texture* texture, Type type);
+	Coin(Module* listener, fPoint position, SDL_Texture* texture, Type type);
 
 	bool Start();
 
 	bool Update(float dt);
 
 	bool Draw();
+
+	void Collision(Collider* colider);
 
 private:
 	Animation idleCoin;

@@ -2,9 +2,11 @@
 
 #include "App.h"
 #include "Log.h"
+#include "List.h"
 #include "Textures.h"
 #include "Food.h"
 #include "Coin.h"
+#include "Entity.h"
 #include "EnemyGround.h"
 
 //#include "GroundEnemy.h"
@@ -26,6 +28,7 @@ bool EntityManager::Start()
 	SDL_Rect collider = { 0,0,80,95 };
 	coinTexture = app->tex->Load("Assets/Screens/Gameplay/coin.png");
 	foodTexture = app->tex->Load("Assets/Screens/Gameplay/food.png");
+	enemyTexture = app->tex->Load("Assets/Screens/Characters/first_enemy.png");
 
 	return true;
 }
@@ -37,17 +40,20 @@ bool EntityManager::PreUpdate()
 
 bool EntityManager::Update(float dt)
 {
-	for (int i = 0; i < entityList.count(); i++)
-	{
-		ListItem<Entity*>* entity = entityList.At(i);
+	ListItem<Entity*>* entity = entityList.start;
 
+	while (entity != nullptr)
+	{
 		if (entity->data->pendingToDelete)
 		{
+			delete entity->data;
 			entityList.del(entity);
+			entity = entity->next;
 			continue;
 		}
 
 		entity->data->Update(dt);
+		entity = entity->next;
 	}
 
 	return true;
@@ -55,7 +61,7 @@ bool EntityManager::Update(float dt)
 
 bool EntityManager::PostUpdate()
 {
-	for (int i = 0; i < entityList.count(); i++)
+	for (int i = 0; i < entityList.Count(); i++)
 	{
 		ListItem<Entity*>* entity = entityList.At(i);
 		entity->data->Draw();
@@ -66,6 +72,11 @@ bool EntityManager::PostUpdate()
 
 bool EntityManager::CleanUp()
 {
+	for (int i = 0; i < entityList.Count(); i++)
+	{
+		ListItem<Entity*>* entity = entityList.At(i);
+		entity->data->pendingToDelete = true;
+	}
 	return true;
 }
 
@@ -73,12 +84,16 @@ void EntityManager::AddEntity(fPoint position, Entity::Type type)
 {
 	switch (type)
 	{
+	case Entity::Type::ENEMYG:
+		enemyG = (Entity*)(new EnemyGround((Module*)this, position, enemyTexture, type));
+		entityList.add(enemyG);
+		break;
 	case Entity::Type::COIN:
-		coin = (Entity*)(new Coin(position, coinTexture, type));
+		coin = (Entity*)(new Coin((Module*)this, position, coinTexture, type));
 		entityList.add(coin);
 		break;
 	case Entity::Type::FOOD:
-		food = (Entity*)(new Food(position, foodTexture, type));
+		food = (Entity*)(new Food((Module*)this, position, foodTexture, type));
 		entityList.add(food);
 		break;
 	}
@@ -86,10 +101,28 @@ void EntityManager::AddEntity(fPoint position, Entity::Type type)
 
 void EntityManager::DeleteEntity()
 {
-	for (int i = 0; i < entityList.count(); i++)
+	for (int i = 0; i < entityList.Count(); i++)
 	{
 		ListItem<Entity*>* entity = entityList.At(i);
 		entity->data->pendingToDelete = true;
 
+	}
+}
+
+void EntityManager::OnCollision(Collider* a, Collider* b)
+{
+	for (int i = 0; i < entityList.Count(); i++)
+	{
+		ListItem<Entity*>* entity = entityList.At(i);
+
+		if (entity->data->collider == a && b != nullptr)
+		{
+			entity->data->Collision(b);
+		}
+
+		if (entity->data->collider == b && a != nullptr)
+		{
+			entity->data->Collision(a);
+		}
 	}
 }

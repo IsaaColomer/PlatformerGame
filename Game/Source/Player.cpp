@@ -480,19 +480,6 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 				//app->fade->Fade((Module*)app->scene2, (Module*)app->scene2, 60);
 			}
 		}
-		if (c2->type == Collider::Type::FOOD)
-		{
-			c2->pendingToDelete = true;
-			if (playerLives < 3)
-			{
-				playerLives++;
-			}
-			/*for (int i = 0; i < MAX_COLLECTIBLES; i++)
-			{
-				app->collectible->foodAlive = false;
-			}
-			app->scene2->foodAlive = false;*/
-		}
 		if (c2->type == Collider::Type::CHECKPOINT)
 		{
 			c2->pendingToDelete = true;

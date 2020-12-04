@@ -38,7 +38,7 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 
 int Properties::GetProperty(const char* value, int defaultValue) const
 {
-	for (int i = 0; i < list.count(); i++)
+	for (int i = 0; i < list.Count(); i++)
 	{
 		if (strcmp(list.At(i)->data->name.GetString(), value) == 0)
 		{
@@ -83,7 +83,7 @@ void Map::Draw()
 				{
 					// L04: TODO 9: Complete the draw function       
 					iPoint vec = MapToWorld(x, y);
-					for (int i = 0; i < data.tilesets.count() && data.layer.At(i) != nullptr; i++)
+					for (int i = 0; i < data.tilesets.Count() && data.layer.At(i) != nullptr; i++)
 					{
 						if (data.layer.At(i)->data->properties.GetProperty("Draw", 0) == 1 && layer->data->name != "colliders" && layer->data->name != "win" && layer->data->name != "Dead" && layer->data->name != "win2" && layer->data->name != "win3")
 							app->render->DrawTexture(data.tilesets.At(i)->data->texture, vec.x, vec.y, &data.tilesets.At(i)->data->GetTileRect(tileId));
@@ -248,7 +248,7 @@ bool Map::Load(const char* filename)
 		LOG("Successfully parsed Successfully parsed map XML file: %s", filename);
 		LOG("width: %d  height: %d", data.width, data.height);
 
-		for (int i = 0; i < data.tilesets.count(); i++)
+		for (int i = 0; i < data.tilesets.Count(); i++)
 		{
 			LOG("Tileset %d ----", i + 1);
 			LOG("name: %s firstgid: %i", data.tilesets.At(i)->data->name.GetString(), data.tilesets.At(i)->data->firstgid);

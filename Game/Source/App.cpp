@@ -46,7 +46,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	intro = new Intro();
 	scene2 = new Scene2();
 	titleScreen = new Title();
-	enemies = new EnemyGround();
 	entitymanager = new EntityManager();
 	scene3 = new Scene3();
 
@@ -75,7 +74,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	scene2->active = false;
 	scene3->active = false;
 	intro->active = false;
-	enemies->active = false;
 
 	// Render last to swap buffer
 	AddModule(render);

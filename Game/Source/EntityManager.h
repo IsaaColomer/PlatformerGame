@@ -35,6 +35,8 @@ public:
 
 	void AddEntity(fPoint position, Entity::Type type);
 
+	void OnCollision(Collider* a, Collider* b);
+
 	void DeleteEntity();
 
 private:
@@ -42,7 +44,9 @@ private:
 
 	SDL_Texture* coinTexture;
 	SDL_Texture* foodTexture;
+	SDL_Texture* enemyTexture;
 
+	Entity* enemyG;
 	Entity* coin;
 	Entity* food;
 };

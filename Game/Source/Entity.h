@@ -13,11 +13,12 @@ public:
 	{
 		UNKNOWN,
 		COIN,
-		FOOD
+		FOOD, 
+		ENEMYG
 		
 	};
 
-	Entity (fPoint position, SDL_Texture* texture, Type type) : position(position), texture(texture), type(type)
+	Entity(Module* listener, fPoint ep, SDL_Texture* texture, Type type) : listener(listener), ep(ep), texture(texture), type(type)
 	{}
 
 	virtual bool Start()
@@ -35,10 +36,23 @@ public:
 		return true;
 	}
 
+	virtual void Collision(Collider* colider)
+	{
+
+	}
+
+	virtual void CleanUp()
+	{
+
+	}
+
+	Module* listener;
+
 	Type type;
-	fPoint position;
+	fPoint ep;
 	SDL_Texture* texture;
-	Collider* collider;
+
+	Collider* collider = nullptr;
 
 	bool pendingToDelete = false;
 };
