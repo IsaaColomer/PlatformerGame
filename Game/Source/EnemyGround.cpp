@@ -7,9 +7,6 @@
 
 EnemyGround::EnemyGround(Module* listener, fPoint ep, SDL_Texture* texture, Type type) : Entity(listener, ep, texture, type)
 {
-	idleAnimation.loop = true;
-	idleAnimation.PushBack({ 0, 0, 80, 95 });	
-
 	idleAnimation.speed = 0.05f;
 	idleAnimation.loop = true;
 	idleAnimation.PushBack({ 468,593,84,93 });
@@ -29,7 +26,7 @@ bool EnemyGround::Start()
 
 bool EnemyGround::Update(float dt)
 {
-	currentAnimation = &walkAnimRight;
+	currentAnimation = &idleAnimation;
 	currentAnimation->Update();
 	collider->SetPos(ep.x, ep.y);
 

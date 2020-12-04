@@ -51,14 +51,13 @@ bool Scene::Start()
 
 	app->entitymanager->AddEntity({ 1000.0f,100.0f }, Entity::Type::FOOD);
 	app->entitymanager->AddEntity({ 900.0f,100.0f }, Entity::Type::COIN);
-	app->entitymanager->AddEntity({ 100.0f,100.0f }, Entity::Type::ENEMYG);
+	app->entitymanager->AddEntity({ 1150.0f,400.0f }, Entity::Type::ENEMYG);
 
 	flagRect = { 900,100,10,170 };
 	flagCol = app->collisions->AddCollider(flagRect, Collider::Type::CHECKPOINT, this);
 	flagAlive = true;
 
 	backg = app->tex->Load("Assets/Screens/Gameplay/background.png");
-
 	portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
 	flag = app->tex->Load("Assets/Screens/Gameplay/flag.png");
 

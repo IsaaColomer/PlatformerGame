@@ -28,7 +28,7 @@ bool EntityManager::Start()
 	SDL_Rect collider = { 0,0,80,95 };
 	coinTexture = app->tex->Load("Assets/Screens/Gameplay/coin.png");
 	foodTexture = app->tex->Load("Assets/Screens/Gameplay/food.png");
-	enemyTexture = app->tex->Load("Assets/Screens/Characters/first_enemy.png");
+	enemyTexture = app->tex->Load("Assets/Characters/first_enemy.png");
 
 	return true;
 }

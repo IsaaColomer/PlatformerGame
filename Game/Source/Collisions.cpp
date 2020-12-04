@@ -237,7 +237,6 @@ bool Collisions::Update(float dt)
 				for (uint i = 0; i < MAX_LISTENERS; ++i)
 					if (c2->listeners[i] != nullptr) c2->listeners[i]->OnCollision(c2, c1);
 			}
-
 		}
 	}
 

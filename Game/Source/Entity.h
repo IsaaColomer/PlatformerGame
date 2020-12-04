@@ -12,9 +12,10 @@ public:
 	enum class Type
 	{
 		UNKNOWN,
+		ENEMYG,
 		COIN,
-		FOOD, 
-		ENEMYG
+		FOOD
+		
 		
 	};
 
