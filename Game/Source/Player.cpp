@@ -11,6 +11,7 @@
 #include "Intro.h"
 #include "FadeToBlack.h"
 #include "Scene.h"
+#include "Scene3.h"
 #include "Title.h"
 
 #include "Defs.h"
@@ -150,6 +151,10 @@ bool Player::Update(float dt)
 		{
 			app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 60);
 		}
+		else if (app->scene3->active)
+		{
+			app->fade->Fade((Module*)app->scene3, (Module*)app->scene2, 60);
+		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
@@ -160,6 +165,25 @@ bool Player::Update(float dt)
 		else if (app->scene->active)
 		{
 			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
+		}
+		else if (app->scene3->active)
+		{
+			app->fade->Fade((Module*)app->scene3, (Module*)app->scene2, 60);
+		}
+	}
+	if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+	{
+		if (app->intro->active)
+		{
+			app->fade->Fade((Module*)app->intro, (Module*)app->scene3, 60);
+		}
+		else if (app->scene->active)
+		{
+			app->fade->Fade((Module*)app->scene, (Module*)app->scene3, 60);
+		}
+		else if (app->scene2->active)
+		{
+			app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 60);
 		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -387,6 +411,10 @@ bool Player::SaveState(pugi::xml_node& data) const
 	{
 		app->player->sceneValue = 2;
 	}
+	else if (app->scene3->active == 1)
+	{
+		app->player->sceneValue = 3;
+	}
 	return true;
 }
 
@@ -426,7 +454,12 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		if (c2->type == Collider::Type::WIN2)
 		{
 			c2->pendingToDelete = true;
-			app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
+			app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 60);
+		}
+		if (c2->type == Collider::Type::WIN3)
+		{
+			c2->pendingToDelete = true;
+			app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
 			winScreen = true;
 		}
 		if (c2->type == Collider::Type::DEATH && minusLives == false)
@@ -486,6 +519,11 @@ void Player::resetPlayer()
 	if (app->scene2->active == true)
 	{
 		app->player->cp.x = 80;
+		app->player->cp.y = 0;
+	}
+	if (app->scene3->active == true)
+	{
+		app->player->cp.x = 0;
 		app->player->cp.y = 0;
 	}
 	app->player->cp.w = 66;

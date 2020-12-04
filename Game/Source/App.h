@@ -27,6 +27,7 @@ class Scene2;
 class Title;
 class EnemyGround;
 class EntityManager;
+class Scene3;
 
 class App
 {
@@ -100,6 +101,7 @@ public:
 	FadeToBlack* fade;
 	Intro* intro;
 	Scene2* scene2;
+	Scene3* scene3;
 	Title* titleScreen;
 	EnemyGround* enemies;
 	EntityManager* entitymanager;

@@ -73,6 +73,9 @@
     <ClCompile Include="Source\EnemyGround.cpp">
       <Filter>Engine\Gameplay\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene3.cpp">
+      <Filter>Engine\Gameplay\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -173,6 +176,9 @@
     </ClInclude>
     <ClInclude Include="Source\EnemyGround.h">
       <Filter>Engine\Gameplay\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3.h">
+      <Filter>Engine\Gameplay\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
