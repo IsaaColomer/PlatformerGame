@@ -64,6 +64,11 @@ public:
 	bool notSaved;
 	int sceneValue;
 
+	bool fCon;
+	bool lCon;
+	bool rCon;
+	bool tCon;
+
 	uint jumpFx = 0;
 	uint checkPoint = 0;
 	

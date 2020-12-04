@@ -82,6 +82,11 @@ bool Player::Start()
 	facingLeft = false;
 	facingRight = true;
 
+	fCon = false;
+	lCon = false;
+	rCon = false;
+	tCon = false;
+
 	winScreen = false;
 	loseScreen = false;
 
@@ -121,14 +126,6 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN)
-	{
-		vcx = 10.0f;
-	}
-	else if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_UP)
-	{
-		vcx = 3.0f;
-	}
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE)
@@ -249,14 +246,21 @@ bool Player::Update(float dt)
 	// L08: TODO 6: Make the camera movement independent of framerate
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		cp.x -= vcx*dt;
+		if (rCon == false)
+		{
+			cp.x -= vcx * dt;
+			if (cp.x > 640 && cp.x < 1920 && xMove)
+			{
+				app->render->camera.x += vcx * dt;
+			}
+		}
+		else
+		{
+			rCon = false;
+		}
 		if (currentAnimation != &leftAnim) {
 			leftAnim.Reset();
 			currentAnimation = &leftAnim;
-		}
-		if (cp.x > 640 && cp.x < 1920 && xMove)
-		{
-			app->render->camera.x += vcx*dt;
 		}
 		xMove = true;
 		facingLeft = true;
@@ -268,15 +272,24 @@ bool Player::Update(float dt)
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		cp.x += vcx*dt;
+		if (lCon == false)
+		{
+			cp.x += vcx * dt;
+			if (cp.x > 640 && cp.x < 1920 && xMove)
+			{
+				app->render->camera.x -= vcx * dt;
+			}
+		}
+		else
+		{
+			lCon = false;
+		}
+
 		if (currentAnimation != &rightAnim) {
 			rightAnim.Reset();
 			currentAnimation = &rightAnim;
 		}
-		if (cp.x > 640 && cp.x < 1920 && xMove)
-		{
-			app->render->camera.x -= vcx*dt;
-		}
+		
 		xMove = true;
 		facingRight = true;
 		facingLeft = false;
@@ -384,21 +397,25 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		if (c2->type == Collider::Type::FLOOR)
 		{
 			ong = true;
+			fCon = true;
 			minusLives = false;
 		}
-		if (c2->type == Collider::Type::LEFT_WALL)
+		if (c2->type == Collider::Type::LEFT_WALL && lCon == false)
 		{
-			cp.x = c2->rect.x - cp.w;
+			cp.x = c2->rect.x - cp.w+1;
+			lCon = true;
 			xMove = false;
 		}
-		if (c2->type == Collider::Type::RIGHT_WALL)
+		if (c2->type == Collider::Type::RIGHT_WALL && rCon == false)
 		{
-			cp.x = c2->rect.x + c2->rect.w;
+			cp.x = c2->rect.x + c2->rect.w-1;
+			rCon = true;
 			xMove = false;
 		}
 		if (c2->type == Collider::Type::ROOF)
 		{
 			cp.y = c2->rect.y + c2->rect.h;
+			tCon = true;
 			vcy = 0.0f;
 		}
 		if (c2->type == Collider::Type::WIN)

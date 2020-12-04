@@ -378,8 +378,8 @@ void Map::LoadColliders()
 				int u = layer->Get(x, y);
 				iPoint pos = MapToWorld(x, y);
 				SDL_Rect n = { pos.x+16, pos.y, data.tileWidth-28, 12 };
-				SDL_Rect n2 = { pos.x, pos.y+24, 12, data.tileHeight-48};
-				SDL_Rect n3 = { pos.x + data.tileWidth-12, pos.y+24, 12, data.tileHeight-48};
+				SDL_Rect n2 = { pos.x, pos.y+12, 12, data.tileHeight-24};
+				SDL_Rect n3 = { pos.x + data.tileWidth-12, pos.y+12, 12, data.tileHeight-24};
 				SDL_Rect n4 = { pos.x+16, pos.y + data.tileHeight-12, data.tileWidth-28, 12 };
 				if (u != 0)
 				{

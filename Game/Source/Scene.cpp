@@ -60,8 +60,10 @@ bool Scene::Start()
 	flagAlive = true;
 
 	backg = app->tex->Load("Assets/Screens/Gameplay/background.png");
+
 	portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
 	flag = app->tex->Load("Assets/Screens/Gameplay/flag.png");
+
 	app->map->Load("map.tmx");
 	//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
 
