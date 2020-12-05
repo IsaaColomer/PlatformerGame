@@ -286,7 +286,7 @@ bool Player::Update(float dt)
 		if (rCon == false)
 		{
 			cp.x -= vcx * dt;
-			if (cp.x > 700 && cp.x < 1800 && xMove)
+			if (cp.x > 700 && cp.x < 1850 && xMove)
 			{
 					app->render->camera.x += vcx * dt;
 			}
@@ -312,7 +312,7 @@ bool Player::Update(float dt)
 		if (lCon == false)
 		{
 			cp.x += vcx * dt;
-			if (cp.x > 700 && cp.x < 1920 && xMove)
+			if (cp.x > 700 && cp.x < 1850 && xMove)
 			{
 					app->render->camera.x -= vcx * dt;
 			}
