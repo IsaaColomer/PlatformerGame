@@ -5,6 +5,7 @@
 #include "Collisions.h"
 #include "Collider.h"
 #include "Animation.h"
+#include "Audio.h"
 
 Food::Food(Module* listener, fPoint ep, SDL_Texture* texture, Type type) : Entity(listener, ep, texture, type)
 {
@@ -40,9 +41,11 @@ bool Food::Draw()
 void Food::Collision(Collider* colider)
 {
 	collider->pendingToDelete = true;
-	if (app->player->playerLives < 3)
+
+	if (app->player->playerLives < 3 && app->player->godMode == false)
 	{
 		app->player->playerLives++;
+		app->audio->PlayFx(app->player->lifeUpFx);
 	}
 	pendingToDelete = true;
 }

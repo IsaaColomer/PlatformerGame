@@ -49,8 +49,9 @@ bool Scene2::Start()
 	{
 		app->player->resetPlayer();
 	}
-	app->entitymanager->AddEntity({ 1500.0f,100.0f }, Entity::Type::FOOD);
-	app->entitymanager->AddEntity({ 1300.0f,100.0f }, Entity::Type::COIN);
+	app->entitymanager->AddEntity({ 920.0F,272.0f }, Entity::Type::COIN);
+	app->entitymanager->AddEntity({1410.0f,551.0f }, Entity::Type::COIN);
+	app->entitymanager->AddEntity({ 2180.0f,338.0f }, Entity::Type::COIN);
 
 	flagRect = { 1150,100,10,180 };
 	flagCol = app->collisions->AddCollider(flagRect, Collider::Type::CHECKPOINT, this);

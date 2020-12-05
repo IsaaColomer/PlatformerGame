@@ -49,13 +49,16 @@ bool Scene::Start()
 	app->collisions->active = true;
 	app->map->active = true;
 
-	app->entitymanager->AddEntity({ 1000.0f,100.0f }, Entity::Type::FOOD);
+
 	//COINS LVL1
 	app->entitymanager->AddEntity({ 419.0f,441.0f }, Entity::Type::COIN);
 	app->entitymanager->AddEntity({ 570.0f,308.0f }, Entity::Type::COIN);
 	app->entitymanager->AddEntity({ 1154.0f,630.0f }, Entity::Type::COIN);
 
 	app->entitymanager->AddEntity({ 1150.0f,400.0f }, Entity::Type::ENEMYG);
+	app->entitymanager->AddEntity({ 1720.0f,607.0f }, Entity::Type::ENEMYG);
+
+	app->entitymanager->AddEntity({ 2144.0f,600.0f }, Entity::Type::FOOD);
 
 	flagRect = { 900,100,10,170 };
 	flagCol = app->collisions->AddCollider(flagRect, Collider::Type::CHECKPOINT, this);

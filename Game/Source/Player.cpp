@@ -99,6 +99,7 @@ bool Player::Start()
 	dead = false;
 	savedPos = { 80,0 };
 
+	//ALL TEXTURES AND STUFF TO LOAD (AUDIO, PNG'S, etc...)
 	character = app->tex->Load("Assets/Characters/player.png");
 	floppyDisk = app->tex->Load("Assets/GUI/floppy_anim.png");
 	lives = app->tex->Load("Assets/GUI/heart.png");
@@ -107,6 +108,8 @@ bool Player::Start()
 	coinFx = app->audio->LoadFx("Assets/Audio/Fx/coin.wav");
 	hittedFx = app->audio->LoadFx("Assets/Audio/Fx/hitted.wav");
 	checkPointFx = app->audio->LoadFx("Assets/Audio/Fx/check_point.wav");
+	destroyedFx = app->audio->LoadFx("Assets/Audio/Fx/enemy_destroyed.wav");
+	lifeUpFx = app->audio->LoadFx("Assets/Audio/Fx/life.wav");
 
 	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);
 	SDL_Rect bottom = { cp.x + 10,cp.y+110, 40,30 };
@@ -365,7 +368,7 @@ bool Player::PostUpdate()
 	}
 	for (int i = 0; i < coinsCollected; i++)
 	{
-		app->render->DrawTexture(coins, -app->render->camera.x + (i * 43), 90, NULL);
+		app->render->DrawTexture(coins, -app->render->camera.x + (i * 43)+129, 0, NULL);
 	}
 
 	SDL_Rect floppyRect;

@@ -99,7 +99,6 @@ bool Scene3::CleanUp()
 
 	app->map->CleanUp();
 	app->player->CleanUp();
-	app->enemies->CleanUp();
 	app->collisions->CleanUp();
 
 	app->entitymanager->DeleteEntity();

@@ -70,10 +70,13 @@ public:
 	bool rCon;
 	bool tCon;
 
+	//AUDIO FX
 	uint jumpFx = 0;
 	uint checkPointFx = 0;
 	uint coinFx = 0;
 	uint hittedFx = 0;
+	uint destroyedFx = 0;
+	uint lifeUpFx = 0;
 	
 	Animation* currentAnimation = nullptr;
 	Animation* currentFloppy = nullptr;

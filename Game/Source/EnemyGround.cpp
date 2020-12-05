@@ -45,12 +45,13 @@ bool EnemyGround::Draw()
 
 void EnemyGround::Collision(Collider* colider)
 {
-	if (colider->type == Collider::Type::PLAYERBOT)
+	if (colider->type == Collider::Type::PLAYERBOT && app->player->godMode == false)
 	{
 		pendingToDelete = true;
+		app->audio->PlayFx(app->player->destroyedFx);
 		collider->pendingToDelete = true;
 	}
-	if (colider->type == Collider::Type::PLAYER)
+	if (colider->type == Collider::Type::PLAYER && app->player->godMode == false)
 	{
 		pendingToDelete = true;
 		app->audio->PlayFx(app->player->hittedFx);
