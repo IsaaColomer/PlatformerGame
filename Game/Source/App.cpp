@@ -191,6 +191,10 @@ bool App::Update()
 	if (ret == true)
 		ret = PostUpdate();
 
+	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	{
+		fpsCap = !fpsCap;
+	}
 
 	FinishUpdate();
 	return ret;
@@ -228,30 +232,32 @@ void App::FinishUpdate()
 
 	uint32 lastFrameInMs = 0;
 	uint32 framesOnLastUpdate = 0;
-
-	float secondsStart = startTime.ReadSec();
-	float average = fpsCount / secondsStart;
-
-	if (frameTime.ReadSec() > 1.0f)
+	if (fpsCap == true)
 	{
-		framesSecond = lastSecFrameCnt;
-		lastSecFrameCnt = 0;
-		frameTime.Start();
-	}
+		float secondsStart = startTime.ReadSec();
+		float average = fpsCount / secondsStart;
 
-	oldLastFrame = lastFrameInMs;
+		if (frameTime.ReadSec() > 1.0f)
+		{
+			framesSecond = lastSecFrameCnt;
+			lastSecFrameCnt = 0;
+			frameTime.Start();
+		}
 
-	lastFrameInMs = lastSec.Read();
+		oldLastFrame = lastFrameInMs;
 
-	lastSec.Start();
+		lastFrameInMs = lastSec.Read();
 
-	int delay = (1000 * (1.0f / frameRate));
+		lastSec.Start();
 
-	if (lastFrameInMs < 1000 * (1.0f / frameRate))
-	{
-		perfTimer.Start();
-		SDL_Delay(delay);
-		timePerfect = perfTimer.ReadMs();
+		int delay = (1000 * (1.0f / frameRate));
+
+		if (lastFrameInMs < 1000 * (1.0f / frameRate))
+		{
+			perfTimer.Start();
+			SDL_Delay(delay);
+			timePerfect = perfTimer.ReadMs();
+		}
 	}
 }
 
@@ -272,6 +278,7 @@ bool App::PreUpdate()
 
 		ret = item->data->PreUpdate();
 	}
+	
 
 	return ret;
 }
