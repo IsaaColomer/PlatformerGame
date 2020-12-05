@@ -381,7 +381,7 @@ bool Player::PostUpdate()
 	}
 	for (int i = 0; i < coinsCollected; i++)
 	{
-		app->render->DrawTexture(coins, -app->render->camera.x + (i * 43)+129, 0, NULL);
+		app->render->DrawTexture(coins, -app->render->camera.x + (i * 17)+129, 0, NULL);
 	}
 
 	SDL_Rect floppyRect;
