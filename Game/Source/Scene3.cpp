@@ -46,12 +46,17 @@ bool Scene3::Start()
 	app->map->active = true;
 	app->collisions->active = true;
 
+	app->entitymanager->AddEntity({ 1000.0f,551.0f }, Entity::Type::COIN);
+	app->entitymanager->AddEntity({ 1764.0f,227.0f }, Entity::Type::COIN);
+
+	app->entitymanager->AddEntity({ 1415.0f,301.0f }, Entity::Type::FOOD );
+
 	if (app->scene->doStart)
 	{
 		app->player->resetPlayer();
 	}
-	app->entitymanager->AddEntity({ 1500.0f,100.0f }, Entity::Type::FOOD);
-	app->entitymanager->AddEntity({ 1300.0f,100.0f }, Entity::Type::COIN);
+	
+
 
 	backg = app->tex->Load("Assets/Screens/Gameplay/background.png");
 	portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
@@ -100,8 +105,10 @@ bool Scene3::CleanUp()
 	app->map->CleanUp();
 	app->player->CleanUp();
 	app->collisions->CleanUp();
-
 	app->entitymanager->DeleteEntity();
+	app->entitymanager->CleanUp();
+
+
 
 	app->tex->UnLoad(backg);
 	app->tex->UnLoad(portal);

@@ -489,7 +489,14 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			if (playerLives == 0)
 			{
 				playerLives = 3;
-				app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
+				if (app->scene2->active == true)
+				{
+					app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
+				}
+				if (app->scene3->active == true)
+				{
+					app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
+				}
 				loseScreen = true;
 			}
 			else
@@ -528,7 +535,7 @@ void Player::resetPlayer()
 	}
 	if (app->scene3->active == true)
 	{
-		app->player->cp.x = 0;
+		app->player->cp.x = 90;
 		app->player->cp.y = 0;
 	}
 	app->player->cp.w = 66;
