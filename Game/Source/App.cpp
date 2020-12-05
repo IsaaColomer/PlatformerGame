@@ -71,8 +71,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	scene->active = false;
 	player->active = false;
 	collisions->active = false;
-	entitymanager->active = false;
-	map->active = false;
 	scene2->active = false;
 	scene3->active = false;
 	intro->active = false;
