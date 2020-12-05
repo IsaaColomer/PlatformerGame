@@ -13,6 +13,7 @@ public:
 	{
 		UNKNOWN,
 		ENEMYG,
+		ENEMYA,
 		COIN,
 		FOOD
 		

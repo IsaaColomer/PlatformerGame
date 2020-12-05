@@ -8,6 +8,7 @@
 #include "Coin.h"
 #include "Entity.h"
 #include "EnemyGround.h"
+#include "EnemyAir.h"
 
 //#include "GroundEnemy.h"
 //#include "Hearts.h"
@@ -29,6 +30,7 @@ bool EntityManager::Start()
 	coinTexture = app->tex->Load("Assets/Screens/Gameplay/coin.png");
 	foodTexture = app->tex->Load("Assets/Screens/Gameplay/food.png");
 	enemyTexture = app->tex->Load("Assets/Characters/first_enemy.png");
+	enemyAirTexture = app->tex->Load("Assets/Characters/second_enemy.png");
 
 	return true;
 }
@@ -95,6 +97,10 @@ void EntityManager::AddEntity(fPoint position, Entity::Type type)
 	case Entity::Type::FOOD:
 		food = (Entity*)(new Food((Module*)this, position, foodTexture, type));
 		entityList.add(food);
+		break;
+	case Entity::Type::ENEMYA:
+		enemyA = (Entity*)(new EnemyAir((Module*)this, position, enemyAirTexture, type));
+		entityList.add(enemyA);
 		break;
 	}
 }
