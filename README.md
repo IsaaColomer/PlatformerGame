@@ -30,6 +30,7 @@ This is a platformer game developed by:
  - F6 load the previous game state.
  - F9 to show colliders.
  - F10 toggle god mode.
+ - F11 toggle to set the game at 30fps.
 
 ## Developers
 
@@ -38,5 +39,5 @@ This is a platformer game developed by:
  - Victor Bosch - ?
 
 ## License
-
+All the audio Fx in the game have been generated with rFXGen tool.
 This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
