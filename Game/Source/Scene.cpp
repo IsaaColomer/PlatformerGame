@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Collisions.h"
 #include "Scene.h"
+#include "Scene3.h"
 #include "Map.h"
 #include "Player.h"
 #include "Animation.h"
@@ -118,14 +119,17 @@ bool Scene::CleanUp()
 	app->map->CleanUp();
 	app->player->CleanUp();
 	app->collisions->CleanUp();
-	//app->audio->CleanUp();
 	app->entitymanager->DeleteEntity();
+	app->entitymanager->CleanUp();
 
 	app->tex->UnLoad(backg);
 	app->tex->UnLoad(portal);
 	app->tex->UnLoad(flag);
+	app->tex->UnLoad(app->player->character);
 
 	app->scene->active = false;
+	app->scene2->active = false;
+	app->scene3->active = false;
 
 	LOG("Freeing scene");
 	return true;

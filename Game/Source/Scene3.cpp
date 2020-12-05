@@ -55,13 +55,10 @@ bool Scene3::Start()
 	{
 		app->player->resetPlayer();
 	}
-	
-
 
 	backg = app->tex->Load("Assets/Screens/Gameplay/background.png");
 	portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
 	app->map->Load("map3.tmx");
-	//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
 
 	return true;
 }
@@ -75,8 +72,6 @@ bool Scene3::PreUpdate()
 // Called each loop iteration
 bool Scene3::Update(float dt)
 {
-	//all draws
-
 	app->render->DrawTexture(backg, 0, 0);
 	app->map->Draw();
 	app->render->DrawTexture(portal, 2340, 220);//2325
@@ -84,7 +79,6 @@ bool Scene3::Update(float dt)
 	app->map->LoadColliders();
 
 	return true;
-
 }
 
 // Called each loop iteration
@@ -107,8 +101,6 @@ bool Scene3::CleanUp()
 	app->collisions->CleanUp();
 	app->entitymanager->DeleteEntity();
 	app->entitymanager->CleanUp();
-
-
 
 	app->tex->UnLoad(backg);
 	app->tex->UnLoad(portal);

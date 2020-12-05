@@ -13,6 +13,7 @@
 #include "Scene.h"
 #include "Scene3.h"
 #include "Title.h"
+#include"EntityManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -154,15 +155,18 @@ bool Player::Update(float dt)
 	{
 		if (app->intro->active)
 		{
-			app->fade->Fade((Module*)app->intro, (Module*)app->scene, 60);
+			app->fade->Fade((Module*)app->intro, (Module*)app->scene, 50);
+			app->entitymanager->CleanUp();
 		}
 		else if (app->scene2->active)
 		{
-			app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 60);
+			app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 50);
+			app->entitymanager->CleanUp();
 		}
 		else if (app->scene3->active)
 		{
-			app->fade->Fade((Module*)app->scene3, (Module*)app->scene2, 60);
+			app->fade->Fade((Module*)app->scene3, (Module*)app->scene2, 50);
+			app->entitymanager->CleanUp();
 		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
@@ -174,10 +178,12 @@ bool Player::Update(float dt)
 		else if (app->scene->active)
 		{
 			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
+			app->entitymanager->CleanUp();
 		}
 		else if (app->scene3->active)
 		{
 			app->fade->Fade((Module*)app->scene3, (Module*)app->scene2, 60);
+			app->entitymanager->CleanUp();
 		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
@@ -189,10 +195,12 @@ bool Player::Update(float dt)
 		else if (app->scene->active)
 		{
 			app->fade->Fade((Module*)app->scene, (Module*)app->scene3, 60);
+			app->entitymanager->CleanUp();
 		}
 		else if (app->scene2->active)
 		{
 			app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 60);
+			app->entitymanager->CleanUp();
 		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -468,17 +476,20 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		{
 			c2->pendingToDelete = true;
 			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
+			app->entitymanager->CleanUp();
 		}
 		if (c2->type == Collider::Type::WIN2)
 		{
 			c2->pendingToDelete = true;
 			app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 60);
+			app->entitymanager->CleanUp();
 		}
 		if (c2->type == Collider::Type::WIN3)
 		{
 			c2->pendingToDelete = true;
 			app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
 			winScreen = true;
+			app->entitymanager->CleanUp();
 		}
 		if (c2->type == Collider::Type::DEATH && minusLives == false)
 		{
@@ -492,17 +503,18 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 				if (app->scene2->active == true)
 				{
 					app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
+					app->entitymanager->CleanUp();
 				}
 				if (app->scene3->active == true)
 				{
 					app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
+					app->entitymanager->CleanUp();
 				}
 				loseScreen = true;
 			}
 			else
 			{		
 				willReset = true;
-				//app->fade->Fade((Module*)app->scene2, (Module*)app->scene2, 60);
 			}
 		}
 		if (c2->type == Collider::Type::CHECKPOINT)

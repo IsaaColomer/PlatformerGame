@@ -66,7 +66,6 @@ bool Scene2::Start()
 	portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
 	flag = app->tex->Load("Assets/Screens/Gameplay/flag.png");
 	app->map->Load("map2.tmx");
-	//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
 
 	return true;
 }
@@ -80,8 +79,6 @@ bool Scene2::PreUpdate()
 // Called each loop iteration
 bool Scene2::Update(float dt)
 {
-	//all draws
-
 	app->render->DrawTexture(backg, 0, 0);
 	app->map->Draw();
 	app->render->DrawTexture(portal, 2370, 150);//2325
@@ -89,7 +86,6 @@ bool Scene2::Update(float dt)
 	app->map->LoadColliders();
 
 	return true;
-
 }
 
 // Called each loop iteration
@@ -115,8 +111,8 @@ bool Scene2::CleanUp()
 	app->map->CleanUp();
 	app->player->CleanUp();
 	app->collisions->CleanUp();
-
 	app->entitymanager->DeleteEntity();
+	app->entitymanager->CleanUp();
 
 	app->tex->UnLoad(backg);
 	app->tex->UnLoad(portal);
