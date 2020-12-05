@@ -312,7 +312,7 @@ bool Player::Update(float dt)
 		if (lCon == false)
 		{
 			cp.x += vcx * dt;
-			if (cp.x > 700 && cp.x < 1800 && xMove)
+			if (cp.x > 700 && cp.x < 1920 && xMove)
 			{
 					app->render->camera.x -= vcx * dt;
 			}
@@ -457,9 +457,11 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		{
 			if (c2->type == Collider::Type::FLOOR)
 			{
+				c2->rect.y - c2->rect.h-1;
 				ong = true;
 				fCon = true;
 				minusLives = false;
+
 			}
 			if (c2->type == Collider::Type::LEFT_WALL && lCon == false)
 			{

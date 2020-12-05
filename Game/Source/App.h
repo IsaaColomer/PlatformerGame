@@ -107,7 +107,7 @@ public:
 	EntityManager* entitymanager;
 
 	int frameRate;
-	
+	bool fpsCap;
 private:
 
 	int argc;
@@ -120,8 +120,6 @@ private:
 	uint frames;
 	PerfTimer perfTimer;
 	uint64 fpsCount = 0;
-
-	bool fpsCap;
 
 	Timer startTime;
 	Timer frameTime;
