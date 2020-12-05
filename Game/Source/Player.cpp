@@ -13,6 +13,7 @@
 #include "Scene.h"
 #include "Scene3.h"
 #include "Title.h"
+#include "EntityManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -112,8 +113,8 @@ bool Player::Start()
 	lifeUpFx = app->audio->LoadFx("Assets/Audio/Fx/life.wav");
 
 	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);
-	SDL_Rect bottom = { cp.x + 10,cp.y+110, 40,30 };
 
+	SDL_Rect bottom = { cp.x + 10,cp.y+110, 40,30 };
 	colliderB = app->collisions->AddCollider(bottom, Collider::Type::PLAYERBOT, this);
 
 	currentAnimation = &idleAnimR;
@@ -136,6 +137,10 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
+	if (willReset)
+	{
+		resetPlayer();
+	}
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE)
@@ -159,10 +164,12 @@ bool Player::Update(float dt)
 		else if (app->scene2->active)
 		{
 			app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 60);
+			app->entitymanager->CleanUp();
 		}
 		else if (app->scene3->active)
 		{
 			app->fade->Fade((Module*)app->scene3, (Module*)app->scene2, 60);
+			app->entitymanager->CleanUp();
 		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
@@ -174,10 +181,12 @@ bool Player::Update(float dt)
 		else if (app->scene->active)
 		{
 			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
+			app->entitymanager->CleanUp();
 		}
 		else if (app->scene3->active)
 		{
 			app->fade->Fade((Module*)app->scene3, (Module*)app->scene2, 60);
+			app->entitymanager->CleanUp();
 		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
@@ -189,27 +198,22 @@ bool Player::Update(float dt)
 		else if (app->scene->active)
 		{
 			app->fade->Fade((Module*)app->scene, (Module*)app->scene3, 60);
+			app->entitymanager->CleanUp();
 		}
 		else if (app->scene2->active)
 		{
 			app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 60);
+			app->entitymanager->CleanUp();
 		}
 	}
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
 		godMode = (godMode) ? false : true;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
-		cp.x = 70;
-		cp.y = 500;
-		vcy = 0;
-		vcx = 290.0f;
-
-		xMove = false;
-		ong = false;
-		app->render->camera.y = 0;
-		app->render->camera.x = 0;
+		resetPlayer();
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{
@@ -284,24 +288,24 @@ bool Player::Update(float dt)
 			cp.x -= vcx * dt;
 			if (cp.x > 640 && cp.x < 1920 && xMove)
 			{
-				app->render->camera.x += vcx * dt;
+					app->render->camera.x += vcx * dt;
 			}
 		}
 		else
 		{
-			rCon = false;
+				rCon = false;
 		}
 		if (currentAnimation != &leftAnim) {
-			leftAnim.Reset();
-			currentAnimation = &leftAnim;
+				leftAnim.Reset();
+				currentAnimation = &leftAnim;
 		}
-		xMove = true;
-		facingLeft = true;
-		facingRight = false;
+			xMove = true;
+			facingLeft = true;
+			facingRight = false;
 	}
 	else
 	{
-		ong = false;
+			ong = false;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
@@ -310,19 +314,19 @@ bool Player::Update(float dt)
 			cp.x += vcx * dt;
 			if (cp.x > 640 && cp.x < 1920 && xMove)
 			{
-				app->render->camera.x -= vcx * dt;
+					app->render->camera.x -= vcx * dt;
 			}
 		}
 		else
 		{
 			lCon = false;
 		}
-
-		if (currentAnimation != &rightAnim) {
+		if (currentAnimation != &rightAnim)
+		{
 			rightAnim.Reset();
 			currentAnimation = &rightAnim;
 		}
-		
+
 		xMove = true;
 		facingRight = true;
 		facingLeft = false;
@@ -342,13 +346,22 @@ bool Player::Update(float dt)
 	}
 	//--------------------------------
 
+	if (playerLives == 0)
+	{
+		playerLives = 3;
+		if (app->scene2->active == true)
+		{
+			app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
+		}
+		if (app->scene3->active == true)
+		{
+			app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
+		}
+		loseScreen = true;
+	}
+
 	currentAnimation->Update();
 	currentFloppy->Update();
-
-	if (willReset)
-	{
-		resetPlayer();
-	}
 
 	return true;
 }
@@ -438,87 +451,90 @@ bool Player::SaveState(pugi::xml_node& data) const
 
 void Player::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1 == collider && !godMode)
+	if (playerLives != 0)
 	{
-		if (c2->type == Collider::Type::FLOOR)
+		if (c1 == collider && !godMode)
 		{
-			ong = true;
-			fCon = true;
-			minusLives = false;
-		}
-		if (c2->type == Collider::Type::LEFT_WALL && lCon == false)
-		{
-			cp.x = c2->rect.x - cp.w+1;
-			lCon = true;
-			xMove = false;
-		}
-		if (c2->type == Collider::Type::RIGHT_WALL && rCon == false)
-		{
-			cp.x = c2->rect.x + c2->rect.w-1;
-			rCon = true;
-			xMove = false;
-		}
-		if (c2->type == Collider::Type::ROOF)
-		{
-			cp.y = c2->rect.y + c2->rect.h;
-			tCon = true;
-			vcy = 0.0f;
-		}
-		if (c2->type == Collider::Type::WIN)
-		{
-			c2->pendingToDelete = true;
-			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
-		}
-		if (c2->type == Collider::Type::WIN2)
-		{
-			c2->pendingToDelete = true;
-			app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 60);
-		}
-		if (c2->type == Collider::Type::WIN3)
-		{
-			c2->pendingToDelete = true;
-			app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
-			winScreen = true;
-		}
-		if (c2->type == Collider::Type::DEATH && minusLives == false)
-		{
-			c2->pendingToDelete = true;
-			dead = true;
-			minusLives = true;
-			--playerLives;
-			if (playerLives == 0)
+			if (c2->type == Collider::Type::FLOOR)
 			{
-				playerLives = 3;
-				if (app->scene2->active == true)
-				{
-					app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
-				}
-				if (app->scene3->active == true)
-				{
-					app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
-				}
-				loseScreen = true;
+				ong = true;
+				fCon = true;
+				minusLives = false;
 			}
-			else
-			{		
-				willReset = true;
-				//app->fade->Fade((Module*)app->scene2, (Module*)app->scene2, 60);
+			if (c2->type == Collider::Type::LEFT_WALL && lCon == false)
+			{
+				cp.x = c2->rect.x - cp.w + 1;
+				lCon = true;
+				xMove = false;
 			}
-		}
-		if (c2->type == Collider::Type::CHECKPOINT)
-		{
-			c2->pendingToDelete = true;
-			app->audio->PlayFx(checkPointFx);
-			app->SaveGameRequest();
-			app->scene->flagAlive = false;
-			app->scene2->flagAlive = false;
-			fCount = 0;
-		}
-		if (c2->type == Collider::Type::COIN)
-		{
-			c2->pendingToDelete = true;
+			if (c2->type == Collider::Type::RIGHT_WALL && rCon == false)
+			{
+				cp.x = c2->rect.x + c2->rect.w - 1;
+				rCon = true;
+				xMove = false;
+			}
+			if (c2->type == Collider::Type::ROOF)
+			{
+				cp.y = c2->rect.y + c2->rect.h;
+				tCon = true;
+				vcy = 0.0f;
+			}
+			if (c2->type == Collider::Type::WIN)
+			{
+				c2->pendingToDelete = true;
+				app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
+			}
+			if (c2->type == Collider::Type::WIN2)
+			{
+				c2->pendingToDelete = true;
+				app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 60);
+			}
+			if (c2->type == Collider::Type::WIN3)
+			{
+				c2->pendingToDelete = true;
+				app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
+				winScreen = true;
+			}
+			if (c2->type == Collider::Type::DEATH && minusLives == false)
+			{
+				c2->pendingToDelete = true;
+				dead = true;
+				minusLives = true;
+				--playerLives;
+				if (playerLives == 0)
+				{
+					playerLives = 3;
+					if (app->scene2->active == true)
+					{
+						app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
+					}
+					if (app->scene3->active == true)
+					{
+						app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
+					}
+					loseScreen = true;
+				}
+				else
+				{
+					willReset = true;
+				}
+			}
+			if (c2->type == Collider::Type::CHECKPOINT)
+			{
+				c2->pendingToDelete = true;
+				app->audio->PlayFx(checkPointFx);
+				app->SaveGameRequest();
+				app->scene->flagAlive = false;
+				app->scene2->flagAlive = false;
+				fCount = 0;
+			}
+			if (c2->type == Collider::Type::COIN)
+			{
+				c2->pendingToDelete = true;
+			}
 		}
 	}
+	
 }
 void Player::resetPlayer()
 {
@@ -530,7 +546,7 @@ void Player::resetPlayer()
 	}
 	if (app->scene2->active == true)
 	{
-		app->player->cp.x = 80;
+		app->player->cp.x = 100;
 		app->player->cp.y = 0;
 	}
 	if (app->scene3->active == true)
@@ -538,6 +554,7 @@ void Player::resetPlayer()
 		app->player->cp.x = 90;
 		app->player->cp.y = 0;
 	}
+
 	app->player->cp.w = 66;
 	app->player->cp.h = 110;
 
