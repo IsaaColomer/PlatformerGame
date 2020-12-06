@@ -287,22 +287,7 @@ bool Player::Update(float dt)
 	{
 		if (rCon == false)
 		{
-			int k;
-			k = (app->scene2->active) ? 1750 : 1600;
 			cp.x -= vcx * dt;
-			if (cp.x >= 300 && cp.x <= k && xMove)
-			{
-				if (dt > 0.01f)
-				{
-					app->render->camera.x += vcx * dt;
-					printf("%.5f", dt);
-				}
-				else
-				{
-					app->render->camera.x += vcx * 0.01;
-				}
-				
-			}
 		}
 		else
 		{
@@ -321,24 +306,15 @@ bool Player::Update(float dt)
 	{
 			ong = false;
 	}
+	if (cp.x > 640 && cp.x < 1920)
+	{
+		app->render->camera.x = -(cp.x - 640);
+	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		if (lCon == false)
 		{
 			cp.x += vcx * dt;
-			int k;
-			k = (app->scene2->active) ? 1750 : 1600;
-			if (cp.x >= 300 && cp.x <= k && xMove)
-			{
-				if (dt > 0.01)
-				{
-					app->render->camera.x -= vcx * dt;
-				}
-				else
-				{
-					app->render->camera.x -= vcx * 0.01;
-				}
-			}
 		}
 		else
 		{
