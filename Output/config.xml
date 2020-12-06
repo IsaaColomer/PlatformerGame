@@ -1,6 +1,6 @@
 <!-- Config file for the game -->
 <config>
-  <app framerate= "30">
+  <app framerate= "60">
     <title>Game (Forest Run by Isaacs Software)</title>
     <organization>UPC</organization>
   </app>

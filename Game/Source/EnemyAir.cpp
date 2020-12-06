@@ -102,7 +102,6 @@ void EnemyAir::MoveEnemy(fPoint nextAuxPositionEenemy, fPoint mapPositionEnemy)
 {
 	int positionEnemyX = ep.x;
 	int positionEnemyY = ep.y;
-	//	int velocity = velocity;
 	if (nextAuxPositionEenemy.x < positionEnemyX)
 	{
 		ep.x -= 5;

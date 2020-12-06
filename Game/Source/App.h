@@ -108,7 +108,8 @@ public:
 	EntityManager* entitymanager;
 	PathFinding* pathfinding;
 
-	int frameRate;
+	int frameRate60;
+	int frameRate30;
 	bool fpsCap;
 private:
 

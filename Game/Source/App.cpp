@@ -127,7 +127,8 @@ bool App::Awake()
 		title.Create(configApp.child("title").child_value());
 		organization.Create(configApp.child("organization").child_value());
 		//READ CONFIG.XML TO LET THE CODE KNOW THE FRAMERATE
-		frameRate = configApp.attribute("framerate").as_int(-1);
+		frameRate60 = configApp.attribute("framerate").as_int(-1);
+		frameRate30 = 30;
 	}
 
 	if (ret == true)
@@ -170,7 +171,6 @@ bool App::Start()
 		}
 		item = item->next;
 	}
-
 	PERF_PEEK(perfTimer);
 
 	return ret;
@@ -235,6 +235,33 @@ void App::FinishUpdate()
 
 	uint32 lastFrameInMs = 0;
 	uint32 framesOnLastUpdate = 0;
+	if (fpsCap == false)
+	{
+		float secondsStart = startTime.ReadSec();
+		float average = fpsCount / secondsStart;
+
+		if (frameTime.ReadSec() > 1.0f)
+		{
+			framesSecond = lastSecFrameCnt;
+			lastSecFrameCnt = 0;
+			frameTime.Start();
+		}
+
+		oldLastFrame = lastFrameInMs;
+
+		lastFrameInMs = lastSec.Read();
+
+		lastSec.Start();
+
+		int delay = (1000 * (1.0f / frameRate60));
+
+		if (lastFrameInMs < 1000 * (1.0f / frameRate60))
+		{
+			perfTimer.Start();
+			SDL_Delay(delay);
+			timePerfect = perfTimer.ReadMs();
+		}
+	}
 	if (fpsCap == true)
 	{
 		float secondsStart = startTime.ReadSec();
@@ -253,9 +280,9 @@ void App::FinishUpdate()
 
 		lastSec.Start();
 
-		int delay = (1000 * (1.0f / frameRate));
+		int delay = (1000 * (1.0f / frameRate30));
 
-		if (lastFrameInMs < 1000 * (1.0f / frameRate))
+		if (lastFrameInMs < 1000 * (1.0f / frameRate30))
 		{
 			perfTimer.Start();
 			SDL_Delay(delay);
