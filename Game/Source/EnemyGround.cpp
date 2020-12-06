@@ -33,27 +33,29 @@ bool EnemyGround::Start()
 
 bool EnemyGround::Update(float dt)
 {
+	vey += 0.01;
+	ep.y += vey;
 	if (Radar(app->player->cp))
 	{
 		//Direction
 		/*if (ep.x < app->player->cp)
 		{*/
 			//If player move
-			fPoint mapPositionEnemy = app->map->WorldToMap(ep.x, ep.y);
-			fPoint worldPositionPalyer = app->player->cp;
-			fPoint mapPositionPalyer = app->map->WorldToMap(worldPositionPalyer.x, worldPositionPalyer.y);
+			fPoint enemyPos = app->map->WorldToMap(ep.x, ep.y);
+			fPoint playerPosW = app->player->cp;
+			fPoint playerPosM = app->map->WorldToMap(playerPosW.x, playerPosW.y);
 
 
 			//Cerate Path
-			CreatePathEnemy(mapPositionEnemy, mapPositionPalyer);
-			int i = GetCurrentPositionInPath(mapPositionEnemy);
+			CreatePathEnemy(enemyPos, playerPosM);
+			int i = GetCurrentPositionInPath(enemyPos);
 
 			//Move Enemy
 			if (lastPathEnemy->At(i + 1) != NULL)
 			{
-				fPoint nextPositionEnemy = *lastPathEnemy->At(i + 1);
-				fPoint nextAuxPositionEenemy = app->map->MapToWorld(nextPositionEnemy.x, nextPositionEnemy.y);
-				MoveEnemy(nextAuxPositionEenemy, mapPositionEnemy);
+				fPoint posNextE = *lastPathEnemy->At(i + 1);
+				fPoint posNextAuxE = app->map->MapToWorld(posNextE.x, posNextE.y);
+				MoveEnemy(posNextAuxE, enemyPos);
 			}
 		//}
 	}
@@ -82,10 +84,15 @@ void EnemyGround::Collision(Collider* colider)
 	}
 	if (colider->type == Collider::Type::PLAYER && app->player->godMode == false)
 	{
+		app->player->playerLives--;
 		pendingToDelete = true;
 		app->audio->PlayFx(app->player->hittedFx);
 		collider->pendingToDelete = true;
-		app->player->playerLives--;
+	}
+	if (colider->type == Collider::Type::FLOOR)
+	{
+		ep.y = colider->rect.y - colider->rect.h;
+		vey = 0;
 	}
 }
 
@@ -123,16 +130,16 @@ int EnemyGround::GetCurrentPositionInPath(fPoint mapPositionEnemy)
 	}
 	return i;
 }
-void EnemyGround::MoveEnemy(fPoint nextAuxPositionEenemy, fPoint mapPositionEnemy)
+void EnemyGround::MoveEnemy(fPoint nextPosAuxE, fPoint mapPositionEnemy)
 {
 	int positionEnemyX = ep.x;
 	int positionEnemyY = ep.y;
 //	int velocity = velocity;
-		if (nextAuxPositionEenemy.x < positionEnemyX)
+		if (nextPosAuxE.x < positionEnemyX)
 		{
 			ep.x -= 5;
 		}
-		else if (nextAuxPositionEenemy.x > positionEnemyX)
+		else if (nextPosAuxE.x > positionEnemyX)
 		{
 			ep.x += 5;
 		}

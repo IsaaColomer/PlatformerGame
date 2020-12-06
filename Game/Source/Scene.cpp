@@ -69,6 +69,8 @@ bool Scene::Start()
 	app->entitymanager->AddEntity({ 1150.0f,607.0f }, Entity::Type::ENEMYG);
 	app->entitymanager->AddEntity({ 1720.0f,607.0f }, Entity::Type::ENEMYG);
 
+	app->entitymanager->AddEntity({ 1720.0f,300.0f }, Entity::Type::ENEMYG);
+
 	app->entitymanager->AddEntity({ 2144.0f,600.0f }, Entity::Type::FOOD);
 
 	flagRect = { 900,100,10,170 };

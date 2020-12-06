@@ -287,24 +287,29 @@ bool Player::Update(float dt)
 	{
 		if (rCon == false)
 		{
+			int k;
+			k = (app->scene2->active) ? 1750 : 1600;
 			cp.x -= vcx * dt;
-			if (app->scene2->active == true)
+			if (cp.x >= 300 && cp.x <= k && xMove)
 			{
-				if (cp.x >= 300 && cp.x <= 1900 && xMove)
+				if (dt > 0.01f)
 				{
 					app->render->camera.x += vcx * dt;
+					printf("%.5f", dt);
 				}
-			}
-			if (cp.x >= 300 && cp.x <= 1600 && xMove && app->scene2->active == false)
-			{
-					app->render->camera.x += vcx * dt;
+				else
+				{
+					app->render->camera.x += vcx * 0.01;
+				}
+				
 			}
 		}
 		else
 		{
 				rCon = false;
 		}
-		if (currentAnimation != &leftAnim) {
+		if (currentAnimation != &leftAnim)
+		{
 				leftAnim.Reset();
 				currentAnimation = &leftAnim;
 		}
@@ -321,16 +326,18 @@ bool Player::Update(float dt)
 		if (lCon == false)
 		{
 			cp.x += vcx * dt;
-			if (app->scene2->active == true)
+			int k;
+			k = (app->scene2->active) ? 1750 : 1600;
+			if (cp.x >= 300 && cp.x <= k && xMove)
 			{
-				if (cp.x >= 300 && cp.x <= 1750 && xMove)
+				if (dt > 0.01)
 				{
 					app->render->camera.x -= vcx * dt;
 				}
-			}
-			if (cp.x >= 300 && cp.x <= 1600 && xMove && app->scene2->active == false)
-			{
-					app->render->camera.x -= vcx * dt;
+				else
+				{
+					app->render->camera.x -= vcx * 0.01;
+				}
 			}
 		}
 		else
@@ -364,7 +371,10 @@ bool Player::Update(float dt)
 
 	if (playerLives == 0)
 	{
-		playerLives = 3;
+		if (app->scene->active == true)
+		{
+			app->fade->Fade((Module*)app->scene, (Module*)app->titleScreen, 60);
+		}
 		if (app->scene2->active == true)
 		{
 			app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
@@ -374,6 +384,7 @@ bool Player::Update(float dt)
 			app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
 		}
 		loseScreen = true;
+		playerLives = 3;
 	}
 
 	currentAnimation->Update();
@@ -467,8 +478,6 @@ bool Player::SaveState(pugi::xml_node& data) const
 
 void Player::OnCollision(Collider* c1, Collider* c2)
 {
-	if (playerLives != 0)
-	{
 		if (c1 == collider && !godMode)
 		{
 			if (c2->type == Collider::Type::FLOOR)
@@ -553,7 +562,6 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 	
-}
 void Player::resetPlayer()
 {
 	willReset = false;

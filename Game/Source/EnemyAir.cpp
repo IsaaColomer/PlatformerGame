@@ -41,21 +41,42 @@ bool EnemyAir::Update(float dt)
 		/*if (ep.x < app->player->cp)
 		{*/
 		//If player move
-		fPoint mapPositionEnemy = app->map->WorldToMap(ep.x, ep.y);
-		fPoint worldPositionPalyer = app->player->cp;
-		fPoint mapPositionPalyer = app->map->WorldToMap(worldPositionPalyer.x, worldPositionPalyer.y);
+		fPoint enemyPos = app->map->WorldToMap(ep.x, ep.y);
+		fPoint playerPosW = app->player->cp;
+		fPoint playerPosM = app->map->WorldToMap(playerPosW.x, playerPosW.y);
 
 
 		//Cerate Path
-		CreatePathEnemy(mapPositionEnemy, mapPositionPalyer);
-		int i = GetCurrentPositionInPath(mapPositionEnemy);
+		CreatePathEnemy(enemyPos, playerPosM);
+		int i = GetCurrentPositionInPath(enemyPos);
 
 		//Move Enemy
 		if (lastPathEnemy->At(i + 1) != NULL)
 		{
-			fPoint nextPositionEnemy = *lastPathEnemy->At(i + 1);
-			fPoint nextAuxPositionEenemy = app->map->MapToWorld(nextPositionEnemy.x, nextPositionEnemy.y);
-			MoveEnemy(nextAuxPositionEenemy, mapPositionEnemy);
+			fPoint posNextE = *lastPathEnemy->At(i + 1);
+			fPoint posNextAuxE = app->map->MapToWorld(posNextE.x, posNextE.y);
+			MoveEnemy(posNextAuxE, enemyPos);
+
+			int enemyPosX = ep.x;
+			int enemyPosY = ep.y;
+			//MOVEMENT ON X
+			if (posNextAuxE.x < enemyPosX)
+			{
+				ep.x -= 5;
+			}
+			else if (posNextAuxE.x > enemyPosX)
+			{
+				ep.x += 5;
+			}
+			//MOVEMENT ON Y
+			if (app->player->cp.y < enemyPosY)
+			{
+				ep.y -= 5;
+			}
+			else if (app->player->cp.y > enemyPosY)
+			{
+				ep.y += 5;
+			}
 		}
 		//}
 	}
@@ -130,14 +151,5 @@ int EnemyAir::GetCurrentPositionInPath(fPoint mapPositionEnemy)
 }
 void EnemyAir::MoveEnemy(fPoint nextAuxPositionEenemy, fPoint mapPositionEnemy)
 {
-	int positionEnemyX = ep.x;
-	int positionEnemyY = ep.y;
-	if (nextAuxPositionEenemy.x < positionEnemyX)
-	{
-		ep.x -= 5;
-	}
-	else if (nextAuxPositionEenemy.x > positionEnemyX)
-	{
-		ep.x += 5;
-	}
+	
 }

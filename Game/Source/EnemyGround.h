@@ -41,6 +41,8 @@ private:
 	bool isDetected = false;
 	bool returning;
 
+	int vey;
+
 	Timer* checkDestination = new Timer();
 	fPoint destination;
 	fPoint positionInitial;
