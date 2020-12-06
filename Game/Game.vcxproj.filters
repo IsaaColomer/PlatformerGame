@@ -79,6 +79,9 @@
     <ClCompile Include="Source\EnemyAir.cpp">
       <Filter>Engine\Gameplay\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Pathfinding.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -185,6 +188,9 @@
     </ClInclude>
     <ClInclude Include="Source\EnemyAir.h">
       <Filter>Engine\Gameplay\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Pathfinding.h">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
