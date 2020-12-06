@@ -7,7 +7,6 @@ Will you reach the very end?
 
 This is a platformer game developed by:
  - Isaac Digón
- - Victor Bosch
  - Isaac Colomer
 
 ## Key Features
@@ -48,7 +47,6 @@ This is a platformer game developed by:
 
  - Isaac Digón - Lead programmer, physics programmer, game designer and gameplay debugging.
  - Isaac Colomer - Lead designer, level designer, game programmer and debugging.
- - Victor Bosch - ?
 
 ## License
 All the audio Fx in the game have been generated with rFXGen tool.

@@ -261,6 +261,10 @@ void App::FinishUpdate()
 			SDL_Delay(delay);
 			timePerfect = perfTimer.ReadMs();
 		}
+		static char title[256];
+		sprintf_s(title, 256, "FPS: %.2f | AVG FPS %0.2f | Last Frame in ms: %0.2f | VSync = off  ",
+			average, framesSecond, lastFrameInMs);
+		app->win->SetTitle(title);
 	}
 	if (fpsCap == true)
 	{
@@ -288,7 +292,12 @@ void App::FinishUpdate()
 			SDL_Delay(delay);
 			timePerfect = perfTimer.ReadMs();
 		}
+		static char title[256];
+		sprintf_s(title, 256, "FPS: %.2f | AVG FPS %0.2f | Last Frame in ms: %0.2f | VSync = off  ",
+			framesSecond, average, lastFrameInMs);
+		app->win->SetTitle(title);
 	}
+
 }
 
 bool App::PreUpdate()

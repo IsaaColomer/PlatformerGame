@@ -39,6 +39,9 @@ public:
 
 	void DeleteEntity();
 
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&) const;
+
 private:
 	List<Entity*> entityList;
 
