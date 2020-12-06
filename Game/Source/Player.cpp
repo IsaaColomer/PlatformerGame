@@ -258,7 +258,7 @@ bool Player::Update(float dt)
 		}
 		if (!ong)
 		{
-			if (vcy < 300) vcy -= grav*dt;
+			if (vcy < 300) vcy -= GRAV*dt;
 			cp.y += vcy*dt;
 		}
 
