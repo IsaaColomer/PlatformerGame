@@ -37,11 +37,13 @@ private:
 	void MoveEnemyNULL(fPoint mapPositionEnemy);
 	int CalculateDistance(fPoint origin, fPoint destination);
 
-	int range = 300;
+	int range = 600;
 	bool isDetected = false;
 	bool returning;
 
-	int vey;
+	float vey;
+	float gravity = 0.2f;
+	float vex = 0.0f;
 
 	Timer* checkDestination = new Timer();
 	fPoint destination;

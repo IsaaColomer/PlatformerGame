@@ -33,13 +33,11 @@ bool EnemyGround::Start()
 
 bool EnemyGround::Update(float dt)
 {
-	vey += 0.01;
+	vey += gravity;
+	ep.x += vex;
 	ep.y += vey;
 	if (Radar(app->player->cp))
 	{
-		//Direction
-		/*if (ep.x < app->player->cp)
-		{*/
 			//If player move
 			fPoint enemyPos = app->map->WorldToMap(ep.x, ep.y);
 			fPoint playerPosW = app->player->cp;
@@ -91,8 +89,9 @@ void EnemyGround::Collision(Collider* colider)
 	}
 	if (colider->type == Collider::Type::FLOOR)
 	{
-		ep.y = colider->rect.y - colider->rect.h;
+		ep.y = colider->rect.y - 93;
 		vey = 0;
+		ep.y = ep.y;
 	}
 }
 

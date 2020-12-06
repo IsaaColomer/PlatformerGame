@@ -306,10 +306,6 @@ bool Player::Update(float dt)
 	{
 			ong = false;
 	}
-	if (cp.x > 640 && cp.x < 1920)
-	{
-		app->render->camera.x = -(cp.x - 640);
-	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		if (lCon == false)
@@ -344,6 +340,12 @@ bool Player::Update(float dt)
 		colliderB->SetPos(cp.x+10, cp.y + 110);
 	}
 	//--------------------------------
+
+	//-----------------------CAMERA MOVEMENT
+	if (cp.x > 640 && cp.x < 1920)
+	{
+		app->render->camera.x = -(cp.x - 640);
+	}
 
 	if (playerLives == 0)
 	{

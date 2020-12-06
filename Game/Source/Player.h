@@ -6,7 +6,6 @@
 
 #define grav -1000.0f
 
-
 struct SDL_Texture;
 struct Collider;
 
