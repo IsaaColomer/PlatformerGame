@@ -68,6 +68,8 @@ Player::Player() : Module()
 	floppyAnim.PushBack({ 83,0,41,38 });
 	floppyAnim.PushBack({ 126,0,41,38 });
 	floppyAnim.PushBack({ 168,0,41,38 });
+
+	playerLives = 3;
 }
 
 Player::~Player()
@@ -286,7 +288,14 @@ bool Player::Update(float dt)
 		if (rCon == false)
 		{
 			cp.x -= vcx * dt;
-			if (cp.x > 700 && cp.x < 1850 && xMove)
+			if (app->scene2->active == true)
+			{
+				if (cp.x >= 300 && cp.x <= 1900 && xMove)
+				{
+					app->render->camera.x += vcx * dt;
+				}
+			}
+			if (cp.x >= 300 && cp.x <= 1600 && xMove && app->scene2->active == false)
 			{
 					app->render->camera.x += vcx * dt;
 			}
@@ -312,7 +321,14 @@ bool Player::Update(float dt)
 		if (lCon == false)
 		{
 			cp.x += vcx * dt;
-			if (cp.x > 700 && cp.x < 1850 && xMove)
+			if (app->scene2->active == true)
+			{
+				if (cp.x >= 300 && cp.x <= 1750 && xMove)
+				{
+					app->render->camera.x -= vcx * dt;
+				}
+			}
+			if (cp.x >= 300 && cp.x <= 1600 && xMove && app->scene2->active == false)
 			{
 					app->render->camera.x -= vcx * dt;
 			}

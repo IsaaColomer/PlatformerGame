@@ -55,7 +55,7 @@ public:
 	bool godMode;
 	bool ong;
 	bool debugDraw;
-	int playerLives = 3;
+	int playerLives;
 	int coinsCollected;
 	bool minusLives;
 	bool winScreen;

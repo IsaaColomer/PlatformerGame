@@ -83,10 +83,12 @@ bool Title::PostUpdate()
 	if (app->player->loseScreen)
 	{
 		app->render->DrawTexture(youlose, 0, 0, NULL);
+		app->player->playerLives = 3;
 	}
 	if (app->player->winScreen)
 	{
 		app->render->DrawTexture(youwin, 0, 0, NULL);
+		app->player->playerLives = 3;
 	}
 	if (app->player->winScreen == false && app->player->loseScreen == false)
 	{
