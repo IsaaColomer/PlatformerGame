@@ -37,7 +37,7 @@ private:
 	void MoveEnemyNULL(fPoint mapPositionEnemy);
 	int CalculateDistance(fPoint origin, fPoint destination);
 
-	int range = 300;
+	int range = 700;
 	bool isDetected = false;
 	bool returning;
 
