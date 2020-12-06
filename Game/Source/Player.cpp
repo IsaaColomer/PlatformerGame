@@ -466,7 +466,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			}
 			if (c2->type == Collider::Type::LEFT_WALL && lCon == false)
 			{
-				cp.x = c2->rect.x - c2->rect.w + 1;
+				cp.x = c2->rect.x - 65;
 				lCon = true;
 				xMove = false;
 			}
