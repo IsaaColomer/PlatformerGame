@@ -1,7 +1,7 @@
 # Forest Jump
 
 ## Description
-This is pre-release version (alpha) of a platformer game developed by Isaac's.
+This is the release version (Beta) of a platformer game developed by Isaac's.
 The game takes place in a dark forest, full of mysteries and platforms to jump on and over.
 Will you reach the very end?
 
