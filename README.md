@@ -16,6 +16,16 @@ This is a platformer game developed by:
  - Load and Save state using an XML file.
  - Ortographic tile tmx map loading.
  - Player movement and jumping.
+ - Walking enemy type that can pathfind to the player.
+ - Flying enemy type that can pathfind to the player.
+ - Game capped at stable 60 frames per second.
+ - All movement of the game is done with a delta time.
+ - Destroy the enemies by jumping onto them.
+ - Game items to recover lives.
+ - Game collectable items to accumulate points: coins.
+ - Checkpoint autosave with feedback on passing.
+ - Map checkpoints teleportation.
+ - Audio feedback.
  
 ## Controls
 
@@ -25,6 +35,8 @@ This is a platformer game developed by:
  - "S" go down (god mode).
  - "Space" jump.
  - F1 to start from the first level.
+ - F2 to start from the second level.
+ - 3 to start from the third lvel.
  - F3 to start from the beginning of the current level.
  - F5 save the current game state.
  - F6 load the previous game state.
