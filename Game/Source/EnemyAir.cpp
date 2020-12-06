@@ -6,6 +6,7 @@
 #include "Collisions.h"
 #include "Pathfinding.h"
 #include "Collider.h"
+#include "Map.h"
 
 EnemyAir::EnemyAir(Module* listener, fPoint ep, SDL_Texture* texture, Type type) : Entity(listener, ep, texture, type)
 {
@@ -23,6 +24,8 @@ EnemyAir::EnemyAir(Module* listener, fPoint ep, SDL_Texture* texture, Type type)
 	currentAnimation = &idleAnimation;
 
 	collider = app->collisions->AddCollider(SDL_Rect({ (int)ep.x, (int)ep.y, 80, 95 }), Collider::Type::ENEMY, listener);
+
+	lastPathEnemy = new DynArray<fPoint>();
 }
 
 bool EnemyAir::Start()
@@ -32,6 +35,30 @@ bool EnemyAir::Start()
 
 bool EnemyAir::Update(float dt)
 {
+	if (Radar(app->player->cp))
+	{
+		//Direction
+		/*if (ep.x < app->player->cp)
+		{*/
+		//If player move
+		fPoint mapPositionEnemy = app->map->WorldToMap(ep.x, ep.y);
+		fPoint worldPositionPalyer = app->player->cp;
+		fPoint mapPositionPalyer = app->map->WorldToMap(worldPositionPalyer.x, worldPositionPalyer.y);
+
+
+		//Cerate Path
+		CreatePathEnemy(mapPositionEnemy, mapPositionPalyer);
+		int i = GetCurrentPositionInPath(mapPositionEnemy);
+
+		//Move Enemy
+		if (lastPathEnemy->At(i + 1) != NULL)
+		{
+			fPoint nextPositionEnemy = *lastPathEnemy->At(i + 1);
+			fPoint nextAuxPositionEenemy = app->map->MapToWorld(nextPositionEnemy.x, nextPositionEnemy.y);
+			MoveEnemy(nextAuxPositionEenemy, mapPositionEnemy);
+		}
+		//}
+	}
 	currentAnimation = &idleAnimation;
 	currentAnimation->Update();
 	collider->SetPos(ep.x, ep.y);
@@ -94,7 +121,10 @@ int EnemyAir::GetCurrentPositionInPath(fPoint mapPositionEnemy)
 	int i;
 	for (i = 0; i < lastPathEnemy->Count(); i++)
 	{
-		if (mapPositionEnemy == fPoint({ lastPathEnemy->At(i)->x, lastPathEnemy->At(i)->y })) break;
+		if (mapPositionEnemy == fPoint({ lastPathEnemy->At(i)->x, lastPathEnemy->At(i)->y }))
+		{
+			break;
+		}
 	}
 	return i;
 }
