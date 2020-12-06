@@ -28,6 +28,7 @@ class Title;
 class EnemyGround;
 class EntityManager;
 class Scene3;
+class PathFinding;
 
 class App
 {
@@ -105,6 +106,7 @@ public:
 	Title* titleScreen;
 	EnemyGround* enemies;
 	EntityManager* entitymanager;
+	PathFinding* pathfinding;
 
 	int frameRate;
 	bool fpsCap;

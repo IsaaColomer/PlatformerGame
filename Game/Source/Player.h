@@ -46,9 +46,8 @@ public:
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&) const;
 
-public:
-	
-	SDL_Rect cp;
+public:	
+	fPoint cp;
 	SDL_Point savedPos;
 	bool willReset;
 	float vcy, vcx;

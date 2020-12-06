@@ -192,6 +192,12 @@
     <ClInclude Include="Source\Pathfinding.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PQueue.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Queue.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

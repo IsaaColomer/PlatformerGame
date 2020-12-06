@@ -277,10 +277,10 @@
    <tile gid="361"/>
    <tile/>
    <tile/>
-   <tile gid="411"/>
-   <tile gid="412"/>
-   <tile gid="412"/>
-   <tile gid="412"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -610,7 +610,7 @@
    <tile gid="58"/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="13"/>
    <tile/>
    <tile/>
    <tile gid="13"/>
@@ -646,7 +646,7 @@
    <tile gid="58"/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="58"/>
    <tile/>
    <tile/>
    <tile gid="58"/>
@@ -680,9 +680,34 @@
    <tile gid="58"/>
    <tile/>
    <tile gid="58"/>
+   <tile/>
+   <tile/>
+   <tile gid="58"/>
+   <tile/>
+   <tile/>
+   <tile gid="58"/>
+   <tile/>
+   <tile/>
+   <tile gid="58"/>
+   <tile/>
+   <tile gid="58"/>
+   <tile/>
+   <tile/>
+   <tile gid="58"/>
+   <tile/>
+   <tile gid="58"/>
+   <tile/>
+   <tile gid="13"/>
+   <tile/>
+   <tile gid="58"/>
+   <tile gid="58"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="13"/>
    <tile gid="14"/>
-   <tile gid="14"/>
    <tile gid="13"/>
    <tile/>
    <tile gid="58"/>
@@ -695,31 +720,6 @@
    <tile/>
    <tile gid="58"/>
    <tile/>
-   <tile gid="58"/>
-   <tile/>
-   <tile gid="13"/>
-   <tile/>
-   <tile gid="58"/>
-   <tile gid="58"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="13"/>
-   <tile gid="14"/>
-   <tile gid="13"/>
-   <tile/>
-   <tile gid="58"/>
-   <tile/>
-   <tile/>
-   <tile gid="58"/>
-   <tile/>
-   <tile gid="58"/>
-   <tile gid="58"/>
-   <tile/>
-   <tile/>
-   <tile gid="58"/>
    <tile/>
    <tile gid="58"/>
    <tile/>
@@ -752,10 +752,10 @@
    <tile gid="58"/>
    <tile/>
    <tile gid="58"/>
-   <tile gid="58"/>
    <tile/>
    <tile/>
    <tile gid="58"/>
+   <tile/>
    <tile/>
    <tile gid="58"/>
    <tile/>
@@ -1083,10 +1083,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="411"/>
-   <tile gid="411"/>
-   <tile gid="411"/>
-   <tile gid="412"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -1416,7 +1416,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="1"/>
    <tile/>
    <tile/>
    <tile gid="1"/>
@@ -1486,10 +1486,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -1618,7 +1618,7 @@
    <tile gid="1"/>
   </data>
  </layer>
- <layer id="3" name="win" width="36" height="11" visible="0">
+ <layer id="3" name="win" width="36" height="11">
   <properties>
    <property name="Draw" type="int" value="0"/>
   </properties>

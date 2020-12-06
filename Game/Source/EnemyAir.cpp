@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Audio.h"
 #include "Collisions.h"
+#include "Pathfinding.h"
 #include "Collider.h"
 
 EnemyAir::EnemyAir(Module* listener, fPoint ep, SDL_Texture* texture, Type type) : Entity(listener, ep, texture, type)
@@ -67,4 +68,47 @@ void EnemyAir::Collision(Collider* colider)
 void EnemyAir::CleanUp()
 {
 
+}
+bool EnemyAir::Radar(fPoint distance)
+{
+	if (ep.DistanceManhattan(distance) < range) return true;
+
+	return false;
+}
+int EnemyAir::CalculateDistance(fPoint origin, fPoint destination)
+{
+	return abs(origin.x - destination.x) + abs(origin.y - destination.y);;
+}
+void EnemyAir::CreatePathEnemy(fPoint mapPositionEnemy, fPoint mapPositionDestination)
+{
+	if (checkDestination->check(1000))
+	{
+		app->pathfinding->ResetPath(mapPositionEnemy);
+		checkDestination->Start();
+		app->pathfinding->ComputePathAStar(mapPositionEnemy, mapPositionDestination);
+		lastPathEnemy = app->pathfinding->GetLastPath();
+	}
+}
+int EnemyAir::GetCurrentPositionInPath(fPoint mapPositionEnemy)
+{
+	int i;
+	for (i = 0; i < lastPathEnemy->Count(); i++)
+	{
+		if (mapPositionEnemy == fPoint({ lastPathEnemy->At(i)->x, lastPathEnemy->At(i)->y })) break;
+	}
+	return i;
+}
+void EnemyAir::MoveEnemy(fPoint nextAuxPositionEenemy, fPoint mapPositionEnemy)
+{
+	int positionEnemyX = ep.x;
+	int positionEnemyY = ep.y;
+	//	int velocity = velocity;
+	if (nextAuxPositionEenemy.x < positionEnemyX)
+	{
+		ep.x -= 5;
+	}
+	else if (nextAuxPositionEenemy.x > positionEnemyX)
+	{
+		ep.x += 5;
+	}
 }

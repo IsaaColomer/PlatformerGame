@@ -15,6 +15,7 @@
 #include "EnemyGround.h"
 #include "EntityManager.h"
 #include "Scene3.h"
+#include "Pathfinding.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -48,6 +49,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	titleScreen = new Title();
 	entitymanager = new EntityManager();
 	scene3 = new Scene3();
+	pathfinding = new PathFinding();
 
 	
 	// Ordered for awake / Start / Update
@@ -66,6 +68,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(titleScreen);
 	AddModule(entitymanager);
 	AddModule(scene3);
+	AddModule(pathfinding);
 	//AddModule(enemies);
 
 	scene->active = false;

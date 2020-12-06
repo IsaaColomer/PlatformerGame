@@ -14,6 +14,8 @@ public:
 	uint32 Read() const;
 	float ReadSec() const;
 
+	bool check(float interval);
+
 private:
 	uint32 startTime;
 };

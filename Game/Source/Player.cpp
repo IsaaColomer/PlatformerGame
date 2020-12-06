@@ -112,7 +112,8 @@ bool Player::Start()
 	destroyedFx = app->audio->LoadFx("Assets/Audio/Fx/enemy_destroyed.wav");
 	lifeUpFx = app->audio->LoadFx("Assets/Audio/Fx/life.wav");
 
-	collider = app->collisions->AddCollider(cp, Collider::Type::PLAYER, this);
+	SDL_Rect playerCollider = { cp.x,cp.y,66,110 };
+	collider = app->collisions->AddCollider(playerCollider, Collider::Type::PLAYER, this);
 
 	SDL_Rect bottom = { cp.x + 10,cp.y+110, 40,30 };
 	colliderB = app->collisions->AddCollider(bottom, Collider::Type::PLAYERBOT, this);
@@ -286,7 +287,7 @@ bool Player::Update(float dt)
 		if (rCon == false)
 		{
 			cp.x -= vcx * dt;
-			if (cp.x > 700 && cp.x < 1850 && xMove)
+			if (cp.x > 700 && cp.x < 1900 && xMove)
 			{
 					app->render->camera.x += vcx * dt;
 			}
@@ -312,7 +313,7 @@ bool Player::Update(float dt)
 		if (lCon == false)
 		{
 			cp.x += vcx * dt;
-			if (cp.x > 700 && cp.x < 1850 && xMove)
+			if (cp.x > 600 && cp.x < 1900 && xMove)
 			{
 					app->render->camera.x -= vcx * dt;
 			}
@@ -465,7 +466,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			}
 			if (c2->type == Collider::Type::LEFT_WALL && lCon == false)
 			{
-				cp.x = c2->rect.x - cp.w + 1;
+				cp.x = c2->rect.x - c2->rect.w + 1;
 				lCon = true;
 				xMove = false;
 			}
@@ -557,8 +558,8 @@ void Player::resetPlayer()
 		app->player->cp.y = 0;
 	}
 
-	app->player->cp.w = 66;
-	app->player->cp.h = 110;
+	/*app->player->cp.w = 66;
+	app->player->cp.h = 110;*/
 
 	app->player->vcy = 0;
 	app->player->vcx = 290;

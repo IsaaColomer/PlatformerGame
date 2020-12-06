@@ -5,6 +5,7 @@
 #include "Map.h"
 #include "Collisions.h"
 #include "Defs.h"
+#include "PQueue.h"
 #include "Log.h"
 
 #include <math.h>
@@ -70,7 +71,7 @@ void Map::Draw()
 
 	// L06: TODO 4: Make sure we draw all the layers and not just the first one
 
-	iPoint point;
+	fPoint point;
 
 	for (int y = 0; y < data.height; ++y)
 	{
@@ -82,7 +83,7 @@ void Map::Draw()
 				if (tileId > 0)
 				{
 					// L04: TODO 9: Complete the draw function       
-					iPoint vec = MapToWorld(x, y);
+					fPoint vec = MapToWorld(x, y);
 					for (int i = 0; i < data.tilesets.Count() && data.layer.At(i) != nullptr; i++)
 					{
 						if (data.layer.At(i)->data->properties.GetProperty("Draw", 0) == 1 && layer->data->name != "colliders" && layer->data->name != "win" && layer->data->name != "Dead" && layer->data->name != "win2" && layer->data->name != "win3")
@@ -96,18 +97,18 @@ void Map::Draw()
 }
 
 // L04: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
-iPoint Map::MapToWorld(int x, int y) const
+fPoint Map::MapToWorld(int x, int y) const
 {
-	iPoint ret;
+	fPoint ret;
 
 	ret.x = x * data.tileWidth;
 	ret.y = y * data.tileHeight;
 
 	return ret;
 }
-iPoint Map::WorldToMap(int x, int y) const
+fPoint Map::WorldToMap(int x, int y) const
 {
-	iPoint ret(0, 0);
+	fPoint ret(0, 0);
 
 	ret.x = x / data.tileWidth;
 	ret.y = y / data.tileHeight;
@@ -216,8 +217,8 @@ bool Map::Load(const char* filename)
 	{
 		TileSet* set = new TileSet();
 
-		if (ret == true) ret = LoadTilesetDetails(tileset, set);
-		if (ret == true) ret = LoadTilesetImage(tileset, set);
+		if (ret == true) ret = LoadTiles(tileset, set);
+		if (ret == true) ret = LoadImg(tileset, set);
 
 		data.tilesets.add(set);
 	}
@@ -293,7 +294,7 @@ bool Map::LoadMap()
 }
 
 // L03: TODO: Load Tileset attributes
-bool Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
+bool Map::LoadTiles(pugi::xml_node& tileset_node, TileSet* set)
 {
 	bool ret = true;
 
@@ -311,7 +312,7 @@ bool Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 }
 
 // L03: TODO: Load Tileset image
-bool Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
+bool Map::LoadImg(pugi::xml_node& tileset_node, TileSet* set)
 {
 	bool ret = true;
 	pugi::xml_node image = tileset_node.child("image");
@@ -378,11 +379,11 @@ void Map::LoadColliders()
 			for (int x = 0; x < layer->width; x++)
 			{
 				int u = layer->Get(x, y);
-				iPoint pos = MapToWorld(x, y);
-				SDL_Rect n = { pos.x+16, pos.y, data.tileWidth-28, 12 };
+				fPoint pos = MapToWorld(x, y);
+				SDL_Rect n = { pos.x+2, pos.y, data.tileWidth-4, 12 };
 				SDL_Rect n2 = { pos.x, pos.y+12, 12, data.tileHeight-24};
 				SDL_Rect n3 = { pos.x + data.tileWidth-12, pos.y+12, 12, data.tileHeight-24};
-				SDL_Rect n4 = { pos.x+16, pos.y + data.tileHeight-12, data.tileWidth-28, 12 };
+				SDL_Rect n4 = { pos.x+8, pos.y + data.tileHeight-12, data.tileWidth-14, 12 };
 				if (u != 0)
 				{
 					if (layer->name == "win")
@@ -418,4 +419,157 @@ void Map::LoadColliders()
 		}
 		L = L->next;
 	}
+}
+
+
+void Map::ResetPath(fPoint start)
+{
+	frontier.Clear();
+	visited.clear();
+	breadcrumbs.clear();
+
+	frontier.Push(start, 0);
+	visited.add(start);
+	breadcrumbs.add(start);
+
+	memset(costSoFar, 0, sizeof(uint) * COST_OF_MAP_SIZE * COST_OF_MAP_SIZE);
+}
+
+void Map::DrawPath()
+{
+	fPoint pointV;
+	fPoint pointF;
+	fPoint pointPath;
+
+	// Draw visited
+	ListItem<fPoint>* itemVisited = visited.start;
+	PQueueItem<fPoint>* itemFrontier = frontier.start;
+
+
+	while (itemVisited)
+	{
+		pointV = itemVisited->data;
+
+		TileSet* tileset = GetTilesetFromTileId(1);
+
+		SDL_Rect rec = tileset->GetTileRect(1);
+		fPoint pos = MapToWorld(pointV.x, pointV.y);
+
+		app->render->DrawTexture(tileset->texture, pos.x, pos.y, &rec);
+		itemVisited = itemVisited->next;
+
+	}
+	while (itemFrontier)
+	{
+		TileSet* tileset = GetTilesetFromTileId(1);
+
+		SDL_Rect rec = tileset->GetTileRect(1);
+
+		pointF = itemFrontier->data;
+		tileset = GetTilesetFromTileId(259);
+		fPoint pos = MapToWorld(pointF.x, pointF.y);
+		app->render->DrawTexture(tileset->texture, pos.x, pos.y, &rec);
+		itemFrontier = itemFrontier->next;
+	}
+	int pathSize = path.Count();
+	for (size_t i = 0; i < pathSize; i++)
+	{
+		TileSet* tileset = GetTilesetFromTileId(1);
+
+		SDL_Rect rec = tileset->GetTileRect(1);
+
+		pointPath = { path.At(i)->x,path.At(i)->y };
+		tileset = GetTilesetFromTileId(1);
+		fPoint pos = MapToWorld(pointPath.x, pointPath.y);
+		app->render->DrawTexture(tileset->texture, pos.x, pos.y, &rec);
+	}
+}
+
+int Map::MovementCost(int x, int y) const
+{
+	int ret = -1;
+
+	if ((x >= 0) && (x < data.width) && (y >= 0) && (y < data.height))
+	{
+		// Coje el layer de las colisiones que en nuestro caso es el tercero
+		int id = data.layer.start->next->next->data->Get(x, y);
+
+		if (id != 0)
+		{
+			int fisrtGid = GetTilesetFromTileId(id)->firstgid;
+
+			if (id == fisrtGid) ret = 1;
+			else if (id == fisrtGid + 1) ret = 0;
+			else if (id == fisrtGid + 2) ret = 3;
+			//else ret = 1;
+		}
+		else ret = 1;
+	}
+
+	return ret;
+}
+
+void Map::ComputePath(float x, float y)
+{
+	path.Clear();
+	fPoint goal = { x, y };
+	int size = breadcrumbs.Count() - 1;
+	path.PushBack(goal);
+
+	ListItem<fPoint>* iterator = visited.end;
+	ListItem<fPoint>* tmp = breadcrumbs.At(size);
+
+	for (iterator; iterator; iterator = iterator->prev)
+	{
+		size--;
+		if (iterator->data == tmp->data)
+		{
+			path.PushBack(iterator->data);
+			tmp = breadcrumbs.At(size);
+		}
+	}
+
+}
+
+bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
+{
+	bool ret = false;
+	ListItem<MapLayer*>* item;
+	item = data.layer.start;
+
+	for (item = data.layer.start; item != NULL; item = item->next)
+	{
+		MapLayer* layer = item->data;
+
+		if (layer->properties.GetProperty("Nodraw", 0) == 1)
+			continue;
+
+		uchar* map = new uchar[layer->width * layer->height];
+		memset(map, 1, layer->width * layer->height);
+
+		for (int y = 0; y < data.height; ++y)
+		{
+			for (int x = 0; x < data.width; ++x)
+			{
+				int i = (y * layer->width) + x;
+
+				int tileId = layer->Get(x, y);
+				TileSet* tileset = (tileId > 0) ? GetTilesetFromTileId(tileId) : NULL;
+
+				if (tileset != NULL)
+				{
+					map[i] = (tileId - tileset->firstgid) > 0 ? 0 : 1;
+				}
+			}
+		}
+
+		*buffer = map;
+		width = data.width;
+		height = data.height;
+		ret = true;
+
+		break;
+	}
+
+	return ret;
 }
