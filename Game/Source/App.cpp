@@ -143,7 +143,7 @@ bool App::Awake()
 		}
 	}
 
-	pugi::xml_parse_result result = saveLoadFile.load_file("savegame.xml");
+	pugi::xml_parse_result result = saveLoadFile.load_file("save_game.xml");
 	if (result != NULL)
 	{
 		saveLoadNode = saveLoadFile.child("save");
@@ -452,7 +452,7 @@ bool App::SaveGame() const
 		ret = item->data->SaveState(saveLoadNode.child(item->data->name.GetString()));
 		item = item->next;
 	}
-	saveLoadFile.save_file("savegame.xml");
+	saveLoadFile.save_file("save_game.xml");
 
 	saveGameRequested = false;
 
