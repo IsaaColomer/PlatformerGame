@@ -484,16 +484,28 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 				if (playerLives == 0)
 				{
 					playerLives = 3;
-					app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
+					if (app->scene2->active == true)
+					{
+						app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
+					}
+					if (app->scene3->active == true)
+					{
+						app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
+					}
 					loseScreen = true;
 				}
-				else
+				if (app->scene2->active == true)
 				{
 					app->fade->Fade((Module*)app->scene2, (Module*)app->scene2, 60);
+				}
+				if (app->scene3->active == true)
+				{
+					app->fade->Fade((Module*)app->scene3, (Module*)app->scene3, 60);
 				}
 			}
 			break;
 		case Collider::Type::CHECKPOINT:
+			app->audio->PlayFx(checkPointFx);
 			c2->pendingToDelete = true;
 			app->SaveGameRequest();
 			app->scene->flagAlive = false;
