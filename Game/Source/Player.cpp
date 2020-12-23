@@ -220,7 +220,7 @@ bool Player::Update(float dt)
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
-		godMode = (godMode) ? false : true;
+		godMode = !godMode;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
@@ -259,19 +259,16 @@ bool Player::Update(float dt)
 	//PLAYER INPUT
 	if (!godMode)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN )//&& ong)
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
 			vcy = -850.0;
-			ong = false;
 			app->audio->PlayFx(jumpFx);
 		}
-		if (1)//!ong)
-		{
-			if (vcy < 425) vcy -= GRAV*dt;
-			cp.y += vcy*dt;
-		}
+		
+		if (vcy < 425) vcy -= GRAV * dt;
+		cp.y += vcy * dt;
 
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && ong == false)
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 		{
 			if (currentAnimation != &jumpAnim)
 			{
@@ -294,52 +291,31 @@ bool Player::Update(float dt)
 	// L08: TODO 6: Make the camera movement independent of framerate
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		if (rCon == false)
-		{
-			cp.x -= vcx * dt;
-		}
-		else
-		{
-				rCon = false;
-		}
+		cp.x -= vcx * dt;
+
 		if (currentAnimation != &leftAnim)
 		{
-				leftAnim.Reset();
-				currentAnimation = &leftAnim;
+			leftAnim.Reset();
+			currentAnimation = &leftAnim;
 		}
-			xMove = true;
-			facingLeft = true;
-			facingRight = false;
+		facingLeft = true;
+		facingRight = false;
 	}
-	/*else
-	{
-			ong = false;
-	}*/
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		if (lCon == false)
-		{
-			cp.x += vcx * dt;
-		}
-		else
-		{
-			lCon = false;
-		}
+		cp.x += vcx * dt;
+
 		if (currentAnimation != &rightAnim)
 		{
 			rightAnim.Reset();
 			currentAnimation = &rightAnim;
 		}
-
-		xMove = true;
 		facingRight = true;
 		facingLeft = false;
 	}
-	/*else
-	{
-		ong = false;
-	}*/
 	//-----------------------COLLIDER MOVEMENT
+	vcx = 290;
+
 	if (topCollider != nullptr && botCollider != nullptr && rightCollider != nullptr && leftCollider != nullptr)
 	{
 		topCollider->SetPos(cp.x + 10, cp.y);
@@ -347,8 +323,6 @@ bool Player::Update(float dt)
 		rightCollider->SetPos(cp.x, cp.y + 10);
 		leftCollider->SetPos(cp.x + 66 - 10, cp.y + 10);
 	}
-
-	//ong = false;
 	//--------------------------------
 
 	//-----------------------CAMERA MOVEMENT
@@ -384,11 +358,9 @@ bool Player::Update(float dt)
 bool Player::PostUpdate()
 {
 	bool ret = true;
-	SDL_Rect rectPlayer;
-	rectPlayer = currentAnimation->GetCurrentFrame();
 
-	app->render->DrawTexture(character, cp.x, cp.y, &rectPlayer); // Placeholder not needed any more
-
+	SDL_Rect rectPlayer = currentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(character, cp.x, cp.y, &rectPlayer);
 	
 	for (int i = 0; i < playerLives; i++)
 	{
@@ -399,8 +371,7 @@ bool Player::PostUpdate()
 		app->render->DrawTexture(coins, -app->render->camera.x + (i * 17)+129, 0, NULL);
 	}
 
-	SDL_Rect floppyRect;
-	floppyRect = currentFloppy->GetCurrentFrame();
+	SDL_Rect floppyRect = currentFloppy->GetCurrentFrame();
 
 	if (fCount < 180)
 	{
@@ -471,7 +442,6 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		switch (c2->type)
 		{
 		case Collider::Type::COLL:
-			ong = true;
 			switch (c1->type)
 			{
 			case Collider::Type::PLAYER_TOP:
@@ -481,15 +451,14 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			case Collider::Type::PLAYER_BOT:
 				cp.y = c2->rect.y - 110;
 				vcy = 0.0f;
-				//ong = true;
 				break;
 			case Collider::Type::PLAYER_RIGHT:
 				cp.x = c2->rect.x - 66;
-				xMove = false;
+				vcx = 0.0f;
 				break;
 			case Collider::Type::PLAYER_LEFT:
 				cp.x = c2->rect.x + c2->rect.w;
-				xMove = false;
+				vcx = 0.0f;
 				break;
 			}
 			break;
