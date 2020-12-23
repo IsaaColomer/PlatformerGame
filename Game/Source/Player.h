@@ -99,6 +99,11 @@ public:
 	Collider* collider;
 	Collider* colliderB;
 
+	Collider* topCollider;
+	Collider* botCollider;
+	Collider* leftCollider;
+	Collider* rightCollider;
+
 	SDL_Texture* floppyDisk;
 	Animation floppyAnim;
 	

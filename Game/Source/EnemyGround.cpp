@@ -74,20 +74,20 @@ bool EnemyGround::Draw()
 
 void EnemyGround::Collision(Collider* colider)
 {
-	if (colider->type == Collider::Type::PLAYERBOT && app->player->godMode == false)
+	if (colider->type == Collider::Type::PLAYER_BOT && app->player->godMode == false)
 	{
 		pendingToDelete = true;
 		app->audio->PlayFx(app->player->destroyedFx);
 		collider->pendingToDelete = true;
 	}
-	if (colider->type == Collider::Type::PLAYER && app->player->godMode == false)
+	if ((colider->type == Collider::Type::PLAYER_TOP || colider->type == Collider::Type::PLAYER_LEFT || colider->type == Collider::Type::PLAYER_RIGHT) && app->player->godMode == false)
 	{
 		app->player->playerLives--;
 		pendingToDelete = true;
 		app->audio->PlayFx(app->player->hittedFx);
 		collider->pendingToDelete = true;
 	}
-	if (colider->type == Collider::Type::FLOOR)
+	if (colider->type == Collider::Type::COLL)
 	{
 		ep.y = colider->rect.y - 93;
 		vey = 0;

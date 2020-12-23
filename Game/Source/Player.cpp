@@ -114,11 +114,20 @@ bool Player::Start()
 	destroyedFx = app->audio->LoadFx("Assets/Audio/Fx/enemy_destroyed.wav");
 	lifeUpFx = app->audio->LoadFx("Assets/Audio/Fx/life.wav");
 
-	SDL_Rect playerCollider = { cp.x,cp.y,66,110 };
-	collider = app->collisions->AddCollider(playerCollider, Collider::Type::PLAYER, this);
+	/*SDL_Rect playerCollider = { cp.x,cp.y,66,110 };
+	collider = app->collisions->AddCollider(playerCollider, Collider::Type::PLAYER_BOT, this);*/
 
-	SDL_Rect bottom = { cp.x + 10,cp.y+110, 40,30 };
-	colliderB = app->collisions->AddCollider(bottom, Collider::Type::PLAYERBOT, this);
+	/*SDL_Rect bottom = { cp.x + 10,cp.y+110, 40,30 };
+	colliderB = app->collisions->AddCollider(bottom, Collider::Type::PLAYERBOT, this);*/
+
+	SDL_Rect top = { cp.x + 10,cp.y, 66 - 20, 10 };
+	SDL_Rect bot = { cp.x + 10,cp.y + 110, 66 - 20, 10 };
+	SDL_Rect left = { cp.x,cp.y + 10, 10, 110 - 20 };
+	SDL_Rect right = { cp.x + 66 - 10,cp.y + 10, 10, 110 - 20};
+	topCollider = app->collisions->AddCollider(top, Collider::Type::PLAYER_TOP, this);
+	botCollider = app->collisions->AddCollider(bot, Collider::Type::PLAYER_BOT, this);
+	leftCollider = app->collisions->AddCollider(left, Collider::Type::PLAYER_RIGHT, this);
+	rightCollider = app->collisions->AddCollider(right, Collider::Type::PLAYER_LEFT, this);
 
 	currentAnimation = &idleAnimR;
 	currentFloppy = &floppyAnim;
@@ -302,10 +311,10 @@ bool Player::Update(float dt)
 			facingLeft = true;
 			facingRight = false;
 	}
-	else
+	/*else
 	{
 			ong = false;
-	}
+	}*/
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		if (lCon == false)
@@ -326,10 +335,10 @@ bool Player::Update(float dt)
 		facingRight = true;
 		facingLeft = false;
 	}
-	else
+	/*else
 	{
 		ong = false;
-	}
+	}*/
 	//-----------------------COLLIDER MOVEMENT
 	if (collider != nullptr)
 	{
@@ -338,6 +347,14 @@ bool Player::Update(float dt)
 	if (colliderB != nullptr)
 	{
 		colliderB->SetPos(cp.x+10, cp.y + 110);
+	}
+
+	if (topCollider != nullptr && botCollider != nullptr && rightCollider != nullptr && leftCollider != nullptr)
+	{
+		topCollider->SetPos(cp.x + 10, cp.y);
+		botCollider->SetPos(cp.x + 10, cp.y + 110 - 10);
+		rightCollider->SetPos(cp.x, cp.y + 10);
+		leftCollider->SetPos(cp.x + 66 - 10, cp.y + 10);
 	}
 	//--------------------------------
 
@@ -456,7 +473,87 @@ bool Player::SaveState(pugi::xml_node& data) const
 
 void Player::OnCollision(Collider* c1, Collider* c2)
 {
-		if (c1 == collider && !godMode)
+	if (!godMode)
+	{
+		switch (c2->type)
+		{
+		case Collider::Type::COLL:
+			switch (c1->type)
+			{
+			case Collider::Type::PLAYER_TOP:
+				cp.y = c2->rect.y + c2->rect.h;
+				vcy = 0.0f;
+				break;
+			case Collider::Type::PLAYER_BOT:
+				cp.y = c2->rect.y - 110;
+				ong = true;
+				break;
+			case Collider::Type::PLAYER_RIGHT:
+				cp.x = c2->rect.x - 66;
+				xMove = false;
+				break;
+			case Collider::Type::PLAYER_LEFT:
+				cp.x = c2->rect.x + c2->rect.w;
+				xMove = false;
+				break;
+			}
+			break;
+		case Collider::Type::WIN:
+			c2->pendingToDelete = true;
+			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
+			break;
+		case Collider::Type::WIN2:
+			c2->pendingToDelete = true;
+			app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 60);
+			break;
+		case Collider::Type::WIN3:
+			c2->pendingToDelete = true;
+			app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
+			winScreen = true;
+			break;
+		case Collider::Type::DEATH:
+			if (!minusLives)
+			{
+				c2->pendingToDelete = true;
+				minusLives = true;
+				--playerLives;
+				if (playerLives == 0)
+				{
+					playerLives = 3;
+					app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
+					loseScreen = true;
+				}
+				else
+				{
+					app->fade->Fade((Module*)app->scene2, (Module*)app->scene2, 60);
+				}
+			}
+			break;
+		case Collider::Type::FOOD:
+			c2->pendingToDelete = true;
+			if (playerLives < 3)
+			{
+				playerLives++;
+			}
+			/*app->scene->foodAlive = false;
+			app->scene2->foodAlive = false;*/
+			break;
+		case Collider::Type::CHECKPOINT:
+			c2->pendingToDelete = true;
+			app->SaveGameRequest();
+			app->scene->flagAlive = false;
+			app->scene2->flagAlive = false;
+			fCount = 0;
+			break;/*
+		case Collider::Type::COIN:
+			c2->pendingToDelete = true;
+			break;*/
+		default:
+			break;
+		}
+	}
+
+		/*if (c1 == collider && !godMode)
 		{
 			if (c2->type == Collider::Type::FLOOR)
 			{
@@ -537,7 +634,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			{
 				c2->pendingToDelete = true;
 			}
-		}
+		}*/
 	}
 	
 void Player::resetPlayer()

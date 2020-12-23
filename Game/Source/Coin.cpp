@@ -40,7 +40,7 @@ bool Coin::Draw()
 
 void Coin::Collision(Collider* coll)
 {
-	if (coll == app->player->collider && app->player->godMode == false)
+	if ((coll == app->player->topCollider || coll == app->player->rightCollider || coll == app->player->leftCollider || coll == app->player->botCollider) && app->player->godMode == false)
 	{
 		collider->pendingToDelete = true;
 		if (app->player->coinsCollected >= 0 || app->player->coinsCollected <= 10)

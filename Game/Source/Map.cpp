@@ -380,7 +380,28 @@ void Map::LoadColliders()
 			{
 				int u = layer->Get(x, y);
 				fPoint pos = MapToWorld(x, y);
-				SDL_Rect n = { pos.x+2, pos.y, data.tileWidth-4, 12 };
+
+				if (u != 0)
+				{
+					SDL_Rect rectCol = { pos.x,pos.y, data.tileWidth, data.tileHeight };
+
+					if (layer->name == "win")
+						app->collisions->AddCollider(rectCol, Collider::Type::WIN, this);
+
+					else if (layer->name == "Dead")
+						app->collisions->AddCollider(rectCol, Collider::Type::DEATH, this);
+
+					else if (layer->name == "win2")
+						app->collisions->AddCollider(rectCol, Collider::Type::WIN2, this);
+
+					else if (layer->name == "win3")
+						app->collisions->AddCollider(rectCol, Collider::Type::WIN3, this);
+
+					else if (layer->properties.GetProperty("Draw", 1) == 0)
+						app->collisions->AddCollider(rectCol, Collider::Type::COLL, this);
+				}
+
+				/*SDL_Rect n = { pos.x+2, pos.y, data.tileWidth-4, 12 };
 				SDL_Rect n2 = { pos.x, pos.y+12, 12, data.tileHeight-24};
 				SDL_Rect n3 = { pos.x + data.tileWidth-12, pos.y+12, 12, data.tileHeight-24};
 				SDL_Rect n4 = { pos.x+8, pos.y + data.tileHeight-12, data.tileWidth-14, 12 };
@@ -413,7 +434,7 @@ void Map::LoadColliders()
 						app->collisions->AddCollider(n3, Collider::Type::RIGHT_WALL, this);
 						app->collisions->AddCollider(n4, Collider::Type::ROOF, this);
 					}
-				}
+				}*/
 
 			}
 		}
