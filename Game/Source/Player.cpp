@@ -259,15 +259,15 @@ bool Player::Update(float dt)
 	//PLAYER INPUT
 	if (!godMode)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && ong)
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN )//&& ong)
 		{
-			vcy = -650.0;
+			vcy = -850.0;
 			ong = false;
 			app->audio->PlayFx(jumpFx);
 		}
-		if (!ong)
+		if (1)//!ong)
 		{
-			if (vcy < 300) vcy -= GRAV*dt;
+			if (vcy < 425) vcy -= GRAV*dt;
 			cp.y += vcy*dt;
 		}
 
@@ -340,15 +340,6 @@ bool Player::Update(float dt)
 		ong = false;
 	}*/
 	//-----------------------COLLIDER MOVEMENT
-	if (collider != nullptr)
-	{
-		collider->SetPos(cp.x, cp.y);
-	}
-	if (colliderB != nullptr)
-	{
-		colliderB->SetPos(cp.x+10, cp.y + 110);
-	}
-
 	if (topCollider != nullptr && botCollider != nullptr && rightCollider != nullptr && leftCollider != nullptr)
 	{
 		topCollider->SetPos(cp.x + 10, cp.y);
@@ -356,6 +347,8 @@ bool Player::Update(float dt)
 		rightCollider->SetPos(cp.x, cp.y + 10);
 		leftCollider->SetPos(cp.x + 66 - 10, cp.y + 10);
 	}
+
+	//ong = false;
 	//--------------------------------
 
 	//-----------------------CAMERA MOVEMENT
@@ -478,6 +471,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		switch (c2->type)
 		{
 		case Collider::Type::COLL:
+			ong = true;
 			switch (c1->type)
 			{
 			case Collider::Type::PLAYER_TOP:
@@ -486,7 +480,8 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 				break;
 			case Collider::Type::PLAYER_BOT:
 				cp.y = c2->rect.y - 110;
-				ong = true;
+				vcy = 0.0f;
+				//ong = true;
 				break;
 			case Collider::Type::PLAYER_RIGHT:
 				cp.x = c2->rect.x - 66;
@@ -529,25 +524,13 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 				}
 			}
 			break;
-		case Collider::Type::FOOD:
-			c2->pendingToDelete = true;
-			if (playerLives < 3)
-			{
-				playerLives++;
-			}
-			/*app->scene->foodAlive = false;
-			app->scene2->foodAlive = false;*/
-			break;
 		case Collider::Type::CHECKPOINT:
 			c2->pendingToDelete = true;
 			app->SaveGameRequest();
 			app->scene->flagAlive = false;
 			app->scene2->flagAlive = false;
 			fCount = 0;
-			break;/*
-		case Collider::Type::COIN:
-			c2->pendingToDelete = true;
-			break;*/
+			break;
 		default:
 			break;
 		}
