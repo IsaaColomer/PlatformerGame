@@ -36,6 +36,9 @@ public:
 
 	bool CleanUp();
 
+	bool OnGuiMouseClickEvent(GuiControl* control);
+
+
 public:
 	// The scene sprite sheet loaded into an SDL_Texture
 	SDL_Texture* introscreen = nullptr;

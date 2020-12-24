@@ -47,13 +47,12 @@ bool Intro::Start()
 	LOG("Loading intro assets");
 
 	introscreen = app->tex->Load("Assets/Screens/Title/intro_screen.png");
-	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
 
 	btnStart = new GuiButton(1, { 1280 / 2 - 300 / 2, 300, 300, 80 }, "START");
 	btnStart->SetObserver((Scene*) this);
 
 	btnExit = new GuiButton(2, { 1280 / 2 - 300 / 2, 400, 300, 80 }, "EXIT");
-	btnExit->SetObserver((Scene*)this);
+	btnExit->SetObserver((Scene*) this);
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
@@ -100,6 +99,20 @@ bool Intro::PostUpdate()
 
 	btnStart->Draw(app->render);
 	btnExit->Draw(app->render);
+
+	return true;
+}
+bool Intro::OnGuiMouseClickEvent(GuiControl* control)
+{
+	switch (control->type)
+	{
+	case GuiControlType::BUTTON:
+	{
+		if (control->id == 1) app->fade->Fade(this, (Module*)app->scene, 1);
+		else if (control->id == 2) return false;
+	}
+	default: break;
+	}
 
 	return true;
 }
