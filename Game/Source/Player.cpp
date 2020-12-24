@@ -263,10 +263,14 @@ bool Player::Update(float dt)
 		{
 			vcy = -850.0;
 			app->audio->PlayFx(jumpFx);
+			ong = false;
 		}
 		
-		if (vcy < 425) vcy -= GRAV * dt;
-		cp.y += vcy * dt;
+		if (!ong)
+		{
+			if (vcy < 425) vcy -= GRAV * dt;
+			cp.y += vcy * dt;
+		}
 
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 		{
@@ -292,7 +296,7 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		cp.x -= vcx * dt;
-
+		ong = false;
 		if (currentAnimation != &leftAnim)
 		{
 			leftAnim.Reset();
@@ -304,7 +308,7 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		cp.x += vcx * dt;
-
+		ong = false;
 		if (currentAnimation != &rightAnim)
 		{
 			rightAnim.Reset();
@@ -314,7 +318,6 @@ bool Player::Update(float dt)
 		facingLeft = false;
 	}
 	//-----------------------COLLIDER MOVEMENT
-	vcx = 290;
 
 	if (topCollider != nullptr && botCollider != nullptr && rightCollider != nullptr && leftCollider != nullptr)
 	{
@@ -451,14 +454,15 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			case Collider::Type::PLAYER_BOT:
 				cp.y = c2->rect.y - 110;
 				vcy = 0.0f;
+				ong = true;
 				break;
 			case Collider::Type::PLAYER_RIGHT:
-				cp.x = c2->rect.x - 66;
-				vcx = 0.0f;
+				cp.x = c2->rect.x - 66 + 1;
+				xMove = false;
 				break;
 			case Collider::Type::PLAYER_LEFT:
-				cp.x = c2->rect.x + c2->rect.w;
-				vcx = 0.0f;
+				cp.x = c2->rect.x + c2->rect.w - 1;
+				xMove = false;
 				break;
 			}
 			break;
