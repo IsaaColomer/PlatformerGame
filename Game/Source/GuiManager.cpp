@@ -14,7 +14,7 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type)
 	}
 
 	// Created entities are added to the list
-	if (control != nullptr) controls.Add(control);
+	if (control != nullptr) controls.add(control);
 
 	return control;
 }

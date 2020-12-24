@@ -3,6 +3,9 @@
 
 #include "Module.h"
 #include "Animation.h"
+#include "GuiButton.h"
+
+class GuiControl;
 
 struct SDL_Texture;
 
@@ -38,6 +41,9 @@ public:
 	SDL_Texture* introscreen = nullptr;
 
 	bool spaced;
+private:
+	GuiButton* btnStart;
+	GuiButton* btnExit;
 };
 
 #endif

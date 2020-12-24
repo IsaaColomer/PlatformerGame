@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Animation.h"
 
+class GuiControl;
 
 struct SDL_Texture;
 
@@ -33,6 +34,11 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
+
+	virtual bool OnGuiMouseClickEvent(GuiControl* control)
+	{
+		return true;
+	}
 
 public:
 	bool flagAlive;

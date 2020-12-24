@@ -49,6 +49,12 @@ bool Intro::Start()
 	introscreen = app->tex->Load("Assets/Screens/Title/intro_screen.png");
 	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
 
+	btnStart = new GuiButton(1, { 1280 / 2 - 300 / 2, 300, 300, 80 }, "START");
+	btnStart->SetObserver((Scene*) this);
+
+	btnExit = new GuiButton(2, { 1280 / 2 - 300 / 2, 400, 300, 80 }, "EXIT");
+	btnExit->SetObserver((Scene*)this);
+
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
@@ -62,7 +68,8 @@ bool Intro::PreUpdate()
 
 bool Intro::Update(float dt)
 {
-
+	btnStart->Update(app->input, dt);
+	btnExit->Update(app->input, dt);
 
 	return true;
 }
@@ -90,6 +97,9 @@ bool Intro::PostUpdate()
 	}
 	// Draw everything --------------------------------------
 	app->render->DrawTexture(introscreen, 0, 0, NULL);
+
+	btnStart->Draw(app->render);
+	btnExit->Draw(app->render);
 
 	return true;
 }
