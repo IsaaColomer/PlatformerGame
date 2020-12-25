@@ -35,10 +35,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	virtual bool OnGuiMouseClickEvent(GuiControl* control)
-	{
-		return true;
-	}
+	bool OnGuiMouseClickEvent(GuiControl* control);
 
 public:
 	bool flagAlive;

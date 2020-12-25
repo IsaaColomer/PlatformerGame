@@ -102,13 +102,13 @@ bool Intro::PostUpdate()
 
 	return true;
 }
-bool Intro::OnGuiMouseClickEvent(GuiControl* control)
+bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 {
 	switch (control->type)
 	{
 	case GuiControlType::BUTTON:
 	{
-		if (control->id == 1) app->fade->Fade(this, (Module*)app->scene, 1);
+		if (control->id == 1) app->fade->Fade((Module*)app->intro, (Module*)app->scene, 1);
 		else if (control->id == 2) return false;
 	}
 	default: break;
