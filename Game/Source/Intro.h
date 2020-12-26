@@ -52,6 +52,7 @@ public:
 	bool spaced;
 private:
 	GuiButton* btnStart;
+	GuiButton* btnLoad;
 	GuiButton* btnExit;
 	GuiButton* btnConfig;
 	GuiButton* btnCredits;

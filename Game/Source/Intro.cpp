@@ -48,6 +48,10 @@ bool Intro::Start()
 
 	introscreen = app->tex->Load("Assets/Screens/Title/intro_screen.png");
 
+	btnLoad = new GuiButton(0, { 1280 / 2 - 300 / 2, 200, 300, 80 }, "LOAD");
+	btnLoad->SetObserver((Scene*)this);
+	btnLoad->SetTexture(app->tex->Load("Assets/GUI/load.png"), app->tex->Load("Assets/GUI/load_selected.png"), app->tex->Load("Assets/GUI/load_focused.png"));
+
 	btnStart = new GuiButton(1, { 1280 / 2 - 300 / 2, 300, 300, 80 }, "START");
 	btnStart->SetObserver((Scene*) this);
 	btnStart->SetTexture(app->tex->Load("Assets/GUI/play.png"), app->tex->Load("Assets/GUI/play_selected.png"), app->tex->Load("Assets/GUI/play_focused.png"));
@@ -60,7 +64,7 @@ bool Intro::Start()
 	btnExit->SetObserver((Scene*) this);
 	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
 
-	btnCredits = new GuiButton(4, { 1280 / 2 - 300 / 2, 600, 300, 80 }, "CREDITS");
+	btnCredits = new GuiButton(5, { 1280 / 2 - 300 / 2, 600, 300, 80 }, "CREDITS");
 	btnCredits->SetObserver((Scene*)this);
 	btnCredits->SetTexture(app->tex->Load("Assets/GUI/credits.png"), app->tex->Load("Assets/GUI/credits_selected.png"), app->tex->Load("Assets/GUI/credits_focused.png"));
 
@@ -77,7 +81,7 @@ bool Intro::PreUpdate()
 
 bool Intro::Update(float dt)
 {
-
+	btnLoad->Update(app->input, dt);
 	btnStart->Update(app->input, dt);
 	btnConfig->Update(app->input, dt);
 	btnExit->Update(app->input, dt);
@@ -111,6 +115,7 @@ bool Intro::PostUpdate()
 	// Draw everything --------------------------------------
 	app->render->DrawTexture(introscreen, 0, 0, NULL);
 
+	btnLoad->Draw(app->render);
 	btnStart->Draw(app->render);
 	btnConfig->Draw(app->render);
 	btnExit->Draw(app->render);
