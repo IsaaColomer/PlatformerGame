@@ -47,16 +47,21 @@ bool Intro::Start()
 	LOG("Loading intro assets");
 
 	introscreen = app->tex->Load("Assets/Screens/Title/intro_screen.png");
+	configTexture = app->tex->Load("Assets/GUI/settings.png");
+	playTexture = app->tex->Load("Assets/GUI/play.png");
+	exitTexture = app->tex->Load("Assets/GUI/exit.png");
 
 	btnStart = new GuiButton(1, { 1280 / 2 - 300 / 2, 300, 300, 80 }, "START");
 	btnStart->SetObserver((Scene*) this);
-
+	btnStart->SetTexture(playTexture);
 
 	btnConfig = new GuiButton(2, { 1280 / 2 - 300 / 2, 400, 300, 80 }, "CONFIG");
 	btnConfig->SetObserver((Scene*)this);
+	btnConfig->SetTexture(configTexture);
 
 	btnExit = new GuiButton(4, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
 	btnExit->SetObserver((Scene*) this);
+	btnExit->SetTexture(configTexture);
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
@@ -71,10 +76,10 @@ bool Intro::PreUpdate()
 
 bool Intro::Update(float dt)
 {
+
 	btnStart->Update(app->input, dt);
 	btnConfig->Update(app->input, dt);
 	btnExit->Update(app->input, dt);
-
 
 	return true;
 }
@@ -100,14 +105,13 @@ bool Intro::PostUpdate()
 			app->fade->Fade((Module*)app->intro, (Module*)app->scene2, 60);
 		return true;
 	}
+
 	// Draw everything --------------------------------------
 	app->render->DrawTexture(introscreen, 0, 0, NULL);
 
 	btnStart->Draw(app->render);
 	btnConfig->Draw(app->render);
 	btnExit->Draw(app->render);
-
-
 	return true;
 }
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)

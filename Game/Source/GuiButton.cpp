@@ -1,4 +1,5 @@
 #include "GuiButton.h"
+#include "App.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
@@ -47,7 +48,9 @@ bool GuiButton::Draw(Render* render)
     {
     case GuiControlState::DISABLED: render->DrawRectangle(bounds, 100, 100, 100, 255);
         break;
-    case GuiControlState::NORMAL: render->DrawRectangle(bounds, 0, 255, 0, 255);
+    case GuiControlState::NORMAL:
+        /*render->DrawRectangle(bounds, 0, 255, 0, 255);*/
+        app->render->DrawTexture(texture, bounds.x, bounds.y, NULL);
         break;
     case GuiControlState::FOCUSED: render->DrawRectangle(bounds, 255, 255, 0, 255);
         break;
