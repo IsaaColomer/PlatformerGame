@@ -52,6 +52,11 @@ bool ConfigScene::Start()
 	btnExit = new GuiButton(3, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
 	btnExit->SetObserver((Scene*)this);
 
+	fxSlider = new GuiSlider(5, { 1280 / 2 - 300 / 2, 400, 40, 40 }, "FX");
+	fxSlider->SetObserver((Scene*)this);
+
+	fxSliderBack = { 470,400,400,40 };
+
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
@@ -67,6 +72,7 @@ bool ConfigScene::Update(float dt)
 {
 
 	btnExit->Update(app->input, dt);
+	fxSlider->Update(app->input, dt);
 	return true;
 }
 
@@ -75,7 +81,10 @@ bool ConfigScene::PostUpdate()
 {
 	// Draw everything --------------------------------------
 	app->render->DrawTexture(configscreen, 0, 0, NULL);
+	
+	app->render->DrawRectangle(fxSliderBack,154,122,130);
 	btnExit->Draw(app->render);
+	fxSlider->Draw(app->render);
 	return true;
 }
 

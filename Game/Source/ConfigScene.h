@@ -3,6 +3,8 @@
 
 #include "Module.h"
 #include "Animation.h"
+#include "GuiSlider.h"
+#include "GuiButton.h"
 
 struct SDL_Texture;
 
@@ -41,7 +43,11 @@ public:
 
 	bool spaced;
 
-private:
 	GuiButton* btnExit;
+	GuiSlider* fxSlider;
+	SDL_Rect fxSliderBack;
+
+private:
+
 };
 #endif

@@ -122,6 +122,14 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		else if (control->id == 4) 
 			SDL_Quit;
 	}
+
+	case GuiControlType::SLIDER:
+	{
+		if (control->id == 5)
+		{
+
+		}
+	}
 	default: break;
 	}
 
