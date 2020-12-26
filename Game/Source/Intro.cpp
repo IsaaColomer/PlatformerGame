@@ -47,21 +47,22 @@ bool Intro::Start()
 	LOG("Loading intro assets");
 
 	introscreen = app->tex->Load("Assets/Screens/Title/intro_screen.png");
-	configTexture = app->tex->Load("Assets/GUI/settings.png");
-	playTexture = app->tex->Load("Assets/GUI/play.png");
-	exitTexture = app->tex->Load("Assets/GUI/exit.png");
 
 	btnStart = new GuiButton(1, { 1280 / 2 - 300 / 2, 300, 300, 80 }, "START");
 	btnStart->SetObserver((Scene*) this);
-	btnStart->SetTexture(playTexture);
+	btnStart->SetTexture(app->tex->Load("Assets/GUI/play.png"), app->tex->Load("Assets/GUI/play_selected.png"), app->tex->Load("Assets/GUI/play_focused.png"));
 
 	btnConfig = new GuiButton(2, { 1280 / 2 - 300 / 2, 400, 300, 80 }, "CONFIG");
 	btnConfig->SetObserver((Scene*)this);
-	btnConfig->SetTexture(configTexture);
+	btnConfig->SetTexture(app->tex->Load("Assets/GUI/settings.png"), app->tex->Load("Assets/GUI/settings_selected.png"), app->tex->Load("Assets/GUI/settings_focused.png"));
 
 	btnExit = new GuiButton(4, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
 	btnExit->SetObserver((Scene*) this);
-	btnExit->SetTexture(configTexture);
+	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
+
+	btnCredits = new GuiButton(4, { 1280 / 2 - 300 / 2, 600, 300, 80 }, "CREDITS");
+	btnCredits->SetObserver((Scene*)this);
+	btnCredits->SetTexture(app->tex->Load("Assets/GUI/credits.png"), app->tex->Load("Assets/GUI/credits_selected.png"), app->tex->Load("Assets/GUI/credits_focused.png"));
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
@@ -80,6 +81,7 @@ bool Intro::Update(float dt)
 	btnStart->Update(app->input, dt);
 	btnConfig->Update(app->input, dt);
 	btnExit->Update(app->input, dt);
+	btnCredits->Update(app->input, dt);
 
 	return true;
 }
@@ -112,6 +114,7 @@ bool Intro::PostUpdate()
 	btnStart->Draw(app->render);
 	btnConfig->Draw(app->render);
 	btnExit->Draw(app->render);
+	btnCredits->Draw(app->render);
 	return true;
 }
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)

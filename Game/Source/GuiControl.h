@@ -46,7 +46,9 @@ public:
         text(text) 
     {
         color.r = 255; color.g = 255; color.b = 255;
-        texture = NULL;
+        textureIdle = NULL;
+        textureFocused = NULL;
+        textureClicked = NULL;
     }
 
     virtual bool Update(Input* input, float dt)
@@ -59,9 +61,11 @@ public:
         return true;
     }
 
-    void SetTexture(SDL_Texture* tex)
+    void SetTexture(SDL_Texture* texIdle, SDL_Texture* texFocused, SDL_Texture* texClicked)
     {
-        texture = tex;
+        textureIdle = texIdle;
+        textureFocused = texFocused;
+        textureClicked = texClicked;
         section = { 0, 0, 0, 0 };
     }
 
@@ -85,7 +89,9 @@ public:
     SDL_Rect bounds;        // Position and size
     SDL_Color color;        // Tint color
 
-    SDL_Texture* texture;   // Texture atlas reference
+    SDL_Texture* textureIdle;   // Texture atlas reference
+    SDL_Texture* textureFocused;   // Texture atlas reference
+    SDL_Texture* textureClicked;   // Texture atlas reference
     SDL_Rect section;       // Texture atlas base section
 
     //Font font;              // Text font

@@ -13,6 +13,7 @@
 #include "Scene2.h"
 #include "FadeToBlack.h"
 #include "ConfigScene.h"
+#include "Title.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -51,6 +52,7 @@ bool ConfigScene::Start()
 
 	btnExit = new GuiButton(3, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
 	btnExit->SetObserver((Scene*)this);
+	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
 
 	fxSlider = new GuiSlider(5, { 1280 / 2 - 300 / 2, 400, 40, 40 }, "FX");
 	fxSlider->SetObserver((Scene*)this);
@@ -81,7 +83,6 @@ bool ConfigScene::PostUpdate()
 {
 	// Draw everything --------------------------------------
 	app->render->DrawTexture(configscreen, 0, 0, NULL);
-	
 	app->render->DrawRectangle(fxSliderBack,154,122,130);
 	btnExit->Draw(app->render);
 	fxSlider->Draw(app->render);

@@ -50,11 +50,13 @@ bool GuiButton::Draw(Render* render)
         break;
     case GuiControlState::NORMAL:
         /*render->DrawRectangle(bounds, 0, 255, 0, 255);*/
-        app->render->DrawTexture(texture, bounds.x, bounds.y, NULL);
+        app->render->DrawTexture(textureIdle, bounds.x, bounds.y, NULL);
         break;
-    case GuiControlState::FOCUSED: render->DrawRectangle(bounds, 255, 255, 0, 255);
+    case GuiControlState::FOCUSED: 
+        app->render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
         break;
-    case GuiControlState::PRESSED: render->DrawRectangle(bounds,0, 255, 255, 255);
+    case GuiControlState::PRESSED:
+        app->render->DrawTexture(textureClicked, bounds.x, bounds.y, NULL);
         break;
     case GuiControlState::SELECTED: render->DrawRectangle(bounds, 0, 255, 0, 255);
         break;

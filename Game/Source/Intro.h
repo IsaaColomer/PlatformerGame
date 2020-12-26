@@ -54,6 +54,7 @@ private:
 	GuiButton* btnStart;
 	GuiButton* btnExit;
 	GuiButton* btnConfig;
+	GuiButton* btnCredits;
 };
 
 #endif
