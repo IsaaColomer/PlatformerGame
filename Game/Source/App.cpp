@@ -16,6 +16,7 @@
 #include "EntityManager.h"
 #include "Scene3.h"
 #include "Pathfinding.h"
+#include "ConfigScene.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -50,6 +51,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entitymanager = new EntityManager();
 	scene3 = new Scene3();
 	pathfinding = new PathFinding();
+	configscene = new ConfigScene();
 
 	
 	// Ordered for awake / Start / Update
@@ -69,9 +71,11 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entitymanager);
 	AddModule(scene3);
 	AddModule(pathfinding);
+	AddModule(configscene);
 	//AddModule(enemies);
 
 	scene->active = false;
+	configscene->active = false;
 	player->active = false;
 	collisions->active = false;
 	scene2->active = false;

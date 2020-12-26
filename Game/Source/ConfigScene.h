@@ -1,22 +1,19 @@
-#ifndef __SCENE_INTRO_H__
-#define __SCENE_INTRO_H__
+#ifndef __CONFIG_SCENE__
+#define __CONFIG_SCENE__
 
 #include "Module.h"
 #include "Animation.h"
-#include "GuiButton.h"
-
-class GuiControl;
 
 struct SDL_Texture;
 
-class Intro : public Module
+class ConfigScene : public Module
 {
 public:
 	//Constructor
-	Intro();
+	ConfigScene();
 
 	//Destructor
-	~Intro();
+	~ConfigScene();
 
 	bool Awake();
 
@@ -36,21 +33,17 @@ public:
 
 	bool CleanUp();
 
-	bool OnGuiMouseClickEvent(GuiControl* control)
-	{
-		return true;
-	}
-
+	bool OnGuiMouseClickEvent(GuiControl* control);
 
 public:
 	// The scene sprite sheet loaded into an SDL_Texture
-	SDL_Texture* introscreen = nullptr;
+	SDL_Texture* configscreen = nullptr;
+
+	bool neutral = true;
 
 	bool spaced;
-private:
-	GuiButton* btnStart;
-	GuiButton* btnExit;
-	GuiButton* btnConfig;
-};
 
+private:
+	GuiButton* btnExit;
+};
 #endif

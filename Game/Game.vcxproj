@@ -92,6 +92,7 @@
     <ClCompile Include="Source\Coin.cpp" />
     <ClCompile Include="Source\Collider.cpp" />
     <ClCompile Include="Source\Collisions.cpp" />
+    <ClCompile Include="Source\ConfigScene.cpp" />
     <ClCompile Include="Source\EnemyAir.cpp" />
     <ClCompile Include="Source\EnemyGround.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
@@ -122,6 +123,7 @@
     <ClInclude Include="Source\Coin.h" />
     <ClInclude Include="Source\Collider.h" />
     <ClInclude Include="Source\Collisions.h" />
+    <ClInclude Include="Source\ConfigScene.h" />
     <ClInclude Include="Source\EnemyAir.h" />
     <ClInclude Include="Source\EnemyGround.h" />
     <ClInclude Include="Source\Entity.h" />

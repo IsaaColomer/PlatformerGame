@@ -94,6 +94,9 @@
     <ClCompile Include="Source\GuiSlider.cpp">
       <Filter>Gui</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ConfigScene.cpp">
+      <Filter>Engine\Gameplay\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -224,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="Source\GuiSlider.h">
       <Filter>Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ConfigScene.h">
+      <Filter>Engine\Gameplay\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

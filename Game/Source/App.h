@@ -29,6 +29,7 @@ class EnemyGround;
 class EntityManager;
 class Scene3;
 class PathFinding;
+class ConfigScene;
 
 class App
 {
@@ -107,6 +108,7 @@ public:
 	EnemyGround* enemies;
 	EntityManager* entitymanager;
 	PathFinding* pathfinding;
+	ConfigScene* configscene;
 
 	int frameRate60;
 	int frameRate30;

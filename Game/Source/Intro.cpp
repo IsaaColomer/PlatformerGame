@@ -51,7 +51,11 @@ bool Intro::Start()
 	btnStart = new GuiButton(1, { 1280 / 2 - 300 / 2, 300, 300, 80 }, "START");
 	btnStart->SetObserver((Scene*) this);
 
-	btnExit = new GuiButton(2, { 1280 / 2 - 300 / 2, 400, 300, 80 }, "EXIT");
+
+	btnConfig = new GuiButton(2, { 1280 / 2 - 300 / 2, 400, 300, 80 }, "CONFIG");
+	btnConfig->SetObserver((Scene*)this);
+
+	btnExit = new GuiButton(3, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
 	btnExit->SetObserver((Scene*) this);
 
 	app->render->camera.x = 0;
@@ -68,7 +72,9 @@ bool Intro::PreUpdate()
 bool Intro::Update(float dt)
 {
 	btnStart->Update(app->input, dt);
+	btnConfig->Update(app->input, dt);
 	btnExit->Update(app->input, dt);
+
 
 	return true;
 }
@@ -98,7 +104,9 @@ bool Intro::PostUpdate()
 	app->render->DrawTexture(introscreen, 0, 0, NULL);
 
 	btnStart->Draw(app->render);
+	btnConfig->Draw(app->render);
 	btnExit->Draw(app->render);
+
 
 	return true;
 }
@@ -109,7 +117,8 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	case GuiControlType::BUTTON:
 	{
 		if (control->id == 1) app->fade->Fade((Module*)app->intro, (Module*)app->scene, 1);
-		else if (control->id == 2) return false;
+		else if (control->id == 2) app->fade->Fade((Module*)app->intro, (Module*)app->configscene, 1);
+		else if (control->id == 3) return false;
 	}
 	default: break;
 	}
