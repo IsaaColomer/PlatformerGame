@@ -116,10 +116,11 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case GuiControlType::BUTTON:
 	{
-		if (control->id == 1) app->fade->Fade((Module*)app->intro, (Module*)app->scene, 1);
+		if (control->id == 1) app->fade->Fade((Module*)app->intro, (Module*)app->scene, 10);
 		else if (control->id == 2) app->fade->Fade((Module*)app->intro, (Module*)app->configscene, 1);
 		else if (control->id == 3) app->fade->Fade((Module*)app->configscene, (Module*)app->intro, 1);
-		else if (control->id == 4) return false;
+		else if (control->id == 4) 
+			SDL_Quit;
 	}
 	default: break;
 	}
