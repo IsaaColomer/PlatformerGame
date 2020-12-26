@@ -33,7 +33,10 @@ public:
 
 	bool CleanUp();
 
-	bool OnGuiMouseClickEvent(GuiControl* control);
+	bool OnGuiMouseClickEvent(GuiControl* control)
+	{
+		return true;
+	}
 
 public:
 	// The scene sprite sheet loaded into an SDL_Texture
