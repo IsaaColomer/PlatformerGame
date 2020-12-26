@@ -30,6 +30,7 @@ class EntityManager;
 class Scene3;
 class PathFinding;
 class ConfigScene;
+class CreditsScene;
 
 class App
 {
@@ -109,6 +110,7 @@ public:
 	EntityManager* entitymanager;
 	PathFinding* pathfinding;
 	ConfigScene* configscene;
+	CreditsScene* creditsscene;
 
 	int frameRate60;
 	int frameRate30;

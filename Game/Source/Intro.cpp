@@ -48,7 +48,7 @@ bool Intro::Start()
 
 	introscreen = app->tex->Load("Assets/Screens/Title/intro_screen.png");
 
-	btnLoad = new GuiButton(0, { 1280 / 2 - 300 / 2, 200, 300, 80 }, "LOAD");
+	btnLoad = new GuiButton(6, { 1280 / 2 - 300 / 2, 200, 300, 80 }, "LOAD");
 	btnLoad->SetObserver((Scene*)this);
 	btnLoad->SetTexture(app->tex->Load("Assets/GUI/load.png"), app->tex->Load("Assets/GUI/load_selected.png"), app->tex->Load("Assets/GUI/load_focused.png"));
 
@@ -64,7 +64,7 @@ bool Intro::Start()
 	btnExit->SetObserver((Scene*) this);
 	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
 
-	btnCredits = new GuiButton(5, { 1280 / 2 - 300 / 2, 600, 300, 80 }, "CREDITS");
+	btnCredits = new GuiButton(0, { 1280 / 2 - 300 / 2, 600, 300, 80 }, "CREDITS");
 	btnCredits->SetObserver((Scene*)this);
 	btnCredits->SetTexture(app->tex->Load("Assets/GUI/credits.png"), app->tex->Load("Assets/GUI/credits_selected.png"), app->tex->Load("Assets/GUI/credits_focused.png"));
 
@@ -129,8 +129,9 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	case GuiControlType::BUTTON:
 	{
 		if (control->id == 1) app->fade->Fade((Module*)app->intro, (Module*)app->scene, 10);
+		else if (control->id == 0) app->fade->Fade((Module*)app->intro, (Module*)app->creditsscene, 10);
 		else if (control->id == 2) app->fade->Fade((Module*)app->intro, (Module*)app->configscene, 1);
-		else if (control->id == 3) app->fade->Fade((Module*)app->configscene, (Module*)app->intro, 1);
+		else if (control->id == 3) app->fade->Fade((Module*)this, (Module*)app->intro, 1);
 		else if (control->id == 4) 
 			SDL_Quit;
 	}

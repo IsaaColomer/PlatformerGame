@@ -14,21 +14,22 @@
 #include "FadeToBlack.h"
 #include "ConfigScene.h"
 #include "Title.h"
+#include "CreditsScene.h"
 
 #include "Defs.h"
 #include "Log.h"
 
-ConfigScene::ConfigScene() : Module()
+CreditsScene::CreditsScene() : Module()
 {
-	name.Create("config");
+	name.Create("credits");
 }
 
-ConfigScene::~ConfigScene()
+CreditsScene::~CreditsScene()
 {
 
 }
 
-bool ConfigScene::Awake()
+bool CreditsScene::Awake()
 {
 	LOG("Loading Title");
 	bool ret = true;
@@ -37,9 +38,9 @@ bool ConfigScene::Awake()
 }
 
 // Load assets
-bool ConfigScene::Start()
+bool CreditsScene::Start()
 {
-	app->configscene->active = true;
+	app->creditsscene->active = true;
 
 	spaced = false;
 
@@ -47,17 +48,12 @@ bool ConfigScene::Start()
 
 	LOG("Loading config assets");
 
-	configscreen = app->tex->Load("Assets/Screens/Title/config_screen.png");
+	creditsScreen = app->tex->Load("Assets/Screens/Title/credits_screen.png");
 	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
 
 	btnExit = new GuiButton(3, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
 	btnExit->SetObserver((Scene*)this);
 	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
-
-	fxSlider = new GuiSlider(5, { 1280 / 2 - 300 / 2, 400, 40, 40 }, "FX");
-	fxSlider->SetObserver((Scene*)this);
-
-	fxSliderBack = { 470,400,400,40 };
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
@@ -65,39 +61,37 @@ bool ConfigScene::Start()
 	return ret;
 }
 
-bool ConfigScene::PreUpdate()
+bool CreditsScene::PreUpdate()
 {
 	return true;
 }
 
-bool ConfigScene::Update(float dt)
+bool CreditsScene::Update(float dt)
 {
 
 	btnExit->Update(app->input, dt);
-	fxSlider->Update(app->input, dt);
 	return true;
 }
 
 // Update: draw background
-bool ConfigScene::PostUpdate()
+bool CreditsScene::PostUpdate()
 {
 	// Draw everything --------------------------------------
-	app->render->DrawTexture(configscreen, 0, 0, NULL);
-	app->render->DrawRectangle(fxSliderBack,154,122,130);
+	app->render->DrawTexture(creditsScreen, 0, 0, NULL);
 	btnExit->Draw(app->render);
-	fxSlider->Draw(app->render);
+
 	return true;
 }
 
-bool ConfigScene::CleanUp()
+bool CreditsScene::CleanUp()
 {
 	if (!active)return true;
 
-	LOG("Freeing config");
+	LOG("Freeing credits");
 
-	app->configscene->active = false;
+	app->creditsscene->active = false;
 
-	app->tex->UnLoad(configscreen);
+	app->tex->UnLoad(creditsScreen);
 
 	return true;
 }
