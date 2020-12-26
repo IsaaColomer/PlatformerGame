@@ -55,7 +55,7 @@ bool Intro::Start()
 	btnConfig = new GuiButton(2, { 1280 / 2 - 300 / 2, 400, 300, 80 }, "CONFIG");
 	btnConfig->SetObserver((Scene*)this);
 
-	btnExit = new GuiButton(3, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
+	btnExit = new GuiButton(4, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
 	btnExit->SetObserver((Scene*) this);
 
 	app->render->camera.x = 0;
@@ -118,7 +118,8 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		if (control->id == 1) app->fade->Fade((Module*)app->intro, (Module*)app->scene, 1);
 		else if (control->id == 2) app->fade->Fade((Module*)app->intro, (Module*)app->configscene, 1);
-		else if (control->id == 3) return false;
+		else if (control->id == 3) app->fade->Fade((Module*)app->configscene, (Module*)app->intro, 1);
+		else if (control->id == 4) return false;
 	}
 	default: break;
 	}

@@ -49,7 +49,7 @@ bool ConfigScene::Start()
 	configscreen = app->tex->Load("Assets/Screens/Title/config_screen.png");
 	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
 
-	btnExit = new GuiButton(4, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
+	btnExit = new GuiButton(3, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
 	btnExit->SetObserver((Scene*)this);
 
 	app->render->camera.x = 0;
@@ -76,20 +76,6 @@ bool ConfigScene::PostUpdate()
 	// Draw everything --------------------------------------
 	app->render->DrawTexture(configscreen, 0, 0, NULL);
 	btnExit->Draw(app->render);
-	return true;
-}
-
-bool ConfigScene::OnGuiMouseClickEvent(GuiControl* control)
-{
-	switch (control->type)
-	{
-	case GuiControlType::BUTTON:
-	{
-		if (control->id == 4) app->fade->Fade((Module*)app->configscene, (Module*)app->intro, 1);
-	}
-	default: break;
-	}
-
 	return true;
 }
 
