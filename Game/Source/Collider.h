@@ -9,14 +9,14 @@ struct Collider
 	enum Type
 	{
 		NONE = -1,
-		PLAYER_LEFT,
-		PLAYER_RIGHT,
+		playerLeft,
+		playerRight,
 		COLL,
-		PLAYER_BOT,
+		playerBot,
 		WIN,
 		WIN2,
 		WIN3,
-		PLAYER_TOP,
+		playerTop,
 		DEATH,
 		ENEMY,
 		PLAYERBOT,

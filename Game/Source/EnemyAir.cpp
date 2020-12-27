@@ -104,7 +104,9 @@ void EnemyAir::Collision(Collider* colider)
 		app->audio->PlayFx(app->player->destroyedFx);
 		collider->pendingToDelete = true;
 	}
-	if (colider->type == Collider::Type::PLAYER_BOT && app->player->godMode == false)
+	if (colider->type == Collider::Type::playerBot || colider->type == Collider::Type::playerLeft ||
+		colider->type == Collider::Type::playerRight || colider->type == Collider::Type::playerTop
+		&& app->player->godMode == false)
 	{
 		pendingToDelete = true;
 		app->audio->PlayFx(app->player->hittedFx);

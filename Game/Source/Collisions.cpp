@@ -10,37 +10,37 @@ Collisions::Collisions(bool startEnabled) : Module()
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
-	matrix[Collider::Type::PLAYER_LEFT][Collider::Type::PLAYER_LEFT] = false;
-	matrix[Collider::Type::PLAYER_LEFT][Collider::Type::PLAYER_RIGHT] = false;
-	matrix[Collider::Type::PLAYER_LEFT][Collider::Type::COLL] = true;
-	matrix[Collider::Type::PLAYER_LEFT][Collider::Type::PLAYER_TOP] = false;
-	matrix[Collider::Type::PLAYER_LEFT][Collider::Type::WIN] = true;
-	matrix[Collider::Type::PLAYER_LEFT][Collider::Type::WIN2] = true;
-	matrix[Collider::Type::PLAYER_LEFT][Collider::Type::DEATH] = true;
-	matrix[Collider::Type::PLAYER_LEFT][Collider::Type::PLAYER_BOT] = false;
-	matrix[Collider::Type::PLAYER_LEFT][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::PLAYER_LEFT][Collider::Type::FOOD] = true;
-	matrix[Collider::Type::PLAYER_LEFT][Collider::Type::CHECKPOINT] = true;
-	matrix[Collider::Type::PLAYER_LEFT][Collider::Type::COIN] = true;
+	matrix[Collider::Type::playerLeft][Collider::Type::playerLeft] = false;
+	matrix[Collider::Type::playerLeft][Collider::Type::playerRight] = false;
+	matrix[Collider::Type::playerLeft][Collider::Type::COLL] = true;
+	matrix[Collider::Type::playerLeft][Collider::Type::playerTop] = false;
+	matrix[Collider::Type::playerLeft][Collider::Type::WIN] = true;
+	matrix[Collider::Type::playerLeft][Collider::Type::WIN2] = true;
+	matrix[Collider::Type::playerLeft][Collider::Type::DEATH] = true;
+	matrix[Collider::Type::playerLeft][Collider::Type::playerBot] = false;
+	matrix[Collider::Type::playerLeft][Collider::Type::ENEMY] = true;
+	matrix[Collider::Type::playerLeft][Collider::Type::FOOD] = true;
+	matrix[Collider::Type::playerLeft][Collider::Type::CHECKPOINT] = true;
+	matrix[Collider::Type::playerLeft][Collider::Type::COIN] = true;
 	
-	matrix[Collider::Type::PLAYER_RIGHT][Collider::Type::PLAYER_LEFT] = false;
-	matrix[Collider::Type::PLAYER_RIGHT][Collider::Type::PLAYER_RIGHT] = false;
-	matrix[Collider::Type::PLAYER_RIGHT][Collider::Type::COLL] = true;
-	matrix[Collider::Type::PLAYER_RIGHT][Collider::Type::PLAYER_TOP] = false;
-	matrix[Collider::Type::PLAYER_RIGHT][Collider::Type::WIN] = true;
-	matrix[Collider::Type::PLAYER_RIGHT][Collider::Type::DEATH] = true;
-	matrix[Collider::Type::PLAYER_RIGHT][Collider::Type::PLAYER_BOT] = false;
-	matrix[Collider::Type::PLAYER_RIGHT][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::PLAYER_RIGHT][Collider::Type::WIN2] = true;
-	matrix[Collider::Type::PLAYER_RIGHT][Collider::Type::FOOD] = true;
-	matrix[Collider::Type::PLAYER_RIGHT][Collider::Type::CHECKPOINT] = true;
-	matrix[Collider::Type::PLAYER_RIGHT][Collider::Type::COIN] = true;
+	matrix[Collider::Type::playerRight][Collider::Type::playerLeft] = false;
+	matrix[Collider::Type::playerRight][Collider::Type::playerRight] = false;
+	matrix[Collider::Type::playerRight][Collider::Type::COLL] = true;
+	matrix[Collider::Type::playerRight][Collider::Type::playerTop] = false;
+	matrix[Collider::Type::playerRight][Collider::Type::WIN] = true;
+	matrix[Collider::Type::playerRight][Collider::Type::DEATH] = true;
+	matrix[Collider::Type::playerRight][Collider::Type::playerBot] = false;
+	matrix[Collider::Type::playerRight][Collider::Type::ENEMY] = true;
+	matrix[Collider::Type::playerRight][Collider::Type::WIN2] = true;
+	matrix[Collider::Type::playerRight][Collider::Type::FOOD] = true;
+	matrix[Collider::Type::playerRight][Collider::Type::CHECKPOINT] = true;
+	matrix[Collider::Type::playerRight][Collider::Type::COIN] = true;
 
-	matrix[Collider::Type::COLL][Collider::Type::PLAYER_LEFT] = true;
-	matrix[Collider::Type::COLL][Collider::Type::PLAYER_RIGHT] = true;
+	matrix[Collider::Type::COLL][Collider::Type::playerLeft] = true;
+	matrix[Collider::Type::COLL][Collider::Type::playerRight] = true;
 	matrix[Collider::Type::COLL][Collider::Type::COLL] = false;
-	matrix[Collider::Type::COLL][Collider::Type::PLAYER_TOP] = true;
-	matrix[Collider::Type::COLL][Collider::Type::PLAYER_BOT] = true;
+	matrix[Collider::Type::COLL][Collider::Type::playerTop] = true;
+	matrix[Collider::Type::COLL][Collider::Type::playerBot] = true;
 	matrix[Collider::Type::COLL][Collider::Type::ENEMY] = true;
 	matrix[Collider::Type::COLL][Collider::Type::WIN] = false;
 	matrix[Collider::Type::COLL][Collider::Type::DEATH] = false;
@@ -49,39 +49,39 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::COLL][Collider::Type::CHECKPOINT] = false;
 	matrix[Collider::Type::COLL][Collider::Type::COIN] = false;
 
-	matrix[Collider::Type::PLAYER_TOP][Collider::Type::PLAYER_LEFT] = false;
-	matrix[Collider::Type::PLAYER_TOP][Collider::Type::PLAYER_RIGHT] = false;
-	matrix[Collider::Type::PLAYER_TOP][Collider::Type::COLL] = true;
-	matrix[Collider::Type::PLAYER_TOP][Collider::Type::PLAYER_TOP] = false;
-	matrix[Collider::Type::PLAYER_TOP][Collider::Type::PLAYER_BOT] = false;
-	matrix[Collider::Type::PLAYER_TOP][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::PLAYER_TOP][Collider::Type::WIN] = true;
-	matrix[Collider::Type::PLAYER_TOP][Collider::Type::DEATH] = true;
-	matrix[Collider::Type::PLAYER_TOP][Collider::Type::WIN2] = true;
-	matrix[Collider::Type::PLAYER_TOP][Collider::Type::FOOD] = true;
-	matrix[Collider::Type::PLAYER_TOP][Collider::Type::CHECKPOINT] = true;
-	matrix[Collider::Type::PLAYER_TOP][Collider::Type::COIN] = true;
+	matrix[Collider::Type::playerTop][Collider::Type::playerLeft] = false;
+	matrix[Collider::Type::playerTop][Collider::Type::playerRight] = false;
+	matrix[Collider::Type::playerTop][Collider::Type::COLL] = true;
+	matrix[Collider::Type::playerTop][Collider::Type::playerTop] = false;
+	matrix[Collider::Type::playerTop][Collider::Type::playerBot] = false;
+	matrix[Collider::Type::playerTop][Collider::Type::ENEMY] = true;
+	matrix[Collider::Type::playerTop][Collider::Type::WIN] = true;
+	matrix[Collider::Type::playerTop][Collider::Type::DEATH] = true;
+	matrix[Collider::Type::playerTop][Collider::Type::WIN2] = true;
+	matrix[Collider::Type::playerTop][Collider::Type::FOOD] = true;
+	matrix[Collider::Type::playerTop][Collider::Type::CHECKPOINT] = true;
+	matrix[Collider::Type::playerTop][Collider::Type::COIN] = true;
 
-	matrix[Collider::Type::PLAYER_BOT][Collider::Type::PLAYER_LEFT] = false;
-	matrix[Collider::Type::PLAYER_BOT][Collider::Type::PLAYER_RIGHT] = false;
-	matrix[Collider::Type::PLAYER_BOT][Collider::Type::COLL] = true;
-	matrix[Collider::Type::PLAYER_BOT][Collider::Type::PLAYER_TOP] = false;
-	matrix[Collider::Type::PLAYER_BOT][Collider::Type::PLAYER_BOT] = false;
-	matrix[Collider::Type::PLAYER_BOT][Collider::Type::WIN] = true;
-	matrix[Collider::Type::PLAYER_BOT][Collider::Type::DEATH] = true;
-	matrix[Collider::Type::PLAYER_BOT][Collider::Type::WIN2] = true;
-	matrix[Collider::Type::PLAYER_BOT][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::PLAYER_BOT][Collider::Type::FOOD] = true;
-	matrix[Collider::Type::PLAYER_BOT][Collider::Type::CHECKPOINT] = true;
-	matrix[Collider::Type::PLAYER_BOT][Collider::Type::COIN] = true;
-	matrix[Collider::Type::PLAYER_BOT][Collider::Type::WIN3] = true;
-	matrix[Collider::Type::PLAYER_BOT][Collider::Type::PLAYERBOT] = true;
+	matrix[Collider::Type::playerBot][Collider::Type::playerLeft] = false;
+	matrix[Collider::Type::playerBot][Collider::Type::playerRight] = false;
+	matrix[Collider::Type::playerBot][Collider::Type::COLL] = true;
+	matrix[Collider::Type::playerBot][Collider::Type::playerTop] = false;
+	matrix[Collider::Type::playerBot][Collider::Type::playerBot] = false;
+	matrix[Collider::Type::playerBot][Collider::Type::WIN] = true;
+	matrix[Collider::Type::playerBot][Collider::Type::DEATH] = true;
+	matrix[Collider::Type::playerBot][Collider::Type::WIN2] = true;
+	matrix[Collider::Type::playerBot][Collider::Type::ENEMY] = true;
+	matrix[Collider::Type::playerBot][Collider::Type::FOOD] = true;
+	matrix[Collider::Type::playerBot][Collider::Type::CHECKPOINT] = true;
+	matrix[Collider::Type::playerBot][Collider::Type::COIN] = true;
+	matrix[Collider::Type::playerBot][Collider::Type::WIN3] = true;
+	matrix[Collider::Type::playerBot][Collider::Type::PLAYERBOT] = true;
 
-	matrix[Collider::Type::WIN][Collider::Type::PLAYER_LEFT] = true;
-	matrix[Collider::Type::WIN][Collider::Type::PLAYER_RIGHT] = true;
+	matrix[Collider::Type::WIN][Collider::Type::playerLeft] = true;
+	matrix[Collider::Type::WIN][Collider::Type::playerRight] = true;
 	matrix[Collider::Type::WIN][Collider::Type::COLL] = false;
-	matrix[Collider::Type::WIN][Collider::Type::PLAYER_TOP] = true;
-	matrix[Collider::Type::WIN][Collider::Type::PLAYER_BOT] = true;
+	matrix[Collider::Type::WIN][Collider::Type::playerTop] = true;
+	matrix[Collider::Type::WIN][Collider::Type::playerBot] = true;
 	matrix[Collider::Type::WIN][Collider::Type::DEATH] = false;
 	matrix[Collider::Type::WIN][Collider::Type::WIN] = false;
 	matrix[Collider::Type::WIN][Collider::Type::WIN2] = false;
@@ -90,11 +90,11 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::WIN][Collider::Type::CHECKPOINT] = false;
 	matrix[Collider::Type::WIN][Collider::Type::COIN] = false;
 
-	matrix[Collider::Type::DEATH][Collider::Type::PLAYER_LEFT] = true;
-	matrix[Collider::Type::DEATH][Collider::Type::PLAYER_RIGHT] = true;
+	matrix[Collider::Type::DEATH][Collider::Type::playerLeft] = true;
+	matrix[Collider::Type::DEATH][Collider::Type::playerRight] = true;
 	matrix[Collider::Type::DEATH][Collider::Type::COLL] = false;
-	matrix[Collider::Type::DEATH][Collider::Type::PLAYER_TOP] = true;
-	matrix[Collider::Type::DEATH][Collider::Type::PLAYER_BOT] = true;
+	matrix[Collider::Type::DEATH][Collider::Type::playerTop] = true;
+	matrix[Collider::Type::DEATH][Collider::Type::playerBot] = true;
 	matrix[Collider::Type::DEATH][Collider::Type::WIN] = false;
 	matrix[Collider::Type::DEATH][Collider::Type::DEATH] = false;
 	matrix[Collider::Type::DEATH][Collider::Type::WIN2] = false;
@@ -103,11 +103,11 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::DEATH][Collider::Type::CHECKPOINT] = false;
 	matrix[Collider::Type::DEATH][Collider::Type::COIN] = false;
 
-	matrix[Collider::Type::WIN2][Collider::Type::PLAYER_LEFT] = true;
-	matrix[Collider::Type::WIN2][Collider::Type::PLAYER_RIGHT] = true;
+	matrix[Collider::Type::WIN2][Collider::Type::playerLeft] = true;
+	matrix[Collider::Type::WIN2][Collider::Type::playerRight] = true;
 	matrix[Collider::Type::WIN2][Collider::Type::COLL] = false;
-	matrix[Collider::Type::WIN2][Collider::Type::PLAYER_TOP] = true;
-	matrix[Collider::Type::WIN2][Collider::Type::PLAYER_BOT] = true;
+	matrix[Collider::Type::WIN2][Collider::Type::playerTop] = true;
+	matrix[Collider::Type::WIN2][Collider::Type::playerBot] = true;
 	matrix[Collider::Type::WIN2][Collider::Type::DEATH] = false;
 	matrix[Collider::Type::WIN2][Collider::Type::WIN] = false;
 	matrix[Collider::Type::WIN2][Collider::Type::WIN2] = false;
@@ -116,11 +116,11 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::WIN2][Collider::Type::CHECKPOINT] = false;
 	matrix[Collider::Type::WIN2][Collider::Type::COIN] = false;
 
-	matrix[Collider::Type::WIN3][Collider::Type::PLAYER_LEFT] = true;
-	matrix[Collider::Type::WIN3][Collider::Type::PLAYER_RIGHT] = true;
+	matrix[Collider::Type::WIN3][Collider::Type::playerLeft] = true;
+	matrix[Collider::Type::WIN3][Collider::Type::playerRight] = true;
 	matrix[Collider::Type::WIN3][Collider::Type::COLL] = false;
-	matrix[Collider::Type::WIN3][Collider::Type::PLAYER_TOP] = true;
-	matrix[Collider::Type::WIN3][Collider::Type::PLAYER_BOT] = true;
+	matrix[Collider::Type::WIN3][Collider::Type::playerTop] = true;
+	matrix[Collider::Type::WIN3][Collider::Type::playerBot] = true;
 	matrix[Collider::Type::WIN3][Collider::Type::DEATH] = false;
 	matrix[Collider::Type::WIN3][Collider::Type::WIN] = false;
 	matrix[Collider::Type::WIN3][Collider::Type::WIN2] = false;
@@ -129,11 +129,11 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::WIN3][Collider::Type::CHECKPOINT] = false;
 	matrix[Collider::Type::WIN3][Collider::Type::COIN] = false;
 
-	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER_LEFT] = true;
-	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER_RIGHT] = true;
+	matrix[Collider::Type::ENEMY][Collider::Type::playerLeft] = true;
+	matrix[Collider::Type::ENEMY][Collider::Type::playerRight] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::COLL] = true;
-	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER_TOP] = true;
-	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER_BOT] = true;
+	matrix[Collider::Type::ENEMY][Collider::Type::playerTop] = true;
+	matrix[Collider::Type::ENEMY][Collider::Type::playerBot] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::DEATH] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::WIN] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::WIN2] = false;
@@ -143,11 +143,11 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::ENEMY][Collider::Type::PLAYERBOT] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::COIN] = false;
 
-	matrix[Collider::Type::PLAYERBOT][Collider::Type::PLAYER_LEFT] = false;
-	matrix[Collider::Type::PLAYERBOT][Collider::Type::PLAYER_RIGHT] = false;
+	matrix[Collider::Type::PLAYERBOT][Collider::Type::playerLeft] = false;
+	matrix[Collider::Type::PLAYERBOT][Collider::Type::playerRight] = false;
 	matrix[Collider::Type::PLAYERBOT][Collider::Type::COLL] = false;
-	matrix[Collider::Type::PLAYERBOT][Collider::Type::PLAYER_TOP] = false;
-	matrix[Collider::Type::PLAYERBOT][Collider::Type::PLAYER_BOT] = false;
+	matrix[Collider::Type::PLAYERBOT][Collider::Type::playerTop] = false;
+	matrix[Collider::Type::PLAYERBOT][Collider::Type::playerBot] = false;
 	matrix[Collider::Type::PLAYERBOT][Collider::Type::DEATH] = false;
 	matrix[Collider::Type::PLAYERBOT][Collider::Type::WIN] = false;
 	matrix[Collider::Type::PLAYERBOT][Collider::Type::WIN2] = false;
@@ -156,11 +156,11 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::PLAYERBOT][Collider::Type::CHECKPOINT] = false;
 	matrix[Collider::Type::PLAYERBOT][Collider::Type::COIN] = false;
 
-	matrix[Collider::Type::FOOD][Collider::Type::PLAYER_LEFT] = true;
-	matrix[Collider::Type::FOOD][Collider::Type::PLAYER_RIGHT] = true;
+	matrix[Collider::Type::FOOD][Collider::Type::playerLeft] = true;
+	matrix[Collider::Type::FOOD][Collider::Type::playerRight] = true;
 	matrix[Collider::Type::FOOD][Collider::Type::COLL] = false;
-	matrix[Collider::Type::FOOD][Collider::Type::PLAYER_TOP] = true;
-	matrix[Collider::Type::FOOD][Collider::Type::PLAYER_BOT] = true;
+	matrix[Collider::Type::FOOD][Collider::Type::playerTop] = true;
+	matrix[Collider::Type::FOOD][Collider::Type::playerBot] = true;
 	matrix[Collider::Type::FOOD][Collider::Type::DEATH] = false;
 	matrix[Collider::Type::FOOD][Collider::Type::WIN] = false;
 	matrix[Collider::Type::FOOD][Collider::Type::WIN2] = false;
@@ -169,11 +169,11 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::FOOD][Collider::Type::CHECKPOINT] = false;
 	matrix[Collider::Type::FOOD][Collider::Type::COIN] = false;
 
-	matrix[Collider::Type::COIN][Collider::Type::PLAYER_LEFT] = true;
-	matrix[Collider::Type::COIN][Collider::Type::PLAYER_RIGHT] = true;
+	matrix[Collider::Type::COIN][Collider::Type::playerLeft] = true;
+	matrix[Collider::Type::COIN][Collider::Type::playerRight] = true;
 	matrix[Collider::Type::COIN][Collider::Type::COLL] = false;
-	matrix[Collider::Type::COIN][Collider::Type::PLAYER_TOP] = true;
-	matrix[Collider::Type::COIN][Collider::Type::PLAYER_BOT] = true;
+	matrix[Collider::Type::COIN][Collider::Type::playerTop] = true;
+	matrix[Collider::Type::COIN][Collider::Type::playerBot] = true;
 	matrix[Collider::Type::COIN][Collider::Type::DEATH] = false;
 	matrix[Collider::Type::COIN][Collider::Type::WIN] = false;
 	matrix[Collider::Type::COIN][Collider::Type::WIN2] = false;
@@ -182,11 +182,11 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::COIN][Collider::Type::CHECKPOINT] = false;
 	matrix[Collider::Type::COIN][Collider::Type::COIN] = false;
 
-	matrix[Collider::Type::CHECKPOINT][Collider::Type::PLAYER_LEFT] = true;
-	matrix[Collider::Type::CHECKPOINT][Collider::Type::PLAYER_RIGHT] = true;
+	matrix[Collider::Type::CHECKPOINT][Collider::Type::playerLeft] = true;
+	matrix[Collider::Type::CHECKPOINT][Collider::Type::playerRight] = true;
 	matrix[Collider::Type::CHECKPOINT][Collider::Type::COLL] = false;
-	matrix[Collider::Type::CHECKPOINT][Collider::Type::PLAYER_TOP] = true;
-	matrix[Collider::Type::CHECKPOINT][Collider::Type::PLAYER_BOT] = true;
+	matrix[Collider::Type::CHECKPOINT][Collider::Type::playerTop] = true;
+	matrix[Collider::Type::CHECKPOINT][Collider::Type::playerBot] = true;
 	matrix[Collider::Type::CHECKPOINT][Collider::Type::DEATH] = false;
 	matrix[Collider::Type::CHECKPOINT][Collider::Type::WIN] = false;
 	matrix[Collider::Type::CHECKPOINT][Collider::Type::WIN2] = false;
@@ -328,16 +328,16 @@ void Collisions::DebugDraw()
 		case Collider::Type::COLL:
 			app->render->DrawRectangle(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
-		case Collider::Type::PLAYER_LEFT:
+		case Collider::Type::playerLeft:
 			app->render->DrawRectangle(colliders[i]->rect, 0, 255, 255, alpha);
 			break;
-		case Collider::Type::PLAYER_RIGHT:
+		case Collider::Type::playerRight:
 			app->render->DrawRectangle(colliders[i]->rect, 0, 255, 255, alpha);
 			break;
-		case Collider::Type::PLAYER_TOP:
+		case Collider::Type::playerTop:
 			app->render->DrawRectangle(colliders[i]->rect, 0, 255, 255, alpha);
 			break;
-		case Collider::Type::PLAYER_BOT:
+		case Collider::Type::playerBot:
 			app->render->DrawRectangle(colliders[i]->rect, 0, 255, 255, alpha);
 			break;
 		case Collider::Type::WIN:

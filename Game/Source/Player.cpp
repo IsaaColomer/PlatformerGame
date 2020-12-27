@@ -116,7 +116,6 @@ bool Player::Start()
 
 	/*SDL_Rect playerCollider = { cp.x,cp.y,66,110 };
 	collider = app->collisions->AddCollider(playerCollider, Collider::Type::PLAYER_BOT, this);*/
-
 	/*SDL_Rect bottom = { cp.x + 10,cp.y+110, 40,30 };
 	colliderB = app->collisions->AddCollider(bottom, Collider::Type::PLAYERBOT, this);*/
 
@@ -124,10 +123,10 @@ bool Player::Start()
 	SDL_Rect bot = { cp.x + 10,cp.y + 110, 66 - 20, 10 };
 	SDL_Rect left = { cp.x,cp.y + 10, 10, 110 - 20 };
 	SDL_Rect right = { cp.x + 66 - 10,cp.y + 10, 10, 110 - 20};
-	topCollider = app->collisions->AddCollider(top, Collider::Type::PLAYER_TOP, this);
-	botCollider = app->collisions->AddCollider(bot, Collider::Type::PLAYER_BOT, this);
-	leftCollider = app->collisions->AddCollider(left, Collider::Type::PLAYER_RIGHT, this);
-	rightCollider = app->collisions->AddCollider(right, Collider::Type::PLAYER_LEFT, this);
+	topCollider = app->collisions->AddCollider(top, Collider::Type::playerTop, this);
+	botCollider = app->collisions->AddCollider(bot, Collider::Type::playerBot, this);
+	leftCollider = app->collisions->AddCollider(left, Collider::Type::playerRight, this);
+	rightCollider = app->collisions->AddCollider(right, Collider::Type::playerLeft, this);
 
 	currentAnimation = &idleAnimR;
 	currentFloppy = &floppyAnim;
@@ -447,20 +446,20 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		case Collider::Type::COLL:
 			switch (c1->type)
 			{
-			case Collider::Type::PLAYER_TOP:
+			case Collider::Type::playerTop:
 				cp.y = c2->rect.y + c2->rect.h;
 				vcy = 0.0f;
 				break;
-			case Collider::Type::PLAYER_BOT:
+			case Collider::Type::playerBot:
 				cp.y = c2->rect.y - 110;
 				vcy = 0.0f;
 				ong = true;
 				break;
-			case Collider::Type::PLAYER_RIGHT:
+			case Collider::Type::playerRight:
 				cp.x = c2->rect.x - 66 + 1;
 				xMove = false;
 				break;
-			case Collider::Type::PLAYER_LEFT:
+			case Collider::Type::playerLeft:
 				cp.x = c2->rect.x + c2->rect.w - 1;
 				xMove = false;
 				break;
