@@ -56,6 +56,7 @@ bool ConfigScene::Start()
 
 	fxSlider = new GuiSlider(5, { 1280 / 2 - 300 / 2, 400, 40, 40 }, "FX");
 	fxSlider->SetObserver((Scene*)this);
+	fxSlider->SetTexture(app->tex->Load("Assets/GUI/fx.png"), app->tex->Load("Assets/GUI/fx_selected.png"), app->tex->Load("Assets/GUI/fx_focused.png"));
 
 	fxSliderBack = { 470,400,400,40 };
 
