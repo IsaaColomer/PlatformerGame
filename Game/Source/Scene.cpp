@@ -119,7 +119,7 @@ bool Scene::PostUpdate()
 	bool ret = true;
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+		app->fade->Fade((Module*)this, (Module*)app->scenepause, 10);
 
 	return ret;
 }

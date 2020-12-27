@@ -14,6 +14,8 @@
 #include "EnemyGround.h"
 #include "Title.h"
 #include "EntityManager.h"
+#include "ScenePause.h"
+#include "FadeToBlack.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -101,7 +103,10 @@ bool Scene2::PostUpdate()
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;	
+	{
+		app->fade->Fade((Module*)app->scene2, (Module*)app->scenepause, 10);
+	}
+
 	return ret;
 }
 

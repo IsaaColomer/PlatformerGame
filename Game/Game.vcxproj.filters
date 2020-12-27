@@ -100,6 +100,9 @@
     <ClCompile Include="Source\CreditsScene.cpp">
       <Filter>Engine\Gameplay\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ScenePause.cpp">
+      <Filter>Engine\Gameplay\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -235,6 +238,9 @@
       <Filter>Engine\Gameplay\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Source\CreditsScene.h">
+      <Filter>Engine\Gameplay\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ScenePause.h">
       <Filter>Engine\Gameplay\Scenes</Filter>
     </ClInclude>
   </ItemGroup>

@@ -156,6 +156,10 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");
 		}
+		if (control->id ==10)
+		{
+			app->fade->Fade((Module*)app->scenepause, (Module*)app->intro, 1);
+		}
 	}
 
 	case GuiControlType::SLIDER:

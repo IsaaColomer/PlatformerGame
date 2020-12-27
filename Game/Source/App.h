@@ -31,6 +31,7 @@ class Scene3;
 class PathFinding;
 class ConfigScene;
 class CreditsScene;
+class ScenePause;
 
 class App
 {
@@ -111,6 +112,7 @@ public:
 	PathFinding* pathfinding;
 	ConfigScene* configscene;
 	CreditsScene* creditsscene;
+	ScenePause* scenepause;
 
 	int frameRate60;
 	int frameRate30;

@@ -18,6 +18,7 @@
 #include "Pathfinding.h"
 #include "ConfigScene.h"
 #include "CreditsScene.h"
+#include "ScenePause.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -54,6 +55,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new PathFinding();
 	configscene = new ConfigScene();
 	creditsscene = new CreditsScene();
+	scenepause = new ScenePause();
 
 	
 	// Ordered for awake / Start / Update
@@ -75,9 +77,11 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(pathfinding);
 	AddModule(configscene);
 	AddModule(creditsscene);
+	AddModule(scenepause);
 	//AddModule(enemies);
 
 	scene->active = false;
+	scenepause->active = false;
 	creditsscene->active = false;
 	configscene->active = false;
 	player->active = false;
