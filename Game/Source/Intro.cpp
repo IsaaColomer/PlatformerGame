@@ -13,7 +13,10 @@
 #include "Window.h"
 #include "Scene2.h"
 #include "FadeToBlack.h"
+#include "Render.h"
 
+#include "Defs.h"
+#include "Log.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -151,7 +154,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 9)
 		{
-			app->fpsCap = !app->fpsCap;
+			SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");
 		}
 	}
 
