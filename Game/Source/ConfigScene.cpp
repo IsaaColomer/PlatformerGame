@@ -58,6 +58,14 @@ bool ConfigScene::Start()
 	fxSlider->SetObserver((Scene*)this);
 	fxSlider->SetTexture(app->tex->Load("Assets/GUI/fx.png"), app->tex->Load("Assets/GUI/fx_selected.png"), app->tex->Load("Assets/GUI/fx_focused.png"));
 
+	btnConfig = new GuiButton(8, {( 1280 / 2 - 300 / 2), 180, 40, 40 }, "VSYNC");
+	btnConfig->SetObserver((Scene*)this);
+	btnConfig->SetTexture(app->tex->Load("Assets/GUI/fullscreen.png"), app->tex->Load("Assets/GUI/fullscreen_on.png"), app->tex->Load("Assets/GUI/fullscreen_on.png"));
+
+	btnVsync = new GuiButton(9, { (1280 / 2 - 300 / 2), 240, 40, 40 }, "VSYNC");
+	btnVsync->SetObserver((Scene*)this);
+	btnVsync->SetTexture(app->tex->Load("Assets/GUI/fullscreen.png"), app->tex->Load("Assets/GUI/fullscreen_on.png"), app->tex->Load("Assets/GUI/fullscreen_on.png"));
+
 	fxSliderBack = { 470,400,400,40 };
 
 	app->render->camera.x = 0;
@@ -76,6 +84,8 @@ bool ConfigScene::Update(float dt)
 
 	btnExit->Update(app->input, dt);
 	fxSlider->Update(app->input, dt);
+	btnConfig->Update(app->input, dt);
+	btnVsync->Update(app->input, dt);
 	return true;
 }
 
@@ -87,6 +97,9 @@ bool ConfigScene::PostUpdate()
 	app->render->DrawRectangle(fxSliderBack,154,122,130);
 	btnExit->Draw(app->render);
 	fxSlider->Draw(app->render);
+	btnConfig->Draw(app->render);
+	btnVsync->Draw(app->render);
+
 	return true;
 }
 

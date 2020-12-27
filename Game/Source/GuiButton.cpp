@@ -1,5 +1,7 @@
 #include "GuiButton.h"
 #include "App.h"
+#include "Intro.h"
+#include "ConfigScene.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {

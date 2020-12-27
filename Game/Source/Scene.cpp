@@ -99,7 +99,7 @@ bool Scene::Update(float dt)
 {
 	//camera movement
 	//all draws
-	app->render->DrawTexture(backg, 0, 0);
+	app->render->DrawTexture(backg, 0, 0,NULL);
 	app->map->Draw();
 	app->render->DrawTexture(portal, 2325, 290);//2325
 	app->map->LoadColliders();

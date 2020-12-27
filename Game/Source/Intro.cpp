@@ -10,6 +10,7 @@
 #include "Animation.h"
 #include "Intro.h"
 #include "Scene.h"
+#include "Window.h"
 #include "Scene2.h"
 #include "FadeToBlack.h"
 
@@ -71,6 +72,8 @@ bool Intro::Start()
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
+	fulled = false;
+
 	return ret;
 }
 
@@ -129,11 +132,27 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	case GuiControlType::BUTTON:
 	{
 		if (control->id == 1) app->fade->Fade((Module*)app->intro, (Module*)app->scene, 10);
-		else if (control->id == 0) app->fade->Fade((Module*)app->intro, (Module*)app->creditsscene, 10);
-		else if (control->id == 2) app->fade->Fade((Module*)app->intro, (Module*)app->configscene, 1);
-		else if (control->id == 3) app->fade->Fade((Module*)this, (Module*)app->intro, 1);
-		else if (control->id == 4) 
-			SDL_Quit;
+		if (control->id == 0) app->fade->Fade((Module*)app->intro, (Module*)app->creditsscene, 10);
+		if (control->id == 2) app->fade->Fade((Module*)app->intro, (Module*)app->configscene, 1);
+		if (control->id == 3) app->fade->Fade((Module*)this, (Module*)app->intro, 1);
+		if (control->id == 4)
+		{
+			SDL_Quit();
+		}
+		if (control->id == 8 && app->intro->fulled == false)
+		{
+			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);
+			app->intro->fulled = true;
+		}
+		else if (control->id == 8 && app->intro->fulled)
+		{
+			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_RESIZABLE);
+			app->intro->fulled = false;
+		}
+		if (control->id == 9)
+		{
+			app->fpsCap = !app->fpsCap;
+		}
 	}
 
 	case GuiControlType::SLIDER:

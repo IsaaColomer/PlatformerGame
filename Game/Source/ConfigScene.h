@@ -44,6 +44,8 @@ public:
 	bool spaced;
 
 	GuiButton* btnExit;
+	GuiButton* btnConfig;
+	GuiButton* btnVsync;
 	GuiSlider* fxSlider;
 	SDL_Rect fxSliderBack;
 
