@@ -158,8 +158,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 5)
 		{
-			if((app->configscene->fxSliderBack.x + app->configscene->fxSliderBack.w)/2) <=
-					app->audio->VolumeChanger(20);
+			
 		}
 		if (control->id == 6)
 		{
@@ -197,7 +196,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		if (control->id == 5)
 		{
-			app->audio->VolumeChanger(20);
+			app->audio->VolumeChanger(100 * (control->bounds.x - app->configscene->fxSliderBack.x) / app->configscene->fxSliderBack.w);
 		}
 	}
 	default: break;

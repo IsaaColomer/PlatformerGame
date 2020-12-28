@@ -139,10 +139,7 @@ bool Audio::PlayMusic(const char* path, float fade_time)
 }
 void Audio::VolumeChanger(int val)
 {
-	if(val == 20 && musicVolume < 100)
-		musicVolume += val;
-	if (val == -20 && musicVolume > 0)
-		musicVolume += val;
+	musicVolume = val;
 	Mix_VolumeMusic(musicVolume);
 }
 // Load WAV
