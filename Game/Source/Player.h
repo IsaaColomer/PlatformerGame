@@ -50,6 +50,7 @@ public:
 	SDL_Point savedPos;
 	bool willReset;
 	float vcy, vcx;
+	int jumps;
 	bool xMove;
 	bool yMove;
 	bool godMode;

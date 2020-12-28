@@ -100,6 +100,7 @@ bool Player::Start()
 	app->render->camera.x = 0;
 
 	dead = false;
+	jumps = 0;
 	savedPos = { 80,0 };
 
 	//ALL TEXTURES AND STUFF TO LOAD (AUDIO, PNG'S, etc...)
@@ -258,11 +259,12 @@ bool Player::Update(float dt)
 	//PLAYER INPUT
 	if (!godMode)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jumps < 2)
 		{
 			vcy = -850.0;
 			app->audio->PlayFx(jumpFx);
 			ong = false;
+			jumps++;
 		}
 		
 		if (!ong)
@@ -451,6 +453,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 				cp.y = c2->rect.y - 110;
 				vcy = 0.0f;
 				ong = true;
+				jumps = 0;
 				break;
 			case Collider::Type::playerRight:
 				cp.x = c2->rect.x - 66 + 1;
@@ -516,90 +519,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			break;
 		}
 	}
-
-		/*if (c1 == collider && !godMode)
-		{
-			if (c2->type == Collider::Type::FLOOR)
-			{
-				c2->rect.y - c2->rect.h-1;
-				ong = true;
-				fCon = true;
-				minusLives = false;
-
-			}
-			if (c2->type == Collider::Type::LEFT_WALL && lCon == false)
-			{
-				cp.x = c2->rect.x - 65;
-				lCon = true;
-				xMove = false;
-			}
-			if (c2->type == Collider::Type::RIGHT_WALL && rCon == false)
-			{
-				cp.x = c2->rect.x + c2->rect.w - 1;
-				rCon = true;
-				xMove = false;
-			}
-			if (c2->type == Collider::Type::ROOF)
-			{
-				cp.y = c2->rect.y + c2->rect.h;
-				tCon = true;
-				vcy = 0.0f;
-			}
-			if (c2->type == Collider::Type::WIN)
-			{
-				c2->pendingToDelete = true;
-				app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
-			}
-			if (c2->type == Collider::Type::WIN2)
-			{
-				c2->pendingToDelete = true;
-				app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 60);
-			}
-			if (c2->type == Collider::Type::WIN3)
-			{
-				c2->pendingToDelete = true;
-				app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
-				winScreen = true;
-			}
-			if (c2->type == Collider::Type::DEATH && minusLives == false)
-			{
-				c2->pendingToDelete = true;
-				dead = true;
-				minusLives = true;
-				--playerLives;
-				if (playerLives == 0)
-				{
-					playerLives = 3;
-					if (app->scene2->active == true)
-					{
-						app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
-					}
-					if (app->scene3->active == true)
-					{
-						app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
-					}
-					loseScreen = true;
-				}
-				else
-				{
-					willReset = true;
-				}
-			}
-			if (c2->type == Collider::Type::CHECKPOINT)
-			{
-				c2->pendingToDelete = true;
-				app->audio->PlayFx(checkPointFx);
-				app->SaveGameRequest();
-				app->scene->flagAlive = false;
-				app->scene2->flagAlive = false;
-				fCount = 0;
-			}
-			if (c2->type == Collider::Type::COIN)
-			{
-				c2->pendingToDelete = true;
-			}
-		}*/
-	}
+}
 	
 void Player::resetPlayer()
 {
