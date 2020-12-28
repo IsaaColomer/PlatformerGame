@@ -54,7 +54,7 @@ bool Audio::Awake(pugi::xml_node& config)
 		active = false;
 		ret = true;
 	}
-
+	musicVolume = 100;
 	return ret;
 }
 
@@ -137,7 +137,14 @@ bool Audio::PlayMusic(const char* path, float fade_time)
 	LOG("Successfully playing %s", path);
 	return ret;
 }
-
+void Audio::VolumeChanger(int val)
+{
+	if(val == 20 && musicVolume < 100)
+		musicVolume += val;
+	if (val == -20 && musicVolume > 0)
+		musicVolume += val;
+	Mix_VolumeMusic(musicVolume);
+}
 // Load WAV
 unsigned int Audio::LoadFx(const char* path)
 {

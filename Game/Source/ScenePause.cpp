@@ -55,11 +55,11 @@ bool ScenePause::Start()
 	btnExit->SetObserver((Scene*)this);
 	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
 
-	btnResume = new GuiButton(5, { (1280 / 2 - 300 / 2), 180, 40, 40 }, "RESUME");
+	btnResume = new GuiButton(5, { (1280 / 2 - 300 / 2), 180, 300, 80 }, "RESUME");
 	btnResume->SetObserver((Scene*)this);
 	btnResume->SetTexture(app->tex->Load("Assets/GUI/resume.png"), app->tex->Load("Assets/GUI/resume_selected.png"), app->tex->Load("Assets/GUI/resume_focused.png"));
 
-	btnSettings = new GuiButton(2, { (1280 / 2 - 300 / 2), 300, 40, 40 }, "SETTINGS");
+	btnSettings = new GuiButton(2, { (1280 / 2 - 300 / 2), 300, 300, 80 }, "SETTINGS");
 	btnSettings->SetObserver((Scene*)this);
 	btnSettings->SetTexture(app->tex->Load("Assets/GUI/settings.png"), app->tex->Load("Assets/GUI/settings_selected.png"), app->tex->Load("Assets/GUI/settings_focused.png"));
 

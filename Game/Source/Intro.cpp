@@ -15,7 +15,9 @@
 #include "Scene3.h"
 #include "FadeToBlack.h"
 #include "Render.h"
-
+#include "ConfigScene.h"
+#include "GuiSlider.h"
+class GuiSlider;
 #include "Defs.h"
 #include "Log.h"
 
@@ -54,6 +56,8 @@ bool Intro::Start()
 	LOG("Loading intro assets");
 
 	introscreen = app->tex->Load("Assets/Screens/Title/intro_screen.png");
+
+	app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
 
 	btnLoad = new GuiButton(6, { 1280 / 2 - 300 / 2, 300, 300, 80 }, "LOAD");
 	btnLoad->SetObserver((Scene*)this);
@@ -135,6 +139,7 @@ bool Intro::PostUpdate()
 	btnConfig->Draw(app->render);
 	btnExit->Draw(app->render);
 	btnCredits->Draw(app->render);
+
 	return ret;
 }
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
@@ -145,11 +150,20 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		if (control->id == 1) app->fade->Fade((Module*)app->intro, (Module*)app->scene, 10);
 		if (control->id == 0) app->fade->Fade((Module*)app->intro, (Module*)app->creditsscene, 10);
-		if (control->id == 2) app->fade->Fade((Module*)app->intro, (Module*)app->configscene, 1);
+		if (control->id == 2) app->fade->Fade((Module*)this, (Module*)app->configscene, 10);
 		if (control->id == 3) app->fade->Fade((Module*)this, (Module*)app->intro, 1);
 		if (control->id == 4)
 		{
 			app->intro->exit = true;
+		}
+		if (control->id == 5)
+		{
+			if((app->configscene->fxSliderBack.x + app->configscene->fxSliderBack.w)/2) <=
+					app->audio->VolumeChanger(20);
+		}
+		if (control->id == 6)
+		{
+			app->fade->Fade((Module*)app->scenepause, (Module*)app->configscene, 10);
 		}
 		if (control->id == 8 && app->intro->fulled == false)
 		{
@@ -167,7 +181,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 			printf("vsync = true");
 			app->intro->vsyncClicked = true;
 		}
-		else if (control->id == 9 && app->intro->vsyncClicked== true)
+		else if (control->id == 9 && app->intro->vsyncClicked == true)
 		{
 			SDL_SetHint(SDL_HINT_RENDER_VSYNC, "0");
 			printf("vsync = false");
@@ -177,26 +191,13 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			app->fade->Fade((Module*)app->scenepause, (Module*)app->intro, 1);
 		}
-		if (control->id == 5)
-		{
-			if(app->scene->active)
-				app->fade->Fade((Module*)app->scenepause, (Module*)app->scene, 10);
-			if (app->scene2->active)
-				app->fade->Fade((Module*)app->scenepause, (Module*)app->scene2, 10);
-			if (app->scene3->active)
-				app->fade->Fade((Module*)app->scenepause, (Module*)app->scene3, 10);
-		}
-		if (control->id == 6)
-		{
-			app->fade->Fade((Module*)app->scenepause, (Module*)app->configscene, 10);
-		}
 	}
 
 	case GuiControlType::SLIDER:
 	{
 		if (control->id == 5)
 		{
-
+			app->audio->VolumeChanger(20);
 		}
 	}
 	default: break;
