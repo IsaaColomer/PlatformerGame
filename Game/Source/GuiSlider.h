@@ -25,6 +25,8 @@ private:
 
     int minValue;
     int maxValue;
+
+    bool follow;
 };
 
 #endif // __GUISLIDER_H__

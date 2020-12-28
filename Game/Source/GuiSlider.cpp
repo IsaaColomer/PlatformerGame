@@ -16,36 +16,26 @@ bool GuiSlider::Update(Input* input, float dt)
 {
     if (state != GuiControlState::DISABLED)
     {
-        int mouseX, mouseY;
-        input->GetMousePosition(mouseX, mouseY);
+        SDL_Point mouse;
+        input->GetMousePosition(mouse.x, mouse.y);
 
-        int motionX, motionY;
-        input->GetMouseMotion(motionX, motionY);
-        // Check collision between mouse and button bounds
-        if ((mouseX > bounds.x) && (mouseX < (bounds.x + bounds.w)) && 
-            (mouseY > bounds.y) && (mouseY < (bounds.y + bounds.h)))
+        SDL_Point motion;
+        input->GetMouseMotion(motion.x, motion.y);
+
+        if (SDL_PointInRect(&mouse, &bounds))
         {
             state = GuiControlState::FOCUSED;
             if (input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
             {
                 state = GuiControlState::PRESSED;
-                if (bounds.x+bounds.w >= app->configscene->fxSliderBack.x)
-                {
-                    bounds.x = mouseX - (bounds.w / 2);  // Slider
-                    if (bounds.x + bounds.w <= app->configscene->fxSliderBack.x + app->configscene->fxSliderBack.w)
-                    {
-                        bounds.x = mouseX - (bounds.w / 2);  // Slider
-                    }
-                    else
-                    {
-                        bounds.x = app->configscene->fxSliderBack.x + app->configscene->fxSliderBack.w - bounds.w;
-                    }
-                }
-                else
-                {
-                    bounds.x = app->configscene->fxSliderBack.x;
-                }
-               
+
+                bounds.x = mouse.x - (bounds.w / 2);
+                int left = app->configscene->fxSliderBack.x + 1;
+                if (bounds.x < left)
+                    bounds.x = left;
+                int right = app->configscene->fxSliderBack.x + app->configscene->fxSliderBack.w - 1 - bounds.w;
+                if (bounds.x > right)
+                    bounds.x = right;
 
                 NotifyObserver();
             }
