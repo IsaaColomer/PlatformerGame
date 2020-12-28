@@ -46,28 +46,22 @@ bool ScenePause::Start()
 
 	bool ret = true;
 
-	LOG("Loading config assets");
+	LOG("Loading pause assets");
 
-	configscreen = app->tex->Load("Assets/Screens/Title/config_screen.png");
+	scenepause = app->tex->Load("Assets/Screens/Title/config_screen.png");
 	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
 
 	btnExit = new GuiButton(10, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
 	btnExit->SetObserver((Scene*)this);
 	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
 
-	/*fxSlider = new GuiSlider(5, { 1280 / 2 - 300 / 2, 400, 40, 40 }, "FX");
-	fxSlider->SetObserver((Scene*)this);
-	fxSlider->SetTexture(app->tex->Load("Assets/GUI/fx.png"), app->tex->Load("Assets/GUI/fx_selected.png"), app->tex->Load("Assets/GUI/fx_focused.png"));
+	btnResume = new GuiButton(11, { (1280 / 2 - 300 / 2), 180, 40, 40 }, "RESUME");
+	btnResume->SetObserver((Scene*)this);
+	btnResume->SetTexture(app->tex->Load("Assets/GUI/resume.png"), app->tex->Load("Assets/GUI/resume_selected.png"), app->tex->Load("Assets/GUI/resume_focused.png"));
 
-	btnConfig = new GuiButton(8, { (1280 / 2 - 300 / 2), 180, 40, 40 }, "VSYNC");
-	btnConfig->SetObserver((Scene*)this);
-	btnConfig->SetTexture(app->tex->Load("Assets/GUI/fullscreen.png"), app->tex->Load("Assets/GUI/fullscreen_on.png"), app->tex->Load("Assets/GUI/fullscreen_on.png"));
-
-	btnVsync = new GuiButton(9, { (1280 / 2 - 300 / 2), 240, 40, 40 }, "VSYNC");
-	btnVsync->SetObserver((Scene*)this);
-	btnVsync->SetTexture(app->tex->Load("Assets/GUI/fullscreen.png"), app->tex->Load("Assets/GUI/fullscreen_on.png"), app->tex->Load("Assets/GUI/fullscreen_on.png"));*/
-
-	fxSliderBack = { 470,400,400,40 };
+	btnSettings = new GuiButton(12, { (1280 / 2 - 300 / 2), 240, 40, 40 }, "SETTINGS");
+	btnSettings->SetObserver((Scene*)this);
+	btnSettings->SetTexture(app->tex->Load("Assets/GUI/settings.png"), app->tex->Load("Assets/GUI/settings_selected.png"), app->tex->Load("Assets/GUI/settings_focused.png"));
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
@@ -82,11 +76,9 @@ bool ScenePause::PreUpdate()
 
 bool ScenePause::Update(float dt)
 {
-
 	btnExit->Update(app->input, dt);
-	/*fxSlider->Update(app->input, dt);
-	btnConfig->Update(app->input, dt);
-	btnVsync->Update(app->input, dt);*/
+	btnResume->Update(app->input, dt);
+	btnSettings->Update(app->input, dt);
 	return true;
 }
 
@@ -94,12 +86,9 @@ bool ScenePause::Update(float dt)
 bool ScenePause::PostUpdate()
 {
 	// Draw everything --------------------------------------
-	app->render->DrawTexture(configscreen, 0, 0, NULL);
-	app->render->DrawRectangle(fxSliderBack, 154, 122, 130);
 	btnExit->Draw(app->render);
-	/*fxSlider->Draw(app->render);
-	btnConfig->Draw(app->render);
-	btnVsync->Draw(app->render);*/
+	btnResume->Draw(app->render);
+	btnSettings->Draw(app->render);
 
 	return true;
 }
@@ -112,7 +101,7 @@ bool ScenePause::CleanUp()
 
 	app->scenepause->active = false;
 
-	app->tex->UnLoad(configscreen);
+	app->tex->UnLoad(scenepause);
 
 	return true;
 }

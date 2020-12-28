@@ -12,6 +12,7 @@
 #include "Scene.h"
 #include "Window.h"
 #include "Scene2.h"
+#include "Scene3.h"
 #include "FadeToBlack.h"
 #include "Render.h"
 
@@ -42,6 +43,7 @@ bool Intro::Awake()
 // Load assets
 bool Intro::Start()
 {
+	exit = false;
 	app->intro->active = true;
 
 	spaced = false;
@@ -99,6 +101,7 @@ bool Intro::Update(float dt)
 // Update: draw background
 bool Intro::PostUpdate()
 {
+	bool ret = true;
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && spaced == false)
 	{
 		app->fade->Fade(this, (Module*)app->scene, 60);
@@ -118,6 +121,11 @@ bool Intro::PostUpdate()
 		return true;
 	}
 
+	if (exit == true)
+	{
+		return false;
+	}
+
 	// Draw everything --------------------------------------
 	app->render->DrawTexture(introscreen, 0, 0, NULL);
 
@@ -126,7 +134,7 @@ bool Intro::PostUpdate()
 	btnConfig->Draw(app->render);
 	btnExit->Draw(app->render);
 	btnCredits->Draw(app->render);
-	return true;
+	return ret;
 }
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 {
@@ -140,7 +148,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 3) app->fade->Fade((Module*)this, (Module*)app->intro, 1);
 		if (control->id == 4)
 		{
-			SDL_Quit();
+			app->intro->exit = true;
 		}
 		if (control->id == 8 && app->intro->fulled == false)
 		{
@@ -159,6 +167,19 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id ==10)
 		{
 			app->fade->Fade((Module*)app->scenepause, (Module*)app->intro, 1);
+		}
+		if (control->id == 11)
+		{
+			if(app->scene->active)
+				app->fade->Fade((Module*)app->scenepause, (Module*)app->scene, 10);
+			if (app->scene2->active)
+				app->fade->Fade((Module*)app->scenepause, (Module*)app->scene2, 10);
+			if (app->scene3->active)
+				app->fade->Fade((Module*)app->scenepause, (Module*)app->scene3, 10);
+		}
+		if (control->id == 12)
+		{
+			app->fade->Fade((Module*)app->scenepause, (Module*)app->configscene, 10);
 		}
 	}
 

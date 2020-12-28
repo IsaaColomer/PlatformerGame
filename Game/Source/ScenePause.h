@@ -37,19 +37,14 @@ public:
 
 public:
 	// The scene sprite sheet loaded into an SDL_Texture
-	SDL_Texture* configscreen = nullptr;
+	SDL_Texture* scenepause = nullptr;
 
 	bool neutral = true;
 
 	bool spaced;
-
-	GuiButton* btnExit;
-	GuiButton* btnConfig;
-	GuiButton* btnVsync;
-	GuiSlider* fxSlider;
-	SDL_Rect fxSliderBack;
-
 private:
-
+	GuiButton* btnExit;
+	GuiButton* btnResume;
+	GuiButton* btnSettings;
 };
 #endif
