@@ -351,12 +351,6 @@ bool Player::Update(float dt)
 		playerLives = 3;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-	{
-		app->fade->Fade((Module*)this, (Module*)app->scenepause, 10);
-	}
-
-
 	currentAnimation->Update();
 	currentFloppy->Update();
 

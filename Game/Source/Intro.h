@@ -43,6 +43,8 @@ public:
 
 	bool fulled;
 	bool exit;
+	bool vsyncClicked;
+	SDL_HintPriority vsync;
 
 public:
 	// The scene sprite sheet loaded into an SDL_Texture

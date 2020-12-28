@@ -48,18 +48,18 @@ bool ScenePause::Start()
 
 	LOG("Loading pause assets");
 
-	scenepause = app->tex->Load("Assets/Screens/Title/config_screen.png");
+	scenepauseback = app->tex->Load("Assets/Screens/Title/pause_screen.png");
 	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
 
 	btnExit = new GuiButton(10, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
 	btnExit->SetObserver((Scene*)this);
 	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
 
-	btnResume = new GuiButton(11, { (1280 / 2 - 300 / 2), 180, 40, 40 }, "RESUME");
+	btnResume = new GuiButton(5, { (1280 / 2 - 300 / 2), 180, 40, 40 }, "RESUME");
 	btnResume->SetObserver((Scene*)this);
 	btnResume->SetTexture(app->tex->Load("Assets/GUI/resume.png"), app->tex->Load("Assets/GUI/resume_selected.png"), app->tex->Load("Assets/GUI/resume_focused.png"));
 
-	btnSettings = new GuiButton(12, { (1280 / 2 - 300 / 2), 240, 40, 40 }, "SETTINGS");
+	btnSettings = new GuiButton(2, { (1280 / 2 - 300 / 2), 300, 40, 40 }, "SETTINGS");
 	btnSettings->SetObserver((Scene*)this);
 	btnSettings->SetTexture(app->tex->Load("Assets/GUI/settings.png"), app->tex->Load("Assets/GUI/settings_selected.png"), app->tex->Load("Assets/GUI/settings_focused.png"));
 
@@ -86,9 +86,11 @@ bool ScenePause::Update(float dt)
 bool ScenePause::PostUpdate()
 {
 	// Draw everything --------------------------------------
+	app->render->DrawTexture(scenepauseback, 0, 0, NULL);
 	btnExit->Draw(app->render);
 	btnResume->Draw(app->render);
 	btnSettings->Draw(app->render);
+	
 
 	return true;
 }
@@ -101,7 +103,7 @@ bool ScenePause::CleanUp()
 
 	app->scenepause->active = false;
 
-	app->tex->UnLoad(scenepause);
+	app->tex->UnLoad(scenepauseback);
 
 	return true;
 }

@@ -44,6 +44,7 @@ bool Intro::Awake()
 bool Intro::Start()
 {
 	exit = false;
+	vsyncClicked = false;
 	app->intro->active = true;
 
 	spaced = false;
@@ -160,15 +161,23 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_RESIZABLE);
 			app->intro->fulled = false;
 		}
-		if (control->id == 9)
+		if (control->id == 9 && app->intro->vsyncClicked == false)
 		{
 			SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");
+			printf("vsync = true");
+			app->intro->vsyncClicked = true;
+		}
+		else if (control->id == 9 && app->intro->vsyncClicked== true)
+		{
+			SDL_SetHint(SDL_HINT_RENDER_VSYNC, "0");
+			printf("vsync = false");
+			app->intro->vsyncClicked = false;
 		}
 		if (control->id ==10)
 		{
 			app->fade->Fade((Module*)app->scenepause, (Module*)app->intro, 1);
 		}
-		if (control->id == 11)
+		if (control->id == 5)
 		{
 			if(app->scene->active)
 				app->fade->Fade((Module*)app->scenepause, (Module*)app->scene, 10);
@@ -177,7 +186,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 			if (app->scene3->active)
 				app->fade->Fade((Module*)app->scenepause, (Module*)app->scene3, 10);
 		}
-		if (control->id == 12)
+		if (control->id == 6)
 		{
 			app->fade->Fade((Module*)app->scenepause, (Module*)app->configscene, 10);
 		}
