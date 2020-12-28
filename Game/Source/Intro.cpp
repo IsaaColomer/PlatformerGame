@@ -57,7 +57,8 @@ bool Intro::Start()
 
 	introscreen = app->tex->Load("Assets/Screens/Title/intro_screen.png");
 
-	app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
+	app->audio->PlayMusic("Assets/Audio/Music/music_menu.ogg");
+	//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
 
 	btnLoad = new GuiButton(6, { 1280 / 2 - 300 / 2, 300, 300, 80 }, "LOAD");
 	btnLoad->SetObserver((Scene*)this);

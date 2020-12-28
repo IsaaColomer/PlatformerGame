@@ -49,6 +49,11 @@ bool Scene::Start()
 
 	app->collisions->active = true;
 	app->map->active = true;
+	
+	if (app->scene->active)
+	{
+		app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg", 1.0f);
+	}
 
 	if (app->map->Load("scene.tmx") == true)
 	{
@@ -83,7 +88,6 @@ bool Scene::Start()
 	flag = app->tex->Load("Assets/Screens/Gameplay/flag.png");
 
 	app->map->Load("map.tmx");
-	//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
 
 	return true;
 }
