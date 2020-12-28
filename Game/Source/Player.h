@@ -62,6 +62,7 @@ public:
 	bool loseScreen;
 	bool dead;
 	bool notSaved;
+	int jumps;
 	int sceneValue;
 
 	bool fCon;
