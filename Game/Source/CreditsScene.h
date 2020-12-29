@@ -43,7 +43,7 @@ public:
 
 	bool spaced;
 
-	GuiButton* btnExit;
+	GuiButton* btnBack;
 
 private:
 

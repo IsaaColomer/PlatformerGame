@@ -50,9 +50,9 @@ bool CreditsScene::Start()
 
 	creditsScreen = app->tex->Load("Assets/Screens/Title/credits_screen.png");
 
-	btnExit = new GuiButton(3, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
-	btnExit->SetObserver((Scene*)this);
-	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
+	btnBack = new GuiButton(10, { 60, 29, 78, 23 }, "BACK");
+	btnBack->SetObserver((Scene*)this);
+	btnBack->SetTexture(app->tex->Load("Assets/GUI/back.png"), app->tex->Load("Assets/GUI/back_selected.png"), app->tex->Load("Assets/GUI/back_focused.png"));
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
@@ -67,8 +67,7 @@ bool CreditsScene::PreUpdate()
 
 bool CreditsScene::Update(float dt)
 {
-
-	btnExit->Update(app->input, dt);
+	btnBack->Update(app->input, dt);
 	return true;
 }
 
@@ -77,7 +76,7 @@ bool CreditsScene::PostUpdate()
 {
 	// Draw everything --------------------------------------
 	app->render->DrawTexture(creditsScreen, 0, 0, NULL);
-	btnExit->Draw(app->render);
+	btnBack->Draw(app->render);
 
 	return true;
 }
