@@ -89,7 +89,6 @@ bool Scene2::Update(float dt)
 	app->map->LoadColliders();
 
 	return true;
-
 }
 
 // Called each loop iteration

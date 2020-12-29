@@ -60,8 +60,6 @@ bool Scene3::Start()
 	{
 		app->player->resetPlayer();
 	}
-	
-
 
 	backg = app->tex->Load("Assets/Screens/Gameplay/background.png");
 	portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
@@ -89,7 +87,6 @@ bool Scene3::Update(float dt)
 	app->map->LoadColliders();
 
 	return true;
-
 }
 
 // Called each loop iteration
@@ -115,8 +112,6 @@ bool Scene3::CleanUp()
 	app->collisions->CleanUp();
 	app->entitymanager->DeleteEntity();
 	app->entitymanager->CleanUp();
-
-
 
 	app->tex->UnLoad(backg);
 	app->tex->UnLoad(portal);
