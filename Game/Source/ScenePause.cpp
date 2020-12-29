@@ -84,6 +84,12 @@ bool ScenePause::Update(float dt)
 	btnResume->Update(app->input, dt);
 	btnSettings->Update(app->input, dt);
 	btnBackToTitle->Update(app->input, dt);
+
+	if (app->intro->exit == true)
+	{
+		return false;
+	}
+
 	return true;
 }
 

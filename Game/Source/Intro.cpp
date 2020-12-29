@@ -48,6 +48,8 @@ bool Intro::Start()
 
 	spaced = false;
 
+	gamePaused = false;
+
 	bool ret = true;
 
 	LOG("Loading intro assets");
@@ -150,7 +152,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 0) app->fade->Fade((Module*)app->intro, (Module*)app->creditsscene, 10);
 		if (control->id == 2) app->fade->Fade((Module*)this, (Module*)app->configscene, 10);
 		if (control->id == 3) app->fade->Fade((Module*)this, (Module*)app->intro, 1);
-		if (control->id == 4 || control->id == 10)
+		if (control->id == 4)
 		{
 			app->intro->exit = true;
 		}
@@ -174,6 +176,17 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 			printf("vsync = false");
 			app->intro->vsyncClicked = false;
 		}
+		if (control->id == 10)
+		{
+			if (app->intro->gamePaused == false)
+			{
+				app->fade->Fade(this, (Module*)app->intro, 10);
+			}
+			else
+			{
+				app->fade->Fade(this, (Module*)app->scenepause, 10);
+			}
+		}
 		if (control->id == 12)
 		{
 			app->fade->Fade((Module*)this, (Module*)app->intro, 1);
@@ -193,11 +206,13 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);
 			app->intro->fulled = true;
+			control->vsyncChecked = true;
 		}
 		else if (control->id == 8 && app->intro->fulled)
 		{
 			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_RESIZABLE);
 			app->intro->fulled = false;
+			control->vsyncChecked = false;
 		}
 	}
 	default: break;

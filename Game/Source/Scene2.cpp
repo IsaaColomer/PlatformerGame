@@ -105,6 +105,7 @@ bool Scene2::PostUpdate()
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
 		app->fade->Fade((Module*)app->scene2, (Module*)app->scenepause, 10);
+		app->intro->gamePaused = true;
 	}
 
 	return ret;

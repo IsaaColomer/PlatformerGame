@@ -53,6 +53,8 @@ public:
 	SDL_Texture* playTexture = nullptr;
 	SDL_Texture* exitTexture = nullptr;
 
+	bool gamePaused;
+
 	bool spaced;
 private:
 	GuiButton* btnStart;

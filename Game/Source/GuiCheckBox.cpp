@@ -1,5 +1,6 @@
 #include "GuiCheckBox.h"
 #include "App.h"
+#include "Intro.h"
 
 GuiCheckBox::GuiCheckBox(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::CHECKBOX, id)
 {
@@ -54,14 +55,17 @@ bool GuiCheckBox::Draw(Render* render)
     } break;
     case GuiControlState::NORMAL: 
     {
-        if (checked) app->render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
-        else app->render->DrawTexture(textureIdle, bounds.x, bounds.y, NULL);
+        if (checked || vsyncChecked == true)
+        {
+            render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
+        }
+        else render->DrawTexture(textureIdle, bounds.x, bounds.y, NULL);
     } break;
-    case GuiControlState::FOCUSED: app->render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
+    case GuiControlState::FOCUSED: render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
         break;
-    case GuiControlState::PRESSED: app->render->DrawTexture(textureClicked, bounds.x, bounds.y, NULL);
+    case GuiControlState::PRESSED: render->DrawTexture(textureClicked, bounds.x, bounds.y, NULL);
         break;
-    case GuiControlState::SELECTED: app->render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
+    case GuiControlState::SELECTED: render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
         break;
     default:
         break;

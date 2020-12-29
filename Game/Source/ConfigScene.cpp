@@ -14,6 +14,7 @@
 #include "FadeToBlack.h"
 #include "ConfigScene.h"
 #include "Title.h"
+#include "GuiControl.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -53,6 +54,10 @@ bool ConfigScene::Start()
 	btnExit->SetObserver((Scene*)this);
 	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
 
+	btnBack = new GuiButton(10, { 60, 29, 78, 23 }, "BACK");
+	btnBack->SetObserver((Scene*)this);
+	btnBack->SetTexture(app->tex->Load("Assets/GUI/back.png"), app->tex->Load("Assets/GUI/back_selected.png"), app->tex->Load("Assets/GUI/back_focused.png"));
+
 	fxSlider = new GuiSlider(5, { 1280 / 2 - 300 / 2, 400, 40, 40 }, "FX");
 	fxSlider->SetObserver((Scene*)this);
 	fxSlider->SetTexture(app->tex->Load("Assets/GUI/fx.png"), app->tex->Load("Assets/GUI/fx_selected.png"), app->tex->Load("Assets/GUI/fx_focused.png"));
@@ -85,6 +90,13 @@ bool ConfigScene::Update(float dt)
 	fxSlider->Update(app->input, dt);
 	btnConfig->Update(app->input, dt);
 	btnVsync->Update(app->input, dt);
+	btnBack->Update(app->input, dt);
+
+	if (app->intro->exit == true)
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -97,6 +109,7 @@ bool ConfigScene::PostUpdate()
 	btnExit->Draw(app->render);
 	fxSlider->Draw(app->render);
 	btnConfig->Draw(app->render);
+	btnBack->Draw(app->render);
 	btnVsync->Draw(app->render);
 
 	return true;

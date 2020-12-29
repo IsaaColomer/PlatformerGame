@@ -45,6 +45,7 @@ public:
 	bool spaced;
 
 	GuiButton* btnExit;
+	GuiButton* btnBack;
 	GuiCheckBox* btnConfig;
 	GuiCheckBox* btnVsync;
 	GuiSlider* fxSlider;

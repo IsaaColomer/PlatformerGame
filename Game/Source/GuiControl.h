@@ -94,6 +94,8 @@ public:
     SDL_Texture* textureClicked;   // Texture atlas reference
     SDL_Rect section;       // Texture atlas base section
 
+    bool vsyncChecked;
+
     //Font font;              // Text font
 
     Scene* observer;        // Observer module (it should probably be an array/list)
