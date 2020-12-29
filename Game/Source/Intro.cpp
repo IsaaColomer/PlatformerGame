@@ -162,16 +162,6 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			app->fade->Fade((Module*)app->scenepause, (Module*)app->configscene, 10);
 		}
-		if (control->id == 8 && app->intro->fulled == false)
-		{
-			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);
-			app->intro->fulled = true;
-		}
-		else if (control->id == 8 && app->intro->fulled)
-		{
-			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_RESIZABLE);
-			app->intro->fulled = false;
-		}
 		if (control->id == 9 && app->intro->vsyncClicked == false)
 		{
 			SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");
@@ -195,6 +185,19 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 5)
 		{
 			app->audio->VolumeChanger(100 * (control->bounds.x - app->configscene->fxSliderBack.x) / app->configscene->fxSliderBack.w);
+		}
+	}
+	case GuiControlType::CHECKBOX:
+	{
+		if (control->id == 8 && app->intro->fulled == false)
+		{
+			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);
+			app->intro->fulled = true;
+		}
+		else if (control->id == 8 && app->intro->fulled)
+		{
+			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_RESIZABLE);
+			app->intro->fulled = false;
 		}
 	}
 	default: break;
