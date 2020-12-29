@@ -114,7 +114,6 @@ bool Scene::Update(float dt)
 	}
 
 	return true;
-
 }
 
 // Called each loop iteration
@@ -127,7 +126,6 @@ bool Scene::PostUpdate()
 		app->fade->Fade((Module*)app->scene, (Module*)app->scenepause, 10);
 		app->intro->gamePaused = true;
 	}
-		
 
 	return ret;
 }
