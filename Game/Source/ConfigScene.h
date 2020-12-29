@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "GuiSlider.h"
 #include "GuiButton.h"
+#include "GuiCheckBox.h"
 
 struct SDL_Texture;
 
@@ -44,8 +45,8 @@ public:
 	bool spaced;
 
 	GuiButton* btnExit;
-	GuiButton* btnConfig;
-	GuiButton* btnVsync;
+	GuiCheckBox* btnConfig;
+	GuiCheckBox* btnVsync;
 	GuiSlider* fxSlider;
 	SDL_Rect fxSliderBack;
 

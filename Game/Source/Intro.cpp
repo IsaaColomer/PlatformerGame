@@ -153,7 +153,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 0) app->fade->Fade((Module*)app->intro, (Module*)app->creditsscene, 10);
 		if (control->id == 2) app->fade->Fade((Module*)this, (Module*)app->configscene, 10);
 		if (control->id == 3) app->fade->Fade((Module*)this, (Module*)app->intro, 1);
-		if (control->id == 4)
+		if (control->id == 4 || control->id == 10)
 		{
 			app->intro->exit = true;
 		}
@@ -187,9 +187,9 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 			printf("vsync = false");
 			app->intro->vsyncClicked = false;
 		}
-		if (control->id ==10)
+		if (control->id == 12)
 		{
-			app->fade->Fade((Module*)app->scenepause, (Module*)app->intro, 1);
+			app->fade->Fade((Module*)this, (Module*)app->intro, 1);
 		}
 	}
 

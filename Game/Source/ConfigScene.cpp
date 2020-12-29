@@ -57,11 +57,11 @@ bool ConfigScene::Start()
 	fxSlider->SetObserver((Scene*)this);
 	fxSlider->SetTexture(app->tex->Load("Assets/GUI/fx.png"), app->tex->Load("Assets/GUI/fx_selected.png"), app->tex->Load("Assets/GUI/fx_focused.png"));
 
-	btnConfig = new GuiButton(8, {( 1280 / 2 - 300 / 2), 180, 40, 40 }, "VSYNC");
+	btnConfig = new GuiCheckBox(8, {( 1280 / 2 - 300 / 2), 180, 40, 40 }, "FULLSCREEN");
 	btnConfig->SetObserver((Scene*)this);
 	btnConfig->SetTexture(app->tex->Load("Assets/GUI/fullscreen.png"), app->tex->Load("Assets/GUI/fullscreen_on.png"), app->tex->Load("Assets/GUI/fullscreen_on.png"));
 
-	btnVsync = new GuiButton(9, { (1280 / 2 - 300 / 2), 240, 40, 40 }, "VSYNC");
+	btnVsync = new GuiCheckBox(9, { (1280 / 2 - 300 / 2), 240, 40, 40 }, "VSYNC");
 	btnVsync->SetObserver((Scene*)this);
 	btnVsync->SetTexture(app->tex->Load("Assets/GUI/fullscreen.png"), app->tex->Load("Assets/GUI/fullscreen_on.png"), app->tex->Load("Assets/GUI/fullscreen_on.png"));
 

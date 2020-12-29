@@ -49,7 +49,6 @@ bool CreditsScene::Start()
 	LOG("Loading config assets");
 
 	creditsScreen = app->tex->Load("Assets/Screens/Title/credits_screen.png");
-	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
 
 	btnExit = new GuiButton(3, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
 	btnExit->SetObserver((Scene*)this);

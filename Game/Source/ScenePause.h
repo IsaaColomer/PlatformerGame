@@ -46,5 +46,6 @@ private:
 	GuiButton* btnExit;
 	GuiButton* btnResume;
 	GuiButton* btnSettings;
+	GuiButton* btnBackToTitle;
 };
 #endif

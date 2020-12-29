@@ -55,6 +55,10 @@ bool ScenePause::Start()
 	btnExit->SetObserver((Scene*)this);
 	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
 
+	btnBackToTitle = new GuiButton(12, { 1280 / 2 - 300 / 2, 400, 300, 80 }, "BACK_TO_TITLE");
+	btnBackToTitle->SetObserver((Scene*)this);
+	btnBackToTitle->SetTexture(app->tex->Load("Assets/GUI/back_to_title.png"), app->tex->Load("Assets/GUI/back_to_title_selected.png"), app->tex->Load("Assets/GUI/back_to_title_focused.png"));
+
 	btnResume = new GuiButton(5, { (1280 / 2 - 300 / 2), 180, 300, 80 }, "RESUME");
 	btnResume->SetObserver((Scene*)this);
 	btnResume->SetTexture(app->tex->Load("Assets/GUI/resume.png"), app->tex->Load("Assets/GUI/resume_selected.png"), app->tex->Load("Assets/GUI/resume_focused.png"));
@@ -79,6 +83,7 @@ bool ScenePause::Update(float dt)
 	btnExit->Update(app->input, dt);
 	btnResume->Update(app->input, dt);
 	btnSettings->Update(app->input, dt);
+	btnBackToTitle->Update(app->input, dt);
 	return true;
 }
 
@@ -90,6 +95,7 @@ bool ScenePause::PostUpdate()
 	btnExit->Draw(app->render);
 	btnResume->Draw(app->render);
 	btnSettings->Draw(app->render);
+	btnBackToTitle->Draw(app->render);
 	
 
 	return true;
