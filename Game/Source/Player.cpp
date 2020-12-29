@@ -242,6 +242,25 @@ bool Player::Update(float dt)
 			resetPlayer();
 		}
 	}
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
+		app->SaveGameRequest();
+		if (app->scene->active == true)
+		{
+			app->fade->Fade((Module*)app->scene, (Module*)app->scenepause, 10);
+		}
+		if (app->scene2->active == true)
+		{
+			app->fade->Fade((Module*)app->scene2, (Module*)app->scenepause, 10);
+		}
+		if (app->scene3->active == true)
+		{
+			app->fade->Fade((Module*)app->scene3, (Module*)app->scenepause, 10);
+		}
+		
+		app->intro->gamePaused = true;
+	}
+	
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{
 		if (fCount == 180)

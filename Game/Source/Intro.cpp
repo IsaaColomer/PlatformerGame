@@ -162,7 +162,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 6)
 		{
-			app->fade->Fade((Module*)app->scenepause, (Module*)app->configscene, 10);
+			
 		}
 		if (control->id == 10)
 		{
