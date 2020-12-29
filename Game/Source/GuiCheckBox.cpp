@@ -2,10 +2,11 @@
 #include "App.h"
 #include "Intro.h"
 
-GuiCheckBox::GuiCheckBox(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::CHECKBOX, id)
+GuiCheckBox::GuiCheckBox(uint32 id, SDL_Rect bounds, const char* text, bool _checked) : GuiControl(GuiControlType::CHECKBOX, id)
 {
     this->bounds = bounds;
     this->text = text;
+    this->checked = _checked;
 }
 
 GuiCheckBox::~GuiCheckBox()
