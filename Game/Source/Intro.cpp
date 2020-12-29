@@ -56,7 +56,7 @@ bool Intro::Start()
 
 	introscreen = app->tex->Load("Assets/Screens/Title/intro_screen.png");
 
-	app->audio->PlayMusic("Assets/Audio/Music/music_menu.ogg");
+	app->audio->PlayMusic("Assets/Audio/Music/music_menu.ogg",0.2f);
 	//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
 
 	btnLoad = new GuiButton(6, { 1280 / 2 - 300 / 2, 300, 300, 80 }, "LOAD");
@@ -164,18 +164,6 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			app->fade->Fade((Module*)app->scenepause, (Module*)app->configscene, 10);
 		}
-		if (control->id == 9 && app->intro->vsyncClicked == false)
-		{
-			SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");
-			printf("vsync = true");
-			app->intro->vsyncClicked = true;
-		}
-		else if (control->id == 9 && app->intro->vsyncClicked == true)
-		{
-			SDL_SetHint(SDL_HINT_RENDER_VSYNC, "0");
-			printf("vsync = false");
-			app->intro->vsyncClicked = false;
-		}
 		if (control->id == 10)
 		{
 			if (app->intro->gamePaused == false)
@@ -213,6 +201,19 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_RESIZABLE);
 			app->intro->fulled = false;
 			control->vsyncChecked = false;
+		}
+		if (control->id == 9 && app->intro->vsyncClicked == false)
+		{
+			/*SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");*/
+			printf("vsync = true");
+			SDL_SetHintWithPriority("SDL_RENDERER_PRESENTVSYNC ", "0", SDL_HINT_NORMAL);
+			app->intro->vsyncClicked = true;
+		}
+		else if (control->id == 9 && app->intro->vsyncClicked == true)
+		{
+			SDL_SetHintWithPriority("SDL_RENDERER_PRESENTVSYNC ", "1", SDL_HINT_NORMAL);
+			printf("vsync = false");
+			app->intro->vsyncClicked = false;
 		}
 	}
 	default: break;
