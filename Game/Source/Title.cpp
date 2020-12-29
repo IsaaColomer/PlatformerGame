@@ -75,7 +75,7 @@ bool Title::PostUpdate()
 {
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && spaced == false)
 	{
-		app->fade->Fade(this, (Module*)app->intro, 60);
+		app->fade->Fade(this, (Module*)app->intro, 10);
 		spaced = true;
 		return true;
 	}

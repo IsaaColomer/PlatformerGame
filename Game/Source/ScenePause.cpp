@@ -51,7 +51,7 @@ bool ScenePause::Start()
 	scenepauseback = app->tex->Load("Assets/Screens/Title/pause_screen.png");
 	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
 
-	btnExit = new GuiButton(10, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
+	btnExit = new GuiButton(4, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
 	btnExit->SetObserver((Scene*)this);
 	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
 
