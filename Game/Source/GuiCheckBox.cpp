@@ -54,14 +54,14 @@ bool GuiCheckBox::Draw(Render* render)
     } break;
     case GuiControlState::NORMAL: 
     {
-        if (checked) app->render->DrawTexture(textureIdle, bounds.x, bounds.y, NULL);
+        if (checked) app->render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
         else app->render->DrawTexture(textureIdle, bounds.x, bounds.y, NULL);
     } break;
     case GuiControlState::FOCUSED: app->render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
         break;
     case GuiControlState::PRESSED: app->render->DrawTexture(textureClicked, bounds.x, bounds.y, NULL);
         break;
-    case GuiControlState::SELECTED: app->render->DrawTexture(textureClicked, bounds.x, bounds.y, NULL);
+    case GuiControlState::SELECTED: app->render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
         break;
     default:
         break;
