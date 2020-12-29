@@ -17,13 +17,10 @@
 #include "Render.h"
 #include "ConfigScene.h"
 #include "GuiSlider.h"
+
+#include "Defs.h"
+#include "Log.h"
 class GuiSlider;
-#include "Defs.h"
-#include "Log.h"
-
-#include "Defs.h"
-#include "Log.h"
-
 Intro::Intro() : Module()
 {
 	name.Create("intro");
