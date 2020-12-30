@@ -33,7 +33,7 @@
 // Constructor
 App::App(int argc, char* args[]) : argc(argc), args(args)
 {
-	PERF_START(perfTimer);
+	//PERF_START(perfTimer);
 
 	frames = 0;
 
@@ -93,7 +93,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	// Render last to swap buffer
 	AddModule(render);
 	//LOG("It took %f ms to execute", startupTime.Read());
-	PERF_PEEK(perfTimer);
+	//PERF_PEEK(perfTimer);
 }
 
 // Destructor
@@ -120,7 +120,7 @@ void App::AddModule(Module* module)
 // Called before render is available
 bool App::Awake()
 {
-	PERF_START(perfTimer);
+	//PERF_START(perfTimer);
 	pugi::xml_document configFile;
 	pugi::xml_node config;
 	pugi::xml_node configApp;
@@ -160,7 +160,7 @@ bool App::Awake()
 		saveLoadNode = saveLoadFile.child("save");
 	}
 
-	PERF_PEEK(perfTimer);
+	//PERF_PEEK(perfTimer);
 
 	return ret;
 }
@@ -236,7 +236,7 @@ void App::PrepareUpdate()
 	fpsCount++;
 	lastSecFrameCnt++;
 
-	dt = tempFps/10;
+	dt = frameTime.ReadSec();
 	frameRate = (fpsCap) ? 1000 / 30 : 1000 / 60;
 	fps = SDL_GetTicks();
 }
@@ -262,12 +262,10 @@ void App::FinishUpdate()
 	}
 
 	oldLastFrame = lastFrameInMs;
-
 	lastFrameInMs = lastSec.Read();
-
 	lastSec.Start();
 
-	if (tempFps < frameRate)
+	if (frameRate > tempFps)
 	{
 		SDL_Delay(frameRate - tempFps);
 	}

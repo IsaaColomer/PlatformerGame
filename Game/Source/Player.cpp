@@ -576,7 +576,7 @@ void Player::resetPlayer()
 	app->player->cp.h = 110;*/
 
 	app->player->vcy = 0;
-	app->player->vcx = 5;
+	app->player->vcx = 7;
 	app->player->jump = -20;
 
 	app->render->camera.x = 0;
