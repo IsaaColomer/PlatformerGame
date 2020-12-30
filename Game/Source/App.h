@@ -114,8 +114,7 @@ public:
 	CreditsScene* creditsscene;
 	ScenePause* scenepause;
 
-	int frameRate60;
-	int frameRate30;
+	float frameRate;
 	bool fpsCap;
 private:
 
@@ -142,6 +141,9 @@ private:
 	float timePerfect;
 	float oldLastFrame = 0.0f;
 	int	cappedMs = -1;
+	float fps = 0;
+	float tempFps = 0;
+	float frameSec = 0;
 
 	mutable bool saveGameRequested;
 	bool loadGameRequested;

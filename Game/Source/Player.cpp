@@ -280,7 +280,7 @@ bool Player::Update(float dt)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jumps < 2)
 		{
-			vcy = -850.0;
+			vcy = jump;
 			app->audio->PlayFx(jumpFx);
 			ong = false;
 			jumps++;
@@ -288,7 +288,7 @@ bool Player::Update(float dt)
 		
 		if (!ong)
 		{
-			if (vcy < 425) vcy -= GRAV * dt;
+			if (vcy < 10) vcy -= GRAV * dt;
 			cp.y += vcy * dt;
 		}
 
@@ -576,7 +576,8 @@ void Player::resetPlayer()
 	app->player->cp.h = 110;*/
 
 	app->player->vcy = 0;
-	app->player->vcx = 290;
+	app->player->vcx = 5;
+	app->player->jump = -20;
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;

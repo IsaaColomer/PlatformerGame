@@ -4,7 +4,7 @@
 #include "Module.h"
 #include "Animation.h"
 
-#define GRAV -2000.0f
+#define GRAV -1.0f
 
 struct SDL_Texture;
 struct Collider;
@@ -50,6 +50,7 @@ public:
 	SDL_Point savedPos;
 	bool willReset;
 	float vcy, vcx;
+	float jump;
 	bool xMove;
 	bool yMove;
 	bool godMode;
