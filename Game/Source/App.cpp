@@ -274,7 +274,7 @@ void App::FinishUpdate()
 			timePerfect = perfTimer.ReadMs();
 		}
 		static char title[256];
-		sprintf_s(title, 256, "FPS: %.2f | AVG FPS %0.2f | Last Frame in ms: %0.2f | VSync = off  ",
+		sprintf_s(title, 256, "FPS: %.2f | AVG FPS %.2f | Last Frame in ms: %.2f | VSync = On ",
 			average, framesSecond, lastFrameInMs);
 		app->win->SetTitle(title);
 	}
@@ -305,8 +305,8 @@ void App::FinishUpdate()
 			timePerfect = perfTimer.ReadMs();
 		}
 		static char title[256];
-		sprintf_s(title, 256, "FPS: %.2f | AVG FPS %0.2f | Last Frame in ms: %0.2f | VSync = off  ",
-			framesSecond, average, lastFrameInMs);
+		sprintf_s(title, 256, "FPS: %.2f | AVG FPS %.2f | Last Frame in ms: %.2f | VSync = off  ",
+			average, framesSecond, lastFrameInMs);
 		app->win->SetTitle(title);
 	}
 

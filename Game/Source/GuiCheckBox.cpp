@@ -56,7 +56,7 @@ bool GuiCheckBox::Draw(Render* render)
     } break;
     case GuiControlState::NORMAL: 
     {
-        if (checked || vsyncChecked == true)
+        if (checked == true)
         {
             render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
         }

@@ -422,6 +422,19 @@ bool Player::LoadState(pugi::xml_node& data)
 	cp.x = play.attribute("x").as_int(0);
 	cp.y = play.attribute("y").as_int(0);
 
+	pugi::xml_node scene = data.child("sceneValue");
+	if (app->scene->active == 1)
+	{
+		app->player->sceneValue = 1;
+	}
+	else if (app->scene2->active == 1)
+	{
+		app->player->sceneValue = 2;
+	}
+	else if (app->scene3->active == 1)
+	{
+		app->player->sceneValue = 3;
+	}
 	app->player->savedPos.x = cp.x;
 	app->player->savedPos.y = cp.y;
 

@@ -206,12 +206,14 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			/*SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");*/
 			printf("vsync = true");
-			SDL_SetHintWithPriority("SDL_RENDERER_PRESENTVSYNC ", "0", SDL_HINT_NORMAL);
+			SDL_GetHint("SDL_RENDERER_PRESENTVSYNC");
+			SDL_SetHint("SDL_RENDERER_PRESENTVSYNC", "1");
 			app->intro->vsyncClicked = true;
 		}
 		else if (control->id == 9 && app->intro->vsyncClicked == true)
 		{
-			SDL_SetHintWithPriority("SDL_RENDERER_PRESENTVSYNC ", "1", SDL_HINT_NORMAL);
+			SDL_GetHint("SDL_RENDERER_PRESENTVSYNC");
+			SDL_SetHint("SDL_RENDERER_PRESENTVSYNC", "0");
 			printf("vsync = false");
 			app->intro->vsyncClicked = false;
 		}
