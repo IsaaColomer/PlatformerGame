@@ -58,7 +58,7 @@ bool Scene::Start()
 		app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg", 1.0f);
 	}
 
-	if (app->map->Load("miscojonesmorenos.tmx") == true)
+	if (app->map->Load("drawable.tmx") == true)
 	{
 		int w, h;
 		uchar* data = NULL;
