@@ -50,7 +50,7 @@ bool ConfigScene::Start()
 
 	configscreen = app->tex->Load("Assets/Screens/Title/config_screen.png");
 
-	btnExit = new GuiButton(4, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
+	btnExit = new GuiButton(4, { 1280 / 2 - 300 / 2, 600, 300, 80 }, "EXIT");
 	btnExit->SetObserver((Scene*)this);
 	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
 
@@ -58,7 +58,11 @@ bool ConfigScene::Start()
 	btnBack->SetObserver((Scene*)this);
 	btnBack->SetTexture(app->tex->Load("Assets/GUI/back.png"), app->tex->Load("Assets/GUI/back_selected.png"), app->tex->Load("Assets/GUI/back_focused.png"));
 
-	fxSlider = new GuiSlider(5, { 1280 / 2 - 300 / 2, 400, 40, 40 }, "FX");
+	musicSlider = new GuiSlider(5, { 1280 / 2 - 300 / 2, 400, 40, 40 }, "MUSIC");
+	musicSlider->SetObserver((Scene*)this);
+	musicSlider->SetTexture(app->tex->Load("Assets/GUI/fx.png"), app->tex->Load("Assets/GUI/fx_selected.png"), app->tex->Load("Assets/GUI/fx_focused.png"));
+
+	fxSlider = new GuiSlider(7, { 1280 / 2 - 300 / 2, 500, 40, 40 }, "FX");
 	fxSlider->SetObserver((Scene*)this);
 	fxSlider->SetTexture(app->tex->Load("Assets/GUI/fx.png"), app->tex->Load("Assets/GUI/fx_selected.png"), app->tex->Load("Assets/GUI/fx_focused.png"));
 
@@ -70,7 +74,8 @@ bool ConfigScene::Start()
 	btnVsync->SetObserver((Scene*)this);
 	btnVsync->SetTexture(app->tex->Load("Assets/GUI/fullscreen.png"), app->tex->Load("Assets/GUI/fullscreen_on.png"), app->tex->Load("Assets/GUI/fullscreen_on.png"));
 
-	fxSliderBack = { 470,400,400,40 };
+	musicSliderBack = { 470,400,400,40 };
+	fxSliderBack = { 470,500,400,40 };
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
@@ -87,6 +92,7 @@ bool ConfigScene::Update(float dt)
 {
 
 	btnExit->Update(app->input, dt);
+	musicSlider->Update(app->input, dt);
 	fxSlider->Update(app->input, dt);
 	btnConfig->Update(app->input, dt);
 	btnVsync->Update(app->input, dt);
@@ -105,8 +111,10 @@ bool ConfigScene::PostUpdate()
 {
 	// Draw everything --------------------------------------
 	app->render->DrawTexture(configscreen, 0, 0, NULL);
+	app->render->DrawRectangle(musicSliderBack,154,122,130);
 	app->render->DrawRectangle(fxSliderBack,154,122,130);
 	btnExit->Draw(app->render);
+	musicSlider->Draw(app->render);
 	fxSlider->Draw(app->render);
 	btnConfig->Draw(app->render);
 	btnBack->Draw(app->render);

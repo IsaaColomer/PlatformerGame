@@ -30,10 +30,10 @@ bool GuiSlider::Update(Input* input, float dt)
                 state = GuiControlState::PRESSED;
 
                 bounds.x = mouse.x - (bounds.w / 2);
-                int left = app->configscene->fxSliderBack.x + 1;
+                int left = app->configscene->musicSliderBack.x + 1;
                 if (bounds.x < left)
                     bounds.x = left;
-                int right = app->configscene->fxSliderBack.x + app->configscene->fxSliderBack.w - 1 - bounds.w;
+                int right = app->configscene->musicSliderBack.x + app->configscene->musicSliderBack.w - 1 - bounds.w;
                 if (bounds.x > right)
                     bounds.x = right;
 

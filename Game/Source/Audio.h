@@ -32,7 +32,9 @@ public:
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
-	void VolumeChanger(int val);
+	void MusicVolumeChanger(int val);
+
+	void FxVolumeChanger(int val);
 
 private:
 
@@ -40,6 +42,7 @@ private:
 	List<Mix_Chunk *>	fx;
 
 	int musicVolume;
+	int fxVolume;
 };
 
 #endif // __AUDIO_H__

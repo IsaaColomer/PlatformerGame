@@ -48,7 +48,9 @@ public:
 	GuiButton* btnBack;
 	GuiCheckBox* btnConfig;
 	GuiCheckBox* btnVsync;
+	GuiSlider* musicSlider;
 	GuiSlider* fxSlider;
+	SDL_Rect musicSliderBack;
 	SDL_Rect fxSliderBack;
 
 private:
