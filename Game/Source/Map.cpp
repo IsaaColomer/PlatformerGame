@@ -248,7 +248,7 @@ bool Map::Load(const char* filename)
 	if (ret == true)
 	{
 		// L03: TODO 5: LOG all the data loaded iterate all tilesets and LOG everything
-		LOG("Successfully parsed Successfully parsed map XML file: %s", filename);
+		LOG("Successfully parsed map XML file: %s", filename);
 		LOG("width: %d  height: %d", data.width, data.height);
 
 		for (int i = 0; i < data.tilesets.Count(); i++)

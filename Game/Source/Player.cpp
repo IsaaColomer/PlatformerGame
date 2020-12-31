@@ -416,6 +416,7 @@ bool Player::CleanUp()
 	app->player->active = false;
 	return true;
 }
+
 bool Player::LoadState(pugi::xml_node& data)
 {
 	pugi::xml_node play = data.child("position");
@@ -423,18 +424,37 @@ bool Player::LoadState(pugi::xml_node& data)
 	cp.y = play.attribute("y").as_int(0);
 
 	pugi::xml_node scene = data.child("sceneValue");
-	if (app->scene->active == 1)
-	{
-		app->player->sceneValue = 1;
-	}
-	else if (app->scene2->active == 1)
-	{
-		app->player->sceneValue = 2;
-	}
-	else if (app->scene3->active == 1)
-	{
-		app->player->sceneValue = 3;
-	}
+	
+	sceneValue = scene.attribute("x").as_int(1);
+
+		switch (sceneValue)
+		{
+		case 1:
+			if(app->scene->active)
+				app->fade->Fade((Module*)app->scene, (Module*)app->scene, 30);
+			else if (app->scene2->active)
+				app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 30);
+			else if (app->scene3->active)
+				app->fade->Fade((Module*)app->scene3, (Module*)app->scene, 30);
+			break;
+		case 2:
+			if (app->scene->active)
+				app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 30);
+			else if (app->scene2->active)
+				app->fade->Fade((Module*)app->scene2, (Module*)app->scene2, 30);
+			else if (app->scene3->active)
+				app->fade->Fade((Module*)app->scene3, (Module*)app->scene2, 30);
+			break;
+		case 3:
+			if (app->scene->active)
+				app->fade->Fade((Module*)app->scene, (Module*)app->scene3, 30);
+			else if (app->scene2->active)
+				app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 30);
+			else if (app->scene3->active)
+				app->fade->Fade((Module*)app->scene3, (Module*)app->scene3, 30);
+			break;
+		}
+
 	app->player->savedPos.x = cp.x;
 	app->player->savedPos.y = cp.y;
 
@@ -451,7 +471,7 @@ bool Player::SaveState(pugi::xml_node& data) const
 	app->player->savedPos.y = cp.y;
 
 	pugi::xml_node scene = data.child("sceneValue");
-	scene.attribute("x").set_value(sceneValue);
+	
 
 	if (app->scene->active == 1)
 	{
@@ -465,6 +485,7 @@ bool Player::SaveState(pugi::xml_node& data) const
 	{
 		app->player->sceneValue = 3;
 	}
+	scene.attribute("x").set_value(sceneValue);
 	return true;
 }
 

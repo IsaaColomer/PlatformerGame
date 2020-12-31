@@ -7,7 +7,7 @@
 	<scene />
 	<player>
 		<position x="80" y="590" />
-		<sceneValue x="0" />
+		<sceneValue x="1" />
 	</player>
 	<renderer>
 		<camera x="0" y="0" />

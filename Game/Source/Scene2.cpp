@@ -41,6 +41,7 @@ bool Scene2::Awake()
 // Called before the first frame
 bool Scene2::Start()
 {
+	app->scene2->active = true;
 	app->player->Init();
 	app->player->Start();
 

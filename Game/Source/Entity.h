@@ -15,7 +15,8 @@ public:
 		ENEMYG,
 		ENEMYA,
 		COIN,
-		FOOD
+		FOOD,
+		PLAYER
 		
 		
 	};
