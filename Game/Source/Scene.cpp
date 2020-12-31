@@ -42,7 +42,7 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
-	app->map->Load("map.tmx");
+
 	app->scene->active = true;
 
 	app->player->Init();
@@ -58,7 +58,7 @@ bool Scene::Start()
 		app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg", 1.0f);
 	}
 
-	if (app->map->Load("map.tmx") == true)
+	if (app->map->Load("miscojonesmorenos.tmx") == true)
 	{
 		int w, h;
 		uchar* data = NULL;
@@ -91,7 +91,7 @@ bool Scene::Start()
 	flag = app->tex->Load("Assets/Screens/Gameplay/flag.png");
 
 
-
+	app->map->Load("map.tmx");
 	return true;
 }
 
