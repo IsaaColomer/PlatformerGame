@@ -230,15 +230,15 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
 		app->SaveGameRequest();
-		if (app->scene->active == true)
+		if (sceneOneA)
 		{
 			app->fade->Fade((Module*)app->scene, (Module*)app->scenepause, 10);
 		}
-		if (app->scene2->active == true)
+		if (sceneTwoA == true)
 		{
 			app->fade->Fade((Module*)app->scene2, (Module*)app->scenepause, 10);
 		}
-		if (app->scene3->active == true)
+		if (sceneThreeA == true)
 		{
 			app->fade->Fade((Module*)app->scene3, (Module*)app->scenepause, 10);
 		}
@@ -341,15 +341,15 @@ bool Player::Update(float dt)
 
 	if (playerLives == 0)
 	{
-		if (app->scene->active == true)
+		if (sceneOneA == true)
 		{
 			app->fade->Fade((Module*)app->scene, (Module*)app->titleScreen, 60);
 		}
-		if (app->scene2->active == true)
+		if (sceneTwoA == true)
 		{
 			app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
 		}
-		if (app->scene3->active == true)
+		if (sceneThreeA == true)
 		{
 			app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
 		}
@@ -571,7 +571,14 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 	
 void Player::resetPlayer()
 {
-	if (loadPosition == false)
+	if (loadPosition)
+	{
+		cp.x = app->player->savedPos.x;
+		cp.y = app->player->savedPos.y;
+
+		loadPosition = false;
+	}
+	else
 	{
 		if (sceneOneA == true)
 		{
@@ -591,20 +598,13 @@ void Player::resetPlayer()
 
 		app->player->vcy = 0;
 		app->player->vcx = 7;
-		app->player->jump = -20;
+		app->player->jump = -15;
 
 		app->render->camera.x = 0;
 		app->render->camera.y = 0;
 
 		app->player->xMove = false;
 		app->player->ong = false;
-	}
-	else
-	{
-		cp.x = app->player->savedPos.x;
-		cp.y = app->player->savedPos.y;
-
-		loadPosition = false;
 	}
 	
 }
