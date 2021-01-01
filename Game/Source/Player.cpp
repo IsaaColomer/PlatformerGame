@@ -556,12 +556,15 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			}
 			break;
 		case Collider::Type::CHECKPOINT:
-			app->audio->PlayFx(checkPointFx);
-			c2->pendingToDelete = true;
-			app->SaveGameRequest();
-			app->scene->flagAlive = false;
-			app->scene2->flagAlive = false;
-			fCount = 0;
+			if (ong)
+			{
+				app->audio->PlayFx(checkPointFx);
+				c2->pendingToDelete = true;
+				app->SaveGameRequest();
+				app->scene->flagAlive = false;
+				app->scene2->flagAlive = false;
+				fCount = 0;
+			}
 			break;
 		default:
 			break;
