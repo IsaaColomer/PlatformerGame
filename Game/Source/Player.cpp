@@ -100,7 +100,6 @@ bool Player::Start()
 	app->render->camera.x = 0;
 
 	dead = false;
-	savedPos = { 80,0 };
 	jumps = 0;
 
 	//ALL TEXTURES AND STUFF TO LOAD (AUDIO, PNG'S, etc...)
@@ -149,10 +148,6 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
-	if (willReset)
-	{
-		resetPlayer();
-	}
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE
 		&& app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE)
@@ -180,7 +175,7 @@ bool Player::Update(float dt)
 		}
 		else if (app->scene3->active)
 		{
-			app->fade->Fade((Module*)app->scene3, (Module*)app->scene2, 60);
+			app->fade->Fade((Module*)app->scene3, (Module*)app->scene, 60);
 			app->entitymanager->CleanUp();
 		}
 	}
@@ -411,6 +406,7 @@ bool Player::LoadState(pugi::xml_node& data)
 {
 	loadPosition = true;
 	pugi::xml_node play = data.child("position");
+
 	cp.x = play.attribute("x").as_int(0);
 	cp.y = play.attribute("y").as_int(0);
 
@@ -424,42 +420,30 @@ bool Player::LoadState(pugi::xml_node& data)
 		case 1:
 			if (sceneTwoA)
 			{
-				app->player->savedPos.x = cp.x;
-				app->player->savedPos.y = cp.y;
 				app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 1);
 			}	
 			if (sceneThreeA)
 			{
-				app->player->savedPos.x = cp.x;
-				app->player->savedPos.y = cp.y;
 				app->fade->Fade((Module*)app->scene3, (Module*)app->scene, 1);
 			}	
 			break;
 		case 2:
 			if (sceneOneA)
 			{
-				app->player->savedPos.x = cp.x;
-				app->player->savedPos.y = cp.y;
 				app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 1);
 			}
 			if (sceneThreeA)
 			{
-				app->player->savedPos.x = cp.x;
-				app->player->savedPos.y = cp.y;
 				app->fade->Fade((Module*)app->scene3, (Module*)app->scene2, 1);
 			}
 			break;
 		case 3:
 			if (sceneOneA)
 			{
-				app->player->savedPos.x = cp.x;
-				app->player->savedPos.y = cp.y;
 				app->fade->Fade((Module*)app->scene, (Module*)app->scene3, 1);
 			}
 			if (sceneTwoA)
 			{
-				app->player->savedPos.x = cp.x;
-				app->player->savedPos.y = cp.y;
 				app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 1);
 			}
 			break;
@@ -587,30 +571,8 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 	
 void Player::resetPlayer()
 {
-
-	if (loadPosition)
+	if (loadPosition == false)
 	{
-		if (sceneOneA)
-		{
-			app->player->savedPos.x = cp.x;
-			app->player->savedPos.y = cp.y;
-		}
-		if (sceneTwoA)
-		{
-			app->player->savedPos.x = cp.x;
-			app->player->savedPos.y = cp.y;
-		}
-		if (sceneThreeA)
-		{
-			app->player->savedPos.x = cp.x;
-			app->player->savedPos.y = cp.y;
-		}
-		loadPosition = false;
-	}
-	else
-	{
-		willReset = false;
-	
 		if (sceneOneA == true)
 		{
 			app->player->cp.x = 80;
@@ -627,9 +589,6 @@ void Player::resetPlayer()
 			app->player->cp.y = 0;
 		}
 
-		/*app->player->cp.w = 66;
-		app->player->cp.h = 110;*/
-
 		app->player->vcy = 0;
 		app->player->vcx = 7;
 		app->player->jump = -20;
@@ -639,6 +598,13 @@ void Player::resetPlayer()
 
 		app->player->xMove = false;
 		app->player->ong = false;
+	}
+	else
+	{
+		cp.x = app->player->savedPos.x;
+		cp.y = app->player->savedPos.y;
+
+		loadPosition = false;
 	}
 	
 }

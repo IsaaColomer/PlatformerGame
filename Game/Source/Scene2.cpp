@@ -51,10 +51,6 @@ bool Scene2::Start()
 	app->map->active = true;
 	app->collisions->active = true;
 
-	if (app->scene->doStart)
-	{
-		app->player->resetPlayer();
-	}
 
 	app->entitymanager->AddEntity({ 920.0F,272.0f }, Entity::Type::COIN);
 	app->entitymanager->AddEntity({1410.0f,551.0f }, Entity::Type::COIN);

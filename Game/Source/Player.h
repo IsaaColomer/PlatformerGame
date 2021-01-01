@@ -48,7 +48,6 @@ public:
 public:	
 	fPoint cp;
 	SDL_Point savedPos;
-	bool willReset;
 	float vcy, vcx;
 	float jump;
 	bool xMove;

@@ -49,8 +49,6 @@ bool Scene::Start()
 	app->player->Init();
 	app->player->Start();
 
-	app->player->resetPlayer();
-
 	app->collisions->active = true;
 	app->map->active = true;
 

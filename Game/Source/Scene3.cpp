@@ -59,11 +59,6 @@ bool Scene3::Start()
 
 	app->entitymanager->AddEntity({ 2000.0f,200.0f }, Entity::Type::ENEMYA);
 
-	if (app->scene->doStart)
-	{
-		app->player->resetPlayer();
-	}
-
 	backg = app->tex->Load("Assets/Screens/Gameplay/background.png");
 	portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
 	app->map->Load("map3.tmx");
