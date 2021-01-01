@@ -229,18 +229,8 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{
 		app->LoadGameRequest();
-		if (app->scene->active == true && app->scene2->flagAlive == false && app->scene->flagAlive == true)
-		{
-			//SCENE 2
-			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 1);
-			resetPlayer();
-		}
-		if (app->scene2->active == true && app->scene->flagAlive == false && app->scene2->flagAlive == true)
-		{
-			//SCENE 1
-			app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 1);
-			resetPlayer();
-		}
+		
+		
 	}
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
@@ -425,33 +415,52 @@ bool Player::LoadState(pugi::xml_node& data)
 
 	pugi::xml_node scene = data.child("sceneValue");
 	
-	sceneValue = scene.attribute("x").as_int(1);
+	sceneValue = scene.attribute("l").as_int(0);
+
 
 		switch (sceneValue)
 		{
 		case 1:
-			if(app->scene->active)
-				app->fade->Fade((Module*)app->scene, (Module*)app->scene, 30);
-			else if (app->scene2->active)
+			if (sceneTwoA)
+			{
+				app->player->savedPos.x = cp.x;
+				app->player->savedPos.y = cp.y;
 				app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 30);
-			else if (app->scene3->active)
+			}	
+			if (sceneThreeA)
+			{
+				app->player->savedPos.x = cp.x;
+				app->player->savedPos.y = cp.y;
 				app->fade->Fade((Module*)app->scene3, (Module*)app->scene, 30);
+			}	
 			break;
 		case 2:
-			if (app->scene->active)
+			if (sceneOneA)
+			{
+				app->player->savedPos.x = cp.x;
+				app->player->savedPos.y = cp.y;
 				app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 30);
-			else if (app->scene2->active)
-				app->fade->Fade((Module*)app->scene2, (Module*)app->scene2, 30);
-			else if (app->scene3->active)
+			}
+			if (sceneThreeA)
+			{
+				app->player->savedPos.x = cp.x;
+				app->player->savedPos.y = cp.y;
 				app->fade->Fade((Module*)app->scene3, (Module*)app->scene2, 30);
+			}
 			break;
 		case 3:
-			if (app->scene->active)
+			if (sceneOneA)
+			{
+				app->player->savedPos.x = cp.x;
+				app->player->savedPos.y = cp.y;
 				app->fade->Fade((Module*)app->scene, (Module*)app->scene3, 30);
-			else if (app->scene2->active)
+			}
+			if (sceneTwoA)
+			{
+				app->player->savedPos.x = cp.x;
+				app->player->savedPos.y = cp.y;
 				app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 30);
-			else if (app->scene3->active)
-				app->fade->Fade((Module*)app->scene3, (Module*)app->scene3, 30);
+			}
 			break;
 		}
 
@@ -467,12 +476,9 @@ bool Player::SaveState(pugi::xml_node& data) const
 	play.attribute("x").set_value(cp.x);
 	play.attribute("y").set_value(cp.y);
 
-	app->player->savedPos.x = cp.x;
-	app->player->savedPos.y = cp.y;
 
 	pugi::xml_node scene = data.child("sceneValue");
 	
-
 	if (app->scene->active == 1)
 	{
 		app->player->sceneValue = 1;
@@ -485,7 +491,11 @@ bool Player::SaveState(pugi::xml_node& data) const
 	{
 		app->player->sceneValue = 3;
 	}
-	scene.attribute("x").set_value(sceneValue);
+	scene.attribute("l").set_value(sceneValue);
+
+	app->player->savedPos.x = cp.x;
+	app->player->savedPos.y = cp.y;
+
 	return true;
 }
 

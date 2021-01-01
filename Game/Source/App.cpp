@@ -66,11 +66,11 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(collisions);
 	AddModule(map);
+	AddModule(fade);
 	AddModule(player);
 	AddModule(intro);
 	AddModule(scene);
 	AddModule(scene2);
-	AddModule(fade);
 	AddModule(titleScreen);
 	AddModule(entitymanager);
 	AddModule(scene3);
@@ -80,14 +80,15 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scenepause);
 	//AddModule(enemies);
 
+
 	scene->active = false;
+	scene2->active = false;
+	scene3->active = false;
 	scenepause->active = false;
 	creditsscene->active = false;
 	configscene->active = false;
 	player->active = false;
 	collisions->active = false;
-	scene2->active = false;
-	scene3->active = false;
 	intro->active = false;
 
 	// Render last to swap buffer

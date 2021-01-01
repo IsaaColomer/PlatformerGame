@@ -41,7 +41,10 @@ bool Scene2::Awake()
 // Called before the first frame
 bool Scene2::Start()
 {
-	app->scene2->active = true;
+	app->player->sceneTwoA = true;
+	app->player->sceneOneA = false;
+	app->player->sceneThreeA = false;
+
 	app->player->Init();
 	app->player->Start();
 
@@ -86,7 +89,6 @@ bool Scene2::Update(float dt)
 	app->render->DrawTexture(backg, 0, 0);
 	app->map->Draw();
 	app->render->DrawTexture(portal, 2370, 150);//2325
-
 	app->map->LoadColliders();
 
 	return true;
@@ -108,6 +110,7 @@ bool Scene2::PostUpdate()
 // Called before quitting
 bool Scene2::CleanUp()
 {
+	app->player->sceneTwoA = false;
 	if (!active)return true;
 
 	app->map->CleanUp();

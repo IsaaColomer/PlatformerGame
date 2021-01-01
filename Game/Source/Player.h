@@ -71,6 +71,10 @@ public:
 	bool rCon;
 	bool tCon;
 
+	bool sceneOneA;
+	bool sceneTwoA;
+	bool sceneThreeA;
+
 	//AUDIO FX
 	uint jumpFx = 0;
 	uint checkPointFx = 0;

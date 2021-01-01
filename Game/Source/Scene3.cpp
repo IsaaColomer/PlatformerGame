@@ -41,7 +41,9 @@ bool Scene3::Awake()
 // Called before the first frame
 bool Scene3::Start()
 {
-	app->scene3->active = true;
+	app->player->sceneThreeA = true;
+	app->player->sceneTwoA = false;
+	app->player->sceneOneA = false;
 	app->player->Init();
 	app->player->Start();
 
@@ -101,6 +103,7 @@ bool Scene3::PostUpdate()
 // Called before quitting
 bool Scene3::CleanUp()
 {
+	app->player->sceneThreeA = false;
 	if (!active)return true;
 
 	app->map->CleanUp();

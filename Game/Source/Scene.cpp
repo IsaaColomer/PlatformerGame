@@ -42,8 +42,9 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
-
-	app->scene->active = true;
+	app->player->sceneOneA = true;
+	app->player->sceneTwoA = false;
+	app->player->sceneThreeA = false;
 
 	app->player->Init();
 	app->player->Start();
@@ -130,6 +131,7 @@ bool Scene::PostUpdate()
 // Called before quitting
 bool Scene::CleanUp()
 {
+	app->player->sceneOneA = false;
 	if (!active)return true;
 
 	app->map->CleanUp();
@@ -142,7 +144,7 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(portal);
 	app->tex->UnLoad(flag);
 
-	//app->scene->active = false;
+	app->scene->active = false;
 
 	LOG("Freeing scene");
 	return true;
