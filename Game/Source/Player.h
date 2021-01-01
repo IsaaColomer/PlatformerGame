@@ -75,6 +75,8 @@ public:
 	bool sceneTwoA;
 	bool sceneThreeA;
 
+	bool loadPosition; 
+
 	//AUDIO FX
 	uint jumpFx = 0;
 	uint checkPointFx = 0;
