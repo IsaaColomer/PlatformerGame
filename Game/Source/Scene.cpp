@@ -74,7 +74,7 @@ bool Scene::Start()
 	app->entitymanager->AddEntity({ 1154.0f,630.0f }, Entity::Type::COIN);
 
 	app->entitymanager->AddEntity({ 1150.0f,607.0f }, Entity::Type::ENEMYG);
-	app->entitymanager->AddEntity({ 900.0f,100.0f }, Entity::Type::ENEMYG);
+	//app->entitymanager->AddEntity({ 900.0f,100.0f }, Entity::Type::ENEMYG);
 	app->entitymanager->AddEntity({ 1720.0f,607.0f }, Entity::Type::ENEMYG);
 
 	app->entitymanager->AddEntity({ 1720.0f,100.0f }, Entity::Type::ENEMYG);
