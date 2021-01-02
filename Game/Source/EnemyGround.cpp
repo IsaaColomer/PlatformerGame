@@ -12,14 +12,41 @@
 
 EnemyGround::EnemyGround(Module* listener, fPoint ep, SDL_Texture* texture, Type type) : Entity(listener, ep, texture, type)
 {
-	idleAnimation.speed = 0.05f;
-	idleAnimation.loop = true;
-	idleAnimation.PushBack({ 468,593,84,93 });
-	idleAnimation.PushBack({ 469,492,83,93 });
-	idleAnimation.PushBack({ 470,394,79,94 });
-	idleAnimation.PushBack({ 468,300,80,94 });
+	idleAnimationR.speed = 0.05f;
+	idleAnimationR.loop = true;
+	idleAnimationR.PushBack({ 468,593,84,93 });
+	idleAnimationR.PushBack({ 469,492,83,93 });
+	idleAnimationR.PushBack({ 470,394,79,94 });
+	idleAnimationR.PushBack({ 468,300,80,94 });
 
-	currentAnimation = &idleAnimation;
+	idleAnimationL.speed = 0.05f;
+	idleAnimationL.loop = true;
+	idleAnimationL.PushBack({ 0,593,84,93 });
+	idleAnimationL.PushBack({ 0,492,83,93 });
+	idleAnimationL.PushBack({ 3,394,79,94 });
+	idleAnimationL.PushBack({ 4,300,80,94 });
+
+	walkAnimRight.speed = 0.05f;
+	walkAnimRight.loop = true;
+	walkAnimRight.PushBack({ 243,592,75,94 });
+	walkAnimRight.PushBack({ 249,492,69,93 });
+	walkAnimRight.PushBack({ 249,394,77,94 });
+	walkAnimRight.PushBack({ 243,292,75,94 });
+	walkAnimRight.PushBack({ 248,187,70,94 });
+	walkAnimRight.PushBack({ 251,80,67,94 });
+
+	walkAnimLeft.speed = 0.05f;
+	walkAnimLeft.loop = true;
+	walkAnimLeft.PushBack({ 358,592,75,94 });
+	walkAnimLeft.PushBack({ 358,492,69,93 });
+	walkAnimLeft.PushBack({ 350,394,77,94 });
+	walkAnimLeft.PushBack({ 358,292,75,94 });
+	walkAnimLeft.PushBack({ 358,187,70,94 });
+	walkAnimLeft.PushBack({ 358,80,67,94 });
+
+
+
+	currentAnimation = &idleAnimationR;
 
 	collider = app->collisions->AddCollider(SDL_Rect({ (int)ep.x, (int)ep.y, 80, 95 }), Collider::Type::ENEMY, listener);
 
@@ -28,14 +55,51 @@ EnemyGround::EnemyGround(Module* listener, fPoint ep, SDL_Texture* texture, Type
 
 bool EnemyGround::Start()
 {
+	enemyLeft = false;
+	enemyRight = true;
 	return true;
 }
 
 bool EnemyGround::Update(float dt)
 {
+	if (enemyLeft == false)
+	{
+		currentAnimation = &idleAnimationL;
+	}
+	else
+	{
+		currentAnimation = &idleAnimationR;
+	}
+	if (app->player->cp.x < ep.x)
+	{
+		enemyLeft = true;
+		enemyRight = false;
+	}
+	if (app->player->cp.x > ep.x)
+	{
+		enemyLeft = false;
+		enemyRight = true;
+	}
+	if (app->pathfinding->destinationIsFind == false && enemyRight == true)
+	{
+		currentAnimation = &walkAnimRight;
+	}
+	if (app->pathfinding->destinationIsFind == false && enemyLeft == true)
+	{
+		currentAnimation = &walkAnimLeft;
+	}
+	if (app->pathfinding->destinationIsFind == true && enemyRight == true)
+	{
+		currentAnimation = &idleAnimationR;
+	}
+	if (app->pathfinding->destinationIsFind == true && enemyRight == true)
+	{
+		currentAnimation = &idleAnimationL;
+	}
 	vey += gravity;
 	ep.x += vex;
 	ep.y += vey;
+
 	if (Radar(app->player->cp))
 	{
 			//If player move
@@ -57,7 +121,6 @@ bool EnemyGround::Update(float dt)
 			}
 		//}
 	}
-	currentAnimation = &idleAnimation;
 	currentAnimation->Update();
 	collider->SetPos(ep.x, ep.y);
 	return true;

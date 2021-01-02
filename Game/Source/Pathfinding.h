@@ -43,6 +43,8 @@ public:
 	void PropagateAStar(const fPoint&);
 	void ComputePathAStar(const fPoint& origin, const fPoint& destination);
 
+	bool destinationIsFind;
+
 private:
 
 	// size of the map
@@ -53,7 +55,7 @@ private:
 	List<fPoint> breadcrumbs;
 	// all map walkability values [0..255]
 	uchar* map;
-	bool destinationIsFind;
+
 	// we store the created path here
 	DynArray<fPoint> lastPath;
 };

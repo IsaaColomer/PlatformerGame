@@ -57,7 +57,7 @@ bool Scene::Start()
 		app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg", 1.0f);
 	}
 
-	if (app->map->Load("drawable.tmx") == true)
+	if (app->map->Load("maps.tmx") == true)
 	{
 		int w, h;
 		uchar* data = NULL;
@@ -66,7 +66,6 @@ bool Scene::Start()
 
 		RELEASE_ARRAY(data);
 	}
-
 
 	//COINS LVL1
 	app->entitymanager->AddEntity({ 419.0f,441.0f }, Entity::Type::COIN);

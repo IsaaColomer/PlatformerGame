@@ -26,8 +26,10 @@ public:
 	void CleanUp();
 
 private:
-	Animation idleAnimation;
+	Animation idleAnimationR;
+	Animation idleAnimationL;
 	Animation walkAnimRight;
+	Animation walkAnimLeft;
 	Animation* currentAnimation;
 
 	bool Radar(fPoint origin);
@@ -40,6 +42,9 @@ private:
 	int range = 600;
 	bool isDetected = false;
 	bool returning;
+
+	bool enemyLeft;
+	bool enemyRight;
 
 	float vey;
 	float gravity = 0.2f;
