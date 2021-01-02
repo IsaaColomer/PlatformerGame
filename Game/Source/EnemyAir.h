@@ -25,9 +25,13 @@ public:
 
 	void CleanUp();
 
+	bool enemyAirLeft;
+	bool enemyAirRight;
+
 private:
 	Animation idleAnimation;
 	Animation walkAnimRight;
+	Animation walkAnimLeft;
 	Animation* currentAnimation;
 
 	bool Radar(fPoint origin);

@@ -10,18 +10,29 @@
 
 EnemyAir::EnemyAir(Module* listener, fPoint ep, SDL_Texture* texture, Type type) : Entity(listener, ep, texture, type)
 {
-	idleAnimation.speed = 0.15f;
-	idleAnimation.loop = true;
-	idleAnimation.PushBack({ 0,35,80,50 });
-	idleAnimation.PushBack({ 84,37,81,48 });
-	idleAnimation.PushBack({ 169,35,85,48 });
-	idleAnimation.PushBack({ 258,30,80,48 });
-	idleAnimation.PushBack({ 343,27,79,50 });
-	idleAnimation.PushBack({ 430,24,81,58 });
-	idleAnimation.PushBack({ 515,27,82,64 });
-	idleAnimation.PushBack({ 606,23,82,62 });
+	walkAnimLeft.speed = 0.15f;
+	walkAnimLeft.loop = true;
+	walkAnimLeft.PushBack({ 0,35,80,50 });
+	walkAnimLeft.PushBack({ 84,37,81,48 });
+	walkAnimLeft.PushBack({ 169,35,85,48 });
+	walkAnimLeft.PushBack({ 258,30,80,48 });
+	walkAnimLeft.PushBack({ 343,27,79,50 });
+	walkAnimLeft.PushBack({ 430,24,81,58 });
+	walkAnimLeft.PushBack({ 515,27,82,64 });
+	walkAnimLeft.PushBack({ 606,23,82,62 });
 
-	currentAnimation = &idleAnimation;
+	walkAnimRight.speed = 0.15f;
+	walkAnimRight.loop = true;
+	walkAnimRight.PushBack({ 608,112,80,50 });
+	walkAnimRight.PushBack({ 523,114,81,48 });
+	walkAnimRight.PushBack({ 434,112,85,48 });
+	walkAnimRight.PushBack({ 350,107,80,48 });
+	walkAnimRight.PushBack({ 266,104,79,50 });
+	walkAnimRight.PushBack({ 177,101,81,58 });
+	walkAnimRight.PushBack({ 91,104,82,64 });
+	walkAnimRight.PushBack({ 0,100,82,62 });
+
+	currentAnimation = &walkAnimLeft;
 
 	collider = app->collisions->AddCollider(SDL_Rect({ (int)ep.x, (int)ep.y, 80, 95 }), Collider::Type::ENEMY, listener);
 
@@ -35,6 +46,25 @@ bool EnemyAir::Start()
 
 bool EnemyAir::Update(float dt)
 {
+
+	if (enemyAirLeft == false)
+	{
+		currentAnimation = &walkAnimRight;
+	}
+	else
+	{
+		currentAnimation = &walkAnimLeft;
+	}
+	if (app->player->cp.x < ep.x)
+	{
+		enemyAirLeft = true;
+		enemyAirRight = false;
+	}
+	if (app->player->cp.x > ep.x)
+	{
+		enemyAirLeft = false;
+		enemyAirRight = true;
+	}
 	if (Radar(app->player->cp))
 	{
 		//Direction
@@ -80,7 +110,6 @@ bool EnemyAir::Update(float dt)
 		}
 		//}
 	}
-	currentAnimation = &idleAnimation;
 	currentAnimation->Update();
 	collider->SetPos(ep.x, ep.y);
 
