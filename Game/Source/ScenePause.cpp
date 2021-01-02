@@ -51,19 +51,31 @@ bool ScenePause::Start()
 	scenepauseback = app->tex->Load("Assets/Screens/Title/pause_screen.png");
 	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
 
-	btnExit = new GuiButton(4, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
+	btnExit = new GuiButton(4, { 1280 / 2 - 300 / 2, 575, 300, 80 }, "EXIT");
 	btnExit->SetObserver((Scene*)this);
 	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
 
-	btnBackToTitle = new GuiButton(12, { 1280 / 2 - 300 / 2, 400, 300, 80 }, "BACK_TO_TITLE");
+	btnLvl1 = new GuiButton(13, { 1280 / 2 - 300 / 2, 350, 300, 80 }, "LVL1");
+	btnLvl1->SetObserver((Scene*)this);
+	btnLvl1->SetTexture(app->tex->Load("Assets/GUI/level1.png"), app->tex->Load("Assets/GUI/level1_selected.png"), app->tex->Load("Assets/GUI/level1_focused.png"));
+
+	btnLvl2 = new GuiButton(14, { 1280 / 2 - 300 / 2, 425, 300, 80 }, "LVL2");
+	btnLvl2->SetObserver((Scene*)this);
+	btnLvl2->SetTexture(app->tex->Load("Assets/GUI/level2.png"), app->tex->Load("Assets/GUI/level2_selected.png"), app->tex->Load("Assets/GUI/level2_focused.png"));
+
+	btnLvl3 = new GuiButton(15, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "LVL3");
+	btnLvl3->SetObserver((Scene*)this);
+	btnLvl3->SetTexture(app->tex->Load("Assets/GUI/level3.png"), app->tex->Load("Assets/GUI/level3_selected.png"), app->tex->Load("Assets/GUI/level3_focused.png"));
+
+	btnBackToTitle = new GuiButton(12, { 1280 / 2 - 300 / 2, 275, 300, 80 }, "BACK_TO_TITLE");
 	btnBackToTitle->SetObserver((Scene*)this);
 	btnBackToTitle->SetTexture(app->tex->Load("Assets/GUI/back_to_title.png"), app->tex->Load("Assets/GUI/back_to_title_selected.png"), app->tex->Load("Assets/GUI/back_to_title_focused.png"));
 
-	btnResume = new GuiButton(5, { (1280 / 2 - 300 / 2), 180, 300, 80 }, "RESUME");
+	btnResume = new GuiButton(5, { (1280 / 2 - 300 / 2), 125, 300, 80 }, "RESUME");
 	btnResume->SetObserver((Scene*)this);
 	btnResume->SetTexture(app->tex->Load("Assets/GUI/resume.png"), app->tex->Load("Assets/GUI/resume_selected.png"), app->tex->Load("Assets/GUI/resume_focused.png"));
 
-	btnSettings = new GuiButton(2, { (1280 / 2 - 300 / 2), 300, 300, 80 }, "SETTINGS");
+	btnSettings = new GuiButton(2, { (1280 / 2 - 300 / 2), 200, 300, 80 }, "SETTINGS");
 	btnSettings->SetObserver((Scene*)this);
 	btnSettings->SetTexture(app->tex->Load("Assets/GUI/settings.png"), app->tex->Load("Assets/GUI/settings_selected.png"), app->tex->Load("Assets/GUI/settings_focused.png"));
 
@@ -84,6 +96,9 @@ bool ScenePause::Update(float dt)
 	btnResume->Update(app->input, dt);
 	btnSettings->Update(app->input, dt);
 	btnBackToTitle->Update(app->input, dt);
+	btnLvl1->Update(app->input, dt);
+	btnLvl2->Update(app->input, dt);
+	btnLvl3->Update(app->input, dt);
 
 	if (app->intro->exit == true)
 	{
@@ -102,6 +117,10 @@ bool ScenePause::PostUpdate()
 	btnResume->Draw(app->render);
 	btnSettings->Draw(app->render);
 	btnBackToTitle->Draw(app->render);
+
+	btnLvl1->Draw(app->render);
+	btnLvl2->Draw(app->render);
+	btnLvl3->Draw(app->render);
 	
 
 	return true;

@@ -179,6 +179,19 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			app->fade->Fade((Module*)this, (Module*)app->intro, 1);
 		}
+
+		if (control->id == 13)
+		{
+			app->fade->Fade((Module*)this, (Module*)app->scene, 1);
+		}
+		if (control->id == 14)
+		{
+			app->fade->Fade((Module*)this, (Module*)app->scene2, 1);
+		}
+		if (control->id == 15)
+		{
+			app->fade->Fade((Module*)this, (Module*)app->scene3, 1);
+		}
 	}
 
 	case GuiControlType::SLIDER:

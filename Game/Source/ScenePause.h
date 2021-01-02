@@ -44,6 +44,9 @@ public:
 	bool spaced;
 private:
 	GuiButton* btnExit;
+	GuiButton* btnLvl1;
+	GuiButton* btnLvl2;
+	GuiButton* btnLvl3;
 	GuiButton* btnResume;
 	GuiButton* btnSettings;
 	GuiButton* btnBackToTitle;
