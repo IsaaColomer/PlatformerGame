@@ -44,9 +44,7 @@ EnemyGround::EnemyGround(Module* listener, fPoint ep, SDL_Texture* texture, Type
 	walkAnimLeft.PushBack({ 358,187,70,94 });
 	walkAnimLeft.PushBack({ 358,80,67,94 });
 
-
-
-	currentAnimation = &idleAnimationR;
+	currentAnimation = &idleAnimationL;
 
 	collider = app->collisions->AddCollider(SDL_Rect({ (int)ep.x, (int)ep.y, 80, 95 }), Collider::Type::ENEMY, listener);
 
@@ -55,21 +53,13 @@ EnemyGround::EnemyGround(Module* listener, fPoint ep, SDL_Texture* texture, Type
 
 bool EnemyGround::Start()
 {
-	enemyLeft = false;
-	enemyRight = true;
+	enemyLeft = true;
+	enemyRight = false;
 	return true;
 }
 
 bool EnemyGround::Update(float dt)
 {
-	if (enemyLeft == false)
-	{
-		currentAnimation = &idleAnimationL;
-	}
-	else
-	{
-		currentAnimation = &idleAnimationR;
-	}
 	if (app->player->cp.x < ep.x)
 	{
 		enemyLeft = true;
@@ -80,20 +70,24 @@ bool EnemyGround::Update(float dt)
 		enemyLeft = false;
 		enemyRight = true;
 	}
+	if (app->pathfinding->destinationIsFind == true && enemyRight == true)
+	{
+		walkAnimRight.Reset();
+		currentAnimation = &walkAnimRight;
+	}
+	if (app->pathfinding->destinationIsFind == true && enemyLeft == true)
+	{
+		walkAnimLeft.Reset();
+		currentAnimation = &walkAnimLeft;
+	}
 	if (app->pathfinding->destinationIsFind == false && enemyRight == true)
 	{
-		currentAnimation = &walkAnimRight;
+		idleAnimationR.Reset();
+		currentAnimation = &idleAnimationR;
 	}
 	if (app->pathfinding->destinationIsFind == false && enemyLeft == true)
 	{
-		currentAnimation = &walkAnimLeft;
-	}
-	if (app->pathfinding->destinationIsFind == true && enemyRight == true)
-	{
-		currentAnimation = &idleAnimationR;
-	}
-	if (app->pathfinding->destinationIsFind == true && enemyRight == true)
-	{
+		idleAnimationR.Reset();
 		currentAnimation = &idleAnimationL;
 	}
 	vey += gravity;
@@ -107,7 +101,6 @@ bool EnemyGround::Update(float dt)
 			fPoint playerPosW = app->player->cp;
 			fPoint playerPosM = app->map->WorldToMap(playerPosW.x, playerPosW.y);
 
-
 			//Cerate Path
 			CreatePathEnemy(enemyPos, playerPosM);
 			int i = GetCurrentPositionInPath(enemyPos);
@@ -119,7 +112,6 @@ bool EnemyGround::Update(float dt)
 				fPoint posNextAuxE = app->map->MapToWorld(posNextE.x, posNextE.y);
 				MoveEnemy(posNextAuxE, enemyPos);
 			}
-		//}
 	}
 	currentAnimation->Update();
 	collider->SetPos(ep.x, ep.y);
