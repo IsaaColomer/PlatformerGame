@@ -170,7 +170,6 @@ bool App::Awake()
 bool App::Start()
 {
 	PERF_START(perfTimer);
-	frameTime.Start();
 	lastSec.Start();
 
 	bool ret = true;
@@ -211,6 +210,7 @@ bool App::Update()
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 	{
 		fpsCap = !fpsCap;
+		expectedFPS = (fpsCap) ? 60 : 144;
 	}
 
 	FinishUpdate();
@@ -234,44 +234,45 @@ pugi::xml_node App::LoadConfig(pugi::xml_document& configFile) const
 // ---------------------------------------------
 void App::PrepareUpdate()
 {
-	fpsCount++;
-	lastSecFrameCnt++;
-
 	dt = frameTime.ReadSec();
-	frameRate = (fpsCap) ? 1000 / 30 : 1000 / 60;
-	fps = SDL_GetTicks();
+
+	fpsCount++;
+	lastSecFrameCount++;
+
+	startFrameTimeMs = SDL_GetTicks();
 }
 
 // ---------------------------------------------
 void App::FinishUpdate()
 {
-	tempFps = SDL_GetTicks() - fps;
-
 	if (loadGameRequested == true) LoadGame();
 	if (saveGameRequested == true) SaveGame();
-	/*
-	uint32 framesOnLastUpdate = 0;*/	
-	float average = fpsCount / startTime.ReadSec();
 
-	frameTime.ReadSec();
-	if (frameTime.ReadSec() > 1.0f)
+
+	fpsEveryFrame = (previousLastSecFrameCount + lastSecFrameCount) / 2;
+
+	if (lastSec.ReadSec() > 1.0f)
 	{
-		framesSecond = lastSecFrameCnt;
-		lastSecFrameCnt = 0;
-		frameTime.Start();
+		fpsEverySec = lastSecFrameCount;
+
+		previousLastSecFrameCount = lastSecFrameCount;
+		lastSecFrameCount = 0;
+		lastSec.Start();
 	}
 
-	oldLastFrame = lastFrameInMs;
-	lastFrameInMs = lastSec.Read();
-	lastSec.Start();
+	fpsAverageSinceStart = fpsCount / startTime.ReadSec();
 
-	if (frameRate > tempFps)
+	lastFrameInMs = SDL_GetTicks() - startFrameTimeMs;
+
+	if (dt < (1000 / expectedFPS))
 	{
-		SDL_Delay(frameRate - tempFps);
+		SDL_Delay((1000 / expectedFPS) - dt);
 	}
+	frameTime.Start();
+
 	static char title[256];
-	sprintf_s(title, 256, "FPS: %d | AVG FPS %.2f | Last Frame in ms: %d | VSync = On ",
-	framesSecond, average, lastFrameInMs);
+	sprintf_s(title, 256, "FPS(dt): %.2f | FPS: %d | AVG FPS %.2f | Last Frame in ms: %d | VSync = On ",
+		fpsEveryFrame, fpsEverySec, fpsAverageSinceStart, lastFrameInMs);
 	app->win->SetTitle(title);
 }
 
@@ -352,7 +353,7 @@ bool App::CleanUp()
 		item = item->prev;
 	}
 
-	lastSecFrameCnt += startTime.Read();
+	lastSecFrameCount += startTime.Read();
 
 	return ret;
 }

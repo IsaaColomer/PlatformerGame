@@ -114,7 +114,7 @@ public:
 	CreditsScene* creditsscene;
 	ScenePause* scenepause;
 
-	float frameRate = 0.0f;
+	uint32 expectedFPS = 30;
 	bool fpsCap;
 private:
 
@@ -125,26 +125,23 @@ private:
 
 	List<Module *> modules;
 
-	uint frames;
-	PerfTimer perfTimer;
-	uint64 fpsCount = 0;
 
 	Timer startTime;
 	Timer frameTime;
 	Timer lastSec;
-	uint32 lastFrameInMs = 0;
-	uint32 lastSecFrameCnt = 0;
-	uint32 prevLastSecFrameCnt = 0;
-	uint32 framesSecond = 0;
-	uint32 lastFrameMs = 0;
-	float average;
 	float dt;
-	float timePerfect;
-	float oldLastFrame = 0.0f;
-	int	cappedMs = -1;
-	float fps = 0.0f;
-	float tempFps = 0.0f;
-	float frameSec = 0.0f;
+	float startFrameTimeMs = 0.0f;
+	uint32 lastSecFrameCount = 0;
+	uint32 previousLastSecFrameCount = 0;
+
+	uint frames;
+	PerfTimer perfTimer;
+	uint64 fpsCount = 0;
+
+	float fpsEveryFrame = 0.0f;
+	uint32 fpsEverySec = 0;
+	float fpsAverageSinceStart = 0.0f;
+	uint32 lastFrameInMs = 0;
 
 	mutable bool saveGameRequested;
 	bool loadGameRequested;

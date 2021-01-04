@@ -6,10 +6,10 @@
 	<audio />
 	<scene />
 	<player>
-		<position x="1956.48865" y="590" />
+		<position x="1312.20129" y="458.015991" />
 		<sceneValue l="1" />
 	</player>
 	<renderer>
-		<camera x="-1275" y="0" />
+		<camera x="-672" y="0" />
 	</renderer>
 </save>
