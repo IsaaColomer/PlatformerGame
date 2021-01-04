@@ -210,7 +210,7 @@ bool App::Update()
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 	{
 		fpsCap = !fpsCap;
-		expectedFPS = (fpsCap) ? 60 : 144;
+		expectedFPS = (fpsCap) ? 30 : 60;
 	}
 
 	FinishUpdate();
@@ -234,7 +234,7 @@ pugi::xml_node App::LoadConfig(pugi::xml_document& configFile) const
 // ---------------------------------------------
 void App::PrepareUpdate()
 {
-	dt = frameTime.ReadSec();
+	dt = frameTime.Read();
 
 	fpsCount++;
 	lastSecFrameCount++;
@@ -248,13 +248,11 @@ void App::FinishUpdate()
 	if (loadGameRequested == true) LoadGame();
 	if (saveGameRequested == true) SaveGame();
 
-
-	fpsEveryFrame = (previousLastSecFrameCount + lastSecFrameCount) / 2;
+	frameTime.Start();
 
 	if (lastSec.ReadSec() > 1.0f)
 	{
 		fpsEverySec = lastSecFrameCount;
-
 		previousLastSecFrameCount = lastSecFrameCount;
 		lastSecFrameCount = 0;
 		lastSec.Start();
@@ -262,17 +260,15 @@ void App::FinishUpdate()
 
 	fpsAverageSinceStart = fpsCount / startTime.ReadSec();
 
-	lastFrameInMs = SDL_GetTicks() - startFrameTimeMs;
-
 	if (dt < (1000 / expectedFPS))
 	{
-		SDL_Delay((1000 / expectedFPS) - dt);
+		float delay = (1000 / expectedFPS) - dt;
+		SDL_Delay(delay);
 	}
-	frameTime.Start();
 
 	static char title[256];
-	sprintf_s(title, 256, "FPS(dt): %.2f | FPS: %d | AVG FPS %.2f | Last Frame in ms: %d | VSync = On ",
-		fpsEveryFrame, fpsEverySec, fpsAverageSinceStart, lastFrameInMs);
+	sprintf_s(title, 256, "FPS: %d | AVG FPS %.2f | Last Frame in ms: %d(dt) | VSync = On ",
+		fpsEverySec, fpsAverageSinceStart, uint32(dt));
 	app->win->SetTitle(title);
 }
 

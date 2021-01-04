@@ -129,7 +129,7 @@ private:
 	Timer startTime;
 	Timer frameTime;
 	Timer lastSec;
-	float dt;
+	float dt = 0.0f;
 	float startFrameTimeMs = 0.0f;
 	uint32 lastSecFrameCount = 0;
 	uint32 previousLastSecFrameCount = 0;
@@ -138,10 +138,8 @@ private:
 	PerfTimer perfTimer;
 	uint64 fpsCount = 0;
 
-	float fpsEveryFrame = 0.0f;
 	uint32 fpsEverySec = 0;
 	float fpsAverageSinceStart = 0.0f;
-	uint32 lastFrameInMs = 0;
 
 	mutable bool saveGameRequested;
 	bool loadGameRequested;

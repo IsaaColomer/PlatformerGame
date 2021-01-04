@@ -6,7 +6,7 @@
 	<audio />
 	<scene />
 	<player>
-		<position x="80" y="4.5000008e-05" />
+		<position x="69" y="229.360764" />
 		<sceneValue l="1" />
 	</player>
 	<renderer>
