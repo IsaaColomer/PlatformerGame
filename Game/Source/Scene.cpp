@@ -56,16 +56,13 @@ bool Scene::Start()
 	{
 		app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg", 1.0f);
 	}
+	
+	int w, h;
+	uchar* data = NULL;
 
-	if (app->map->Load("maps.tmx") == true)
-	{
-		int w, h;
-		uchar* data = NULL;
+	if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
 
-		if (app->map->CreateWalkabilityMap(w, h, &data)) app->pathfinding->SetMap(w, h, data);
-
-		RELEASE_ARRAY(data);
-	}
+	RELEASE_ARRAY(data);
 
 	//COINS LVL1
 	app->entitymanager->AddEntity({ 419.0f,441.0f }, Entity::Type::COIN);
@@ -88,8 +85,8 @@ bool Scene::Start()
 	portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
 	flag = app->tex->Load("Assets/Screens/Gameplay/flag.png");
 
-
 	app->map->Load("map.tmx");
+	
 	return true;
 }
 
