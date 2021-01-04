@@ -99,6 +99,11 @@ public:
     //Font font;              // Text font
 
     Scene* observer;        // Observer module (it should probably be an array/list)
+
+    uint buttonFx;
+    uint pressedFx;
+    bool audioFx;
+    bool pressedFxB;
 };
 
 #endif // __GUICONTROL_H__

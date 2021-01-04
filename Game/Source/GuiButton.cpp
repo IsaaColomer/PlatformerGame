@@ -2,11 +2,16 @@
 #include "App.h"
 #include "Intro.h"
 #include "ConfigScene.h"
+#include "Audio.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
     this->bounds = bounds;
     this->text = text;
+    audioFx = false;
+    pressedFx = false;
+    buttonFx = app->audio->LoadFx("Assets/Audio/Fx/selected.wav");
+    pressedFx = app->audio->LoadFx("Assets/Audio/Fx/clicked.wav");
 }
 
 GuiButton::~GuiButton()
@@ -53,12 +58,24 @@ bool GuiButton::Draw(Render* render)
     case GuiControlState::NORMAL:
         /*render->DrawRectangle(bounds, 0, 255, 0, 255);*/
         app->render->DrawTexture(textureIdle, bounds.x, bounds.y, NULL);
+        audioFx = false;
+        pressedFxB = false;
         break;
     case GuiControlState::FOCUSED: 
         app->render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
+        if (audioFx == false)
+        {
+            audioFx = true;
+            app->audio->PlayFx(buttonFx);
+        }
         break;
     case GuiControlState::PRESSED:
         app->render->DrawTexture(textureClicked, bounds.x, bounds.y, NULL);
+        if (pressedFxB == false)
+        {
+            pressedFxB = true;
+            app->audio->PlayFx(pressedFx);
+        }
         break;
     case GuiControlState::SELECTED: render->DrawRectangle(bounds, 0, 255, 0, 255);
         break;
