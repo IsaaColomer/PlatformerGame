@@ -182,15 +182,15 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 
 		if (control->id == 13)
 		{
+			app->scene->tpToScene = true;
+			app->scene2->tpToScene2 = false;
 			app->fade->Fade((Module*)this, (Module*)app->scene, 1);
 		}
 		if (control->id == 14)
 		{
+			app->scene2->tpToScene2 = true;
+			app->scene->tpToScene = false;
 			app->fade->Fade((Module*)this, (Module*)app->scene2, 1);
-		}
-		if (control->id == 15)
-		{
-			app->fade->Fade((Module*)this, (Module*)app->scene3, 1);
 		}
 	}
 

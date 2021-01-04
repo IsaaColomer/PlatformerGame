@@ -48,6 +48,12 @@ bool Scene2::Start()
 	app->player->Init();
 	app->player->Start();
 
+	if (tpToScene2)
+	{
+		app->player->cp.x = 1150;
+		app->player->cp.y = 170;
+	}
+
 	app->map->active = true;
 	app->collisions->active = true;
 

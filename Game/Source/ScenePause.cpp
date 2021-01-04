@@ -63,10 +63,6 @@ bool ScenePause::Start()
 	btnLvl2->SetObserver((Scene*)this);
 	btnLvl2->SetTexture(app->tex->Load("Assets/GUI/level2.png"), app->tex->Load("Assets/GUI/level2_selected.png"), app->tex->Load("Assets/GUI/level2_focused.png"));
 
-	btnLvl3 = new GuiButton(15, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "LVL3");
-	btnLvl3->SetObserver((Scene*)this);
-	btnLvl3->SetTexture(app->tex->Load("Assets/GUI/level3.png"), app->tex->Load("Assets/GUI/level3_selected.png"), app->tex->Load("Assets/GUI/level3_focused.png"));
-
 	btnBackToTitle = new GuiButton(12, { 1280 / 2 - 300 / 2, 275, 300, 80 }, "BACK_TO_TITLE");
 	btnBackToTitle->SetObserver((Scene*)this);
 	btnBackToTitle->SetTexture(app->tex->Load("Assets/GUI/back_to_title.png"), app->tex->Load("Assets/GUI/back_to_title_selected.png"), app->tex->Load("Assets/GUI/back_to_title_focused.png"));
@@ -98,7 +94,6 @@ bool ScenePause::Update(float dt)
 	btnBackToTitle->Update(app->input, dt);
 	btnLvl1->Update(app->input, dt);
 	btnLvl2->Update(app->input, dt);
-	btnLvl3->Update(app->input, dt);
 
 	if (app->intro->exit == true)
 	{
@@ -120,8 +115,6 @@ bool ScenePause::PostUpdate()
 
 	btnLvl1->Draw(app->render);
 	btnLvl2->Draw(app->render);
-	btnLvl3->Draw(app->render);
-	
 
 	return true;
 }

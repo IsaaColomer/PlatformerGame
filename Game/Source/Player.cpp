@@ -114,11 +114,6 @@ bool Player::Start()
 	destroyedFx = app->audio->LoadFx("Assets/Audio/Fx/enemy_destroyed.wav");
 	lifeUpFx = app->audio->LoadFx("Assets/Audio/Fx/life.wav");
 
-	/*SDL_Rect playerCollider = { cp.x,cp.y,66,110 };
-	collider = app->collisions->AddCollider(playerCollider, Collider::Type::PLAYER_BOT, this);*/
-	/*SDL_Rect bottom = { cp.x + 10,cp.y+110, 40,30 };
-	colliderB = app->collisions->AddCollider(bottom, Collider::Type::PLAYERBOT, this);*/
-
 	SDL_Rect top = { cp.x + 10,cp.y, 66 - 20, 10 };
 	SDL_Rect bot = { cp.x + 10,cp.y + 110, 66 - 20, 10 };
 	SDL_Rect left = { cp.x,cp.y + 10, 10, 110 - 20 };
