@@ -132,6 +132,7 @@ private:
 	Timer startTime;
 	Timer frameTime;
 	Timer lastSec;
+	uint32 lastFrameInMs = 0;
 	uint32 lastSecFrameCnt = 0;
 	uint32 prevLastSecFrameCnt = 0;
 	uint32 framesSecond = 0;

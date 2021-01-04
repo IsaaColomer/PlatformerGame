@@ -245,16 +245,15 @@ void App::PrepareUpdate()
 // ---------------------------------------------
 void App::FinishUpdate()
 {
+	tempFps = SDL_GetTicks() - fps;
+
 	if (loadGameRequested == true) LoadGame();
 	if (saveGameRequested == true) SaveGame();
-
-	uint32 lastFrameInMs = 0;
-	uint32 framesOnLastUpdate = 0;
-	tempFps = SDL_GetTicks() - fps;
-	
+	/*
+	uint32 framesOnLastUpdate = 0;*/	
 	float average = fpsCount / startTime.ReadSec();
 
-	//frameSec += dt;
+	frameTime.ReadSec();
 	if (frameTime.ReadSec() > 1.0f)
 	{
 		framesSecond = lastSecFrameCnt;
@@ -272,7 +271,7 @@ void App::FinishUpdate()
 	}
 	static char title[256];
 	sprintf_s(title, 256, "FPS: %d | AVG FPS %.2f | Last Frame in ms: %d | VSync = On ",
-		framesSecond, average, lastFrameInMs);
+	framesSecond, average, lastFrameInMs);
 	app->win->SetTitle(title);
 }
 
