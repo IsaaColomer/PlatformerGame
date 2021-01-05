@@ -158,19 +158,8 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 5)
 		{
-			if (app->scene->sceneOnScreen)
-			{
-				app->fade->Fade((Module*)this, (Module*)app->scene, 1);
-			}
-			if (app->scene2->scene2OnScreen)
-			{
-				app->fade->Fade((Module*)this, (Module*)app->scene2, 1);
-			}
-			if (app->scene3->scene3OnScreen)
-			{
-				app->fade->Fade((Module*)this, (Module*)app->scene3, 1);
-			}
-			app->LoadGameRequest();
+			app->escaped = false;
+		//	app->LoadGameRequest();
 		}
 		if (control->id == 6)
 		{

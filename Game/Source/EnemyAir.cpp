@@ -120,7 +120,8 @@ bool EnemyAir::Draw()
 {
 	SDL_Rect rectEnemy;
 	rectEnemy = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(texture, ep.x, ep.y, &rectEnemy);
+	if(!app->escaped)
+		app->render->DrawTexture(texture, ep.x, ep.y, &rectEnemy);
 
 	return true;
 }

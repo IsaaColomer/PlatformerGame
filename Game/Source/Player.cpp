@@ -126,6 +126,33 @@ bool Player::Start()
 	currentAnimation = &idleAnimR;
 	currentFloppy = &floppyAnim;
 
+	scenepauseback = app->tex->Load("Assets/Screens/Title/pause_screen.png");
+	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
+
+	btnExit = new GuiButton(4, { 1280 / 2 - 300 / 2, 575, 300, 80 }, "EXIT");
+	btnExit->SetObserver((Scene*)this);
+	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
+
+	btnLvl1 = new GuiButton(13, { 1280 / 2 - 300 / 2, 350, 300, 80 }, "LVL1");
+	btnLvl1->SetObserver((Scene*)this);
+	btnLvl1->SetTexture(app->tex->Load("Assets/GUI/level1.png"), app->tex->Load("Assets/GUI/level1_selected.png"), app->tex->Load("Assets/GUI/level1_focused.png"));
+
+	btnLvl2 = new GuiButton(14, { 1280 / 2 - 300 / 2, 425, 300, 80 }, "LVL2");
+	btnLvl2->SetObserver((Scene*)this);
+	btnLvl2->SetTexture(app->tex->Load("Assets/GUI/level2.png"), app->tex->Load("Assets/GUI/level2_selected.png"), app->tex->Load("Assets/GUI/level2_focused.png"));
+
+	btnBackToTitle = new GuiButton(12, { 1280 / 2 - 300 / 2, 275, 300, 80 }, "BACK_TO_TITLE");
+	btnBackToTitle->SetObserver((Scene*)this);
+	btnBackToTitle->SetTexture(app->tex->Load("Assets/GUI/back_to_title.png"), app->tex->Load("Assets/GUI/back_to_title_selected.png"), app->tex->Load("Assets/GUI/back_to_title_focused.png"));
+
+	btnResume = new GuiButton(5, { (1280 / 2 - 300 / 2), 125, 300, 80 }, "RESUME");
+	btnResume->SetObserver((Scene*)this);
+	btnResume->SetTexture(app->tex->Load("Assets/GUI/resume.png"), app->tex->Load("Assets/GUI/resume_selected.png"), app->tex->Load("Assets/GUI/resume_focused.png"));
+
+	btnSettings = new GuiButton(2, { (1280 / 2 - 300 / 2), 200, 300, 80 }, "SETTINGS");
+	btnSettings->SetObserver((Scene*)this);
+	btnSettings->SetTexture(app->tex->Load("Assets/GUI/settings.png"), app->tex->Load("Assets/GUI/settings_selected.png"), app->tex->Load("Assets/GUI/settings_focused.png"));
+
 	return true;
 }
 
@@ -143,215 +170,217 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE
-		&& app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE
-		&& app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE)
+	if (!app->escaped)
 	{
-		if (facingLeft == false)
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE
+			&& app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE
+			&& app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE)
 		{
-			currentAnimation = &idleAnimR;
+			if (facingLeft == false)
+			{
+				currentAnimation = &idleAnimR;
+			}
+			else
+			{
+				currentAnimation = &idleAnimL;
+			}
+		}
+		//DEBUG KEYS
+		if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		{
+			if (app->intro->active)
+			{
+				app->fade->Fade((Module*)app->intro, (Module*)app->scene, 60);
+			}
+			else if (app->scene2->active)
+			{
+				app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 60);
+				app->entitymanager->CleanUp();
+			}
+			else if (app->scene3->active)
+			{
+				app->fade->Fade((Module*)app->scene3, (Module*)app->scene, 60);
+				app->entitymanager->CleanUp();
+			}
+		}
+		if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		{
+			if (app->intro->active)
+			{
+				app->fade->Fade((Module*)app->intro, (Module*)app->scene2, 60);
+			}
+			else if (app->scene->active)
+			{
+				app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
+				app->entitymanager->CleanUp();
+			}
+			else if (app->scene3->active)
+			{
+				app->fade->Fade((Module*)app->scene3, (Module*)app->scene2, 60);
+				app->entitymanager->CleanUp();
+			}
+		}
+		if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+		{
+			if (app->intro->active)
+			{
+				app->fade->Fade((Module*)app->intro, (Module*)app->scene3, 60);
+			}
+			else if (app->scene->active)
+			{
+				app->fade->Fade((Module*)app->scene, (Module*)app->scene3, 60);
+				app->entitymanager->CleanUp();
+			}
+			else if (app->scene2->active)
+			{
+				app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 60);
+				app->entitymanager->CleanUp();
+			}
+		}
+		if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+		{
+			godMode = !godMode;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		{
+			resetPlayer();
+		}
+		if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+		{
+			app->LoadGameRequest();
+		}
+		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		{
+			app->escaped = !app->escaped;
+
+			app->SaveGameRequest();
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		{
+			if (fCount == 180)
+			{
+				app->SaveGameRequest();
+				fCount = 0;
+				floppyAnim.Reset();
+			}
+			notSaved = true;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+		{
+			app->collisions->DebugRequest();
+		}
+		//PLAYER INPUT
+		if (!godMode)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jumps < 2)
+			{
+				vcy = jump;
+				app->audio->PlayFx(jumpFx);
+				ong = false;
+				jumps++;
+			}
+
+			if (!ong)
+			{
+				if (vcy < 500) vcy -= GRAV * dt;
+				cp.y += vcy * dt;
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+			{
+				if (currentAnimation != &jumpAnim)
+				{
+					jumpAnim.Reset();
+					currentAnimation = &jumpAnim;
+				}
+			}
 		}
 		else
 		{
-			currentAnimation = &idleAnimL;
-		}
-	}
-	//DEBUG KEYS
-	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-	{
-		if (app->intro->active)
-		{
-			app->fade->Fade((Module*)app->intro, (Module*)app->scene, 60);
-		}
-		else if (app->scene2->active)
-		{
-			app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 60);
-			app->entitymanager->CleanUp();
-		}
-		else if (app->scene3->active)
-		{
-			app->fade->Fade((Module*)app->scene3, (Module*)app->scene, 60);
-			app->entitymanager->CleanUp();
-		}
-	}
-	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-	{
-		if (app->intro->active)
-		{
-			app->fade->Fade((Module*)app->intro, (Module*)app->scene2, 60);
-		}
-		else if (app->scene->active)
-		{
-			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
-			app->entitymanager->CleanUp();
-		}
-		else if (app->scene3->active)
-		{
-			app->fade->Fade((Module*)app->scene3, (Module*)app->scene2, 60);
-			app->entitymanager->CleanUp();
-		}
-	}
-	if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
-		if (app->intro->active)
-		{
-			app->fade->Fade((Module*)app->intro, (Module*)app->scene3, 60);
-		}
-		else if (app->scene->active)
-		{
-			app->fade->Fade((Module*)app->scene, (Module*)app->scene3, 60);
-			app->entitymanager->CleanUp();
-		}
-		else if (app->scene2->active)
-		{
-			app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 60);
-			app->entitymanager->CleanUp();
-		}
-	}
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-	{
-		godMode = !godMode;
-	}
-	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-	{
-		resetPlayer();
-	}
-	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-	{
-		app->LoadGameRequest();
-	}
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-	{
-		app->SaveGameRequest();
-		if (sceneOneA)
-		{
-			app->fade->Fade((Module*)app->scene, (Module*)app->scenepause, 10);
-		}
-		if (sceneTwoA == true)
-		{
-			app->fade->Fade((Module*)app->scene2, (Module*)app->scenepause, 10);
-		}
-		if (sceneThreeA == true)
-		{
-			app->fade->Fade((Module*)app->scene3, (Module*)app->scenepause, 10);
-		}
-		
-		app->intro->gamePaused = true;
-	}
-	
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-	{
-		if (fCount == 180)
-		{
-			app->SaveGameRequest();
-			fCount = 0;
-			floppyAnim.Reset();
-		}
-		notSaved = true;
-	}
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-	{
-		app->collisions->DebugRequest();
-	}
-	//PLAYER INPUT
-	if (!godMode)
-	{
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jumps < 2)
-		{
-			vcy = jump;
-			app->audio->PlayFx(jumpFx);
-			ong = false;
-			jumps++;
-		}
-		
-		if (!ong)
-		{
-			if (vcy < 500) vcy -= GRAV * dt;
-			cp.y += vcy * dt;
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
-		{
-			if (currentAnimation != &jumpAnim)
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 			{
-				jumpAnim.Reset();
-				currentAnimation = &jumpAnim;
+				cp.y -= 2.0f;
+			}
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+			{
+				cp.y += 2.0f;
 			}
 		}
-	}
-	else
-	{
-		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		// L08: TODO 6: Make the camera movement independent of framerate
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
-			cp.y -= 2.0f;
+			cp.x -= vcx * dt;
+			ong = false;
+			if (currentAnimation != &leftAnim)
+			{
+				leftAnim.Reset();
+				currentAnimation = &leftAnim;
+			}
+			facingLeft = true;
+			facingRight = false;
 		}
-		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
-			cp.y += 2.0f;
+			cp.x += vcx * dt;
+			ong = false;
+			if (currentAnimation != &rightAnim)
+			{
+				rightAnim.Reset();
+				currentAnimation = &rightAnim;
+			}
+			facingRight = true;
+			facingLeft = false;
 		}
-	}
-	// L08: TODO 6: Make the camera movement independent of framerate
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		cp.x -= vcx * dt;
-		ong = false;
-		if (currentAnimation != &leftAnim)
-		{
-			leftAnim.Reset();
-			currentAnimation = &leftAnim;
-		}
-		facingLeft = true;
-		facingRight = false;
-	}
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	{
-		cp.x += vcx * dt;
-		ong = false;
-		if (currentAnimation != &rightAnim)
-		{
-			rightAnim.Reset();
-			currentAnimation = &rightAnim;
-		}
-		facingRight = true;
-		facingLeft = false;
-	}
-	//-----------------------COLLIDER MOVEMENT
+		//-----------------------COLLIDER MOVEMENT
 
-	if (topCollider != nullptr && botCollider != nullptr && rightCollider != nullptr && leftCollider != nullptr)
-	{
-		topCollider->SetPos(cp.x + 10, cp.y);
-		botCollider->SetPos(cp.x + 10, cp.y + 110 - 10);
-		rightCollider->SetPos(cp.x, cp.y + 10);
-		leftCollider->SetPos(cp.x + 66 - 10, cp.y + 10);
-	}
-	//--------------------------------
+		if (topCollider != nullptr && botCollider != nullptr && rightCollider != nullptr && leftCollider != nullptr)
+		{
+			topCollider->SetPos(cp.x + 10, cp.y);
+			botCollider->SetPos(cp.x + 10, cp.y + 110 - 10);
+			rightCollider->SetPos(cp.x, cp.y + 10);
+			leftCollider->SetPos(cp.x + 66 - 10, cp.y + 10);
+		}
+		//--------------------------------
 
-	//-----------------------CAMERA MOVEMENT
-	if (cp.x > 640 && cp.x < 1920)
-	{
-		app->render->camera.x = -(cp.x - 640);
-	}
+		//-----------------------CAMERA MOVEMENT
+		if (cp.x > 640 && cp.x < 1920)
+		{
+			app->render->camera.x = -(cp.x - 640);
+		}
 
-	if (playerLives == 0)
-	{
-		if (sceneOneA == true)
+		if (playerLives == 0)
 		{
-			app->fade->Fade((Module*)app->scene, (Module*)app->titleScreen, 60);
+			if (sceneOneA == true)
+			{
+				app->fade->Fade((Module*)app->scene, (Module*)app->titleScreen, 60);
+			}
+			if (sceneTwoA == true)
+			{
+				app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
+			}
+			if (sceneThreeA == true)
+			{
+				app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
+			}
+			loseScreen = true;
+			playerLives = 3;
 		}
-		if (sceneTwoA == true)
-		{
-			app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
-		}
-		if (sceneThreeA == true)
-		{
-			app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
-		}
-		loseScreen = true;
-		playerLives = 3;
+
+		currentAnimation->Update();
+		currentFloppy->Update();
+
 	}
 
-	currentAnimation->Update();
-	currentFloppy->Update();
+	if (app->escaped)
+	{
+		btnExit->Update(app->input, dt);
+		btnResume->Update(app->input, dt);
+		btnSettings->Update(app->input, dt);
+		btnBackToTitle->Update(app->input, dt);
+		btnLvl1->Update(app->input, dt);
+		btnLvl2->Update(app->input, dt);
+	}
 
 	return true;
 }
@@ -360,24 +389,41 @@ bool Player::PostUpdate()
 {
 	bool ret = true;
 
-	SDL_Rect rectPlayer = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(character, cp.x, cp.y, &rectPlayer);
-	
-	for (int i = 0; i < playerLives; i++)
+	if (!app->escaped)
 	{
-		app->render->DrawTexture(lives, -app->render->camera.x+(i*43), 0, NULL);
-	}
-	for (int i = 0; i < coinsCollected; i++)
-	{
-		app->render->DrawTexture(coins, -app->render->camera.x + (i * 17)+129, 0, NULL);
+		SDL_Rect rectPlayer = currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(character, cp.x, cp.y, &rectPlayer);
+
+		for (int i = 0; i < playerLives; i++)
+		{
+			app->render->DrawTexture(lives, -app->render->camera.x + (i * 43), 0, NULL);
+		}
+		for (int i = 0; i < coinsCollected; i++)
+		{
+			app->render->DrawTexture(coins, -app->render->camera.x + (i * 17) + 129, 0, NULL);
+		}
+
+		SDL_Rect floppyRect = currentFloppy->GetCurrentFrame();
+
+		if (fCount < 180)
+		{
+			app->render->DrawTexture(floppyDisk, -app->render->camera.x, 40, &floppyRect);
+			fCount++;
+		}
 	}
 
-	SDL_Rect floppyRect = currentFloppy->GetCurrentFrame();
-
-	if (fCount < 180)
+	if (app->escaped)
 	{
-		app->render->DrawTexture(floppyDisk, -app->render->camera.x, 40, &floppyRect);
-		fCount++;
+		app->render->camera.x = 0;
+		app->render->camera.y = 0;
+
+		btnExit->Draw(app->render);
+		btnResume->Draw(app->render);
+		btnSettings->Draw(app->render);
+		btnBackToTitle->Draw(app->render);
+
+		btnLvl1->Draw(app->render);
+		btnLvl2->Draw(app->render);
 	}
 
 	return ret;

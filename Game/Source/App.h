@@ -114,6 +114,7 @@ public:
 	CreditsScene* creditsscene;
 	ScenePause* scenepause;
 
+	bool escaped;
 	bool cappedFrameRate = false;
 private:
 
@@ -138,6 +139,7 @@ private:
 
 	uint32 fpsEverySec = 0;
 	float fpsAverageSinceStart = 0.0f;
+
 
 	mutable bool saveGameRequested;
 	bool loadGameRequested;

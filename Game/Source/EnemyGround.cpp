@@ -58,45 +58,47 @@ bool EnemyGround::Start()
 
 bool EnemyGround::Update(float dt)
 {
-	if (app->player->cp.x < ep.x)
+	if (!app->escaped)
 	{
-		enemyLeft = true;
-	}
-	else
-	{
-		enemyRight = false;
-	}
-	if (app->player->cp.x > ep.x)
-	{
-		enemyLeft = false;
-	}
-	else
-	{
-		enemyRight = true;
-	}
-	if (app->pathfinding->destinationIsFind == false && enemyLeft == true)
-	{
-		currentAnimation = &idleAnimationR;
-	}
-	if (app->pathfinding->destinationIsFind == true && enemyLeft == true)
-	{
-		currentAnimation = &walkAnimRight;
-	}
-	if (app->pathfinding->destinationIsFind == false && enemyLeft == false)
-	{
-		currentAnimation = &idleAnimationL;
-	}
-	if (app->pathfinding->destinationIsFind == true && enemyLeft == false)
-	{
-		currentAnimation = &walkAnimLeft;
-	}
+		if (app->player->cp.x < ep.x)
+		{
+			enemyLeft = true;
+		}
+		else
+		{
+			enemyRight = false;
+		}
+		if (app->player->cp.x > ep.x)
+		{
+			enemyLeft = false;
+		}
+		else
+		{
+			enemyRight = true;
+		}
+		if (app->pathfinding->destinationIsFind == false && enemyLeft == true)
+		{
+			currentAnimation = &idleAnimationR;
+		}
+		if (app->pathfinding->destinationIsFind == true && enemyLeft == true)
+		{
+			currentAnimation = &walkAnimRight;
+		}
+		if (app->pathfinding->destinationIsFind == false && enemyLeft == false)
+		{
+			currentAnimation = &idleAnimationL;
+		}
+		if (app->pathfinding->destinationIsFind == true && enemyLeft == false)
+		{
+			currentAnimation = &walkAnimLeft;
+		}
 
-	vey += gravity;
-	ep.x += vex;
-	ep.y += vey;
+		vey += gravity;
+		ep.x += vex;
+		ep.y += vey;
 
-	if (Radar(app->player->cp))
-	{
+		if (Radar(app->player->cp))
+		{
 			//If player move
 			fPoint enemyPos = app->map->WorldToMap(ep.x, ep.y);
 			fPoint playerPosW = app->player->cp;
@@ -113,10 +115,12 @@ bool EnemyGround::Update(float dt)
 				fPoint posNextAuxE = app->map->MapToWorld(posNextE.x, posNextE.y);
 				MoveEnemy(posNextAuxE, enemyPos);
 			}
-	}
+		}
 
-	currentAnimation->Update();
-	collider->SetPos(ep.x, ep.y);
+		currentAnimation->Update();
+		collider->SetPos(ep.x, ep.y);
+	}
+	
 	return true;
 }
 
@@ -124,7 +128,8 @@ bool EnemyGround::Draw()
 {
 	SDL_Rect rectEnemy;
 	rectEnemy = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(texture, ep.x, ep.y, &rectEnemy);
+	if(!app->escaped)
+		app->render->DrawTexture(texture, ep.x, ep.y, &rectEnemy);
 
 	return true;
 }

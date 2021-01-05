@@ -3,6 +3,9 @@
 
 #include "Module.h"
 #include "Animation.h"
+#include "GuiButton.h"
+#include "GuiCheckBox.h"
+#include "GuiSlider.h"
 
 #define GRAV -400.0f
 
@@ -96,6 +99,22 @@ public:
 	Animation shootAnim;
 	Animation death;
 
+	SDL_Texture* configscreen = nullptr;
+
+	bool neutral = true;
+
+	bool spaced;
+private:
+	SDL_Texture* scenepauseback = nullptr;
+	GuiButton* btnExit;
+	GuiButton* btnLvl1;
+	GuiButton* btnLvl2;
+	GuiButton* btnLvl3;
+	GuiButton* btnResume;
+	GuiButton* btnSettings;
+	GuiButton* btnBackToTitle;
+
+public:
 	bool facingLeft;
 	bool idleState;
 	bool facingRight;

@@ -33,7 +33,8 @@ bool Coin::Draw()
 {
 	SDL_Rect coinRect;
 	coinRect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(texture, ep.x, ep.y, &coinRect);
+	if(app->escaped == false)
+		app->render->DrawTexture(texture, ep.x, ep.y, &coinRect);
 
 	return true;
 }
