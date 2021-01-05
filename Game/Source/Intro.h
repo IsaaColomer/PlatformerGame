@@ -50,8 +50,11 @@ public:
 	// The scene sprite sheet loaded into an SDL_Texture
 	SDL_Texture* introscreen = nullptr;
 	SDL_Texture* configTexture = nullptr;
+	SDL_Texture* tutorialScreen = nullptr;
 	SDL_Texture* playTexture = nullptr;
 	SDL_Texture* exitTexture = nullptr;
+
+	bool tutorial;
 
 	bool gamePaused;
 
@@ -62,6 +65,7 @@ private:
 	GuiButton* btnExit;
 	GuiButton* btnConfig;
 	GuiButton* btnCredits;
+	GuiButton* btnTutorial;
 };
 
 #endif

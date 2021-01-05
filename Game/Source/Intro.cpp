@@ -55,6 +55,7 @@ bool Intro::Start()
 	LOG("Loading intro assets");
 
 	introscreen = app->tex->Load("Assets/Screens/Title/intro_screen.png");
+	tutorialScreen = app->tex->Load("Assets/Screens/Title/tutorial_screen.png");
 
 	app->audio->PlayMusic("Assets/Audio/Music/music_menu.ogg",0.2f);
 	//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
@@ -75,9 +76,13 @@ bool Intro::Start()
 	btnExit->SetObserver((Scene*) this);
 	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
 
-	btnCredits = new GuiButton(0, { 1280 / 2 - 300 / 2, 600, 300, 80 }, "CREDITS");
+	btnCredits = new GuiButton(0, { (1280 / 2 - 300 / 2)+450, 600, 300, 80 }, "CREDITS");
 	btnCredits->SetObserver((Scene*)this);
 	btnCredits->SetTexture(app->tex->Load("Assets/GUI/credits.png"), app->tex->Load("Assets/GUI/credits_selected.png"), app->tex->Load("Assets/GUI/credits_focused.png"));
+
+	btnTutorial = new GuiButton(16, { (1280 / 2 - 300 / 2) - 450, 600, 300, 80 }, "TUTORIAL");
+	btnTutorial->SetObserver((Scene*)this);
+	btnTutorial->SetTexture(app->tex->Load("Assets/GUI/tutorial.png"), app->tex->Load("Assets/GUI/tutorial_selected.png"), app->tex->Load("Assets/GUI/tutorial_focused.png"));
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
@@ -94,12 +99,15 @@ bool Intro::PreUpdate()
 
 bool Intro::Update(float dt)
 {
-	btnLoad->Update(app->input, dt);
-	btnStart->Update(app->input, dt);
-	btnConfig->Update(app->input, dt);
-	btnExit->Update(app->input, dt);
-	btnCredits->Update(app->input, dt);
-
+	if (!tutorial)
+	{
+		btnTutorial->Update(app->input, dt);
+		btnLoad->Update(app->input, dt);
+		btnStart->Update(app->input, dt);
+		btnConfig->Update(app->input, dt);
+		btnExit->Update(app->input, dt);
+		btnCredits->Update(app->input, dt);
+	}
 	return true;
 }
 
@@ -125,20 +133,31 @@ bool Intro::PostUpdate()
 			app->fade->Fade((Module*)app->intro, (Module*)app->scene2, 60);
 		return true;
 	}
+	else if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
+		tutorial = false;
+	}
 
 	if (exit == true)
 	{
 		return false;
 	}
-
-	// Draw everything --------------------------------------
-	app->render->DrawTexture(introscreen, 0, 0, NULL);
-
-	btnLoad->Draw(app->render);
-	btnStart->Draw(app->render);
-	btnConfig->Draw(app->render);
-	btnExit->Draw(app->render);
-	btnCredits->Draw(app->render);
+	if (tutorial)
+	{
+		app->render->DrawTexture(tutorialScreen, 0, 0, NULL);
+	}
+	else
+	{
+		// Draw everything --------------------------------------
+		app->render->DrawTexture(introscreen, 0, 0, NULL);
+		btnLoad->Draw(app->render);
+		btnStart->Draw(app->render);
+		btnConfig->Draw(app->render);
+		btnExit->Draw(app->render);
+		btnCredits->Draw(app->render);
+		btnTutorial->Draw(app->render);
+	}
+	
 
 	return ret;
 }
@@ -208,6 +227,10 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 			app->scene2->tpToScene2 = true;
 			app->scene->tpToScene = false;
 			app->fade->Fade((Module*)this, (Module*)app->scene2, 1);
+		}
+		if (control->id == 16)
+		{
+			app->intro->tutorial = !app->intro->tutorial;
 		}
 	}
 
