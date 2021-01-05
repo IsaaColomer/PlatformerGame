@@ -181,6 +181,8 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			app->escaped = false;
 			app->fade->Fade((Module*)this, (Module*)app->configscene, 10);
+			if(app->scene->sceneOnScreen)
+				app->fade->Fade((Module*)app->scene, (Module*)app->configscene, 10);
 		}
 		if (control->id == 3)
 		{
@@ -248,17 +250,14 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	}
 	case GuiControlType::CHECKBOX:
 	{
-		if (control->id == 8 && app->intro->fulled == false)
+		if (control->id == 8 && app->intro->checked == false)
 		{
 			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);
-			app->intro->fulled = true;
-			control->vsyncChecked = true;
+			
 		}
-		else if (control->id == 8 && app->intro->fulled)
+		else if(control->id== 8 && app->intro->checked)
 		{
 			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_RESIZABLE);
-			app->intro->fulled = false;
-			control->vsyncChecked = false;
 		}
 		if (control->id == 9 && app->intro->vsyncClicked == false)
 		{

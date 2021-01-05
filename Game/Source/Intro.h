@@ -59,6 +59,8 @@ public:
 	bool gamePaused;
 
 	bool spaced;
+
+	bool checked;
 private:
 	GuiButton* btnStart;
 	GuiButton* btnLoad;
