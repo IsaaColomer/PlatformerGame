@@ -37,6 +37,7 @@ public:
 public:
 	bool flagAlive;
 	bool tpToScene3;
+	bool scene3OnScreen;
 	//array of colliders, first coll[0] is ground
 	//[0]=y, [1]=x1, [2]=x2
 

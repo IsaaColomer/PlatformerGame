@@ -44,8 +44,13 @@ bool Scene3::Start()
 	app->player->sceneThreeA = true;
 	app->player->sceneTwoA = false;
 	app->player->sceneOneA = false;
+
 	app->player->Init();
 	app->player->Start();
+
+	app->scene->sceneOnScreen = false;
+	app->scene2->scene2OnScreen = false;
+	app->scene3->scene3OnScreen = true;
 
 	app->map->active = true;
 	app->collisions->active = true;

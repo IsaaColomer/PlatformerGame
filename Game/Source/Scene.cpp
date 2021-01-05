@@ -17,6 +17,7 @@
 #include "Title.h"
 #include "EntityManager.h"
 #include "Pathfinding.h"
+#include "Scene3.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -45,6 +46,10 @@ bool Scene::Start()
 	app->player->sceneOneA = true;
 	app->player->sceneTwoA = false;
 	app->player->sceneThreeA = false;
+
+	sceneOnScreen = true;
+	app->scene2->scene2OnScreen = false;
+	app->scene3->scene3OnScreen = false;
 
 	app->player->Init();
 	app->player->Start();

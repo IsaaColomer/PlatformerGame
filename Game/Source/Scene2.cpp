@@ -16,6 +16,7 @@
 #include "EntityManager.h"
 #include "ScenePause.h"
 #include "FadeToBlack.h"
+#include "Scene3.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -47,6 +48,10 @@ bool Scene2::Start()
 
 	app->player->Init();
 	app->player->Start();
+
+	app->scene->sceneOnScreen = false;
+	app->scene2->scene2OnScreen = true;
+	app->scene3->scene3OnScreen = false;
 
 	if (tpToScene2)
 	{
