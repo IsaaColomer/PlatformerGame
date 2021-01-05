@@ -37,7 +37,7 @@ bool GuiCheckBox::Update(Input* input, float dt)
             if (input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP)
             {
                 NotifyObserver();
-                app->intro->checked = !app->intro->checked;
+                checked = !checked;
             }
         }
         else state = GuiControlState::NORMAL;
@@ -53,12 +53,12 @@ bool GuiCheckBox::Draw(Render* render)
     {
     case GuiControlState::DISABLED:
     {   
-       if (app->intro->checked == true)render->DrawRectangle(bounds, 100, 100, 100, 255);
-       else render->DrawRectangle(bounds, 100, 100, 100, 255);
+       if (checked == false)render->DrawRectangle(bounds, 100, 100, 100, 255);
+       else render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
     } break;
     case GuiControlState::NORMAL: 
     {
-        if (app->intro->checked == true)
+        if (checked == true)
         {
             render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
         }

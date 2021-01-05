@@ -250,12 +250,12 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	}
 	case GuiControlType::CHECKBOX:
 	{
-		if (control->id == 8 && app->intro->checked == false)
+		if (control->id == 8 && app->intro->checkedFullScreen == false)
 		{
 			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);
 			
 		}
-		else if(control->id== 8 && app->intro->checked)
+		else if(control->id== 8 && app->intro->checkedFullScreen)
 		{
 			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_RESIZABLE);
 		}

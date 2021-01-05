@@ -60,7 +60,7 @@ public:
 
 	bool spaced;
 
-	bool checked;
+	bool checkedFullScreen;
 private:
 	GuiButton* btnStart;
 	GuiButton* btnLoad;
