@@ -228,6 +228,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			app->scene2->tpToScene2 = true;
 			app->scene->tpToScene = false;
+			app->escaped = false;
 			app->fade->Fade((Module*)this, (Module*)app->scene2, 1);
 		}
 		if (control->id == 16)
