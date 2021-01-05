@@ -158,7 +158,6 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 5)
 		{
-
 			if (app->scene->sceneOnScreen)
 			{
 				app->fade->Fade((Module*)this, (Module*)app->scene, 1);

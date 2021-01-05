@@ -63,7 +63,7 @@ bool Scene::Start()
 	app->collisions->active = true;
 	app->map->active = true;
 
-	if (app->scene->active)
+	if (app->player->sceneOneA)
 	{
 		app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg", 1.0f);
 	}
