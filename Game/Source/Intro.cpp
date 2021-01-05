@@ -148,10 +148,26 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case GuiControlType::BUTTON:
 	{
-		if (control->id == 1) app->fade->Fade((Module*)app->intro, (Module*)app->scene, 10);
-		if (control->id == 0) app->fade->Fade((Module*)app->intro, (Module*)app->creditsscene, 10);
-		if (control->id == 2) app->fade->Fade((Module*)this, (Module*)app->configscene, 10);
-		if (control->id == 3) app->fade->Fade((Module*)this, (Module*)app->intro, 1);
+		if (control->id == 1)
+		{
+			app->escaped = false;
+			app->fade->Fade((Module*)app->intro, (Module*)app->scene, 10);
+		}
+		if (control->id == 0)
+		{
+			app->escaped = false;
+			app->fade->Fade((Module*)app->intro, (Module*)app->creditsscene, 10);
+		}
+		if (control->id == 2)
+		{
+			app->escaped = false;
+			app->fade->Fade((Module*)this, (Module*)app->configscene, 10);
+		}
+		if (control->id == 3)
+		{
+			app->escaped = false;
+			app->fade->Fade((Module*)this, (Module*)app->intro, 1);
+		}
 		if (control->id == 4)
 		{
 			app->intro->exit = true;
@@ -199,7 +215,8 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		if (control->id == 5)
 		{
-			app->audio->MusicVolumeChanger(100 * (control->bounds.x - app->configscene->musicSliderBack.x) / app->configscene->musicSliderBack.w);
+			if(app->configscene->musicSliderBack.w > 0)
+				app->audio->MusicVolumeChanger(100 * (control->bounds.x - app->configscene->musicSliderBack.x) / app->configscene->musicSliderBack.w);
 		}
 		if (control->id == 7)
 		{

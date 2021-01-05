@@ -106,10 +106,7 @@ bool Scene2::PostUpdate()
 {
 	bool ret = true;
 
-	if (flagAlive)
-	{
-		app->render->DrawTexture(flag, flagRect.x, flagRect.y, NULL);
-	}
+	app->render->DrawTexture(flag, flagRect.x, flagRect.y, NULL);
 
 	return ret;
 }

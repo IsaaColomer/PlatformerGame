@@ -116,11 +116,7 @@ bool Scene::Update(float dt)
 	app->map->Draw();
 	app->render->DrawTexture(portal, 2325, 290);//2325
 	app->map->LoadColliders();
-
-	if (flagAlive)
-	{
-		app->render->DrawTexture(flag, flagRect.x, flagRect.y, NULL);
-	}
+	app->render->DrawTexture(flag, flagRect.x, flagRect.y, NULL);
 
 	return true;
 }

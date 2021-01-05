@@ -234,6 +234,8 @@ void App::PrepareUpdate()
 	}
 
 	dt = frameTime.ReadSec();
+	if (dt > 0.05)
+		dt = 0.033;
 	frameTime.Start();
 
 	fpsCount++;
@@ -264,8 +266,8 @@ void App::FinishUpdate()
 	}
 
 	static char title[256];
-	sprintf_s(title, 256, "FPS: %d | AVG FPS %.2f | Last Frame in ms: %.1f(dt) | VSync = On ",
-		previousLastSecFrameCount, fpsAverageSinceStart, dt*1000.0);
+	sprintf_s(title, 256, "FPS: %d | AVG FPS %.2f | Last Frame in ms: %.1f(dt) | VSync = On | %f Y:  ",
+		previousLastSecFrameCount, fpsAverageSinceStart, dt*1000.0, app->player->cp.y);
 	app->win->SetTitle(title);
 }
 

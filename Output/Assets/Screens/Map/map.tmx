@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="36" height="11" tilewidth="70" tileheight="70" infinite="0" nextlayerid="7" nextobjectid="1">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="36" height="11" tilewidth="70" tileheight="70" infinite="0" nextlayerid="7" nextobjectid="1">
  <tileset firstgid="1" name="collider" tilewidth="70" tileheight="70" tilecount="1" columns="1">
   <image source="collider.png" trans="ff00ff" width="70" height="70"/>
  </tileset>
@@ -1836,7 +1836,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1"/>
+   <tile/>
    <tile gid="1"/>
    <tile/>
    <tile/>
