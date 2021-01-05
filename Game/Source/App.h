@@ -114,7 +114,7 @@ public:
 	CreditsScene* creditsscene;
 	ScenePause* scenepause;
 
-	uint32 expectedMs = 1000 / 30;
+	bool cappedFrameRate = false;
 private:
 
 	int argc;

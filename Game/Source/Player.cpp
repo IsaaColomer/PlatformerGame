@@ -527,24 +527,31 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 				--playerLives;
 				if (playerLives == 0)
 				{
+					if (sceneOneA)
+					{
+						app->fade->Fade((Module*)app->scene, (Module*)app->titleScreen, 30);
+					}
+					if (sceneTwoA == true)
+					{
+						app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 30);
+					}
+					if (sceneThreeA == true)
+					{
+						app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 30);
+					}
 					playerLives = 3;
-					if (app->scene2->active == true)
-					{
-						app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
-					}
-					if (app->scene3->active == true)
-					{
-						app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
-					}
 					loseScreen = true;
 				}
-				if (app->scene2->active == true)
+				else
 				{
-					app->fade->Fade((Module*)app->scene2, (Module*)app->scene2, 60);
-				}
-				if (app->scene3->active == true)
-				{
-					app->fade->Fade((Module*)app->scene3, (Module*)app->scene3, 60);
+					if (sceneTwoA)
+					{
+						app->fade->Fade((Module*)app->scene2, (Module*)app->scene2, 30);
+					}
+					if (sceneThreeA)
+					{
+						app->fade->Fade((Module*)app->scene3, (Module*)app->scene3, 30);
+					}
 				}
 			}
 			break;
@@ -594,7 +601,7 @@ void Player::resetPlayer()
 
 		app->player->vcy = 0;
 		app->player->vcx = 200;
-		app->player->jump = -300;
+		app->player->jump = -350;
 
 		app->render->camera.x = 0;
 		app->render->camera.y = 0;

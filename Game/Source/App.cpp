@@ -230,7 +230,7 @@ void App::PrepareUpdate()
 {
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 	{
-		expectedMs = (expectedMs == 1000 / 30) ? 1000 / 60 : 1000 / 30;
+		cappedFrameRate = !cappedFrameRate;
 	}
 
 	dt = frameTime.ReadSec();
@@ -257,9 +257,9 @@ void App::FinishUpdate()
 
 	fpsAverageSinceStart = fpsCount / startTime.ReadSec();
 
-	if (dt < expectedMs)
+	if (dt < 1000/30 && cappedFrameRate)
 	{
-		float delay = expectedMs - dt;
+		float delay = 1000/30 - dt;
 		SDL_Delay(delay);
 	}
 
