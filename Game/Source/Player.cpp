@@ -113,6 +113,7 @@ bool Player::Start()
 	checkPointFx = app->audio->LoadFx("Assets/Audio/Fx/check_point.wav");
 	destroyedFx = app->audio->LoadFx("Assets/Audio/Fx/enemy_destroyed.wav");
 	lifeUpFx = app->audio->LoadFx("Assets/Audio/Fx/life.wav");
+	scenepauseback = app->tex->Load("Assets/Screens/Title/pause_screen.png");
 
 	SDL_Rect top = { cp.x + 10,cp.y, 66 - 20, 10 };
 	SDL_Rect bot = { cp.x + 10,cp.y + 110, 66 - 20, 10 };
@@ -170,6 +171,7 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
+	if (app->intro->exit)    return false;
 	if (!app->escaped)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE
@@ -417,6 +419,7 @@ bool Player::PostUpdate()
 		app->render->camera.x = 0;
 		app->render->camera.y = 0;
 
+		app->render->DrawTexture(scenepauseback, 0, 0, NULL);
 		btnExit->Draw(app->render);
 		btnResume->Draw(app->render);
 		btnSettings->Draw(app->render);
