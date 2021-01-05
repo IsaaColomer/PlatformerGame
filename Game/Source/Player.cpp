@@ -266,7 +266,7 @@ bool Player::Update(float dt)
 		
 		if (!ong)
 		{
-			if (vcy < 10) vcy -= GRAV * dt;
+			if (vcy < 500) vcy -= GRAV * dt;
 			cp.y += vcy * dt;
 		}
 
@@ -593,8 +593,8 @@ void Player::resetPlayer()
 		}
 
 		app->player->vcy = 0;
-		app->player->vcx = 7;
-		app->player->jump = -15;
+		app->player->vcx = 200;
+		app->player->jump = -300;
 
 		app->render->camera.x = 0;
 		app->render->camera.y = 0;

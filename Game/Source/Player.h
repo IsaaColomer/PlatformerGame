@@ -4,7 +4,7 @@
 #include "Module.h"
 #include "Animation.h"
 
-#define GRAV -1.0f
+#define GRAV -400.0f
 
 struct SDL_Texture;
 struct Collider;

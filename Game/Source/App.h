@@ -114,8 +114,7 @@ public:
 	CreditsScene* creditsscene;
 	ScenePause* scenepause;
 
-	uint32 expectedFPS = 30;
-	bool fpsCap;
+	uint32 expectedMs = 1000 / 30;
 private:
 
 	int argc;
@@ -124,7 +123,6 @@ private:
 	SString organization;
 
 	List<Module *> modules;
-
 
 	Timer startTime;
 	Timer frameTime;
