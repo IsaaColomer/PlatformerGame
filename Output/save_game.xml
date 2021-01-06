@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <save>
 	<player>
-		<sceneValue />
+		<position x="900" y="170" />
+		<sceneValue l="1" />
 	</player>
 	<entities />
 </save>

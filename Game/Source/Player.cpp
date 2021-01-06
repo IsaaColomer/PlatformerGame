@@ -499,7 +499,7 @@ bool Player::LoadState(pugi::xml_node& data)
 
 bool Player::SaveState(pugi::xml_node& data) const
 {
-	pugi::xml_node play = data.child("position");
+	pugi::xml_node play = data.append_child("position");
 	play.append_attribute("x").set_value(cp.x);
 	play.append_attribute("y").set_value(cp.y);
 
@@ -517,7 +517,7 @@ bool Player::SaveState(pugi::xml_node& data) const
 	{
 		app->player->sceneValue = 3;
 	}
-	scene.attribute("l").set_value(sceneValue);
+	scene.append_attribute("l").set_value(sceneValue);
 
 	app->player->savedPos.x = cp.x;
 	app->player->savedPos.y = cp.y;

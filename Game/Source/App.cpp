@@ -403,13 +403,29 @@ bool App::LoadGame()
 {
 	bool ret = true;
 
-	ListItem<Module*>* item;
-	item = modules.start;
-	
-	while (item != NULL && ret == true)
+	pugi::xml_document savedGame;
+
+	pugi::xml_parse_result result = savedGame.load_file("save_game.xml");
+
+	if (result == NULL)
 	{
-		ret = item->data->LoadState(saveLoadNode.child(item->data->name.GetString()));
-		item = item->next;
+		LOG("Could not load saved game xml file. Pugi error: %s", result.description());
+		ret = false;
+	}
+	else
+	{
+		//General Node
+		pugi::xml_node generalNode = savedGame.child("save");
+
+		//Player
+		pugi::xml_node player = generalNode.child("player");
+
+		//Entities
+		pugi::xml_node entities = generalNode.child("entities");
+
+
+		//LoadRequests
+		app->player->LoadState(player);
 	}
 
 	loadGameRequested = false;

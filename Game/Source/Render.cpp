@@ -92,9 +92,9 @@ bool Render::CleanUp()
 // for now it will be camera's x and y
 bool Render::LoadState(pugi::xml_node& data)
 {
-	pugi::xml_node cam = data.child("camera");
-	camera.x = cam.attribute("x").as_int(0);
-	camera.y = cam.attribute("y").as_int(0);
+	pugi::xml_node cam = data.append_child("camera");
+	camera.x = cam.append_attribute("x").as_int(0);
+	camera.y = cam.append_attribute("y").as_int(0);
 
 	return true;
 }
@@ -102,9 +102,9 @@ bool Render::LoadState(pugi::xml_node& data)
 // using append_child and append_attribute
 bool Render::SaveState(pugi::xml_node& data) const
 {
-	pugi::xml_node cam = data.child("camera");
-	cam.attribute("x").set_value(camera.x);
-	cam.attribute("y").set_value(camera.y);
+	pugi::xml_node cam = data.append_child("camera");
+	cam.append_attribute("x").set_value(camera.x);
+	cam.append_attribute("y").set_value(camera.y);
 
 	return true;
 }
