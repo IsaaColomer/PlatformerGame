@@ -557,15 +557,15 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			break;
 		case Collider::Type::WIN:
 			c2->pendingToDelete = true;
-			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 60);
+			app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 30);
 			break;
 		case Collider::Type::WIN2:
 			c2->pendingToDelete = true;
-			app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 60);
+			app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 30);
 			break;
 		case Collider::Type::WIN3:
 			c2->pendingToDelete = true;
-			app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 60);
+			app->fade->Fade((Module*)app->scene3, (Module*)app->titleScreen, 30);
 			winScreen = true;
 			break;
 		case Collider::Type::DEATH:

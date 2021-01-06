@@ -54,12 +54,11 @@ bool Scene::Start()
 	app->player->Init();
 	app->player->Start();
 
-	if (tpToScene)
+	if (app->scene->tpToScene)
 	{
 		app->player->cp.x = 900;
 		app->player->cp.y = 170;
 	}
-
 	app->collisions->active = true;
 	app->map->active = true;
 
