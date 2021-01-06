@@ -273,7 +273,8 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 7)
 		{
-			app->audio->FxVolumeChanger(100 * (control->bounds.x - app->configscene->fxSliderBack.x) / app->configscene->fxSliderBack.w);
+			if (app->configscene->fxSliderBack.w > 0)
+				app->audio->FxVolumeChanger(100 * (control->bounds.x - app->configscene->fxSliderBack.x) / app->configscene->fxSliderBack.w);
 		}
 	}
 	case GuiControlType::CHECKBOX:
