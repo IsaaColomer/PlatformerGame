@@ -61,25 +61,25 @@ bool Audio::Awake(pugi::xml_node& config)
 // Called before quitting
 bool Audio::CleanUp()
 {
-	//if(!active)
-	//	return true;
+	if(!active)
+		return true;
 
-	//LOG("Freeing sound FX, closing Mixer and Audio subsystem");
+	LOG("Freeing sound FX, closing Mixer and Audio subsystem");
 
-	//if(music != NULL)
-	//{
-	//	Mix_FreeMusic(music);
-	//}
+	if(music != NULL)
+	{
+		Mix_FreeMusic(music);
+	}
 
-	//ListItem<Mix_Chunk*>* item;
-	//for(item = fx.start; item != NULL; item = item->next)
-	//	Mix_FreeChunk(item->data);
+	ListItem<Mix_Chunk*>* item;
+	for(item = fx.start; item != NULL; item = item->next)
+		Mix_FreeChunk(item->data);
 
-	//fx.clear();
+	fx.clear();
 
-	//Mix_CloseAudio();
-	//Mix_Quit();
-	//SDL_QuitSubSystem(SDL_INIT_AUDIO);
+	Mix_CloseAudio();
+	Mix_Quit();
+	SDL_QuitSubSystem(SDL_INIT_AUDIO);
 
 	return true;
 }
