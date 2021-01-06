@@ -144,7 +144,7 @@ void Audio::MusicVolumeChanger(int val)
 void Audio::FxVolumeChanger(int val)
 {
 	for(int i = 0; i < fx.Count(); i++)
-		Mix_VolumeChunk(fx[i],val);
+		Mix_Volume(-1,val);
 }
 // Load WAV
 unsigned int Audio::LoadFx(const char* path)
