@@ -62,7 +62,13 @@ bool Intro::Start()
 
 	btnLoad = new GuiButton(6, { 1280 / 2 - 300 / 2, 300, 300, 80 }, "LOAD");
 	btnLoad->SetObserver((Scene*)this);
+	btnLoad->SetDisabledTexture(app->tex->Load("Assets/GUI/load_dissabled.png"));
+	if (app->savedFile == false)
+	{
+		btnLoad->state = GuiControlState::DISABLED;
+	}
 	btnLoad->SetTexture(app->tex->Load("Assets/GUI/load.png"), app->tex->Load("Assets/GUI/load_selected.png"), app->tex->Load("Assets/GUI/load_focused.png"));
+
 
 	btnStart = new GuiButton(1, { 1280 / 2 - 300 / 2, 200, 300, 80 }, "START");
 	btnStart->SetObserver((Scene*) this);

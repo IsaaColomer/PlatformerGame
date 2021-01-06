@@ -1,15 +1,7 @@
 <?xml version="1.0"?>
 <save>
-	<input />
-	<window />
-	<textures />
-	<audio />
-	<scene />
 	<player>
-		<position x="1087.40369" y="170" />
-		<sceneValue l="2" />
+		<sceneValue />
 	</player>
-	<renderer>
-		<camera x="-447" y="0" />
-	</renderer>
+	<entities />
 </save>

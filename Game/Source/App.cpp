@@ -159,6 +159,11 @@ bool App::Awake()
 	if (result != NULL)
 	{
 		saveLoadNode = saveLoadFile.child("save");
+		savedFile = true;
+	}
+	if (result == NULL)
+	{
+		savedFile = false;
 	}
 
 	//PERF_PEEK(perfTimer);
@@ -389,6 +394,7 @@ void App::LoadGameRequest()
 // ---------------------------------------
 void App::SaveGameRequest() const
 {
+	app->savedFile = true;
 	saveGameRequested = true;
 }
 
@@ -415,17 +421,24 @@ bool App::SaveGame() const
 {
 	bool ret = true;
 
+	saveGameRequested = false;
+
 	ListItem<Module*>* item;
 	item = modules.start;
 
-	while (item != NULL && ret == true)
-	{
-		ret = item->data->SaveState(saveLoadNode.child(item->data->name.GetString()));
-		item = item->next;
-	}
-	saveLoadFile.save_file("save_game.xml");
+	pugi::xml_document newSave;
+	pugi::xml_node save;
 
-	saveGameRequested = false;
+	save = newSave.append_child("save");
+
+	pugi::xml_node player = save.append_child("player");
+	app->player->SaveState(player);
+
+	pugi::xml_node entities = save.append_child("entities");
+
+	newSave.save_file("save_game.xml");
+
 
 	return ret;
+
 }

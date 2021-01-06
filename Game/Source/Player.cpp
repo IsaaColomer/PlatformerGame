@@ -500,11 +500,10 @@ bool Player::LoadState(pugi::xml_node& data)
 bool Player::SaveState(pugi::xml_node& data) const
 {
 	pugi::xml_node play = data.child("position");
-	play.attribute("x").set_value(cp.x);
-	play.attribute("y").set_value(cp.y);
+	play.append_attribute("x").set_value(cp.x);
+	play.append_attribute("y").set_value(cp.y);
 
-
-	pugi::xml_node scene = data.child("sceneValue");
+	pugi::xml_node scene = data.append_child("sceneValue");
 	
 	if (app->scene->active == 1)
 	{

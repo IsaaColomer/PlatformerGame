@@ -116,6 +116,7 @@ public:
 
 	bool escaped;
 	bool cappedFrameRate = false;
+	bool savedFile;
 private:
 
 	int argc;

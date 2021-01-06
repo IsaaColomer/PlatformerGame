@@ -49,6 +49,7 @@ public:
         textureIdle = NULL;
         textureFocused = NULL;
         textureClicked = NULL;
+        textureDisabled = NULL;
     }
 
     virtual bool Update(Input* input, float dt)
@@ -67,6 +68,10 @@ public:
         textureFocused = texFocused;
         textureClicked = texClicked;
         section = { 0, 0, 0, 0 };
+    }
+    void SetDisabledTexture(SDL_Texture* texDisabled)
+    {
+        textureDisabled = texDisabled;
     }
 
     void SetObserver(Scene* module)
@@ -92,6 +97,7 @@ public:
     SDL_Texture* textureIdle;   // Texture atlas reference
     SDL_Texture* textureFocused;   // Texture atlas reference
     SDL_Texture* textureClicked;   // Texture atlas reference
+    SDL_Texture* textureDisabled;   // Texture atlas reference
     SDL_Rect section;       // Texture atlas base section
 
     bool vsyncChecked;
