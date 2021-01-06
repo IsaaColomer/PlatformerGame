@@ -22,6 +22,7 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::playerLeft][Collider::Type::FOOD] = true;
 	matrix[Collider::Type::playerLeft][Collider::Type::CHECKPOINT] = true;
 	matrix[Collider::Type::playerLeft][Collider::Type::COIN] = true;
+	matrix[Collider::Type::playerLeft][Collider::Type::WIN3] = true;
 	
 	matrix[Collider::Type::playerRight][Collider::Type::playerLeft] = false;
 	matrix[Collider::Type::playerRight][Collider::Type::playerRight] = false;
@@ -35,6 +36,7 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::playerRight][Collider::Type::FOOD] = true;
 	matrix[Collider::Type::playerRight][Collider::Type::CHECKPOINT] = true;
 	matrix[Collider::Type::playerRight][Collider::Type::COIN] = true;
+	matrix[Collider::Type::playerRight][Collider::Type::WIN3] = true;
 
 	matrix[Collider::Type::COLL][Collider::Type::playerLeft] = true;
 	matrix[Collider::Type::COLL][Collider::Type::playerRight] = true;
@@ -61,6 +63,7 @@ Collisions::Collisions(bool startEnabled) : Module()
 	matrix[Collider::Type::playerTop][Collider::Type::FOOD] = true;
 	matrix[Collider::Type::playerTop][Collider::Type::CHECKPOINT] = true;
 	matrix[Collider::Type::playerTop][Collider::Type::COIN] = true;
+	matrix[Collider::Type::playerTop][Collider::Type::WIN3] = true;
 
 	matrix[Collider::Type::playerBot][Collider::Type::playerLeft] = false;
 	matrix[Collider::Type::playerBot][Collider::Type::playerRight] = false;
