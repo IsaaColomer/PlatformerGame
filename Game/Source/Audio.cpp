@@ -143,7 +143,7 @@ void Audio::MusicVolumeChanger(int val)
 }
 void Audio::FxVolumeChanger(int val)
 {
-	for(int i = 0; i <= fx.Count(); i++)
+	for(int i = 0; i < fx.Count(); i++)
 		Mix_VolumeChunk(fx[i],val);
 }
 // Load WAV
