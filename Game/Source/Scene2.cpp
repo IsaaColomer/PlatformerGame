@@ -126,6 +126,7 @@ bool Scene2::CleanUp()
 	app->collisions->CleanUp();
 
 	app->entitymanager->DeleteEntity();
+	app->entitymanager->CleanUp();
 
 	app->tex->UnLoad(backg);
 	app->tex->UnLoad(portal);

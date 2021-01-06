@@ -462,7 +462,7 @@ bool Player::LoadState(pugi::xml_node& data)
 			{
 				app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 1);
 			}	
-			if (sceneThreeA)
+			else if (sceneThreeA)
 			{
 				app->fade->Fade((Module*)app->scene3, (Module*)app->scene, 1);
 			}
@@ -476,7 +476,7 @@ bool Player::LoadState(pugi::xml_node& data)
 			{
 				app->fade->Fade((Module*)app->scene, (Module*)app->scene2, 1);
 			}
-			if (sceneThreeA)
+			else if (sceneThreeA)
 			{
 				app->fade->Fade((Module*)app->scene3, (Module*)app->scene2, 1);
 			}
@@ -490,7 +490,7 @@ bool Player::LoadState(pugi::xml_node& data)
 			{
 				app->fade->Fade((Module*)app->scene, (Module*)app->scene3, 1);
 			}
-			if (sceneTwoA)
+			else if (sceneTwoA)
 			{
 				app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 1);
 			}
