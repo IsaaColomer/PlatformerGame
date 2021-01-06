@@ -52,6 +52,7 @@ private:
 	SDL_Rect foodRect;
 
 	SDL_Texture* flag;
+	SDL_Texture* checked;
 	Collider* flagCol;
 	SDL_Rect flagRect;
 };

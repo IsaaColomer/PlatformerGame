@@ -53,6 +53,7 @@ private:
 	SDL_Texture* portal;
 
 	SDL_Texture* flag;
+	SDL_Texture* checked;
 	Collider* flagCol;
 	SDL_Rect flagRect;
 };

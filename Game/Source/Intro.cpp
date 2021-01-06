@@ -223,14 +223,18 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 			app->scene->tpToScene = true;
 			app->scene2->tpToScene2 = false;
 			app->escaped = false;
-			if (app->scene2->scene2OnScreen)
-			{
-				app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 1);
-			}
 			if (app->scene->tpToScene)
 			{
 				app->player->cp.x = 900;
 				app->player->cp.y = 170;
+			}
+			if (app->scene2->scene2OnScreen)
+			{
+				app->fade->Fade((Module*)app->scene2, (Module*)app->scene, 1);
+			}
+			if (app->scene3->scene3OnScreen)
+			{
+				app->fade->Fade((Module*)app->scene3, (Module*)app->scene, 1);
 			}
 		}
 		if (control->id == 14)
@@ -247,6 +251,10 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 			{
 				app->player->cp.x = 1150;
 				app->player->cp.y = 170;
+			}
+			if (app->scene3->scene3OnScreen)
+			{
+				app->fade->Fade((Module*)app->scene3, (Module*)app->scene2, 1);
 			}
 				
 		}

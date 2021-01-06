@@ -94,6 +94,7 @@ bool Scene::Start()
 	backg = app->tex->Load("Assets/Screens/Gameplay/background.png");
 	portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
 	flag = app->tex->Load("Assets/Screens/Gameplay/flag.png");
+	checked = app->tex->Load("Assets/Screens/Gameplay/checked.png");
 
 	app->map->Load("map.tmx");
 	
@@ -116,6 +117,10 @@ bool Scene::Update(float dt)
 	app->render->DrawTexture(portal, 2325, 290);//2325
 	app->map->LoadColliders();
 	app->render->DrawTexture(flag, flagRect.x, flagRect.y, NULL);
+	if (flagAlive == false)
+	{
+		app->render->DrawTexture(checked, flagRect.x, flagRect.y, NULL);
+	}
 
 	return true;
 }
