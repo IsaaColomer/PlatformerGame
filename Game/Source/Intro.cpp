@@ -202,10 +202,12 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 5)
 		{
 			app->escaped = false;
-		//	app->LoadGameRequest();
 		}
 		if (control->id == 6)
 		{
+			app->escaped = false;
+			app->LoadGame();
+
 			
 		}
 		if (control->id == 10)

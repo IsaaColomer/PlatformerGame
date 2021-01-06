@@ -87,10 +87,12 @@ private:
 	// Call modules after each loop iteration
 	bool PostUpdate();
 
-	bool LoadGame();
-	bool SaveGame() const;
+
 
 public:
+
+	bool LoadGame();
+	bool SaveGame() const;
 
 	// Modules
 	Window* win;
@@ -117,6 +119,7 @@ public:
 	bool escaped;
 	bool cappedFrameRate = false;
 	bool savedFile;
+
 private:
 
 	int argc;

@@ -371,7 +371,6 @@ bool Player::Update(float dt)
 
 		currentAnimation->Update();
 		currentFloppy->Update();
-
 	}
 
 	if (app->escaped)
@@ -456,7 +455,6 @@ bool Player::LoadState(pugi::xml_node& data)
 	
 	sceneValue = scene.attribute("l").as_int(0);
 
-
 		switch (sceneValue)
 		{
 		case 1:
@@ -467,7 +465,11 @@ bool Player::LoadState(pugi::xml_node& data)
 			if (sceneThreeA)
 			{
 				app->fade->Fade((Module*)app->scene3, (Module*)app->scene, 1);
-			}	
+			}
+			else
+			{
+				app->fade->Fade((Module*)app->intro, (Module*)app->scene, 1);
+			}
 			break;
 		case 2:
 			if (sceneOneA)
@@ -478,6 +480,10 @@ bool Player::LoadState(pugi::xml_node& data)
 			{
 				app->fade->Fade((Module*)app->scene3, (Module*)app->scene2, 1);
 			}
+			else
+			{
+				app->fade->Fade((Module*)app->intro, (Module*)app->scene2, 1);
+			}
 			break;
 		case 3:
 			if (sceneOneA)
@@ -487,6 +493,10 @@ bool Player::LoadState(pugi::xml_node& data)
 			if (sceneTwoA)
 			{
 				app->fade->Fade((Module*)app->scene2, (Module*)app->scene3, 1);
+			}
+			else
+			{
+				app->fade->Fade((Module*)app->intro, (Module*)app->scene, 1);
 			}
 			break;
 		}
@@ -627,6 +637,10 @@ void Player::resetPlayer()
 		cp.x = app->player->savedPos.x;
 		cp.y = app->player->savedPos.y;
 
+		app->player->vcy = 0.0f;
+		app->player->vcx = 200.0f;
+		app->player->jump = -350.0f;
+
 		loadPosition = false;
 	}
 	else
@@ -647,9 +661,9 @@ void Player::resetPlayer()
 			app->player->cp.y = 0;
 		}
 
-		app->player->vcy = 0;
-		app->player->vcx = 200;
-		app->player->jump = -350;
+		app->player->vcy = 0.0f;
+		app->player->vcx = 200.0f;
+		app->player->jump = -350.0f;
 
 		app->render->camera.x = 0;
 		app->render->camera.y = 0;
