@@ -382,7 +382,17 @@ bool Player::Update(float dt)
 		btnLvl1->Update(app->input, dt);
 		btnLvl2->Update(app->input, dt);
 	}
+	if (loadPosition)
+	{
+		cp.x = app->player->savedPos.x;
+		cp.y = app->player->savedPos.y;
 
+		app->player->vcy = 0.0f;
+		app->player->vcx = 200.0f;
+		app->player->jump = -350.0f;
+
+		loadPosition = false;
+	}
 	return true;
 }
 
@@ -632,19 +642,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 	
 void Player::resetPlayer()
 {
-	if (loadPosition)
-	{
-		cp.x = app->player->savedPos.x;
-		cp.y = app->player->savedPos.y;
-
-		app->player->vcy = 0.0f;
-		app->player->vcx = 200.0f;
-		app->player->jump = -350.0f;
-
-		loadPosition = false;
-	}
-	else
-	{
+	
 		if (sceneOneA == true)
 		{
 			app->player->cp.x = 80;
@@ -670,6 +668,6 @@ void Player::resetPlayer()
 
 		app->player->xMove = false;
 		app->player->ong = false;
-	}
+	
 	
 }
