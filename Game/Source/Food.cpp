@@ -25,7 +25,7 @@ bool Food::Start()
 
 bool Food::Update(float dt)
 {
-	currentAnimation->Update();
+	currentAnimation->Update(dt);
 	return true;
 }
 

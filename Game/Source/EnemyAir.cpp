@@ -10,7 +10,7 @@
 
 EnemyAir::EnemyAir(Module* listener, fPoint ep, SDL_Texture* texture, Type type) : Entity(listener, ep, texture, type)
 {
-	walkAnimLeft.speed = 0.15f;
+	walkAnimLeft.speed = 5.0f;
 	walkAnimLeft.loop = true;
 	walkAnimLeft.PushBack({ 0,35,80,50 });
 	walkAnimLeft.PushBack({ 84,37,81,48 });
@@ -21,7 +21,7 @@ EnemyAir::EnemyAir(Module* listener, fPoint ep, SDL_Texture* texture, Type type)
 	walkAnimLeft.PushBack({ 515,27,82,64 });
 	walkAnimLeft.PushBack({ 606,23,82,62 });
 
-	walkAnimRight.speed = 0.15f;
+	walkAnimRight.speed = 5.0f;
 	walkAnimRight.loop = true;
 	walkAnimRight.PushBack({ 608,112,80,50 });
 	walkAnimRight.PushBack({ 523,114,81,48 });
@@ -110,7 +110,7 @@ bool EnemyAir::Update(float dt)
 		}
 		//}
 	}
-	currentAnimation->Update();
+	currentAnimation->Update(dt);
 	collider->SetPos(ep.x, ep.y);
 
 	return true;

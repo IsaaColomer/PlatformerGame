@@ -25,7 +25,7 @@ bool Coin::Start()
 
 bool Coin::Update(float dt)
 {
-	currentAnimation->Update();
+	currentAnimation->Update(dt);
 	return true;
 }
 

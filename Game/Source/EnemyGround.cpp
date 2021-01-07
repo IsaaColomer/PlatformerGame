@@ -12,21 +12,21 @@
 
 EnemyGround::EnemyGround(Module* listener, fPoint ep, SDL_Texture* texture, Type type) : Entity(listener, ep, texture, type)
 {
-	idleAnimationR.speed = 0.05f;
+	idleAnimationR.speed = 5.0f;
 	idleAnimationR.loop = true;
 	idleAnimationR.PushBack({ 468,593,84,93 });
 	idleAnimationR.PushBack({ 469,492,83,93 });
 	idleAnimationR.PushBack({ 470,394,79,94 });
 	idleAnimationR.PushBack({ 468,300,80,94 });
 
-	idleAnimationL.speed = 0.05f;
+	idleAnimationL.speed = 5.0f;
 	idleAnimationL.loop = true;
 	idleAnimationL.PushBack({ 0,593,84,93 });
 	idleAnimationL.PushBack({ 0,492,83,93 });
 	idleAnimationL.PushBack({ 3,394,79,94 });
 	idleAnimationL.PushBack({ 4,300,80,94 });
 
-	walkAnimRight.speed = 0.05f;
+	walkAnimRight.speed = 5.0f;
 	walkAnimRight.loop = true;
 	walkAnimRight.PushBack({ 243,592,75,94 });
 	walkAnimRight.PushBack({ 249,492,69,93 });
@@ -35,7 +35,7 @@ EnemyGround::EnemyGround(Module* listener, fPoint ep, SDL_Texture* texture, Type
 	walkAnimRight.PushBack({ 248,187,70,94 });
 	walkAnimRight.PushBack({ 251,80,67,94 });
 
-	walkAnimLeft.speed = 0.05f;
+	walkAnimLeft.speed = 5.0f;
 	walkAnimLeft.loop = true;
 	walkAnimLeft.PushBack({ 358,592,75,94 });
 	walkAnimLeft.PushBack({ 358,492,69,93 });
@@ -117,7 +117,7 @@ bool EnemyGround::Update(float dt)
 			}
 		}
 
-		currentAnimation->Update();
+		currentAnimation->Update(dt);
 		collider->SetPos(ep.x, ep.y);
 	}
 	
