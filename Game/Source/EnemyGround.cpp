@@ -94,8 +94,8 @@ bool EnemyGround::Update(float dt)
 		}
 
 		vey += gravity;
-		ep.x += vex;
-		ep.y += vey;
+		ep.x += vex * dt;
+		ep.y += vey * dt;
 
 		if (Radar(app->player->cp))
 		{
@@ -113,7 +113,7 @@ bool EnemyGround::Update(float dt)
 			{
 				fPoint posNextE = *lastPathEnemy->At(i + 1);
 				fPoint posNextAuxE = app->map->MapToWorld(posNextE.x, posNextE.y);
-				MoveEnemy(posNextAuxE, enemyPos);
+				MoveEnemy(posNextAuxE, enemyPos,dt);
 			}
 		}
 
@@ -191,18 +191,18 @@ int EnemyGround::GetCurrentPositionInPath(fPoint mapPositionEnemy)
 	}
 	return i;
 }
-void EnemyGround::MoveEnemy(fPoint nextPosAuxE, fPoint mapPositionEnemy)
+void EnemyGround::MoveEnemy(fPoint nextPosAuxE, fPoint mapPositionEnemy, float dt)
 {
 	int positionEnemyX = ep.x;
 	int positionEnemyY = ep.y;
 //	int velocity = velocity;
 		if (nextPosAuxE.x < positionEnemyX)
 		{
-			ep.x -= 5;
+			ep.x -= 260*dt;
 		}
 		else if (nextPosAuxE.x > positionEnemyX)
 		{
-			ep.x += 5;
+			ep.x += 260*dt;
 		}
 }
 

@@ -35,7 +35,7 @@ private:
 	bool Radar(fPoint origin);
 	void CreatePathEnemy(fPoint origin, fPoint destination);
 	int GetCurrentPositionInPath(fPoint mapPositionEnemy);
-	void MoveEnemy(fPoint nextAuxPositionEenemy, fPoint mapPositionEnemy);
+	void MoveEnemy(fPoint nextAuxPositionEenemy, fPoint mapPositionEnemy,float dt);
 	void MoveEnemyNULL(fPoint mapPositionEnemy);
 	int CalculateDistance(fPoint origin, fPoint destination);
 
@@ -47,7 +47,7 @@ private:
 	bool enemyRight;
 
 	float vey;
-	float gravity = 0.2f;
+	float gravity = 3.0f;
 	float vex = 0.0f;
 
 	Timer* checkDestination = new Timer();

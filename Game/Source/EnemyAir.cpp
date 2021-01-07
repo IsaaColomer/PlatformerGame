@@ -92,20 +92,20 @@ bool EnemyAir::Update(float dt)
 			//MOVEMENT ON X
 			if (posNextAuxE.x < enemyPosX)
 			{
-				ep.x -= 5;
+				ep.x -= 230*dt;
 			}
 			else if (posNextAuxE.x > enemyPosX)
 			{
-				ep.x += 5;
+				ep.x += 230*dt;
 			}
 			//MOVEMENT ON Y
 			if (app->player->cp.y < enemyPosY)
 			{
-				ep.y -= 5;
+				ep.y -= 230*dt;
 			}
 			else if (app->player->cp.y > enemyPosY)
 			{
-				ep.y += 5;
+				ep.y += 230*dt;
 			}
 		}
 		//}
