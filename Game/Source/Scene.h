@@ -47,6 +47,9 @@ public:
 	//array of colliders, first coll[0] is ground
 	//[0]=y, [1]=x1, [2]=x2
 
+	int timerFont = -1;
+	char textFont[10] = { "\0" };
+
 private:
 	SDL_Texture* img;
 	SDL_Texture* backg;

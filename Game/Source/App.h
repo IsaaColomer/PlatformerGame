@@ -32,6 +32,7 @@ class PathFinding;
 class ConfigScene;
 class CreditsScene;
 class ScenePause;
+class Fonts;
 
 class App
 {
@@ -115,6 +116,7 @@ public:
 	ConfigScene* configscene;
 	CreditsScene* creditsscene;
 	ScenePause* scenepause;
+	Fonts* fonts;
 
 	bool escaped;
 	bool cappedFrameRate = false;

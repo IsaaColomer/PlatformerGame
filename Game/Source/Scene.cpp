@@ -18,7 +18,7 @@
 #include "EntityManager.h"
 #include "Pathfinding.h"
 #include "Scene3.h"
-
+#include "Fonts.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -96,6 +96,9 @@ bool Scene::Start()
 	flag = app->tex->Load("Assets/Screens/Gameplay/flag.png");
 	checked = app->tex->Load("Assets/Screens/Gameplay/checked.png");
 
+	char lookupTable[] = { "! @,_./0123456789$:< ?abcdefghijklmnopqrstuvwxyzA" };
+	timerFont = app->fonts->Load("Assets/Fonts/font.png", lookupTable, 6);
+
 	app->map->Load("map.tmx");
 	
 	return true;
@@ -121,7 +124,9 @@ bool Scene::Update(float dt)
 	{
 		app->render->DrawTexture(checked, flagRect.x, flagRect.y, NULL);
 	}
-
+	app->fonts->BlitText(3, 100, timerFont, "Time:");
+	//sprintf_s(textFont, 10, "%4d", app->intro->score);
+	//app->fonts->BlitText(300, 100, timerFont, textFont);
 	return true;
 }
 
