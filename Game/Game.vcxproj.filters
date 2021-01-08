@@ -103,9 +103,6 @@
     <ClCompile Include="Source\ScenePause.cpp">
       <Filter>Engine\Gameplay\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Fonts.cpp">
-      <Filter>Engine\Modules</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -245,9 +242,6 @@
     </ClInclude>
     <ClInclude Include="Source\ScenePause.h">
       <Filter>Engine\Gameplay\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Fonts.h">
-      <Filter>Engine\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
