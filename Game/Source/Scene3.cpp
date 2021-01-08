@@ -97,6 +97,11 @@ bool Scene3::PostUpdate()
 {
 	bool ret = true;
 
+	char score[64] = { 0 };
+	sprintf_s(score, 64, "Timer: %d", 56);
+
+	app->render->DrawText(app->render->font, score, 1025, 0, 50, 5, { 255, 255, 43, 255 });
+
 	return ret;
 }
 

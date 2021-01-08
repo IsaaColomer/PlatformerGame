@@ -119,7 +119,7 @@ public:
 	bool escaped;
 	bool cappedFrameRate = false;
 	bool savedFile;
-
+	uint32 previousLastSecFrameCount = 0;
 private:
 
 	int argc;
@@ -135,7 +135,7 @@ private:
 	float dt = 0.0f;
 	float startFrameTimeMs = 0.0f;
 	uint32 lastSecFrameCount = 0;
-	uint32 previousLastSecFrameCount = 0;
+
 
 	uint frames;
 	PerfTimer perfTimer;
