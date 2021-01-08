@@ -69,13 +69,11 @@ bool Scene2::Start()
 
 	app->entitymanager->AddEntity({ 1817.0f,481.0f }, Entity::Type::FOOD);
 
-	flagRect = { 1150,100,10,180 };
-	flagCol = app->collisions->AddCollider(flagRect, Collider::Type::CHECKPOINT, this);
-	flagAlive = true;
+	app->entitymanager->AddEntity({ 1150,110 }, Entity::Type::FLAG);
 
 	backg = app->tex->Load("Assets/Screens/Gameplay/background.png");
 	portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
-	flag = app->tex->Load("Assets/Screens/Gameplay/flag.png");
+	//flag = app->tex->Load("Assets/Screens/Gameplay/flag.png");
 	checked = app->tex->Load("Assets/Screens/Gameplay/checked.png");
 	app->map->Load("map2.tmx");
 	//app->audio->PlayMusic("Assets/audio/Music/music_spy.ogg");
@@ -107,11 +105,6 @@ bool Scene2::Update(float dt)
 bool Scene2::PostUpdate()
 {
 	bool ret = true;
-	app->render->DrawTexture(flag, flagRect.x, flagRect.y, NULL);
-	if (flagAlive == false)
-	{
-		app->render->DrawTexture(checked, flagRect.x, flagRect.y, NULL);
-	}
 	char score[64] = { 0 };
 	sprintf_s(score, 64, "Timer: %d", 56);
 

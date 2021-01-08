@@ -16,6 +16,7 @@ public:
 		ENEMYA,
 		COIN,
 		FOOD,
+		FLAG,
 		PLAYER
 		
 		

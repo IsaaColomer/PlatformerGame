@@ -109,7 +109,7 @@ bool Player::Start()
 	coins = app->tex->Load("Assets/GUI/coin.png");
 	jumpFx = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
 	coinFx = app->audio->LoadFx("Assets/Audio/Fx/coin.wav");
-	hittedFx = app->audio->LoadFx("Assets/Audio/Fx/hitted.wav");
+
 	checkPointFx = app->audio->LoadFx("Assets/Audio/Fx/check_point.wav");
 	destroyedFx = app->audio->LoadFx("Assets/Audio/Fx/enemy_destroyed.wav");
 	lifeUpFx = app->audio->LoadFx("Assets/Audio/Fx/life.wav");
@@ -621,17 +621,6 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 						app->fade->Fade((Module*)app->scene3, (Module*)app->scene3, 30);
 					}
 				}
-			}
-			break;
-		case Collider::Type::CHECKPOINT:
-			if (ong)
-			{
-				app->audio->PlayFx(checkPointFx);
-				c2->pendingToDelete = true;
-				app->SaveGameRequest();
-				app->scene->flagAlive = false;
-				app->scene2->flagAlive = false;
-				fCount = 0;
 			}
 			break;
 		default:

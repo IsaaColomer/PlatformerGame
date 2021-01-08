@@ -48,13 +48,14 @@ private:
 	SDL_Texture* coinTexture;
 	SDL_Texture* foodTexture;
 	SDL_Texture* enemyTexture;
-	//SDL_Texture* playerTexture;
+	SDL_Texture* flagTexture;
 	SDL_Texture* enemyAirTexture;
 
 	Entity* enemyG;
 	Entity* coin;
 	Entity* food;
 	Entity* enemyA;
+	Entity* flag;
 };
 
 #endif // _ENTITYMANAGER_H_

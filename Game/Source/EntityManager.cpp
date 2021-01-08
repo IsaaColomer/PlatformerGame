@@ -9,6 +9,7 @@
 #include "Entity.h"
 #include "EnemyGround.h"
 #include "EnemyAir.h"
+#include "Flag.h"
 
 EntityManager::EntityManager() : Module()
 {
@@ -28,6 +29,7 @@ bool EntityManager::Start()
 	foodTexture = app->tex->Load("Assets/Screens/Gameplay/food.png");
 	enemyTexture = app->tex->Load("Assets/Characters/first_enemy.png");
 	enemyAirTexture = app->tex->Load("Assets/Characters/second_enemy.png");
+	flagTexture = app->tex->Load("Assets/Screens/Gameplay/flag.png");
 
 	return true;
 }
@@ -98,6 +100,9 @@ void EntityManager::AddEntity(fPoint position, Entity::Type type)
 	case Entity::Type::ENEMYA:
 		enemyA = (Entity*)(new EnemyAir((Module*)this, position, enemyAirTexture, type));
 		entityList.add(enemyA);
+	case Entity::Type::FLAG:
+		flag = (Entity*)(new Flag((Module*)this, position, flagTexture, type));
+		entityList.add(flag);
 		break;
 	}
 }
