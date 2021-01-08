@@ -17,6 +17,7 @@
 #include "Render.h"
 #include "ConfigScene.h"
 #include "GuiSlider.h"
+#include "Font.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -53,7 +54,7 @@ bool Intro::Start()
 	bool ret = true;
 
 	LOG("Loading intro assets");
-
+	
 	introscreen = app->tex->Load("Assets/Screens/Title/intro_screen.png");
 	tutorialScreen = app->tex->Load("Assets/Screens/Title/tutorial_screen.png");
 
@@ -63,32 +64,32 @@ bool Intro::Start()
 	btnLoad = new GuiButton(6, { 1280 / 2 - 300 / 2, 300, 300, 80 }, "LOAD");
 	btnLoad->SetObserver((Scene*)this);
 	btnLoad->SetDisabledTexture(app->tex->Load("Assets/GUI/load_dissabled.png"));
+
 	if (app->savedFile == false)
 	{
 		btnLoad->state = GuiControlState::DISABLED;
 	}
-	btnLoad->SetTexture(app->tex->Load("Assets/GUI/load.png"), app->tex->Load("Assets/GUI/load_selected.png"), app->tex->Load("Assets/GUI/load_focused.png"));
-
+	//btnLoad->SetTexture(app->tex->Load("Assets/GUI/load.png"), app->tex->Load("Assets/GUI/load_selected.png"), app->tex->Load("Assets/GUI/load_focused.png"));
 
 	btnStart = new GuiButton(1, { 1280 / 2 - 300 / 2, 200, 300, 80 }, "START");
 	btnStart->SetObserver((Scene*) this);
-	btnStart->SetTexture(app->tex->Load("Assets/GUI/play.png"), app->tex->Load("Assets/GUI/play_selected.png"), app->tex->Load("Assets/GUI/play_focused.png"));
+	btnStart->SetTexture(app->tex->Load("Assets/GUI/blanck.png"), app->tex->Load("Assets/GUI/selected_normal.png"), app->tex->Load("Assets/GUI/selected_normal.png"));
 
 	btnConfig = new GuiButton(2, { 1280 / 2 - 300 / 2, 400, 300, 80 }, "CONFIG");
 	btnConfig->SetObserver((Scene*)this);
-	btnConfig->SetTexture(app->tex->Load("Assets/GUI/settings.png"), app->tex->Load("Assets/GUI/settings_selected.png"), app->tex->Load("Assets/GUI/settings_focused.png"));
+	btnConfig->SetTexture(app->tex->Load("Assets/GUI/blanck.png"), app->tex->Load("Assets/GUI/selected_normal.png"), app->tex->Load("Assets/GUI/selected_normal.png"));
 
 	btnExit = new GuiButton(4, { 1280 / 2 - 300 / 2, 500, 300, 80 }, "EXIT");
 	btnExit->SetObserver((Scene*) this);
-	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
+	btnExit->SetTexture(app->tex->Load("Assets/GUI/blanck.png"), app->tex->Load("Assets/GUI/selected_normal.png"), app->tex->Load("Assets/GUI/selected_normal.png"));
 
 	btnCredits = new GuiButton(0, { (1280 / 2 - 300 / 2)+450, 600, 300, 80 }, "CREDITS");
 	btnCredits->SetObserver((Scene*)this);
-	btnCredits->SetTexture(app->tex->Load("Assets/GUI/credits.png"), app->tex->Load("Assets/GUI/credits_selected.png"), app->tex->Load("Assets/GUI/credits_focused.png"));
+	btnCredits->SetTexture(app->tex->Load("Assets/GUI/blanck.png"), app->tex->Load("Assets/GUI/selected_normal.png"), app->tex->Load("Assets/GUI/selected_normal.png"));
 
 	btnTutorial = new GuiButton(16, { (1280 / 2 - 300 / 2) - 450, 600, 300, 80 }, "TUTORIAL");
 	btnTutorial->SetObserver((Scene*)this);
-	btnTutorial->SetTexture(app->tex->Load("Assets/GUI/tutorial.png"), app->tex->Load("Assets/GUI/tutorial_selected.png"), app->tex->Load("Assets/GUI/tutorial_focused.png"));
+	btnTutorial->SetTexture(app->tex->Load("Assets/GUI/blanck.png"), app->tex->Load("Assets/GUI/selected_long.png"), app->tex->Load("Assets/GUI/selected_long.png"));
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
@@ -156,14 +157,38 @@ bool Intro::PostUpdate()
 	{
 		// Draw everything --------------------------------------
 		app->render->DrawTexture(introscreen, 0, 0, NULL);
+
 		btnLoad->Draw(app->render);
+
+		sprintf_s(text, 64, "Load", 56);
+		app->render->DrawText(app->render->font, text, 1180 / 2, 300, 50, 5, { 255, 255, 43, 255 });
+
 		btnStart->Draw(app->render);
+
+		sprintf_s(text, 64, "Play", 56);
+		app->render->DrawText(app->render->font, text, 1180 / 2, 200, 50, 5, { 255, 255, 43, 255 });
+
 		btnConfig->Draw(app->render);
+
+		sprintf_s(text, 64, "Settings", 56);
+		app->render->DrawText(app->render->font, text, 1090 / 2, 400, 50, 5, { 255, 255, 43, 255 });
+
 		btnExit->Draw(app->render);
+
+		sprintf_s(text, 64, "Exit", 56);
+		app->render->DrawText(app->render->font, text, 1180 / 2, 500, 50, 5, { 255, 255, 43, 255 });
+
 		btnCredits->Draw(app->render);
+
+		sprintf_s(text, 64, "Credits", 56);
+		app->render->DrawText(app->render->font, text, (1280 / 2 - 300 / 2) + 500, 600, 50, 5, { 255, 255, 43, 255 });
+
 		btnTutorial->Draw(app->render);
+
+		sprintf_s(text, 64, "Tutorial", 56);
+		app->render->DrawText(app->render->font, text, (1280 / 2 - 220 / 2) - 450, 610, 50, 5, { 255, 255, 43, 255 });
+
 	}
-	
 
 	return ret;
 }
