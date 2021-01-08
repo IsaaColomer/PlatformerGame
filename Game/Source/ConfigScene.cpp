@@ -58,11 +58,11 @@ bool ConfigScene::Start()
 	btnBack->SetObserver((Scene*)this);
 	btnBack->SetTexture(app->tex->Load("Assets/GUI/back.png"), app->tex->Load("Assets/GUI/back_selected.png"), app->tex->Load("Assets/GUI/back_focused.png"));
 
-	musicSlider = new GuiSlider(5, { 1280 / 2 - 300 / 2, 400, 40, 40 }, "MUSIC");
+	musicSlider = new GuiSlider(5, { 1280 / 2 , 400, 40, 40 }, "MUSIC");
 	musicSlider->SetObserver((Scene*)this);
 	musicSlider->SetTexture(app->tex->Load("Assets/GUI/fx.png"), app->tex->Load("Assets/GUI/fx_selected.png"), app->tex->Load("Assets/GUI/fx_focused.png"));
 
-	fxSlider = new GuiSlider(7, { 1280 / 2 - 300 / 2, 500, 40, 40 }, "FX");
+	fxSlider = new GuiSlider(7, { 1280 / 2 , 500, 40, 40 }, "FX");
 	fxSlider->SetObserver((Scene*)this);
 	fxSlider->SetTexture(app->tex->Load("Assets/GUI/fx.png"), app->tex->Load("Assets/GUI/fx_selected.png"), app->tex->Load("Assets/GUI/fx_focused.png"));
 
