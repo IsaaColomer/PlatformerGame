@@ -11,7 +11,7 @@ class Font
 {
 public:
 
-    Font(const char* rtpFontFile, Textures* tex);
+    Font(const char* rtpFontFile, SDL_Texture* tex);
 
     ~Font();
 
