@@ -506,7 +506,7 @@ bool Player::LoadState(pugi::xml_node& data)
 			}
 			else
 			{
-				app->fade->Fade((Module*)app->intro, (Module*)app->scene, 1);
+				app->fade->Fade((Module*)app->intro, (Module*)app->scene3, 1);
 			}
 			break;
 		}

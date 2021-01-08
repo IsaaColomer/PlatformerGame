@@ -207,8 +207,6 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			app->escaped = false;
 			app->LoadGame();
-
-			
 		}
 		if (control->id == 10)
 		{
@@ -223,8 +221,8 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 12)
 		{
-			app->fade->Fade((Module*)this, (Module*)app->intro, 1);
 			app->player->coinsCollected = 0;
+			app->fade->Fade((Module*)this, (Module*)app->intro, 1);
 			app->scene->CleanUp();
 			app->scene2->CleanUp();
 			app->scene3->CleanUp();
