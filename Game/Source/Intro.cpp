@@ -65,7 +65,7 @@ bool Intro::Start()
 
 	btnLoad = new GuiButton(6, { 1280 / 2 - 300 / 2, 300, 300, 80 }, "LOAD");
 	btnLoad->SetObserver((Scene*)this);
-	btnLoad->SetDisabledTexture(app->tex->Load("Assets/GUI/load_dissabled.png"));
+	btnLoad->SetDisabledTexture(app->tex->Load("Assets/GUI/selected_loadoff.png"));
 
 	if (app->savedFile == false)
 	{
