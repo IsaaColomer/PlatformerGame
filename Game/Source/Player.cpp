@@ -380,6 +380,10 @@ bool Player::Update(float dt)
 		btnSettings->Update(app->input, dt);
 		btnBackToTitle->Update(app->input, dt);
 		btnLvl1->Update(app->input, dt);
+		if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+		{
+			app->intro->debug = !app->intro->debug;
+		}
 		btnLvl2->Update(app->input, dt);
 	}
 	if (loadPosition)
