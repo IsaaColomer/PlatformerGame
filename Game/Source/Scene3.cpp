@@ -48,6 +48,8 @@ bool Scene3::Start()
 	app->player->Init();
 	app->player->Start();
 
+	timer.Start();
+
 	app->scene->sceneOnScreen = false;
 	app->scene2->scene2OnScreen = false;
 	app->scene3->scene3OnScreen = true;
@@ -98,9 +100,10 @@ bool Scene3::PostUpdate()
 	bool ret = true;
 
 	char score[64] = { 0 };
-	sprintf_s(score, 64, "Timer: %d", 56);
+	int time = timer.ReadSec();
 
-	app->render->DrawText(app->render->font, score, 1025, 0, 50, 5, { 255, 255, 43, 255 });
+	sprintf_s(score, 64, "Time: %d", time);
+	app->render->DrawText(app->render->font, score, 1000, 0, 50, 5, { 255, 255, 43, 255 });
 
 	return ret;
 }

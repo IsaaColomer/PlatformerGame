@@ -1,22 +1,4 @@
-#include "App.h"
-#include "Input.h"
-#include "Textures.h"
-#include "Audio.h"
-#include "Render.h"
-#include "Window.h"
-#include "Collisions.h"
-#include "Scene.h"
-#include "Map.h"
-#include "Player.h"
-#include "Animation.h"
-#include "Intro.h"
 #include "Scene2.h"
-#include "EnemyGround.h"
-#include "Title.h"
-#include "EntityManager.h"
-#include "ScenePause.h"
-#include "FadeToBlack.h"
-#include "Scene3.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -48,6 +30,8 @@ bool Scene2::Start()
 
 	app->player->Init();
 	app->player->Start();
+
+	timer.Start();
 
 	app->scene->sceneOnScreen = false;
 	app->scene2->scene2OnScreen = true;
@@ -105,10 +89,18 @@ bool Scene2::Update(float dt)
 bool Scene2::PostUpdate()
 {
 	bool ret = true;
+	int time = 60 - timer.ReadSec();
 	char score[64] = { 0 };
-	sprintf_s(score, 64, "Timer: %d", 56);
 
-	app->render->DrawText(app->render->font, score, 1025, 0, 50, 5, { 255, 255, 43, 255 });
+	sprintf_s(score, 64, "Countdown: %d", time);
+
+	app->render->DrawText(app->render->font, score, 900, 0, 50, 5, { 255, 255, 43, 255 });
+
+	if (time == 0)
+	{
+		app->player->playerLives = 0;
+	}
+
 	return ret;
 }
 

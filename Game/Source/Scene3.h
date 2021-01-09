@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Animation.h"
+#include "Timer.h"
 
 
 struct SDL_Texture;
@@ -45,7 +46,7 @@ private:
 	SDL_Texture* img;
 	SDL_Texture* backg;
 	SDL_Texture* portal;
-
+	Timer timer;
 	SDL_Texture* food;
 	Collider* foodCol;
 	SDL_Rect foodRect;

@@ -3,7 +3,25 @@
 
 #include "Module.h"
 #include "Animation.h"
-
+#include "Timer.h"
+#include "EnemyGround.h"
+#include "Title.h"
+#include "EntityManager.h"
+#include "ScenePause.h"
+#include "FadeToBlack.h"
+#include "Scene3.h"
+#include "App.h"
+#include "Input.h"
+#include "Textures.h"
+#include "Audio.h"
+#include "Render.h"
+#include "Window.h"
+#include "Collisions.h"
+#include "Scene.h"
+#include "Map.h"
+#include "Player.h"
+#include "Animation.h"
+#include "Intro.h"
 
 struct SDL_Texture;
 
@@ -46,6 +64,8 @@ private:
 	SDL_Texture* img;
 	SDL_Texture* backg;
 	SDL_Texture* portal;
+
+	Timer timer;
 
 	SDL_Texture* food;
 	Collider* foodCol;

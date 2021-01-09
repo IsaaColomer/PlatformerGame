@@ -109,7 +109,7 @@ bool Player::Start()
 	coins = app->tex->Load("Assets/GUI/coin.png");
 	jumpFx = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
 	coinFx = app->audio->LoadFx("Assets/Audio/Fx/coin.wav");
-
+	hittedFx = app->audio->LoadFx("Assets/Audio/Fx/hitted.wav");
 	checkPointFx = app->audio->LoadFx("Assets/Audio/Fx/check_point.wav");
 	destroyedFx = app->audio->LoadFx("Assets/Audio/Fx/enemy_destroyed.wav");
 	lifeUpFx = app->audio->LoadFx("Assets/Audio/Fx/life.wav");
@@ -359,7 +359,7 @@ bool Player::Update(float dt)
 			}
 			if (sceneTwoA == true)
 			{
-				app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 60);
+				app->fade->Fade((Module*)app->scene2, (Module*)app->titleScreen, 10);
 			}
 			if (sceneThreeA == true)
 			{

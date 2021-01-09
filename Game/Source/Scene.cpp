@@ -54,6 +54,8 @@ bool Scene::Start()
 	app->player->Init();
 	app->player->Start();
 
+	timer.Start();
+
 	if (app->scene->tpToScene)
 	{
 		app->player->cp.x = 900;
@@ -91,17 +93,9 @@ bool Scene::Start()
 
 	app->entitymanager->AddEntity({ 900,110 }, Entity::Type::FLAG);
 
-	//flagRect = { 900,100,10,170 };
-	//flagCol = app->collisions->AddCollider(flagRect, Collider::Type::CHECKPOINT, this);
-	//flagAlive = true;
-
 	backg = app->tex->Load("Assets/Screens/Gameplay/background.png");
 	portal = app->tex->Load("Assets/Screens/Gameplay/portal.png");
-	//flag = app->tex->Load("Assets/Screens/Gameplay/flag.png");
 	checked = app->tex->Load("Assets/Screens/Gameplay/checked.png");
-
-	//char lookupTable[] = { "! @,_./0123456789$:< ?abcdefghijklmnopqrstuvwxyzA" };
-	//timerFont = app->fonts->Load("Assets/Fonts/font.png", lookupTable, 6);
 
 	app->map->Load("map.tmx");
 	
@@ -123,9 +117,7 @@ bool Scene::Update(float dt)
 	app->map->Draw();
 	app->render->DrawTexture(portal, 2325, 290);//2325
 	app->map->LoadColliders();
-	//app->render->DrawTexture(flag, flagRect.x, flagRect.y, NULL);
-	//sprintf_s(textFont, 10, "%4d", app->intro->score);
-	//app->fonts->BlitText(300, 100, timerFont, textFont);
+
 	return true;
 }
 
@@ -134,9 +126,11 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 	char score[64] = { 0 };
-	sprintf_s(score, 64, "Timer: %d", 56);
+	int time = timer.ReadSec();
 
-	app->render->DrawText(app->render->font, score, 1025, 0, 50, 5, { 255, 255, 43, 255 });
+	sprintf_s(score, 64, "Time: %d", time);
+	app->render->DrawText(app->render->font, score, 1000, 0, 50, 5, { 255, 255, 43, 255 });
+
 	return ret;
 }
 
