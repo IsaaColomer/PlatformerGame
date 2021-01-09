@@ -68,6 +68,8 @@ public:
 	int jumps;
 	int sceneValue;
 
+	char text[64] = { 0 };
+
 	bool fCon;
 	bool lCon;
 	bool rCon;

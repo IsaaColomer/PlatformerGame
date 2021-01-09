@@ -130,29 +130,29 @@ bool Player::Start()
 	scenepauseback = app->tex->Load("Assets/Screens/Title/pause_screen.png");
 	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
 
-	btnExit = new GuiButton(4, { 1280 / 2 - 300 / 2, 575, 300, 80 }, "EXIT");
+	btnExit = new GuiButton(4, { 1280 / 2 - 175 / 2, 575, 300, 80 }, "EXIT");
 	btnExit->SetObserver((Scene*)this);
-	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));
+	btnExit->SetTexture(app->tex->Load("Assets/GUI/blanck.png"), app->tex->Load("Assets/GUI/selected.png"), app->tex->Load("Assets/GUI/selected_focused.png"));
 
-	btnLvl1 = new GuiButton(13, { 1280 / 2 - 300 / 2, 350, 300, 80 }, "LVL1");
+	btnLvl1 = new GuiButton(13, { 1280 / 2 - 275 / 2, 250, 300, 80 }, "LVL1");
 	btnLvl1->SetObserver((Scene*)this);
-	btnLvl1->SetTexture(app->tex->Load("Assets/GUI/level1.png"), app->tex->Load("Assets/GUI/level1_selected.png"), app->tex->Load("Assets/GUI/level1_focused.png"));
+	btnLvl1->SetTexture(app->tex->Load("Assets/GUI/blanck.png"), app->tex->Load("Assets/GUI/selected_lvl.png"), app->tex->Load("Assets/GUI/selected_lvlf.png"));
 
-	btnLvl2 = new GuiButton(14, { 1280 / 2 - 300 / 2, 425, 300, 80 }, "LVL2");
+	btnLvl2 = new GuiButton(14, { 1280 / 2 - 250 / 2, 330, 300, 80 }, "LVL2");
 	btnLvl2->SetObserver((Scene*)this);
-	btnLvl2->SetTexture(app->tex->Load("Assets/GUI/level2.png"), app->tex->Load("Assets/GUI/level2_selected.png"), app->tex->Load("Assets/GUI/level2_focused.png"));
+	btnLvl2->SetTexture(app->tex->Load("Assets/GUI/blanck.png"), app->tex->Load("Assets/GUI/selected_lvl.png"), app->tex->Load("Assets/GUI/selected_lvlf.png"));
 
-	btnBackToTitle = new GuiButton(12, { 1280 / 2 - 300 / 2, 275, 300, 80 }, "BACK_TO_TITLE");
+	btnBackToTitle = new GuiButton(12, { 1280 / 2 - 400 / 2, 420, 300, 80 }, "BACK_TO_TITLE");
 	btnBackToTitle->SetObserver((Scene*)this);
-	btnBackToTitle->SetTexture(app->tex->Load("Assets/GUI/back_to_title.png"), app->tex->Load("Assets/GUI/back_to_title_selected.png"), app->tex->Load("Assets/GUI/back_to_title_focused.png"));
+	btnBackToTitle->SetTexture(app->tex->Load("Assets/GUI/blanck.png"), app->tex->Load("Assets/GUI/selected_back.png"), app->tex->Load("Assets/GUI/selected_backf.png"));
 
-	btnResume = new GuiButton(5, { (1280 / 2 - 300 / 2), 125, 300, 80 }, "RESUME");
+	btnResume = new GuiButton(5, { (1280 / 2 - 300 / 2), 180, 300, 80 }, "RESUME");
 	btnResume->SetObserver((Scene*)this);
-	btnResume->SetTexture(app->tex->Load("Assets/GUI/resume.png"), app->tex->Load("Assets/GUI/resume_selected.png"), app->tex->Load("Assets/GUI/resume_focused.png"));
+	btnResume->SetTexture(app->tex->Load("Assets/GUI/blanck.png"), app->tex->Load("Assets/GUI/selected_long.png"), app->tex->Load("Assets/GUI/selected_longf.png"));
 
-	btnSettings = new GuiButton(2, { (1280 / 2 - 300 / 2), 200, 300, 80 }, "SETTINGS");
+	btnSettings = new GuiButton(2, { 1280 / 2 - 300 / 2, 495, 300, 80 }, "SETTINGS");
 	btnSettings->SetObserver((Scene*)this);
-	btnSettings->SetTexture(app->tex->Load("Assets/GUI/settings.png"), app->tex->Load("Assets/GUI/settings_selected.png"), app->tex->Load("Assets/GUI/settings_focused.png"));
+	btnSettings->SetTexture(app->tex->Load("Assets/GUI/blanck.png"), app->tex->Load("Assets/GUI/selected_long.png"), app->tex->Load("Assets/GUI/selected_longf.png"));
 
 	return true;
 }
@@ -429,13 +429,31 @@ bool Player::PostUpdate()
 		app->render->camera.y = 0;
 
 		app->render->DrawTexture(scenepauseback, 0, 0, NULL);
+
 		btnExit->Draw(app->render);
+		sprintf_s(text, 64, "Exit", 56);
+		app->render->DrawText(app->render->font, text, 595, 560, 50, 5, { 255, 255, 43, 255 });
+
 		btnResume->Draw(app->render);
+
+		sprintf_s(text, 64, "Resume", 56);
+		app->render->DrawText(app->render->font, text, 545, 165, 50, 5, { 255, 255, 43, 255 });
+
 		btnSettings->Draw(app->render);
+		sprintf_s(text, 64, "Settings", 56);
+		app->render->DrawText(app->render->font, text, 535, 485, 50, 5, { 255, 255, 43, 255 });
+
 		btnBackToTitle->Draw(app->render);
+		sprintf_s(text, 64, "Back To Title", 56);
+		app->render->DrawText(app->render->font, text, 475, 400, 50, 5, { 255, 255, 43, 255 });
 
 		btnLvl1->Draw(app->render);
+		sprintf_s(text, 64, "Level 1", 56);
+		app->render->DrawText(app->render->font, text, 545, 235, 50, 5, { 255, 255, 43, 255 });
+
 		btnLvl2->Draw(app->render);
+		sprintf_s(text, 64, "Level 2", 56);
+		app->render->DrawText(app->render->font, text, 545, 315, 50, 5, { 255, 255, 43, 255 });
 	}
 
 	return ret;
