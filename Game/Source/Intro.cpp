@@ -51,6 +51,8 @@ bool Intro::Start()
 
 	gamePaused = false;
 
+	debug = false;
+
 	bool ret = true;
 
 	LOG("Loading intro assets");
@@ -106,6 +108,11 @@ bool Intro::PreUpdate()
 
 bool Intro::Update(float dt)
 {
+	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+	{
+		app->intro->debug = !app->intro->debug;
+	}
+	
 	if (!tutorial)
 	{
 		btnTutorial->Update(app->input, dt);
@@ -198,6 +205,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case GuiControlType::BUTTON:
 	{
+
 		if (control->id == 1)
 		{
 			app->escaped = false;
@@ -318,7 +326,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 8 && app->intro->checkedFullScreen == false)
 		{
 			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);
-			
+			app->intro->checkedFullScreen = true;
 		}
 		else if(control->id== 8 && app->intro->checkedFullScreen)
 		{
@@ -327,7 +335,6 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 9 && app->intro->vsyncClicked == false)
 		{
 			/*SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");*/
-			printf("vsync = true");
 			SDL_GetHint("SDL_RENDERER_PRESENTVSYNC");
 			SDL_SetHint("SDL_RENDERER_PRESENTVSYNC", "1");
 			app->intro->vsyncClicked = true;

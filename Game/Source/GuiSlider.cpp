@@ -1,6 +1,7 @@
 #include "GuiSlider.h"
 #include "App.h"
 #include "ConfigScene.h"
+#include "Intro.h"
 
 GuiSlider::GuiSlider(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::SLIDER, id)
 {
@@ -54,11 +55,35 @@ bool GuiSlider::Draw(Render* render)
         {
         case GuiControlState::DISABLED: render->DrawRectangle(bounds, 100, 100, 100, 255);
             break;
-        case GuiControlState::NORMAL:   app->render->DrawTexture(textureIdle, bounds.x, bounds.y, NULL);
+        case GuiControlState::NORMAL: 
+            if (app->intro->debug)
+            {
+                render->DrawRectangle(bounds, 100, 100, 100, 255);
+            }
+            if (app->intro->debug == false)
+            {
+                app->render->DrawTexture(textureIdle, bounds.x, bounds.y, NULL);
+            }
             break;
-        case GuiControlState::FOCUSED: app->render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
+        case GuiControlState::FOCUSED:
+            if (app->intro->debug)
+            {
+                render->DrawRectangle(bounds, 0, 100, 100, 255);
+            }
+            if (app->intro->debug == false)
+            {
+                app->render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
+            }
             break;
-        case GuiControlState::PRESSED: app->render->DrawTexture(textureClicked, bounds.x, bounds.y, NULL);
+        case GuiControlState::PRESSED:
+            if (app->intro->debug)
+            {
+                render->DrawRectangle(bounds, 0, 100, 0, 255);
+            }
+            if (app->intro->debug == false)
+            {
+                app->render->DrawTexture(textureClicked, bounds.x, bounds.y, NULL);
+            }
             break;
         case GuiControlState::SELECTED: render->DrawRectangle(bounds, 0, 255, 0, 255);
             break;

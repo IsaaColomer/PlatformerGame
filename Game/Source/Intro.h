@@ -56,6 +56,8 @@ public:
 
 	bool tutorial;
 
+	bool debug;
+
 	char text[64] = { 0 };
 
 	bool gamePaused;

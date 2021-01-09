@@ -67,6 +67,10 @@ bool CreditsScene::PreUpdate()
 
 bool CreditsScene::Update(float dt)
 {
+	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+	{
+		app->intro->debug = !app->intro->debug;
+	}
 	btnBack->Update(app->input, dt);
 	return true;
 }

@@ -53,23 +53,53 @@ bool GuiCheckBox::Draw(Render* render)
     {
     case GuiControlState::DISABLED:
     {   
-       if (checked == false)render->DrawRectangle(bounds, 100, 100, 100, 255);
-       else render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
+        if (app->intro->debug)
+        {
+            render->DrawRectangle(bounds, 189, 0, 0, 255);
+        }
+        if (app->intro->debug == false)
+        {
+            app->render->DrawTexture(textureClicked, bounds.x, bounds.y, NULL);
+        }
     } break;
     case GuiControlState::NORMAL: 
     {
-        if (checked == true)
+        if (app->intro->debug)
         {
-            render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
+            render->DrawRectangle(bounds, 189, 189, 0, 255);
         }
-        else render->DrawTexture(textureIdle, bounds.x, bounds.y, NULL);
+        if (app->intro->debug == false)
+        {
+            if (checked == true)
+            {
+                render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
+            }
+            else render->DrawTexture(textureIdle, bounds.x, bounds.y, NULL);
+        }
     } break;
     case GuiControlState::FOCUSED: 
     {
-        render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
+        if (app->intro->debug)
+        {
+            render->DrawRectangle(bounds, 189, 0, 189, 255);
+        }
+        if (app->intro->debug == false)
+        {
+                render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
+        }
     }
         break;
-    case GuiControlState::PRESSED: render->DrawTexture(textureClicked, bounds.x, bounds.y, NULL);
+    case GuiControlState::PRESSED:
+    {
+        if (app->intro->debug)
+        {
+            render->DrawRectangle(bounds, 0, 189, 0, 255);
+        }
+        if (app->intro->debug == false)
+        {
+            render->DrawTexture(textureClicked, bounds.x, bounds.y, NULL);
+        }
+    }
         break;
     case GuiControlState::SELECTED: render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
         break;

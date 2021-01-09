@@ -90,7 +90,10 @@ bool ConfigScene::PreUpdate()
 
 bool ConfigScene::Update(float dt)
 {
-
+	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+	{
+		app->intro->debug = !app->intro->debug;
+	}
 	btnExit->Update(app->input, dt);
 	musicSlider->Update(app->input, dt);
 	fxSlider->Update(app->input, dt);
