@@ -117,7 +117,7 @@ public:
 	ScenePause* scenepause;
 
 	bool escaped;
-	bool cappedFrameRate = false;
+	int cappedFrameRate = 0;
 	bool savedFile;
 	uint32 previousLastSecFrameCount = 0;
 private:

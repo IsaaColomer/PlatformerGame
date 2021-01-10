@@ -235,7 +235,11 @@ void App::PrepareUpdate()
 {
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 	{
-		cappedFrameRate = !cappedFrameRate;
+		cappedFrameRate++;
+		if (cappedFrameRate > 2)
+		{
+			cappedFrameRate = 0;
+		}
 	}
 
 	dt = frameTime.ReadSec();
@@ -264,9 +268,14 @@ void App::FinishUpdate()
 
 	fpsAverageSinceStart = fpsCount / startTime.ReadSec();
 
-	if (dt < 1000/30 && cappedFrameRate)
+	if (dt < 1000/60 && cappedFrameRate == 0)
 	{
-		float delay = 1000/30 - dt;
+		float delay = 1000/60 - dt;
+		SDL_Delay(delay);
+	}
+	else if (dt < 1000 / 30 && cappedFrameRate == 1)
+	{
+		float delay = 1000 / 30 - dt;
 		SDL_Delay(delay);
 	}
 
