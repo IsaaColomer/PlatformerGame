@@ -75,7 +75,7 @@ Player::Player() : Module()
 
 	redHeart.speed = 0.05f;
 	redHeart.loop = true;
-	redHeart.PushBack({ 45,0,42,41 });
+	redHeart.PushBack({ 45,0,42,54 });
 
 	playerLives = 3;
 }
@@ -357,18 +357,10 @@ bool Player::Update(float dt)
 		}
 		//--------------------------------
 		int timeH = heartTimer.ReadSec();
-		if (timeH > 2)
+		if (timeH > 1)
 		{
 			heartBool = !heartBool;
 			heartTimer.Start();
-		}
-		if (heartBool == true)
-		{
-			currentHeart = &redHeart;
-		}
-		if (heartBool == false)
-		{
-			currentHeart = &idleHeart;
 		}
 		//-----------------------CAMERA MOVEMENT
 		if (cp.x > 640 && cp.x < 1920)
@@ -451,10 +443,25 @@ bool Player::PostUpdate()
 		}
 
 		SDL_Rect heartRect = currentHeart->GetCurrentFrame();
-			for (int i = 0; i < playerLives; i++)
+		for (int i = 0; i < playerLives; i++)
+		{
+			if (heartBool && i % 2 == 0)
 			{
 				app->render->DrawTexture(lives, -app->render->camera.x + (i * 43), 0, &heartRect);
 			}
+			if (heartBool && i % 2 == 1)
+			{
+				app->render->DrawTexture(lives, -app->render->camera.x + (i * 43), 10, &heartRect);
+			}
+			if (!heartBool && i % 2 == 0)
+			{
+				app->render->DrawTexture(lives, -app->render->camera.x + (i * 43), 10, &heartRect);
+			}
+			if (!heartBool && i % 2 == 1)
+			{
+				app->render->DrawTexture(lives, -app->render->camera.x + (i * 43), 0, &heartRect);
+			}
+		}
 	}
 	if (app->escaped)
 	{
