@@ -1,7 +1,7 @@
 # Forest Jump
 
 ## Description
-This is the final release version of a platformer game developed by Isaac's.
+This is the Gold version of a platformer game developed by Isaac's.
 The game takes place in a dark forest, full of mysteries and platforms to jump on and over.
 Will you reach the very end?
 
@@ -28,6 +28,8 @@ This is a platformer game developed by:
  - GUI in the Title Screen Main Menu.
  - GUI in the Gameplay Screen.
  - GUI in the Gameplay Screen Pause Menu.
+ - Tutorial Screen.
+ - Credits Screen.
  
 ## Controls
 
@@ -43,7 +45,7 @@ This is a platformer game developed by:
  - F5 save the current game state.
  - F6 load the previous game state.
  - F9 to show colliders.
- - F8 View GUI bounds rectangles and state in different colors.
+ - F8 View GUI buttons bounds rectangles and state in different colors.
  - F10 toggle god mode.
  - F11 toggle to set the game at 30fps.
 
