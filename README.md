@@ -25,6 +25,9 @@ This is a platformer game developed by:
  - Checkpoint autosave with feedback on passing.
  - Map checkpoints teleportation.
  - Audio feedback.
+ - GUI in the Title Screen Main Menu.
+ - GUI in the Gameplay Screen.
+ - GUI in the Gameplay Screen Pause Menu.
  
 ## Controls
 
