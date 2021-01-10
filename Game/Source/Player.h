@@ -71,6 +71,8 @@ public:
 
 	Timer heartTimer;
 
+	bool easterEgg = false;
+
 	char text[64] = { 0 };
 
 	bool fCon;
@@ -133,6 +135,7 @@ public:
 
 	SDL_Texture* character;
 	SDL_Texture* lives;
+	SDL_Texture* trueCharacter;
 	SDL_Texture* coins;
 	Collider* collider;
 	Collider* colliderB;

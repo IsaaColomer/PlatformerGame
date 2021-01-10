@@ -117,6 +117,7 @@ bool Player::Start()
 	character = app->tex->Load("Assets/Characters/player.png");
 	floppyDisk = app->tex->Load("Assets/GUI/floppy_anim.png");
 	lives = app->tex->Load("Assets/GUI/heart.png");
+	trueCharacter = app->tex->Load("Assets/Characters/true_player.png");
 	coins = app->tex->Load("Assets/GUI/coin.png");
 	jumpFx = app->audio->LoadFx("Assets/Audio/Fx/jump.wav");
 	coinFx = app->audio->LoadFx("Assets/Audio/Fx/coin.wav");
@@ -184,6 +185,10 @@ bool Player::PreUpdate()
 bool Player::Update(float dt)
 {
 	if (app->intro->exit)    return false;
+	if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	{
+		easterEgg = !easterEgg;
+	}
 	if (!app->escaped)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE
@@ -425,8 +430,16 @@ bool Player::PostUpdate()
 
 	if (!app->escaped)
 	{
-		SDL_Rect rectPlayer = currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(character, cp.x, cp.y, &rectPlayer);
+		if (easterEgg)
+		{
+			app->render->DrawTexture(trueCharacter, cp.x, cp.y, NULL);
+		}
+		else
+		{
+			SDL_Rect rectPlayer = currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(character, cp.x, cp.y, &rectPlayer);
+		}
+
 
 		
 		for (int i = 0; i < coinsCollected; i++)
