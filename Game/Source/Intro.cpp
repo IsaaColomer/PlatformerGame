@@ -233,6 +233,10 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			app->intro->exit = true;
 		}
+		if (control->id == 5)
+		{
+			app->escaped = false;
+		}
 		if (control->id == 6)
 		{
 			app->escaped = false;
