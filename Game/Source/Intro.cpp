@@ -47,6 +47,8 @@ bool Intro::Start()
 	vsyncClicked = false;
 	app->intro->active = true;
 
+	config = false;
+
 	spaced = false;
 
 	gamePaused = false;
@@ -113,7 +115,7 @@ bool Intro::Update(float dt)
 		app->intro->debug = !app->intro->debug;
 	}
 	
-	if (!tutorial)
+	if (!tutorial && !config)
 	{
 		btnTutorial->Update(app->input, dt);
 		btnLoad->Update(app->input, dt);
@@ -218,6 +220,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 2)
 		{
+			app->intro->config = true;
 			app->escaped = false;
 			app->fade->Fade((Module*)this, (Module*)app->configscene, 10);
 			if(app->scene->sceneOnScreen)
@@ -232,10 +235,6 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			app->intro->exit = true;
 		}
-		if (control->id == 5)
-		{
-			app->escaped = false;
-		}
 		if (control->id == 6)
 		{
 			app->escaped = false;
@@ -243,6 +242,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		if (control->id == 10)
 		{
+			app->intro->config = false;
 			if (app->intro->gamePaused == false)
 			{
 				app->fade->Fade(this, (Module*)app->intro, 10);
@@ -259,7 +259,6 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 			app->scene->CleanUp();
 			app->scene2->CleanUp();
 			app->scene3->CleanUp();
-		
 		}
 
 		if (control->id == 13)

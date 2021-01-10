@@ -50,10 +50,6 @@ bool ConfigScene::Start()
 
 	configscreen = app->tex->Load("Assets/Screens/Title/config_screen.png");
 
-	/*btnExit = new GuiButton(4, { 1280 / 2 - 300 / 2, 600, 300, 80 }, "EXIT");
-	btnExit->SetObserver((Scene*)this);
-	btnExit->SetTexture(app->tex->Load("Assets/GUI/exit.png"), app->tex->Load("Assets/GUI/exit_selected.png"), app->tex->Load("Assets/GUI/exit_focused.png"));*/
-
 	btnBack = new GuiButton(10, { 60, 29, 78, 23 }, "BACK");
 	btnBack->SetObserver((Scene*)this);
 	btnBack->SetTexture(app->tex->Load("Assets/GUI/back.png"), app->tex->Load("Assets/GUI/back_selected.png"), app->tex->Load("Assets/GUI/back_focused.png"));
@@ -94,7 +90,6 @@ bool ConfigScene::Update(float dt)
 	{
 		app->intro->debug = !app->intro->debug;
 	}
-	/*btnExit->Update(app->input, dt);*/
 	musicSlider->Update(app->input, dt);
 	fxSlider->Update(app->input, dt);
 	btnConfig->Update(app->input, dt);
@@ -116,7 +111,6 @@ bool ConfigScene::PostUpdate()
 	app->render->DrawTexture(configscreen, 0, 0, NULL);
 	app->render->DrawRectangle(musicSliderBack,154,122,130);
 	app->render->DrawRectangle(fxSliderBack,154,122,130);
-	//btnExit->Draw(app->render);
 	musicSlider->Draw(app->render);
 	fxSlider->Draw(app->render);
 	btnConfig->Draw(app->render);

@@ -54,6 +54,8 @@ public:
 	SDL_Texture* playTexture = nullptr;
 	SDL_Texture* exitTexture = nullptr;
 
+	bool config;
+
 	bool tutorial = false;
 
 	bool debug;
