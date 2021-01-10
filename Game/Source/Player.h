@@ -6,6 +6,7 @@
 #include "GuiButton.h"
 #include "GuiCheckBox.h"
 #include "GuiSlider.h"
+#include "Timer.h"
 
 #define GRAV -400.0f
 
@@ -68,6 +69,8 @@ public:
 	int jumps;
 	int sceneValue;
 
+	Timer heartTimer;
+
 	char text[64] = { 0 };
 
 	bool fCon;
@@ -91,6 +94,7 @@ public:
 	
 	Animation* currentAnimation = nullptr;
 	Animation* currentFloppy = nullptr;
+	Animation* currentHeart = nullptr;
 
 	Animation idleAnimR;
 	Animation idleAnimL;
@@ -100,6 +104,9 @@ public:
 	Animation leftAnim;
 	Animation shootAnim;
 	Animation death;
+
+	Animation idleHeart;
+	Animation redHeart;
 
 	SDL_Texture* configscreen = nullptr;
 
@@ -121,6 +128,8 @@ public:
 	bool idleState;
 	bool facingRight;
 	int fCount;
+	int hCount = 0;
+	bool heartBool = false;
 
 	SDL_Texture* character;
 	SDL_Texture* lives;

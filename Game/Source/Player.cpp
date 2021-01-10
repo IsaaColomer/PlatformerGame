@@ -69,6 +69,14 @@ Player::Player() : Module()
 	floppyAnim.PushBack({ 126,0,41,38 });
 	floppyAnim.PushBack({ 168,0,41,38 });
 
+	idleHeart.speed = 1.0f;
+	idleHeart.loop = true;
+	idleHeart.PushBack({ 0,0,44,41 });
+
+	redHeart.speed = 0.05f;
+	redHeart.loop = true;
+	redHeart.PushBack({ 45,0,42,41 });
+
 	playerLives = 3;
 }
 
@@ -81,6 +89,7 @@ bool Player::Start()
 {
 	resetPlayer();
 	fCount = 180;
+	hCount = 0;
 	minusLives = false;
 	
 	facingLeft = false;
@@ -90,6 +99,8 @@ bool Player::Start()
 	lCon = false;
 	rCon = false;
 	tCon = false;
+
+	heartTimer.Start();
 
 	winScreen = false;
 	loseScreen = false;
@@ -126,6 +137,7 @@ bool Player::Start()
 
 	currentAnimation = &idleAnimR;
 	currentFloppy = &floppyAnim;
+	currentHeart = &idleHeart;
 
 	scenepauseback = app->tex->Load("Assets/Screens/Title/pause_screen.png");
 	//app->audio->PlayMusic("Assets/Music/pornhubintro.mp3", 1.0f);
@@ -344,7 +356,20 @@ bool Player::Update(float dt)
 			leftCollider->SetPos(cp.x + 66 - 10, cp.y + 10);
 		}
 		//--------------------------------
-
+		int timeH = heartTimer.ReadSec();
+		if (timeH > 2)
+		{
+			heartBool = !heartBool;
+			heartTimer.Start();
+		}
+		if (heartBool == true)
+		{
+			currentHeart = &redHeart;
+		}
+		if (heartBool == false)
+		{
+			currentHeart = &idleHeart;
+		}
 		//-----------------------CAMERA MOVEMENT
 		if (cp.x > 640 && cp.x < 1920)
 		{
@@ -371,6 +396,7 @@ bool Player::Update(float dt)
 
 		currentAnimation->Update(dt);
 		currentFloppy->Update(dt);
+		currentHeart->Update(dt);
 	}
 
 	if (app->escaped)
@@ -386,6 +412,7 @@ bool Player::Update(float dt)
 		}
 		btnLvl2->Update(app->input, dt);
 	}
+	
 	if (loadPosition)
 	{
 		cp.x = app->player->savedPos.x;
@@ -409,10 +436,7 @@ bool Player::PostUpdate()
 		SDL_Rect rectPlayer = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(character, cp.x, cp.y, &rectPlayer);
 
-		for (int i = 0; i < playerLives; i++)
-		{
-			app->render->DrawTexture(lives, -app->render->camera.x + (i * 43), 0, NULL);
-		}
+		
 		for (int i = 0; i < coinsCollected; i++)
 		{
 			app->render->DrawTexture(coins, -app->render->camera.x + (i * 17) + 129, 0, NULL);
@@ -425,8 +449,13 @@ bool Player::PostUpdate()
 			app->render->DrawTexture(floppyDisk, -app->render->camera.x, 40, &floppyRect);
 			fCount++;
 		}
-	}
 
+		SDL_Rect heartRect = currentHeart->GetCurrentFrame();
+			for (int i = 0; i < playerLives; i++)
+			{
+				app->render->DrawTexture(lives, -app->render->camera.x + (i * 43), 0, &heartRect);
+			}
+	}
 	if (app->escaped)
 	{
 		app->render->camera.x = 0;
