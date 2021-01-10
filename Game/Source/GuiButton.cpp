@@ -103,6 +103,5 @@ bool GuiButton::Draw(Render* render)
     default:
         break;
     }
-
     return false;
 }
