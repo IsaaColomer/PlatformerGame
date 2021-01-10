@@ -271,8 +271,7 @@ bool Player::Update(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
 			app->escaped = !app->escaped;
-
-			app->SaveGameRequest();
+			//app->SaveGameRequest();
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
