@@ -47,7 +47,7 @@ This is a platformer game developed by:
  - F9 to show colliders.
  - F8 View GUI buttons bounds rectangles and state in different colors.
  - F10 toggle god mode.
- - F11 toggle to set the game at 30fps.
+ - F11 alternate between 60fps, 30fps and unlimited fps.
 
 ## Developers
 
