@@ -1,7 +1,7 @@
 # Forest Jump
 
 ## Description
-This is the release version (Beta) of a platformer game developed by Isaac's.
+This is the final release version of a platformer game developed by Isaac's.
 The game takes place in a dark forest, full of mysteries and platforms to jump on and over.
 Will you reach the very end?
 
@@ -40,6 +40,7 @@ This is a platformer game developed by:
  - F5 save the current game state.
  - F6 load the previous game state.
  - F9 to show colliders.
+ - F8 View GUI bounds rectangles and state in different colors.
  - F10 toggle god mode.
  - F11 toggle to set the game at 30fps.
 
@@ -49,5 +50,6 @@ This is a platformer game developed by:
  - Isaac Colomer - Lead designer, level designer, game programmer and debugging.
 
 ## License
-All the audio Fx in the game have been generated with rFXGen tool.
-This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
+ - All the audio Fx in the game have been generated with rFXGen tool.
+ - This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
+ - Music "Platformer Bonus Level" By Sound Frame.
