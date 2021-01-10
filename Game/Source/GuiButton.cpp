@@ -57,11 +57,11 @@ bool GuiButton::Draw(Render* render)
     case GuiControlState::DISABLED: render->DrawTexture(textureDisabled, bounds.x, bounds.y, NULL);
         break;
     case GuiControlState::NORMAL:
-        if(app->intro->debug)
+        if(app->intro->debug || app->configscene->debug)
         {
             render->DrawRectangle(bounds, 0, 255, 0, 255);
         }
-        if (app->intro->debug == false)
+        if (app->intro->debug == false || app->configscene->debug==false)
         {
             app->render->DrawTexture(textureIdle, bounds.x, bounds.y, NULL);
         }
@@ -69,11 +69,11 @@ bool GuiButton::Draw(Render* render)
         pressedFxB = false;
         break;
     case GuiControlState::FOCUSED: 
-        if (app->intro->debug)
+        if (app->intro->debug || app->configscene->debug == true)
         {
             render->DrawRectangle(bounds, 255, 0, 0, 255);
         }
-        if (app->intro->debug == false)
+        if (app->intro->debug == false || app->configscene->debug == false)
         {
             app->render->DrawTexture(textureFocused, bounds.x, bounds.y, NULL);
         }
@@ -84,11 +84,11 @@ bool GuiButton::Draw(Render* render)
         }
         break;
     case GuiControlState::PRESSED:
-        if (app->intro->debug)
+        if (app->intro->debug || app->configscene->debug == true)
         {
             render->DrawRectangle(bounds, 0, 0, 255, 255);
         }
-        if (app->intro->debug == false)
+        if (app->intro->debug == false || app->configscene->debug == false)
         {
             app->render->DrawTexture(textureClicked, bounds.x, bounds.y, NULL);
         }

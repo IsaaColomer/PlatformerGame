@@ -44,6 +44,8 @@ public:
 
 	bool spaced;
 
+	bool debug = false;
+
 	GuiButton* btnExit;
 	GuiButton* btnBack;
 	GuiCheckBox* btnConfig;

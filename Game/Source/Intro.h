@@ -58,7 +58,7 @@ public:
 
 	bool tutorial = false;
 
-	bool debug;
+	bool debug = false;
 
 	char text[64] = { 0 };
 

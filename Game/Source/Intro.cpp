@@ -53,8 +53,6 @@ bool Intro::Start()
 
 	gamePaused = false;
 
-	debug = false;
-
 	bool ret = true;
 
 	LOG("Loading intro assets");
