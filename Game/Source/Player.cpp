@@ -438,7 +438,7 @@ bool Player::PostUpdate()
 
 		if (fCount < 180)
 		{
-			app->render->DrawTexture(floppyDisk, -app->render->camera.x, 40, &floppyRect);
+			app->render->DrawTexture(floppyDisk, -app->render->camera.x, 60, &floppyRect);
 			fCount++;
 		}
 
